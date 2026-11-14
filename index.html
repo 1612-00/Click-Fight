@@ -79,7 +79,6 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .meal img{width:48px;height:48px;object-fit:contain;display:block}
 .meal b{font-size:.9rem}
 .meal em{font-style:normal;color:#7dffb0}
-.meal small{color:var(--gold);font-weight:800}
 .meal.on{border-color:var(--gold);background:#3a2c66}
 .meal:disabled{opacity:.5;cursor:not-allowed}
 .meal.on:disabled{opacity:1}
@@ -138,6 +137,12 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .stat b{color:var(--gold)}
 .big{font-size:1.2rem;padding:12px;background:linear-gradient(#c79bff,#8a4cf5);color:#fff;box-shadow:0 4px 0 #4a1fa8}
 .link{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px}
+#wait{position:absolute;inset:0;z-index:8;background:#0b0820f2;display:grid;place-items:center;font-weight:800;font-size:1.4rem;color:#fff;animation:fadeIn .25s}
+#wait[hidden]{display:none}
+#wait i{font-style:normal;display:inline-block;overflow:hidden;vertical-align:bottom;width:0;animation:dots 1.2s steps(4,end) infinite}
+@keyframes dots{to{width:1.2em}}
+@keyframes fadeIn{from{opacity:0}}
+#testTag{position:absolute;left:6px;bottom:6px;z-index:7;padding:2px 8px;border-radius:8px;background:#e5484d;color:#fff;font-weight:800;font-size:.75rem;pointer-events:none}
 #modal{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
 #modal[hidden]{display:none}
 #modal div{background:var(--panel);border:3px solid var(--line);border-radius:18px;padding:18px;max-width:360px;text-align:center}
@@ -246,6 +251,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
     </div>
   </aside>
 
+  <div id="wait" hidden><p><span></span><i>...</i></p></div>
   <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
 </div>
 
@@ -281,7 +287,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!',
       ascDesc:'Lên đời là bắt đầu lại từ đầu để đổi lấy Sao. Mỗi Sao tăng 10% calo vĩnh viễn. Càng kiếm nhiều calo trong một đời, càng nhận nhiều Sao.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
-      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', other:'EN', x2:'🎬 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay',
+      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', other:'EN', x2:'🎬 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', tGym:'🚶 Đi đến phòng tập', tHome:'🏠 Đi về nhà', tWork:'💼 Đang làm việc', tSleep:'😴 Khò khò', tMorning:'🌅 Buổi sáng', tCommute:'🚌 Đi đến công ty', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay',
       unlock:{1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 82 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
       homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp!', homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
@@ -299,7 +305,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!',
       ascDesc:'Ascending starts you over in exchange for Stars. Each Star gives +10% calories forever. The more calories you earn in one life, the more Stars you get.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
-      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', other:'VI', x2:'🎬 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', kgTrain:'Training today', kgRest:'Rest today',
+      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', other:'VI', x2:'🎬 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', tGym:'🚶 Heading to the gym', tHome:'🏠 Heading home', tWork:'💼 Working', tSleep:'😴 Zzz', tMorning:'🌅 Morning', tCommute:'🚌 Heading to the office', kgTrain:'Training today', kgRest:'Rest today',
       unlock:{1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 82 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
       homeSay0:'Home at last. Get some sleep and train again tomorrow!', homeSay:'Evening. Pick one meal (or skip it), then go to sleep.', homeTip:'Your buddies are waiting at home',
@@ -393,16 +399,16 @@ const save = () => { if (ready) try { store().setItem(KEY, JSON.stringify(s)); }
 const points = () => EX.reduce((a, e) => a + s.lv[e.k], 0);
 // Hạng được lưu trong s.rk: lên hạng khi đủ mục tiêu nhóm cơ VÀ cân nặng không quá KG[hạng]; đã lên rồi thì không tụt.
 const KG = [999, 999, 999, 82, 77, 73], FAT = [30, 26, 22, 18, 14, 10], WK = [4, 4, 5, 5, 6, 6];   // cân tối đa / mệt mỏi mỗi ngày tập đủ / số buổi mục tiêu tuần, theo hạng
-const MEALS = [   // mỗi tối bày 3 món, mỗi nhóm một món (xem menu()); sec = giá tính bằng số giây thu nhập; sta/cal/tap áp dụng cho ngày hôm sau, fat trừ mệt mỏi ngay
-  {k:'h',  f:'healthy', i:'🥗', kg:-.1, sec:30,  sta:1.1,            vi:'Cơm gà luộc',     en:'Chicken & rice'},
-  {k:'h2', f:'healthy', i:'🐟', kg:-.2, sec:60,  sta:1.05,           vi:'Salad cá hồi',    en:'Salmon salad'},
-  {k:'h3', f:'healthy', i:'🥣', kg:-.1, sec:30,  fat:-10,            vi:'Yến mạch chuối',  en:'Banana oatmeal'},
-  {k:'p',  f:'protein', i:'🍳', kg:0,   sec:180, cal:1.25,           vi:'Ức gà, trứng',    en:'Chicken & eggs'},
-  {k:'p2', f:'protein', i:'🥩', kg:.1,  sec:240, cal:1.35,           vi:'Bò bít tết',      en:'Beef steak'},
-  {k:'p3', f:'protein', i:'🥤', kg:0,   sec:90,  cal:1.1, sta:1.1,   vi:'Sinh tố whey',    en:'Whey smoothie'},
-  {k:'j',  f:'junk',    i:'🧋', kg:.2,  sec:30,  sta:1.5, tap:1.5, cal:1.1, vi:'Trà sữa, gà rán', en:'Boba & fried chicken'},
-  {k:'j2', f:'junk',    i:'🍕', kg:.25, sec:30,  sta:1.7, cal:1.15, vi:'Pizza phô mai',   en:'Cheese pizza'},
-  {k:'j3', f:'junk',    i:'🍜', kg:.1,  sec:10,  tap:1.3, fat:-5,   vi:'Mì tôm trứng',    en:'Instant noodles'},
+const MEALS = [   // mỗi tối bày 3 món, mỗi nhóm một món (xem menu()); miễn phí, chọn một món; sta/cal/tap áp dụng cho ngày hôm sau, fat trừ mệt mỏi ngay
+  {k:'h',  f:'healthy', i:'🥗', kg:-.1, sta:1.1,            vi:'Cơm gà luộc',     en:'Chicken & rice'},
+  {k:'h2', f:'healthy', i:'🐟', kg:-.2, sta:1.05,           vi:'Salad cá hồi',    en:'Salmon salad'},
+  {k:'h3', f:'healthy', i:'🥣', kg:-.1, fat:-10,            vi:'Yến mạch chuối',  en:'Banana oatmeal'},
+  {k:'p',  f:'protein', i:'🍳', kg:0,   cal:1.25,           vi:'Ức gà, trứng',    en:'Chicken & eggs'},
+  {k:'p2', f:'protein', i:'🥩', kg:.1,  cal:1.35,           vi:'Bò bít tết',      en:'Beef steak'},
+  {k:'p3', f:'protein', i:'🥤', kg:0,   cal:1.1, sta:1.1,   vi:'Sinh tố whey',    en:'Whey smoothie'},
+  {k:'j',  f:'junk',    i:'🧋', kg:.2,  sta:1.5, tap:1.5, cal:1.1, vi:'Trà sữa, gà rán', en:'Boba & fried chicken'},
+  {k:'j2', f:'junk',    i:'🍕', kg:.25, sta:1.7, cal:1.15, vi:'Pizza phô mai',   en:'Cheese pizza'},
+  {k:'j3', f:'junk',    i:'🍜', kg:.1,  tap:1.3, fat:-5,   vi:'Mì tôm trứng',    en:'Instant noodles'},
 ];
 const menu = () => [0, 1, 2].map(c => c * 3 + (s.day + c * Math.floor(s.day / 3)) % 3);   // thực đơn đổi theo ngày, luôn có đủ 3 nhóm
 const fx = () => MEALS.find(m => m.k === s.meal) || {};   // hiệu ứng bữa tối hôm qua
@@ -416,12 +422,13 @@ const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(65, x)) * 100) / 1
 const dow = () => (s.day - 1) % 7;   // 0 = Thứ Hai … 6 = Chủ nhật
 const fatLv = () => s.fat >= 100 ? 3 : s.fat >= 70 ? 2 : s.fat >= 40 ? 1 : 0;
 const staMax = () => Math.floor((300 + 120 * rankOf() + 5 * s.lv.cardio) * [1, .75, .5, .5][fatLv()] * (s.kg > 90 ? .8 : 1) * (fx().sta || 1));
-const mealCost = m => Math.max(50, m.sec * (pps() + 3 * clickPower()));
 const kg = (e, lv) => `${e.w[0] + e.w[1] * lv} ${e.w[s.lang === 'en' ? 3 : 2]}`;   // "60 kg"
 const mult = () => RANKS[rankOf()].mult * (1 + .1 * s.stars) * (1 + WIN_BONUS * s.wins) * (1 + .01 * Object.keys(s.ach).length) * (s.wkBonus ? 1.1 : 1) * (s.kg >= 68 && s.kg <= 72 ? 1.2 : 1) * (fx().cal || 1);
 const basePps = () => EX.reduce((a, e) => a + (e.pps || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0);
 const pps = () => basePps() * mult() * (1 + petBonus('pps'));
-const clickPower = () => (1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0) + basePps() * .05) * mult() * (1 + petBonus('click')) * (s.rec ? 1.25 : 1) * (fx().tap || 1);
+// Chế độ thử: mở http://localhost:8766/?test thì mỗi cú bấm x100. Chỉ chạy trên máy phát triển, không có tác dụng trên bản phát hành.
+const TEST = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && new URLSearchParams(location.search).has('test') ? 100 : 1;
+const clickPower = () => (1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0) + basePps() * .05) * mult() * (1 + petBonus('click')) * (s.rec ? 1.25 : 1) * (fx().tap || 1) * TEST;
 const bulk = (e, n) => e.c * R ** s.lv[e.k] * (R ** n - 1) / (R - 1);          // giá mua n cấp liền
 function maxAff(e) {
   let n = Math.floor(Math.log(s.cal * (R - 1) / (e.c * R ** s.lv[e.k]) + 1) / Math.log(R));
@@ -635,8 +642,7 @@ function ui() {
   $('go').disabled = fatLv() === 3;
   if (s.scene === 'office') [fmt(s.cal), fmt(pps()), s.kg.toFixed(1) + ' kg', staTxt, fatTxt, `${s.wins} / ${RIVALS.length}`].forEach((v, j) => { $('os' + j).textContent = v; if (j === 4) $('os4').parentNode.hidden = unl() < 2; });
   if (s.scene === 'home') [...$('meals').children].forEach(b => {
-    const M = MEALS[b.dataset.m], c = mealCost(M);
-    b.classList.toggle('on', s.next === M.k); b.disabled = !!s.next || s.cal < c; b.lastChild.textContent = '🔥 ' + fmt(c);
+    b.classList.toggle('on', s.next === MEALS[b.dataset.m].k); b.disabled = !!s.next;
   });
   [`${Math.floor(hrs)}h ${Math.floor(hrs % 1 * 60)}m`, fmt(s.clicks), fmt(s.total), s.ascends, `${s.wins} / ${RIVALS.length}`, s.summons, `${Object.keys(s.ach).length} / ${ACH.length}`, 'x' + (m * (1 + petBonus('pps'))).toFixed(2)]
     .forEach((v, j) => $('st' + j).textContent = v);
@@ -793,7 +799,7 @@ $('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => {
 $('boost').onclick = () => showAd('rewarded', ok => { if (ok) { s.sta += Math.floor(staMax() * .5); s.drink = true; sfx.up(); ui(); save(); } });
 // ============ Một ngày: văn phòng → phòng tập → nhà → ngủ → ngày mới ============
 function drawMeals() {
-  $('meals').innerHTML = menu().map(j => MEALS[j]).map((m, n, _, j = MEALS.indexOf(m)) => `<button class="meal" data-m="${j}"><img src="assets/food-${m.f}.webp" alt="" draggable="false" onerror="this.outerHTML='<span>${m.i}</span>'"><b>${m[s.lang]}</b><em>${mealDesc(m)}</em><i style="font-style:normal">${m.kg ? (m.kg > 0 ? '+' : '') + m.kg + ' kg' : '±0 kg'}</i><small></small></button>`).join('');
+  $('meals').innerHTML = menu().map(j => MEALS[j]).map((m, n, _, j = MEALS.indexOf(m)) => `<button class="meal" data-m="${j}"><img src="assets/food-${m.f}.webp" alt="" draggable="false" onerror="this.outerHTML='<span>${m.i}</span>'"><b>${m[s.lang]}</b><em>${mealDesc(m)}</em><i style="font-style:normal">${m.kg ? (m.kg > 0 ? '+' : '') + m.kg + ' kg' : '±0 kg'}</i></button>`).join('');
 }
 function go(scene) {
   s.scene = scene; stopDuel(); drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
@@ -819,14 +825,20 @@ function endDay() {
   go('office'); sfx.buy(); toast(`${tr('day')} ${s.day}`, note.join(' · '), 3500); syncRank(); ui(); save();
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
-$('go').onclick = () => { go('gym'); sfx.up(); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } };
-$('rest').onclick = () => ask(tr('qRest'), () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); });   // nghỉ khi còn sung sức = bỏ tập
-$('goHome').onclick = () => ask(tr('qHome'), () => go('home'));
-$('sleep').onclick = endDay;
+function travel(steps, done) {   // màn chờ khi chuyển cảnh: lần lượt từng [chữ, ms]; che cả khung nên không bấm được gì trong lúc đó
+  const [[key, ms], ...rest] = steps;
+  $('wait').querySelector('span').textContent = tr(key); $('wait').hidden = false;
+  setTimeout(() => { if (rest.length) return travel(rest, done); $('wait').hidden = true; done(); }, ms);
+}
+$('go').onclick = () => travel([['tGym', 2000]], () => { go('gym'); sfx.up(); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } });
+$('rest').onclick = () => ask(tr('qRest'), () => travel([['tHome', 2000]], () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); }));   // nghỉ khi còn sung sức = bỏ tập
+$('goHome').onclick = () => ask(tr('qHome'), () => travel([['tHome', 2000]], () => go('home')));
+$('sleep').onclick = () => travel([['tSleep', 2000], ['tMorning', 1500], ['tCommute', 2000], ['tWork', 3000]], endDay);
+if (TEST > 1) $('frame').insertAdjacentHTML('beforeend', '<div id="testTag">TEST x100</div>');
 $('meals').onclick = ev => {
   const b = ev.target.closest('.meal'); if (!b || b.disabled) return;
-  const m = MEALS[b.dataset.m], c = mealCost(m);
-  s.cal -= c; setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.buy(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); ui(); save();
+  const m = MEALS[b.dataset.m];
+  setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.buy(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); ui(); save();
 };
 $('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.buy(); save(); };
 $('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); s = Object.assign(fresh(), {lang: s.lang, mute: s.mute, char: s.char}); syncRank(true); ui(); save(); tab('Ex'); });

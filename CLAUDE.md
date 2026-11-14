@@ -33,6 +33,8 @@ python tools/sim.py
 
 Xem thử: mở server `game` (preview) rồi vào `http://localhost:8766/?v=N`, tăng `N` mỗi lần để tránh cache.
 
+Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm (hằng `TEST`), hiện nhãn đỏ "TEST x100". Chỉ có tác dụng trên localhost. Tiến trình vẫn lưu vào bản lưu thật.
+
 ## Kiến trúc trong `index.html`
 
 - **Trạng thái**: một object `s`, mặc định từ `fresh()`. Lưu bằng `save()` qua `store()` (CrazyGames `SDK.data` nếu có, không thì `localStorage`), khoá `gymgod-save`. `load()` chỉ nhận từng trường hợp lệ. Thêm trường mới thì thêm vào cả `fresh()` và `load()`.

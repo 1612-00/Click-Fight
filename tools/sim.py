@@ -64,7 +64,7 @@ def run(g, rest_at=40, meal='h', limit=400):
         frac = min(1, used / max(1, cap)); week.append(1 if frac >= .5 else 0)
         if len(week) >= 7: wkb = r0 >= 2 and sum(week) >= g['wk'][r0]; week = []
         nxt = None
-        if rk >= 1 and meal: nxt = meal; kg += {'h': -.1, 'p': 0, 'j': .2}[meal]; pps, click = rates(); cal -= min(cal, {'h': 30, 'p': 180, 'j': 30}[meal] * (pps + 3 * click))
+        if rk >= 1 and meal: nxt = meal; kg += {'h': -.1, 'p': 0, 'j': .2}[meal]
         kg = min(120, max(65, kg)); rec = rec_next; today = nxt; day += 1
         shop()
         if rk not in out and rk > 0:

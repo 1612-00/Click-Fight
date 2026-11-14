@@ -100,21 +100,21 @@ Lý do: hạng thấp nhanh mệt, hạng cao lâu mệt, để người chơi t
 
 ## Bữa tối (từ hạng 2)
 
-Mỗi tối bày 3 món, mỗi nhóm một món, đổi theo ngày (chu kỳ 9 ngày). Ăn tối đa một món, có thể bỏ bữa. Giá = số giây thu nhập (calo/giây + 3 × calo/bấm), tối thiểu 50.
+Mỗi tối bày 3 món, mỗi nhóm một món, đổi theo ngày (chu kỳ 9 ngày). Bữa ăn miễn phí: chọn tối đa một món, có thể bỏ bữa. Món ăn chỉ tác động lên chỉ số (cân nặng, thể lực, calo, mệt mỏi), không tốn calo.
 
-| Nhóm | Món | Giá (giây) | Cân nặng | Hiệu ứng |
-|---|---|---|---|---|
-| Lành mạnh | Cơm gà luộc | 30 | −0,1 kg | mai: thể lực +10% |
-| Lành mạnh | Salad cá hồi | 60 | −0,2 kg | mai: thể lực +5% |
-| Lành mạnh | Yến mạch chuối | 30 | −0,1 kg | mệt mỏi −10 ngay |
-| Đạm | Ức gà, trứng | 180 | 0 | mai: calo +25% |
-| Đạm | Bò bít tết | 240 | +0,1 kg | mai: calo +35% |
-| Đạm | Sinh tố whey | 90 | 0 | mai: thể lực +10%, calo +10% |
-| Ăn vặt | Trà sữa, gà rán | 30 | +0,2 kg | mai: thể lực +50%, bấm x1,5, calo +10% |
-| Ăn vặt | Pizza phô mai | 30 | +0,25 kg | mai: thể lực +70%, calo +15% |
-| Ăn vặt | Mì tôm trứng | 10 | +0,1 kg | mai: bấm x1,3; mệt mỏi −5 ngay |
+| Nhóm | Món | Cân nặng | Hiệu ứng |
+|---|---|---|---|
+| Lành mạnh | Cơm gà luộc | −0,1 kg | mai: thể lực +10% |
+| Lành mạnh | Salad cá hồi | −0,2 kg | mai: thể lực +5% |
+| Lành mạnh | Yến mạch chuối | −0,1 kg | mệt mỏi −10 ngay |
+| Đạm | Ức gà, trứng | 0 | mai: calo +25% |
+| Đạm | Bò bít tết | +0,1 kg | mai: calo +35% |
+| Đạm | Sinh tố whey | 0 | mai: thể lực +10%, calo +10% |
+| Ăn vặt | Trà sữa, gà rán | +0,2 kg | mai: thể lực +50%, bấm x1,5, calo +10% |
+| Ăn vặt | Pizza phô mai | +0,25 kg | mai: thể lực +70%, calo +15% |
+| Ăn vặt | Mì tôm trứng | +0,1 kg | mai: bấm x1,3; mệt mỏi −5 ngay |
 
-Vai trò từng nhóm: lành mạnh để siết cân; đạm đắt, tăng thu nhập; ăn vặt rẻ và tăng nhiều chỉ số nhất. **Ràng buộc**: món ăn vặt luôn tăng cân ít hơn 0,3 kg, để ngày tập đủ thì cân không tăng (trước đây ăn vặt mỗi tối làm kẹt vĩnh viễn).
+Vai trò từng nhóm: lành mạnh để siết cân; đạm tăng thu nhập mà không (hoặc gần như không) tăng cân; ăn vặt tăng nhiều chỉ số nhất nhưng tăng cân. **Ràng buộc**: món ăn vặt luôn tăng cân ít hơn 0,3 kg, để ngày tập đủ thì cân không tăng (trước đây ăn vặt mỗi tối làm kẹt vĩnh viễn).
 
 ## Lịch tuần (từ hạng 3)
 
