@@ -9,6 +9,7 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | `CLAUDE.md` | Ngữ cảnh, quy ước làm việc (file này) | Khi đổi cách làm việc, cấu trúc file |
 | [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md) | Luật chơi và mọi con số hiện hành, kèm lý do | Mỗi lần đổi luật hoặc con số |
 | [docs/BACKLOG.md](docs/BACKLOG.md) | Việc còn tồn, phần chưa kiểm tra, ý tưởng | Khi phát hiện/xong một việc |
+| [docs/MUSIC_PLAN.md](docs/MUSIC_PLAN.md) | Kế hoạch nhạc nền theo màn (chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, giữ phong cách thống nhất | Khi cần ảnh mới |
 
 Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đúng nhất khi lệch nhau), `G` trong `tools/sim.py`, và `docs/GAME_DESIGN.md`.
@@ -44,6 +45,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Icon**: chuỗi vẫn viết emoji; `rich(text)` đổi các emoji trong bảng `ICO` thành ảnh `assets/ui/*.webp`. Chỗ cập nhật mỗi tick dùng `put(el, text)` thay cho `textContent`. Thêm icon mới: thêm ảnh vào `original/ui` và một dòng vào `ICO`.
 - **Màn**: `s.scene` = `office | gym | home`, đổi bằng `go(scene)`. `endDay()` kết thúc ngày.
 - **Hạng**: `s.rk`, chỉ tăng trong `syncRank()`. Tính năng mở theo `unl()` (hạng cao nhất từng đạt).
+- **Âm thanh**: hiệu ứng tạo bằng code (`beep`, `sfx`); nhạc nền là `assets/music/<tên>.mp3`, phát qua `music(name)`, và `tune()` chọn bài theo màn (`office`, `gym`, `home`), `duel` khi đấu, `sleep` khi ngủ. Nhạc chỉ bắt đầu sau cú chạm đầu tiên. `s.mute`: 0 bật hết, 1 tắt nhạc, 2 tắt hết.
 - **Hộp xác nhận**: dùng `ask(text, yes)`. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
 - **SDK**: `CG` là `null` khi không có CrazyGames; mọi lời gọi SDK phải chịu được `CG === null`.
 
@@ -59,6 +61,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Đợi game tải xong** trước khi đụng trạng thái: `while (!ready) await ...`. Bản lưu tải bất đồng bộ (SDK có thể mất tới 4 giây).
 - **Bản lưu trên tab xem thử là bản lưu thật của chủ dự án.** Trước khi thử: `const keep = JSON.stringify(s)`. Thử xong, trong `finally`: `s = Object.assign(fresh(), JSON.parse(keep)); shown = -1; syncRank(true); buildTexts(); go(s.scene); save();`. Làm trọn trong một lần gọi JS đồng bộ (không `await` giữa chừng), kẻo tự lưu 5 giây ghi trạng thái thử đè lên.
 - Chủ dự án có thể đang chơi trên cùng tab: không để trạng thái thử tồn tại qua nhiều lần gọi.
+- Không gán `duel = {...}` để thử: vòng tick sẽ cho thắng thật (cộng trận thắng và thưởng vào bản lưu).
 - Bấm nhân vật cần cú bấm thật (`ev.isTrusted`, tối đa 20 lần/giây); `$('hero').click()` bị bỏ qua. Các nút khác bấm bằng `.click()` được.
 - Thử cả khung máy tính và điện thoại (375×812) khi đổi bố cục.
 - Mọi ảnh đều có phương án dự phòng (emoji hoặc nền màu), nên thiếu ảnh game vẫn chạy; nhưng hiện tại không còn ảnh nào thiếu, thấy 404 là có lỗi đường dẫn.

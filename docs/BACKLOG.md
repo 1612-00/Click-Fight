@@ -19,6 +19,7 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Thắng một trận trong màn đấu mới.
 - Ăn Yến mạch chuối / Mì tôm trứng để xem mệt mỏi giảm.
 - Game chạy thế nào khi SDK tải lỗi.
+- Nhạc nền: mức âm lượng (`LOUD` = 0,05) đã được chủ dự án nghe và chốt; chưa thử trên điện thoại thật (iOS chặn tiếng khắt khe nhất); chưa thử nhạc tắt khi có quảng cáo thật.
 - Bố cục điện thoại sau các thay đổi mở tính năng theo hạng.
 
 ## Lỗi và hạn chế đã biết

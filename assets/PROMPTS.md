@@ -599,3 +599,66 @@ Same art style and same character as the previous images, square canvas 1:1. SCE
 ```
 Create a game app icon. Square canvas 1024x1024, transparent background. Clean modern anime mobile game style, thick dark outline, bright saturated colors. SUBJECT: a flexed muscular arm in a rolled-up white office shirt sleeve holding a dumbbell, with a bold orange flame behind it. Very simple bold shape, readable at 32 pixels. No text, no letters, no frame.
 ```
+
+---
+
+# Phần 4: Nhạc nền (5 bài)
+
+Dùng với công cụ tạo nhạc AI (Suno, Udio hoặc tương tự). Kế hoạch kỹ thuật ở `docs/MUSIC_PLAN.md`.
+
+## Cách làm
+
+1. Bật chế độ **Instrumental** (không lời) và chế độ tự nhập phong cách (Custom) nếu công cụ có.
+2. Dán khối prompt vào ô mô tả phong cách (Style). Ô lời bài hát để trống.
+3. Tạo vài bản, chọn bản **ít giai điệu nổi bật nhất**: nhạc nền lặp hàng chục lần, giai điệu bắt tai sẽ gây mệt.
+4. Nghe thử chỗ nối: mở bài hai lần liên tiếp, nếu đoạn cuối sang đoạn đầu bị hẫng thì tạo lại hoặc cắt bài ở cuối một ô nhịp.
+5. Cắt đúng độ dài ghi trong bảng (công cụ thường cho bài 2–3 phút; cắt bằng Audacity hoặc trình cắt nhạc online), xuất **MP3 96 kbps**, đặt đúng tên, thả vào `assets/music/`.
+6. Trước khi dùng, kiểm tra gói bạn đang dùng của công cụ có cho **dùng thương mại** không.
+
+## Tên file và quy cách
+
+| File | Phát khi | Độ dài sau khi cắt | Lặp | Nhịp |
+|---|---|---|---|---|
+| `office.mp3` | Màn văn phòng | 60–90 giây | Có | 70–80 BPM |
+| `gym.mp3` | Màn phòng tập | 60–90 giây | Có | 125–130 BPM |
+| `home.mp3` | Màn nhà | 60–90 giây | Có | 80–90 BPM |
+| `duel.mp3` | 15 giây thi đấu | 16–32 giây | Có | 150–160 BPM |
+| `sleep.mp3` | Chuỗi màn chờ khi đi ngủ | 9 giây | Không | Tự do |
+
+Yêu cầu chung cho bài lặp: bắt đầu và kết thúc cùng một mức năng lượng, không có đoạn dạo đầu lặng dần hay đoạn kết nhỏ dần, không có lời, không có tiếng người.
+
+## office.mp3 — văn phòng cuối ngày
+
+```
+Instrumental lo-fi hip hop background music for a casual mobile game. Slow and sleepy, 75 BPM. Soft dusty drum loop, warm mellow electric piano chords, gentle upright bass, faint vinyl crackle, very subtle keyboard typing and office ambience in the background. Mood: tired office worker at the end of a long workday, calm, slightly melancholic but cosy. Minimal melody, steady groove, no build-ups, no drops, seamless loop, same energy from start to finish. No vocals, no voice samples.
+```
+
+## gym.mp3 — phòng tập
+
+```
+Instrumental upbeat workout background music for a casual mobile clicker game. Energetic and motivating, 128 BPM. Punchy electronic drums with a four-on-the-floor kick, bouncy synth bass, bright plucky synth stabs, light chiptune-style arpeggio on top, hand claps. Mood: fun cartoon gym training montage, positive, driving, makes you want to tap fast. Keep it light and playful, not aggressive, not dark. Simple repetitive hook that does not get annoying, steady energy with no long breakdowns, seamless loop. No vocals, no voice samples.
+```
+
+## home.mp3 — nhà buổi tối
+
+```
+Instrumental cosy evening background music for a casual mobile game. Relaxed and warm, 85 BPM. Soft fingerpicked acoustic guitar, gentle felt piano, light brushed percussion, warm pad underneath, a hint of music-box sparkle. Mood: coming home after the gym, cooking dinner in a small apartment at night, peaceful and content. Minimal melody, soothing, steady and even, seamless loop, same energy from start to finish. No vocals, no voice samples.
+```
+
+## duel.mp3 — thi đấu
+
+```
+Instrumental intense short battle loop for a casual mobile game. Fast and exciting, 155 BPM. Driving rock drums with fast hi-hats, distorted rhythm guitar chugs, pumping synth bass, urgent brass-like synth hits, rising tension. Mood: cartoon boss fight against a rival at the gym, competitive, hyped, a race against the clock, but still fun and not scary. Starts at full energy immediately with no intro, short repeating phrase, seamless loop. No vocals, no voice samples.
+```
+
+## sleep.mp3 — đi ngủ rồi trời sáng (9 giây, không lặp)
+
+```
+Instrumental 10-second jingle for a mobile game, in two halves. First half: a soft sleepy music-box lullaby, slow and quiet, with a gentle descending melody, like falling asleep. Second half: the same melody brightens and rises with warm strings, a soft chime and a cheerful little flourish, like sunrise and waking up refreshed. Ends cleanly on a bright resolved chord. No drums, no vocals, no voice samples, no snoring sounds.
+```
+
+Bài này công cụ sẽ tạo dài hơn 10 giây. Chọn bản có đoạn ru ngủ rồi sáng lên rõ nhất, cắt lấy khoảng 9 giây: khoảng 4 giây ru ngủ, 5 giây sáng dần.
+
+## Đợt 2 (chưa cần làm)
+
+`gym2.mp3` cho hạng 4–6: dùng lại prompt `gym.mp3`, đổi câu mô tả thành `heavier and more powerful version: bigger drums, stronger bass, added electric guitar power chords, 132 BPM, heroic and confident`.
