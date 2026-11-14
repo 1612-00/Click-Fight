@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Văn Phòng Lột Xác</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;background:linear-gradient(#1d2b3a,#0f1720);color:#eef;min-height:100vh}
+header{text-align:center;padding:12px 16px 0}
+h1{margin:0;font-size:1.5rem}
+#stage{color:#ffd166;font-weight:600;margin-top:4px}
+main{display:flex;flex-wrap:wrap;gap:16px;max-width:900px;margin:0 auto;padding:16px}
+#left{flex:1 1 300px;text-align:center}
+#score{font-size:2.2rem;font-weight:800}
+#rate{opacity:.75;font-size:.9rem}
+#hero{background:radial-gradient(#34506b,transparent 70%);border:0;cursor:pointer;width:100%;max-width:340px;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#hero svg{width:100%;display:block}
+#shop{flex:1 1 300px;display:grid;gap:8px;align-content:start}
+#shop button{display:grid;grid-template-columns:2.2rem 1fr auto;gap:10px;align-items:center;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid #3a536b;background:#22364a;color:inherit;font:inherit;cursor:pointer}
+#shop button:disabled{opacity:.45;cursor:not-allowed}
+#shop button:not(:disabled):hover{background:#2d4863}
+#shop .i{font-size:1.7rem}
+#shop small{display:block;opacity:.75}
+#shop .c{text-align:right;font-weight:700;color:#ffd166}
+.pop{position:fixed;pointer-events:none;font-weight:800;color:#ffd166;animation:pop .8s ease-out forwards;transform:translate(-50%,-100%)}
+@keyframes pop{to{transform:translate(-50%,-90px);opacity:0}}
+#reset{margin-top:8px;background:none;border:0;color:#89a;text-decoration:underline;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <h1>Văn Phòng Lột Xác</h1>
+  <div id="stage"></div>
+</header>
+<main>
+  <section id="left">
+    <div id="score"></div>
+    <div id="rate"></div>
+    <button id="hero" aria-label="Bấm để tập luyện"><svg id="guy" viewBox="0 0 200 300"></svg></button>
+    <div>Bấm vào nhân vật để tập! 🔥</div>
+    <button id="reset">Chơi lại từ đầu</button>
+  </section>
+  <section id="shop"></section>
+</main>
+<script>
+// Bài tập: click = calo thêm mỗi lần bấm, pps = calo mỗi giây
+const EX = [
+  {k:'tay',   n:'Tay',   d:'Cuốn tạ bằng chai nước',     i:'💪', c:15,     click:1},
+  {k:'vai',   n:'Vai',   d:'Đẩy vai bằng ghế xoay',      i:'🏋️', c:60,     pps:1},
+  {k:'nguc',  n:'Ngực',  d:'Hít đất cạnh bàn làm việc',  i:'🤜', c:300,    pps:5},
+  {k:'bung',  n:'Bụng',  d:'Gập bụng giờ nghỉ trưa',     i:'🔥', c:1200,   pps:20},
+  {k:'mat',   n:'Mắt',   d:'Nhìn xa 20-20-20 (bỏ kính ở cấp 5)', i:'👀', c:2500, click:8},
+  {k:'chan',  n:'Chân',  d:'Squat trong lúc chờ họp',    i:'🦵', c:6000,   pps:80},
+  {k:'lung',  n:'Lưng',  d:'Kéo xà ở cửa phòng sếp',     i:'🧗', c:30000,  pps:350},
+  {k:'cardio',n:'Cardio',d:'Chạy bộ đi làm thay vì kẹt xe', i:'🏃', c:150000, pps:1600},
+];
+const STAGES = [[0,'Dân văn phòng suy nhược'],[10,'Tập tành cho vui'],[30,'Gymer nghiệp dư'],[60,'Body săn chắc'],[100,'Sáu múi lấp ló'],[150,'Thần gym công sở']];
+const KEY = 'vplx-save';
+const $ = id => document.getElementById(id);
+const nf = new Intl.NumberFormat('vi', {notation:'compact', maximumFractionDigits:1});
+const fmt = n => nf.format(Math.floor(n));
+
+const fresh = () => ({cal:0, t:Date.now(), lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+let s = fresh();
+try {
+  const o = JSON.parse(localStorage.getItem(KEY));
+  if (o && isFinite(o.cal) && isFinite(o.t)) {
+    s.cal = o.cal; s.t = o.t;
+    for (const e of EX) if (Number.isInteger(o.lv?.[e.k]) && o.lv[e.k] > 0) s.lv[e.k] = o.lv[e.k];
+  }
+} catch {}
+const save = () => localStorage.setItem(KEY, JSON.stringify(s));
+
+const cost = e => Math.ceil(e.c * 1.15 ** s.lv[e.k]);
+const pps = () => EX.reduce((a, e) => a + (e.pps || 0) * s.lv[e.k], 0);
+const clickPower = () => 1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k], 0) + pps() * 0.05;
+const total = () => EX.reduce((a, e) => a + s.lv[e.k], 0);
+console.assert(cost(EX[0]) >= EX[0].c && clickPower() >= 1, 'công thức sai');
+
+// Nhân vật vẽ bằng SVG, thay đổi theo cấp từng nhóm cơ (đầy đủ ở cấp 25)
+function draw() {
+  const f = n => Math.min(n / 25, 1), L = s.lv;
+  const tay = f(L.tay), chan = f(L.chan), vai = f(L.vai), nguc = f(L.nguc), lung = f(L.lung);
+  const lean = f(L.bung + L.cardio), abs = f(L.bung);
+  const sw = 30 + vai * 16 + lung * 6, ww = 30 - lean * 5;       // nửa vai, nửa eo
+  const belly = 26 * (1 - lean), aw = 7 + tay * 13, lw = 10 + chan * 14;
+  const mood = -6 + Math.min(total() / 60, 1) * 14;              // miệng: buồn -> cười
+  const skin = '#f1c9a5', arm = x => `<line x1="${100 + x * sw}" y1="98" x2="${100 + x * (sw + 10)}" y2="165" stroke="${skin}" stroke-width="${aw}" stroke-linecap="round"/>`;
+  const leg = x => `<line x1="${100 + x * 13}" y1="195" x2="${100 + x * 17}" y2="272" stroke="#2f3b55" stroke-width="${lw}" stroke-linecap="round"/><ellipse cx="${100 + x * 20}" cy="282" rx="14" ry="6" fill="#222"/>`;
+  $('guy').innerHTML = `
+    ${leg(-1)}${leg(1)}${arm(-1)}${arm(1)}
+    <rect x="93" y="72" width="14" height="20" fill="${skin}"/>
+    <path d="M${100 - sw} 90H${100 + sw}L${100 + ww} 200H${100 - ww}Z" fill="#f4f7fb" stroke="#f4f7fb" stroke-width="10" stroke-linejoin="round"/>
+    ${belly > 1 ? `<ellipse cx="100" cy="${172 - belly / 3}" rx="${ww + 6 + belly * .6}" ry="${22 + belly}" fill="#f4f7fb"/>` : ''}
+    <g fill="none" stroke="#9aa7b8" stroke-width="2" opacity="${nguc}">
+      <path d="M${100 - sw + 6} 118Q${100 - sw / 2} ${124 + nguc * 8} 99 118M101 118Q${100 + sw / 2} ${124 + nguc * 8} ${100 + sw - 6} 118"/>
+    </g>
+    <g stroke="#9aa7b8" stroke-width="2" opacity="${Math.max(0, abs * 2 - 1)}">
+      <path d="M100 140V192M84 150H116M84 165H116M84 180H116" fill="none"/>
+    </g>
+    <path d="M100 92l-5 6 5 38 5-38z" fill="#c0392b" opacity="${1 - nguc * .7}"/>
+    <circle cx="100" cy="50" r="27" fill="${skin}"/>
+    <path d="M73 46a27 27 0 0 1 54 0q-27-14-54 0z" fill="#2b2118"/>
+    <circle cx="90" cy="52" r="2.5"/><circle cx="110" cy="52" r="2.5"/>
+    ${L.mat < 5 ? '<g fill="rgba(255,255,255,.35)" stroke="#111" stroke-width="2.5"><circle cx="89" cy="52" r="9"/><circle cx="111" cy="52" r="9"/><path d="M98 52h4"/></g>' : ''}
+    <path d="M91 65Q100 ${65 + mood} 109 65" fill="none" stroke="#7a3b2e" stroke-width="2.5" stroke-linecap="round"/>`;
+}
+
+$('shop').innerHTML = EX.map((e, i) => `<button data-i="${i}"><span class="i">${e.i}</span><span><b>${e.n}</b> <span class="l"></span><small>${e.d} · ${e.pps ? `+${fmt(e.pps)}/giây` : `+${e.click}/lần bấm`}</small></span><span class="c"></span></button>`).join('');
+const btns = [...$('shop').children];
+
+function ui() {
+  $('score').textContent = fmt(s.cal) + ' calo';
+  $('rate').textContent = `${fmt(pps())} calo/giây · ${fmt(clickPower())} calo/lần bấm`;
+  $('stage').textContent = STAGES.filter(x => total() >= x[0]).pop()[1];
+  btns.forEach((b, i) => {
+    const e = EX[i];
+    b.disabled = s.cal < cost(e);
+    b.querySelector('.l').textContent = 'Cấp ' + s.lv[e.k];
+    b.querySelector('.c').textContent = fmt(cost(e));
+  });
+}
+
+$('shop').onclick = ev => {
+  const b = ev.target.closest('button'); if (!b) return;
+  const e = EX[b.dataset.i], c = cost(e);
+  if (s.cal < c) return;
+  s.cal -= c; s.lv[e.k]++;
+  draw(); ui(); save();
+};
+
+$('hero').onclick = ev => {
+  const c = clickPower();
+  s.cal += c;
+  $('hero').animate([{transform:'scale(.94)'}, {transform:'scale(1)'}], 120);
+  const p = document.createElement('span');
+  p.className = 'pop'; p.textContent = '+' + fmt(c);
+  p.style.left = ev.clientX + 'px'; p.style.top = ev.clientY + 'px';
+  p.onanimationend = () => p.remove();
+  document.body.append(p);
+  ui();
+};
+
+$('reset').onclick = () => { if (confirm('Xoá toàn bộ tiến trình?')) { s = fresh(); save(); draw(); ui(); } };
+
+// Tính theo thời gian thực nên tab bị ẩn / tắt game vẫn được cộng (tối đa 8 giờ)
+setInterval(() => {
+  const now = Date.now();
+  s.cal += pps() * Math.min((now - s.t) / 1000, 8 * 3600);
+  s.t = now;
+  ui();
+}, 100);
+setInterval(save, 5000);
+draw(); ui();
+</script>
+</body>
+</html>

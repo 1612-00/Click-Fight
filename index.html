@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gym God</title>
+<!-- SDK CrazyGames: tải không được (mất mạng, chạy ngoài CrazyGames) thì game vẫn chạy bình thường, chỉ không có quảng cáo -->
+<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
+<style>
+:root{--ink:#2a1b3d;--bg:#120c20;--panel:#231a3d;--card:#30245280;--line:#463670;--txt:#f4efff;--mute:#a99cc9;--gold:#ffc83d;--gold2:#ff9a1f;--aura:#7c8aa5}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:"Baloo 2","Nunito","Segoe UI",system-ui,sans-serif;font-weight:600;background:var(--bg);color:var(--txt);display:grid;place-items:center;user-select:none;-webkit-user-select:none;overflow:hidden}
+button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.frame{position:relative;width:100%;height:100dvh;display:grid;grid-template-columns:1fr minmax(320px,380px);overflow:hidden;background:linear-gradient(#1c1336,#2a1d52 62%,#140e26)}
+@media(max-width:700px){.frame{grid-template-columns:1fr;grid-template-rows:54% 46%;}}
+
+/* ---------- sân khấu ---------- */
+.stage{position:relative;z-index:1;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+#bg{position:absolute;inset:0;background:center bottom/cover no-repeat}
+.hud{position:relative;z-index:2;padding:12px 14px 0;display:flex;gap:10px;align-items:center}
+.rank{flex:1;min-width:0;display:flex;gap:10px;align-items:center;background:#0006;border:2px solid var(--line);border-radius:16px;padding:6px 12px 6px 6px}
+.badge{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:var(--ink);background:linear-gradient(#fff,var(--aura));box-shadow:0 0 14px var(--aura)}
+.rank b{display:block;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank small{color:var(--mute);line-height:1.1;display:block}
+.bar{height:8px;border-radius:9px;background:#0008;margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--aura),#fff);transition:width .2s}
+.round{flex:none;min-width:44px;height:44px;border-radius:14px;border:2px solid var(--line);background:#0006;font-weight:800;cursor:pointer}
+#boost{padding:3px 10px;border-radius:999px;border:2px solid var(--gold);background:#000a;color:var(--gold);font:inherit;font-weight:800;font-size:.9rem;cursor:pointer}
+#boost:disabled{border-color:var(--line);color:#fff;cursor:default}
+.money{position:relative;z-index:2;text-align:center;margin-top:6px;line-height:1}
+.money .n{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:800;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink),0 0 24px #ffb02e88}
+.money .r{display:inline-block;margin-top:6px;padding:3px 12px;border-radius:99px;background:#0007;color:var(--gold);font-size:.9rem}
+.hero{position:relative;flex:1;min-height:0;display:grid;place-items:center;cursor:pointer;border:0;background:none;padding:0;width:100%}
+.hero>*{grid-area:1/1}
+.aura,.rays{height:min(100%,640px);aspect-ratio:1;border-radius:50%;pointer-events:none}
+.aura{background:radial-gradient(circle,var(--aura) 0,transparent 66%);opacity:.6}
+.rays{background:repeating-conic-gradient(var(--aura) 0 7deg,transparent 7deg 22deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 68%);mask:radial-gradient(circle,#000 18%,transparent 68%);opacity:.28;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+#art{height:100%;max-height:640px;min-height:0;display:grid;place-items:center;animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 0 #0003)}
+#art>*{grid-area:1/1;height:100%;min-height:0;max-width:100%;object-fit:contain}
+#art.pic::before{content:"";grid-area:1/1;align-self:end;justify-self:center;width:62%;height:5%;border-radius:50%;background:#000a;filter:blur(5px);transform:translateY(30%)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.pop{position:absolute;z-index:3;pointer-events:none;font-weight:800;font-size:1.9rem;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;rotate:var(--r);animation:pop .8s ease-out forwards}
+@keyframes pop{from{transform:translate(-50%,-50%) scale(.6)}20%{transform:translate(-50%,-80%) scale(1.15)}to{transform:translate(-50%,-190%) scale(1);opacity:0}}
+.tip{position:relative;z-index:2;align-self:center;margin-bottom:10px;padding:2px 14px;border-radius:99px;background:#000a;font-size:.9rem}
+#office{position:relative;z-index:2;align-self:center;width:min(92%,460px);margin-top:12px}
+.frame:not(.office) #office,.office .money,.office .tip{display:none}
+#say,#hsay{margin:0 0 8px;padding:12px 16px;border-radius:16px;background:#fff;color:var(--ink);font-weight:800;font-size:1.1rem;line-height:1.25;text-align:center;box-shadow:0 4px 0 #0005}
+#ostats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#ostats .stat{padding:6px 12px;background:#000b;font-size:.9rem}
+#nav{position:relative;z-index:2;align-self:center;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+#nav .big{padding:12px 22px;font-size:1.2rem}
+#go:not(:disabled),#sleep{animation:pulse 1.2s ease-in-out infinite}
+#rest{background:linear-gradient(#8fa3c8,#5b6f96);box-shadow:0 4px 0 #2f3d5c}
+.frame:not(.office) #go,.frame:not(.office) #rest,.frame:not(.home) #sleep,.office .panel{display:none}
+#vit{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px;padding:0 10px;font-size:.85rem}
+.office #vit,.gym #dayPill{display:none}
+.hud,.money,#vit,#office,#homeBox,#nav,.tip{flex:none}
+@media(max-width:700px){
+  .frame.home{grid-template-rows:68% 32%}.home #bg{bottom:32%}
+  .frame.gym{grid-template-rows:60% 40%}.gym #bg{bottom:40%}
+  #vit{font-size:.75rem;gap:4px;margin-top:6px}.pill{padding:2px 8px}.pill .bar{width:48px}
+  .meal{padding:6px 4px;font-size:.72rem}.meal span{font-size:1.5rem}.meal img{width:36px;height:36px}
+  #nav .big{padding:9px 18px;font-size:1.05rem}
+}
+.pill{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:#000a;border:2px solid var(--line);font-weight:800;white-space:nowrap}
+.pill .bar{width:70px;margin:0}
+#staBar{background:linear-gradient(90deg,#3ddc84,#b6ff8a)}
+#goHome{cursor:pointer;color:var(--gold);border-color:var(--gold)}
+#goHome.pulse{animation:pulse .8s ease-in-out infinite}
+.frame:not(.gym) #goHome,.fight #goHome{display:none}
+#homeBox{position:relative;z-index:2;align-self:center;width:min(94%,520px);margin-top:10px}
+.frame:not(.home) #homeBox{display:none}
+#meals{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#meals[hidden]{display:none}
+.meal{border:2px solid var(--line);border-radius:14px;background:#000b;padding:8px 6px;cursor:pointer;line-height:1.2;font-size:.8rem;display:grid;justify-items:center;align-content:start;gap:2px}
+.meal span{font-size:2rem;line-height:1}
+.meal img{width:48px;height:48px;object-fit:contain;display:block}
+.meal b{font-size:.9rem}
+.meal em{font-style:normal;color:#7dffb0}
+.meal small{color:var(--gold);font-weight:800}
+.meal.on{border-color:var(--gold);background:#3a2c66}
+.meal:disabled{opacity:.5;cursor:not-allowed}
+.meal.on:disabled{opacity:1}
+.home .tabs button:not(#tabPet),.gym .tabs #tabPet{display:none}
+#oday{margin:0 0 6px;text-align:center;font-weight:800;font-size:1.2rem;text-shadow:0 2px 0 var(--ink)}
+#wk{display:flex;gap:4px;justify-content:center;margin:0 0 4px}
+#wk i{font-style:normal;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#000b;border:2px solid var(--line);font-size:.8rem;font-weight:800}
+#wk i.now{border-color:var(--gold);color:var(--gold)}
+#wkTxt{text-align:center;font-size:.85rem;font-weight:800;color:var(--gold);margin-bottom:6px;text-shadow:0 1px 2px #000}
+.frame.office{grid-template-columns:1fr}
+.office .hero{cursor:default}
+@media(max-width:700px){.frame.office{grid-template-rows:1fr}.office #bg{bottom:0}}
+#flash{position:absolute;inset:0;z-index:5;background:#fff;opacity:0;pointer-events:none}
+#toast{position:absolute;z-index:6;left:50%;top:38%;transform:translate(-50%,-50%);text-align:center;font-weight:800;font-size:1.5rem;line-height:1.15;padding:12px 22px;border-radius:18px;background:#000b;border:3px solid var(--aura);text-shadow:0 2px 0 var(--ink);opacity:0;pointer-events:none;max-width:90%}
+#toast small{display:block;font-size:1rem;color:var(--gold)}
+
+/* ---------- bảng ---------- */
+.panel{position:relative;z-index:1;display:flex;flex-direction:column;min-height:0;margin:12px;border-radius:20px;overflow:hidden;background:#1b1433e8;border:3px solid #0009;box-shadow:0 10px 30px #0008}
+.tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px;padding:8px 8px 0}
+.tabs button::first-line{font-size:1.25rem}
+.tabs .dot::after{content:"";position:absolute;top:6px;right:10px;width:10px;height:10px;border-radius:50%;background:#ff4d5e;box-shadow:0 0 0 2px #1b1433}
+.tabs button{position:relative;font-size:.62rem;white-space:pre-line;line-height:1.2;border:0;border-radius:12px 12px 0 0;padding:5px 0 4px;font-weight:700;color:var(--mute);background:#0004;cursor:pointer}
+.tabs .on{background:#3a2c66;color:#fff;box-shadow:inset 0 3px 0 var(--gold)}
+.view{flex:1;min-height:0;display:flex;flex-direction:column}
+.view[hidden]{display:none}
+.tools{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#3a2c66;font-weight:700}
+.tools span{flex:1}
+.chip{border:2px solid var(--line);background:#0004;color:var(--mute);border-radius:99px;padding:0 12px;font-weight:700;cursor:pointer}
+.chip.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.list{flex:1;overflow:auto;padding:10px;display:grid;gap:8px;align-content:start;background:linear-gradient(#3a2c66,var(--panel) 80px)}
+.card{display:grid;grid-template-columns:60px 1fr auto;gap:10px;align-items:center;padding:8px;border-radius:16px;background:var(--card);border:2px solid var(--line)}
+.tile{width:60px;height:60px;border-radius:14px;display:grid;place-items:center;font-size:1.8rem;overflow:hidden;box-shadow:inset 0 -4px 0 #0003,inset 0 2px 0 #fff5}
+.tile img{width:100%;height:100%;object-fit:contain;padding:3px}
+.card b{font-size:1.05rem;line-height:1.1}
+.lv{font-size:.75rem;font-weight:700;color:var(--ink);background:#fff;border-radius:99px;padding:0 7px;margin-left:4px;vertical-align:1px}
+.card small{display:block;color:var(--mute);line-height:1.2}
+.card em{font-style:normal;color:#7dffb0;font-weight:700;font-size:.85rem}
+.buy,.big{border:0;border-radius:12px;min-width:88px;min-height:44px;padding:5px 10px;font-weight:800;line-height:1.1;color:var(--ink);background:linear-gradient(var(--gold),var(--gold2));box-shadow:0 4px 0 #b85c00;cursor:pointer}
+.buy small{color:inherit;opacity:.7;font-size:.75rem}
+.buy:active:not(:disabled),.big:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #b85c00}
+.buy:disabled{background:linear-gradient(90deg,#7a64b8 var(--p),#4b3f6e var(--p))!important}
+.buy.pulse{animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 4px 0 #b85c00,0 0 18px var(--gold)}}
+.lv:empty{display:none}
+.card em,.ms{display:inline-block;white-space:nowrap;margin-right:8px}
+.ms{font-style:normal;color:var(--gold);font-size:.75rem}
+.goal{display:block;font-style:normal;font-size:.8rem;font-weight:700;color:#ffb3b3}
+.goal.ok{color:#7dffb0}
+.card.hid{opacity:.8}
+.card.hid .tile{background:#0005!important;box-shadow:none}
+.card.hid .tile img{filter:brightness(0);opacity:.45}
+.buy:disabled,.big:disabled{background:#4b3f6e;color:#a99cc9;box-shadow:0 4px 0 #2c2247;cursor:not-allowed}
+.asc{flex:1;overflow:auto;padding:16px;background:#3a2c66;display:grid;gap:12px;align-content:start}
+.asc p{margin:0;color:var(--mute);line-height:1.35}
+.stat{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:14px;background:#0004;border:2px solid var(--line)}
+.stat b{color:var(--gold)}
+.big{font-size:1.2rem;padding:12px;background:linear-gradient(#c79bff,#8a4cf5);color:#fff;box-shadow:0 4px 0 #4a1fa8}
+.link{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px}
+#modal{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
+#modal[hidden]{display:none}
+#modal div{background:var(--panel);border:3px solid var(--line);border-radius:18px;padding:18px;max-width:360px;text-align:center}
+#modal p{margin:0 0 14px;line-height:1.35}
+#modal button{margin:0 4px}
+#modal .no{background:#4b3f6e;color:#fff;box-shadow:0 4px 0 #2c2247}
+@media(max-width:700px){.panel{margin:0 8px 8px}#bg{bottom:46%}}
+#duel{position:relative;z-index:2;margin:8px 14px 0;padding:8px 12px;border-radius:16px;background:#000c;border:2px solid #ff4d5e}
+#duel[hidden]{display:none}
+#dAva img{width:44px;height:44px;object-fit:contain;display:block}
+.dhead{display:flex;gap:8px;align-items:center;font-size:1.05rem}
+.dhead b{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dTime{font-weight:800;color:var(--gold);font-size:1.3rem}
+.dbar{position:relative;height:24px;border-radius:99px;background:#fff2;overflow:hidden;margin-top:6px}
+.dbar i{position:absolute;inset:0 auto 0 0;border-radius:99px;background:linear-gradient(90deg,#3ddc84,#b6ff8a)}
+.dbar.foe{height:12px}
+.dbar.foe i{inset:0 0 0 auto;background:#ff4d5e}
+#dName{text-align:right}
+#foe{grid-area:1/1;justify-self:end;align-self:end;height:50%;max-height:320px;margin:0 5% 8% 0;pointer-events:none;filter:drop-shadow(0 6px 0 #0005)}
+#vs{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;color:#fff;-webkit-text-stroke:8px #b3202e;paint-order:stroke fill;pointer-events:none;rotate:-8deg}
+#vs[hidden]{display:none}
+.fight #art{justify-self:start;height:82%;margin-left:4%}
+.fight .aura,.fight .rays{display:none}
+.dbar span{position:absolute;inset:0;display:grid;place-items:center;font-size:.85rem;font-weight:800;text-shadow:0 1px 2px #000}
+.card>div:nth-child(2){min-width:0}
+#rivals em{white-space:normal}
+.league{font-weight:800;color:var(--gold);padding:6px 4px 0}
+.league.lock{color:var(--mute)}
+.card.done{opacity:.6}
+.fight{background:linear-gradient(#ff7b88,#e5484d);color:#fff;box-shadow:0 4px 0 #8f1d2c}
+.fight:active:not(:disabled){box-shadow:0 1px 0 #8f1d2c}
+#pets .card{grid-template-columns:60px 1fr auto}
+#pets .card.hid .tile{filter:brightness(0) opacity(.5)}
+#pets .tile img,#rivals .tile img{padding:0}
+.rar{font-size:.75rem;font-weight:800;text-align:center;line-height:1.2;padding:4px 10px;border-radius:10px;background:#0005;color:var(--c)}
+.rar small{color:var(--mute);font-weight:600}
+#summon{min-width:150px}
+.card .bar{margin-top:4px}
+#achs,#stats{display:grid;gap:8px}
+#achs .card{grid-template-columns:60px 1fr auto}
+#achs .card.hid .tile{filter:grayscale(1) opacity(.5)}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+  <div id="bg"></div>
+  <section class="stage">
+    <div class="hud">
+      <div class="rank">
+        <div class="badge" id="rk"></div>
+        <div style="flex:1;min-width:0"><b id="rname"></b><small id="rpts"></small><div class="bar"><i id="rbar"></i></div></div>
+      </div>
+      <button class="round" id="who" aria-label="Character"></button>
+      <button class="round" id="mute" aria-label="Sound"></button>
+      <button class="round" id="lang" aria-label="Language"></button>
+    </div>
+    <div class="money"><div class="n">🔥 <span id="cal"></span></div><div class="r" id="rate"></div></div>
+    <div id="vit">
+      <div class="pill">⚡ <b id="staTxt"></b><div class="bar"><i id="staBar"></i></div></div>
+      <div class="pill">😮‍💨 <b id="fatTxt"></b></div>
+      <div class="pill">⚖️ <b id="kgTxt"></b></div>
+      <div class="pill" id="dayPill">📅 <b id="dayTxt"></b></div>
+      <button id="boost" hidden></button>
+      <button class="pill" id="goHome"></button>
+    </div>
+    <div id="office"><p id="oday"></p><p id="say"></p><div id="wk"></div><div id="wkTxt"></div><div id="ostats"></div></div>
+    <div id="homeBox"><p id="hsay"></p><div id="meals"></div></div>
+    <div id="duel" hidden>
+      <div class="dhead"><b id="dYou"></b><span id="dTime"></span><b id="dName"></b><span id="dAva"></span></div>
+      <div class="dbar"><i id="dFill"></i><span id="dTxt"></span></div>
+      <div class="dbar foe"><i id="dFoe"></i></div>
+    </div>
+    <button class="hero" id="hero">
+      <div class="aura"></div><div class="rays"></div>
+      <div id="art"><svg id="guy" viewBox="0 0 400 510"></svg><img id="pic" alt="" hidden draggable="false"></div>
+      <div id="vs" hidden>VS</div><img id="foe" alt="" hidden draggable="false">
+    </button>
+    <div id="nav"><button class="big" id="go"></button><button class="big" id="rest"></button><button class="big" id="sleep"></button></div>
+    <div class="tip" id="tip"></div>
+    <div id="flash"></div>
+    <div id="toast"></div>
+  </section>
+
+  <aside class="panel">
+    <div class="tabs"><button id="tabEx" class="on"></button><button id="tabDuel"></button><button id="tabPet"></button><button id="tabQuest"></button><button id="tabAch"></button><button id="tabAsc"></button></div>
+    <div class="view" id="vEx">
+      <div class="tools"><span id="buyEach"></span><button class="chip" data-m="1">x1</button><button class="chip" data-m="10">x10</button><button class="chip" data-m="max" id="chipMax"></button></div>
+      <div class="list" id="list"></div>
+    </div>
+    <div class="view" id="vDuel" hidden><div class="list" id="rivals"></div></div>
+    <div class="view" id="vPet" hidden>
+      <div class="tools"><span id="petSum"></span><button class="buy" id="summon"><span></span><br><small></small></button></div>
+      <div class="list" id="pets"></div>
+    </div>
+    <div class="view" id="vQuest" hidden><div class="list" id="quests"></div></div>
+    <div class="view" id="vAch" hidden><div class="list"><div class="league" id="hAch"></div><div id="achs"></div><div class="league" id="hStats"></div><div id="stats"></div></div></div>
+    <div class="view" id="vAsc" hidden>
+      <div class="asc">
+        <p id="ascDesc"></p>
+        <div class="stat"><span id="lStars"></span><b id="vStars"></b></div>
+        <div class="stat"><span id="lBonus"></span><b id="vBonus"></b></div>
+        <div class="stat"><span id="lGain"></span><b id="vGain"></b></div>
+        <button class="big" id="ascBtn"></button>
+        <button class="link" id="reset"></button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
+</div>
+
+<script>
+// ============ Dữ liệu ============
+// click = calo thêm mỗi lần bấm, pps = calo mỗi giây, c = giá cấp đầu, w = mức tập hiển thị [gốc, thêm mỗi cấp, đơn vị vi, đơn vị en]
+const EX = [
+  {k:'tay',   w:[2,1,'kg','kg'], i:'💪', c:15, click:1, g:'#ff8a5c,#e5484d', vi:['Tay','Cuốn tạ bằng chai nước'],          en:['Arms','Water-bottle curls']},
+  {k:'vai',   w:[5,1,'kg','kg'], i:'🏋️', c:100, pps:1, g:'#ffd35c,#ff9a1f', vi:['Vai','Đẩy vai bằng ghế xoay'],           en:['Shoulders','Swivel-chair presses']},
+  {k:'nguc',  w:[10,2,'kg','kg'], i:'🤜', c:1100, pps:8, g:'#7dd3fc,#3b82f6', vi:['Ngực','Hít đất cạnh bàn làm việc'],      en:['Chest','Desk-side push-ups']},
+  {k:'bung',  w:[10,5,'cái','reps'], i:'🔥', c:12000, pps:47, g:'#f9a8d4,#db2777', vi:['Bụng','Gập bụng giờ nghỉ trưa'],         en:['Abs','Lunch-break crunches']},
+  {k:'mat',   w:[0,1,'phút','min'], i:'👀', c:40000, click:12, g:'#86efac,#16a34a', vi:['Mắt','Nhìn xa 20-20-20'],                en:['Eyes','20-20-20 eye breaks']},
+  {k:'chan',  w:[20,4,'kg','kg'], i:'🦵', c:130000, pps:260, g:'#c4b5fd,#7c3aed', vi:['Chân','Squat trong lúc chờ họp'],        en:['Legs','Squats while waiting for meetings']},
+  {k:'lung',  w:[0,1,'cái xà','pull-ups'], i:'🧗', c:1400000, pps:1400, g:'#fdba74,#ea580c', vi:['Lưng','Kéo xà ở cửa phòng sếp'],         en:['Back',"Pull-ups on the boss's door frame"]},
+  {k:'cardio',w:[0,1,'km','km'], i:'🏃', c:20000000, pps:7800, g:'#5eead4,#0d9488', vi:['Cardio','Chạy bộ đi làm thay vì kẹt xe'], en:['Cardio','Jogging to work, skipping traffic']},
+];
+// goal = cấp tối thiểu của từng bài tập (theo thứ tự EX) để đạt hạng: phải tập đủ mọi nhóm cơ mới lên hạng; mỗi hạng nhân thêm calo
+const RANKS = [
+  {goal:[0,0,0,0,0,0,0,0], mult:1,   aura:'#7c8aa5', vi:'Dân văn phòng suy nhược', en:'Burnt-out Office Worker'},
+  {goal:[10,8,5,0,0,0,0,0], mult:1.25, aura:'#4ade80', vi:'Tập tành cho vui',        en:'Casual Beginner'},
+  {goal:[25,20,15,10,5,0,0,0], mult:1.5,   aura:'#22d3ee', vi:'Gymer nghiệp dư',         en:'Amateur Gymgoer'},
+  {goal:[40,35,30,22,15,10,0,0], mult:2,   aura:'#a78bfa', vi:'Body săn chắc',           en:'Toned Body'},
+  {goal:[55,48,42,35,28,25,15,0], mult:2.5, aura:'#fb923c', vi:'Sáu múi lấp ló',          en:'Six-Pack Loading'},
+  {goal:[70,60,55,48,40,40,32,20], mult:3,   aura:'#fde047', vi:'Thần gym công sở',        en:'Office Gym God'},
+];
+const T = {
+  vi:{perSec:'calo/giây', perClick:'mỗi lần bấm', lv:'Cấp', buyEach:'Mua mỗi lần', max:'Tối đa', tabEx:'💪\nBài tập', tabAsc:'⭐\nLên đời', tabQuest:'📋\nNhiệm vụ', tabAch:'🏆\nThành tựu',
+      hQuest:'Nhiệm vụ hôm nay (làm mới mỗi ngày trong game)', qDone:'Xong nhiệm vụ!', qclick:'Bấm {n} lần', qbuy:'Mua {n} cấp bài tập', qduel:'Thách đấu {n} lần', qsummon:'Gọi bạn tập {n} lần', qplay:'Chơi 2 phút',
+      hAch:'Thành tựu (mỗi cái +1% calo vĩnh viễn)', aclick:'Bấm {n} lần', atotal:'Kiếm tổng cộng {n} calo', arank:'Đạt hạng {n}', awin:'Thắng {n} đối thủ', asummon:'Gọi bạn tập {n} lần', aall:'Sở hữu đủ {n} bạn tập', aasc:'Lên đời {n} lần',
+      hStats:'Thống kê', stPlay:'Thời gian chơi', stClicks:'Số lần bấm', stTotal:'Tổng calo đã kiếm', stAsc:'Số lần lên đời', stWins:'Đối thủ đã thắng', stSummons:'Số lần gọi bạn tập', stAch:'Thành tựu', stMult:'Hệ số calo hiện tại',
+      tabPet:'🐶\nBạn tập', summon:'🎲 Gọi bạn tập', both:'mọi thứ', each:'mỗi cấp', r20:'Thường', r7:'Hiếm', r5:'Sử thi', r1:'Huyền thoại',
+      tabDuel:'⚔️\nThi đấu', league:'Giải', need:'Cần', fight:'Thách đấu', win:'THẮNG!', lose:'Thua rồi!', loseTip:'Tập thêm rồi quay lại', duelTip:'Bấm thật nhanh!', forever:'vĩnh viễn',
+      at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!',
+      ascDesc:'Lên đời là bắt đầu lại từ đầu để đổi lấy Sao. Mỗi Sao tăng 10% calo vĩnh viễn. Càng kiếm nhiều calo trong một đời, càng nhận nhiều Sao.',
+      lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
+      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', other:'EN', x2:'🎬 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay',
+      unlock:{1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 82 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
+      fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
+      homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp!', homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
+      wkGoal:'Buổi tập tuần này', wkOk:'Đạt mục tiêu tuần: +10% calo tuần này!', wkNo:'Chưa đạt mục tiêu tuần', sun:'Chủ nhật: thách đấu miễn phí, thưởng x2', weigh:'Cân kiểm tra',
+      needKg:'⚖️ Giảm thêm {n} kg để lên hạng', recOn:'Hồi phục: bấm +25%',
+      dow:['Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy','Chủ nhật'], dw:['T2','T3','T4','T5','T6','T7','CN'],
+      say:['Ngày làm việc đã kết thúc. Đến phòng tập rèn luyện tiếp nào!', 'Chăm chỉ mỗi ngày, cơ bắp sẽ không phụ bạn.', 'Ngồi cả ngày rồi, đứng dậy vận động thôi!', 'Hôm nay mệt, nhưng bỏ tập thì mai còn mệt hơn.',
+           'Deadline xong rồi, giờ đến lượt tạ.', 'Mỗi giọt mồ hôi hôm nay là một múi bụng ngày mai.', 'Sếp về rồi. Phòng tập đang chờ bạn!', 'Không ai tập một buổi mà thành thần gym. Đi tiếp thôi!']},
+  en:{perSec:'cal/sec', perClick:'per click', lv:'Lv', buyEach:'Buy amount', max:'Max', tabEx:'💪\nWorkouts', tabAsc:'⭐\nAscend', tabQuest:'📋\nQuests', tabAch:'🏆\nAwards',
+      hQuest:"Today's quests (refresh every game day)", qDone:'Quest complete!', qclick:'Tap {n} times', qbuy:'Buy {n} workout levels', qduel:'Start {n} rival fight', qsummon:'Summon {n} buddy', qplay:'Play for 2 minutes',
+      hAch:'Achievements (+1% calories forever each)', aclick:'Tap {n} times', atotal:'Earn {n} calories in total', arank:'Reach rank {n}', awin:'Beat {n} rivals', asummon:'Summon buddies {n} times', aall:'Own all {n} buddies', aasc:'Ascend {n} times',
+      hStats:'Stats', stPlay:'Time played', stClicks:'Taps', stTotal:'Total calories earned', stAsc:'Ascensions', stWins:'Rivals beaten', stSummons:'Buddy summons', stAch:'Achievements', stMult:'Current calorie multiplier',
+      tabPet:'🐶\nBuddies', summon:'🎲 Summon', both:'everything', each:'per level', r20:'Common', r7:'Rare', r5:'Epic', r1:'Legendary',
+      tabDuel:'⚔️\nRivals', league:'League', need:'Need', fight:'Fight', win:'YOU WIN!', lose:'You lost!', loseTip:'Train more and come back', duelTip:'Tap as fast as you can!', forever:'forever',
+      at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!',
+      ascDesc:'Ascending starts you over in exchange for Stars. Each Star gives +10% calories forever. The more calories you earn in one life, the more Stars you get.',
+      lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
+      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', other:'VI', x2:'🎬 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', kgTrain:'Training today', kgRest:'Rest today',
+      unlock:{1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 82 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
+      fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
+      homeSay0:'Home at last. Get some sleep and train again tomorrow!', homeSay:'Evening. Pick one meal (or skip it), then go to sleep.', homeTip:'Your buddies are waiting at home',
+      wkGoal:'Sessions this week', wkOk:'Weekly goal reached: +10% calories this week!', wkNo:'Weekly goal missed', sun:'Sunday: free fights, double prize', weigh:'Weigh-in',
+      needKg:'⚖️ Lose {n} more kg to rank up', recOn:'Recovered: taps +25%',
+      dow:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], dw:['Mo','Tu','We','Th','Fr','Sa','Su'],
+      say:['The workday is over. Head to the gym and keep training!', 'Show up every day and the muscles will follow.', 'You sat all day. Time to get moving!', 'Tired today? Skipping makes tomorrow worse.',
+           'Deadlines are done. Now it is the dumbbells\' turn.', 'Every drop of sweat today is an ab tomorrow.', 'The boss went home. The gym is waiting!', 'Nobody becomes a gym god in one session. Keep going!']},
+};
+
+// ============ Trạng thái + lưu ============
+const KEY = 'gymgod-save', R = 1.17, $ = id => document.getElementById(id);
+const MS = [25, 50, 100], boost = lv => 2 ** MS.filter(x => lv >= x).length;   // mốc cấp nhân đôi hiệu quả bài tập
+// Đối thủ: 4 giải x 5 người, đấu theo thứ tự. Thắng = đạt đủ calo trong 15 giây. Mỗi trận thắng +3% calo vĩnh viễn.
+const LEAGUES = [{vi:'Phòng ban', en:'The Department'}, {vi:'Công ty', en:'The Company'}, {vi:'Phòng gym', en:'The Gym'}, {vi:'Giải quốc gia', en:'Nationals'}];
+const RIVALS = [
+  ['🧑‍💼','Anh Tuấn kế toán','Tuan from Accounting'], ['👩‍💼','Chị Lan lễ tân','Lan the Receptionist'], ['🧑‍🎓','Bảo thực tập sinh','Bao the Intern'], ['👮','Chú Hùng bảo vệ','Hung the Guard'], ['👨‍💼','Trưởng phòng Minh','Minh the Team Lead'],
+  ['🧔','Sếp phó Dũng','Deputy Boss Dung'], ['👩‍🍳','Cô Hoa căng tin','Hoa from the Canteen'], ['🧑‍💻','Anh Khoa IT','Khoa from IT'], ['👩‍🏫','Chị Trang nhân sự','Trang from HR'], ['🤵','Giám đốc Phong','Director Phong'],
+  ['🙋‍♂️','Cường tân binh','Cuong the Rookie'], ['🏃‍♀️','HLV Thảo','Coach Thao'], ['🏋️‍♂️','Long Tạ Đôi','Dumbbell Long'], ['🧘‍♀️','Vy Yoga','Yoga Vy'], ['💪','Chủ phòng gym Sơn','Son the Gym Owner'],
+  ['🤼','Đô vật Tín','Tin the Wrestler'], ['🤸‍♀️','Nữ hoàng xà đơn My','Pull-up Queen My'], ['🏋️','Lực sĩ Quân','Strongman Quan'], ['🥇','Nhà vô địch Nam','Champion Nam'], ['👑','Huyền thoại Bách','Bach the Legend'],
+];
+const DUEL = 15, WIN_BONUS = .03, target = i => 300 * 2.4 ** i, prize = i => target(i) * 3;
+const rivalPic = i => `<img src="assets/rival-${String(i + 1).padStart(2, '0')}.webp" alt="" draggable="false" onerror="this.replaceWith('${RIVALS[i][0]}')">`;
+let duel = null;   // {i, score, end} khi đang đấu
+// Bạn tập: mỗi lần gọi ra ngẫu nhiên một con (w = tỉ lệ %, tổng 100); gọi trùng thì lên cấp. click/pps = thưởng mỗi cấp.
+const PETS = [
+  {k:'dog',    i:'🐶', w:20, pps:.05,             vi:'Cún chạy bộ',        en:'Jogging Pup'},
+  {k:'cat',    i:'🐱', w:20, click:.05,           vi:'Mèo yoga',           en:'Yoga Cat'},
+  {k:'ham',    i:'🐹', w:20, pps:.05,             vi:'Hamster chạy vòng',  en:'Wheel Hamster'},
+  {k:'frog',   i:'🐸', w:20, click:.05,           vi:'Ếch squat',          en:'Squat Frog'},
+  {k:'ape',    i:'🦍', w:7,  pps:.15,             vi:'Khỉ đột nâng tạ',    en:'Lifting Gorilla'},
+  {k:'roo',    i:'🦘', w:7,  click:.15,           vi:'Kangaroo đấm bốc',   en:'Boxing Kangaroo'},
+  {k:'tiger',  i:'🐯', w:5,  pps:.15, click:.15,  vi:'Hổ huấn luyện viên', en:'Coach Tiger'},
+  {k:'dragon', i:'🐲', w:1,  pps:.4,  click:.4,   vi:'Rồng thể hình',      en:'Gym Dragon'},
+];
+const RAR = {20:'#cbd5e1', 7:'#60a5fa', 5:'#c084fc', 1:'#fde047'};
+const petBonus = t => PETS.reduce((a, p) => a + (p[t] || 0) * (s.pets[p.k] || 0), 0);
+const summonCost = () => 5000 * 2.5 ** s.summons;
+// Nhiệm vụ hằng ngày: mỗi ngày 3 trong 5 nhiệm vụ, xoay vòng theo ngày. Thưởng = 5 phút thu nhập.
+const QUESTS = [{k:'click', n:200, i:'👆'}, {k:'buy', n:20, i:'💪'}, {k:'duel', n:1, i:'⚔️'}, {k:'summon', n:1, i:'🎲'}, {k:'play', n:120, i:'⏱️'}];
+const dayIdx = () => s.day;   // nhiệm vụ làm mới theo ngày trong game
+const todayQuests = () => [0, 1, 2].map(j => QUESTS[(dayIdx() + j) % QUESTS.length]);
+const qProg = q => q.k === 'duel' && s.wins >= RIVALS.length ? q.n : Math.min(q.n, s.q.p[q.k] || 0);
+const qReward = () => Math.max(500, 300 * (pps() + 3 * clickPower()));
+const bump = (k, n = 1) => { s.q.p[k] = (s.q.p[k] || 0) + n; };
+// Thành tựu: [loại, mốc]; mỗi cái đạt được +1% calo vĩnh viễn.
+const ACH = [['click',100],['click',1000],['click',10000],['total',1e4],['total',1e6],['total',1e8],['total',1e10],['rank',2],['rank',4],['rank',6],
+  ['win',1],['win',5],['win',10],['win',20],['summon',1],['summon',10],['all',8],['asc',1],['asc',5]].map(([t, n]) => ({t, n, id: t + n}));
+const AV = {click: () => s.clicks, total: () => s.total, rank: () => s.best + 1, win: () => s.wins, summon: () => s.summons, all: () => Object.keys(s.pets).length, asc: () => s.ascends};
+const achText = a => tr('a' + a.t).replace('{n}', a.n < 1e6 ? a.n.toLocaleString(s.lang) : fmt(a.n));
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'office', mute:false, ach:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+let s = fresh(), mode = 1;
+// SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
+let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);   // gym: mỗi lần mở game bắt đầu ở văn phòng, bấm nút mới sang phòng tập
+const store = () => CG ? CG.data : localStorage;
+const BOOST = 180;   // giây nhân đôi calo sau một quảng cáo thưởng
+function showAd(type, done) {
+  if (!CG) return done(false);
+  if (playing) { playing = false; CG.game.gameplayStop(); }
+  const end = ok => { adOn = false; done(ok); };
+  try { CG.ad.requestAd(type, {adStarted: () => { adOn = true; }, adFinished: () => end(true), adError: () => end(false)}); } catch { end(false); }
+}
+function load() {
+  try {
+    const o = JSON.parse(store().getItem(KEY));
+    if (!o) return;
+    for (const k of ['cal','run','stars','t','seen','wins','summons','clicks','total','ascends','play','best','x2','day','sta','cap','used','fat','kg','kg30']) if (Number.isFinite(o[k]) && o[k] >= 0) s[k] = o[k];
+    s.wins = Math.min(RIVALS.length, Math.floor(s.wins)); s.summons = Math.floor(s.summons);
+    for (const q of PETS) if (Number.isInteger(o.pets?.[q.k]) && o.pets[q.k] > 0) s.pets[q.k] = o.pets[q.k];
+    if (T[o.lang]) s.lang = o.lang;
+    s.mute = o.mute === true; s.char = o.char === 1 ? 1 : 0;
+    s.day = Math.max(1, Math.floor(s.day)); s.fat = Math.min(100, s.fat); setKg(s.kg);
+    for (const k of ['meal','next']) if (MEALS.some(m => m.k === o[k])) s[k] = o[k];
+    for (const k of ['rec','wkBonus','drink']) s[k] = o[k] === true;
+    if (Array.isArray(o.week)) s.week = o.week.slice(0, 6).map(x => x ? 1 : 0);
+    s.scene = o.scene === 'home' ? 'home' : 'office';   // mở game luôn bắt đầu ở văn phòng, trừ khi ngày đã sang buổi tối
+    for (const a of ACH) if (o.ach?.[a.id]) s.ach[a.id] = 1;
+    if (Number.isFinite(o.q?.day)) {
+      s.q.day = o.q.day;
+      for (const q of QUESTS) { if (o.q.p?.[q.k] > 0) s.q.p[q.k] = +o.q.p[q.k]; if (o.q.got?.[q.k]) s.q.got[q.k] = 1; }
+    }
+    for (const e of EX) if (Number.isInteger(o.lv?.[e.k]) && o.lv[e.k] > 0) s.lv[e.k] = o.lv[e.k];
+    s.rk = Number.isInteger(o.rk) && o.rk >= 0 && o.rk < RANKS.length ? o.rk : RANKS.findLastIndex((_, r) => goalsMet(r));   // bản lưu cũ: giữ hạng đang có
+    if (!(o.day >= 1)) s.cap = s.sta = staMax();
+  } catch {}
+}
+let ready = false;   // chưa tải xong bản lưu thì không được ghi, kẻo ghi đè bằng trạng thái trống
+const save = () => { if (ready) try { store().setItem(KEY, JSON.stringify(s)); } catch {} };
+
+// ============ Công thức ============
+const points = () => EX.reduce((a, e) => a + s.lv[e.k], 0);
+// Hạng được lưu trong s.rk: lên hạng khi đủ mục tiêu nhóm cơ VÀ cân nặng không quá KG[hạng]; đã lên rồi thì không tụt.
+const KG = [999, 999, 999, 82, 77, 73], FAT = [30, 26, 22, 18, 14, 10], WK = [4, 4, 5, 5, 6, 6];   // cân tối đa / mệt mỏi mỗi ngày tập đủ / số buổi mục tiêu tuần, theo hạng
+const MEALS = [   // mỗi tối bày 3 món, mỗi nhóm một món (xem menu()); sec = giá tính bằng số giây thu nhập; sta/cal/tap áp dụng cho ngày hôm sau, fat trừ mệt mỏi ngay
+  {k:'h',  f:'healthy', i:'🥗', kg:-.1, sec:30,  sta:1.1,            vi:'Cơm gà luộc',     en:'Chicken & rice'},
+  {k:'h2', f:'healthy', i:'🐟', kg:-.2, sec:60,  sta:1.05,           vi:'Salad cá hồi',    en:'Salmon salad'},
+  {k:'h3', f:'healthy', i:'🥣', kg:-.1, sec:30,  fat:-10,            vi:'Yến mạch chuối',  en:'Banana oatmeal'},
+  {k:'p',  f:'protein', i:'🍳', kg:0,   sec:180, cal:1.25,           vi:'Ức gà, trứng',    en:'Chicken & eggs'},
+  {k:'p2', f:'protein', i:'🥩', kg:.1,  sec:240, cal:1.35,           vi:'Bò bít tết',      en:'Beef steak'},
+  {k:'p3', f:'protein', i:'🥤', kg:0,   sec:90,  cal:1.1, sta:1.1,   vi:'Sinh tố whey',    en:'Whey smoothie'},
+  {k:'j',  f:'junk',    i:'🧋', kg:.2,  sec:30,  sta:1.5, tap:1.5, cal:1.1, vi:'Trà sữa, gà rán', en:'Boba & fried chicken'},
+  {k:'j2', f:'junk',    i:'🍕', kg:.25, sec:30,  sta:1.7, cal:1.15, vi:'Pizza phô mai',   en:'Cheese pizza'},
+  {k:'j3', f:'junk',    i:'🍜', kg:.1,  sec:10,  tap:1.3, fat:-5,   vi:'Mì tôm trứng',    en:'Instant noodles'},
+];
+const menu = () => [0, 1, 2].map(c => c * 3 + (s.day + c * Math.floor(s.day / 3)) % 3);   // thực đơn đổi theo ngày, luôn có đủ 3 nhóm
+const fx = () => MEALS.find(m => m.k === s.meal) || {};   // hiệu ứng bữa tối hôm qua
+const pc = x => '+' + Math.round((x - 1) * 100) + '%';
+const mealDesc = m => [[m.sta && `${tr('mSta')} ${pc(m.sta)}`, m.cal && `${tr('mCal')} ${pc(m.cal)}`, m.tap && `${tr('mTap')} x${m.tap.toLocaleString(s.lang)}`].filter(Boolean).join(', '), m.fat && `${tr('mFat')} ${m.fat}`]
+  .map((x, j) => x && (j ? x : tr('tmr') + ': ' + x)).filter(Boolean).join(' · ');
+const goalsMet = r => RANKS[r].goal.every((g, i) => s.lv[EX[i].k] >= g);
+const rankOf = () => s.rk;
+const unl = () => Math.max(s.rk, s.best);   // mở tính năng theo hạng cao nhất từng đạt: hạng 2 bữa ăn, hạng 3 mệt mỏi + lịch tuần, hạng 4 chặn cân nặng
+const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(65, x)) * 100) / 100; };
+const dow = () => (s.day - 1) % 7;   // 0 = Thứ Hai … 6 = Chủ nhật
+const fatLv = () => s.fat >= 100 ? 3 : s.fat >= 70 ? 2 : s.fat >= 40 ? 1 : 0;
+const staMax = () => Math.floor((300 + 120 * rankOf() + 5 * s.lv.cardio) * [1, .75, .5, .5][fatLv()] * (s.kg > 90 ? .8 : 1) * (fx().sta || 1));
+const mealCost = m => Math.max(50, m.sec * (pps() + 3 * clickPower()));
+const kg = (e, lv) => `${e.w[0] + e.w[1] * lv} ${e.w[s.lang === 'en' ? 3 : 2]}`;   // "60 kg"
+const mult = () => RANKS[rankOf()].mult * (1 + .1 * s.stars) * (1 + WIN_BONUS * s.wins) * (1 + .01 * Object.keys(s.ach).length) * (s.wkBonus ? 1.1 : 1) * (s.kg >= 68 && s.kg <= 72 ? 1.2 : 1) * (fx().cal || 1);
+const basePps = () => EX.reduce((a, e) => a + (e.pps || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0);
+const pps = () => basePps() * mult() * (1 + petBonus('pps'));
+const clickPower = () => (1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0) + basePps() * .05) * mult() * (1 + petBonus('click')) * (s.rec ? 1.25 : 1) * (fx().tap || 1);
+const bulk = (e, n) => e.c * R ** s.lv[e.k] * (R ** n - 1) / (R - 1);          // giá mua n cấp liền
+function maxAff(e) {
+  let n = Math.floor(Math.log(s.cal * (R - 1) / (e.c * R ** s.lv[e.k]) + 1) / Math.log(R));
+  while (n > 0 && bulk(e, n) > s.cal) n--;                                      // chống sai số số thực
+  return n;
+}
+const count = e => mode === 'max' ? Math.max(1, maxAff(e)) : mode;
+const starGain = () => Math.floor(Math.cbrt(s.run / 1e6));
+const earn = x => { s.cal += x; s.run += x; s.total += x; };
+
+// tự kiểm tra công thức
+(() => { const e = EX[0], keep = s.cal; s.cal = 1000;
+  console.assert(Math.abs(bulk(e, 1) - e.c) < 1e-9 && bulk(e, maxAff(e)) <= s.cal && bulk(e, maxAff(e) + 1) > s.cal, 'bulk/maxAff sai');
+  s.cal = keep; })();
+
+// ============ Hiển thị ============
+let nf, shown = 0;
+const tr = k => T[s.lang][k];
+const fmt = n => n < 1000 ? (Math.floor(n * 10) / 10).toLocaleString(s.lang) : nf.format(n);
+
+// Nhân vật tạm vẽ bằng code (t: 0 = suy nhược, 1 = thần gym). Có ảnh assets/rank1..6.webp thì game tự dùng ảnh.
+const O = '#2a1b3d', SKIN = '#f8c9a0', PANTS = '#46558f';
+function guy(t) {
+  const sw = 62 + 40 * t, ww = 62 - 12 * t, b = 36 * (1 - t), aw = 22 + 26 * t, lw = 28 + 14 * t, nw = 28 + 18 * t;
+  const S = `stroke="${O}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"`;
+  const arm = d => { const x1 = 200 + d * (sw - 4), x2 = 200 + d * (sw + 16 + 8 * t + b * .75), xs = x1 + (x2 - x1) * .34;
+    return `<path d="M${x1} 258L${x2} 352" stroke="${O}" stroke-width="${aw + 10}" stroke-linecap="round"/>
+      <path d="M${x1} 258L${x2} 352" stroke="${SKIN}" stroke-width="${aw}" stroke-linecap="round"/>
+      <path d="M${x1} 256L${xs} 290" stroke="${O}" stroke-width="${aw + 16}" stroke-linecap="round"/>
+      <path d="M${x1} 256L${xs} 290" stroke="#eef2fb" stroke-width="${aw + 6}" stroke-linecap="round"/>
+      <circle cx="${x2}" cy="358" r="${aw / 2 + 4}" fill="${SKIN}" ${S}/>`; };
+  const leg = d => { const cx = 200 + d * (ww * .5 + 2);
+    return `<rect x="${cx - lw / 2}" y="398" width="${lw}" height="76" rx="10" fill="${PANTS}" ${S}/>
+      <ellipse cx="${cx + d * 7}" cy="478" rx="${lw / 2 + 13}" ry="13" fill="#3a2a4a" ${S}/>`; };
+  const brow = d => `<path d="M${200 + d * 46} ${128 - 9 * t}L${200 + d * 17} ${119 + 8 * t}" ${S} stroke-width="6" fill="none"/>`;
+  const eye = d => `<ellipse cx="${200 + d * 30}" cy="150" rx="7" ry="9" fill="${O}"/><circle cx="${200 + d * 30 + 2.5}" cy="146" r="2.5" fill="#fff"/>
+    <path d="M${200 + d * 30 - 11} 166q11 7 22 0" stroke="#d99a78" stroke-width="3" fill="none" stroke-linecap="round" opacity="${Math.max(0, 1 - t * 1.5)}"/>`;
+  return `
+  <defs>
+    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdcbd"/><stop offset="1" stop-color="#f2b488"/></linearGradient>
+    <linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d3dcf2"/></linearGradient>
+  </defs>
+  <ellipse cx="200" cy="490" rx="${105 + 20 * t}" ry="14" fill="#0006"/>
+  ${leg(-1)}${leg(1)}${arm(-1)}${arm(1)}
+  <rect x="${200 - nw / 2}" y="196" width="${nw}" height="50" fill="${SKIN}" ${S}/>
+  <path d="M${200 - sw} 252Q${200 - sw} 232 ${200 - sw + 20} 232H${200 + sw - 20}Q${200 + sw} 232 ${200 + sw} 252C${200 + sw - 4 + b} 300 ${200 + ww + b * 1.3} 362 ${200 + ww} 394H${200 - ww}C${200 - ww - b * 1.3} 362 ${200 - sw + 4 - b} 300 ${200 - sw} 252Z" fill="url(#sh)" ${S}/>
+  <path d="M${200 - sw * .72} 288Q${200 - sw * .36} ${300 + 14 * t} 196 290M204 290Q${200 + sw * .36} ${300 + 14 * t} ${200 + sw * .72} 288" stroke="#aab6d6" stroke-width="4" fill="none" stroke-linecap="round" opacity="${t}"/>
+  <path d="M152 364Q200 388 248 364" stroke="#b9c4e0" stroke-width="4" fill="none" stroke-linecap="round" opacity="${Math.max(0, 1 - t * 1.6)}"/>
+  <rect x="${200 - ww - 2}" y="380" width="${2 * ww + 4}" height="36" rx="12" fill="${PANTS}" ${S}/>
+  <rect x="${200 - ww - 2}" y="380" width="${2 * ww + 4}" height="13" rx="5" fill="#5a3d2b" ${S} stroke-width="4"/>
+  <rect x="191" y="378" width="18" height="17" rx="3" fill="#ffcc4d" ${S} stroke-width="3.5"/>
+  <g transform="rotate(${7 * (1 - t)} 200 240)">
+    <path d="M195 250h10l8 68-13 15-13-15z" fill="#e5484d" ${S} stroke-width="4"/>
+    <path d="M191 236h18l-4 15h-10z" fill="#c2333c" ${S} stroke-width="4"/>
+  </g>
+  <path d="M200 240l-30-9 9 27zM200 240l30-9-9 27z" fill="#fff" ${S} stroke-width="4"/>
+  <circle cx="124" cy="150" r="13" fill="url(#sk)" ${S}/><circle cx="276" cy="150" r="13" fill="url(#sk)" ${S}/>
+  <ellipse cx="200" cy="140" rx="76" ry="72" fill="url(#sk)" ${S}/>
+  <path d="M126 130C116 58 200 42 250 60C284 70 288 104 276 132C262 104 236 95 206 100C176 100 148 104 126 130Z" fill="#3b2a25" ${S}/>
+  <ellipse cx="156" cy="176" rx="12" ry="7" fill="#ff8f8f" opacity=".45"/><ellipse cx="244" cy="176" rx="12" ry="7" fill="#ff8f8f" opacity=".45"/>
+  ${brow(-1)}${brow(1)}${eye(-1)}${eye(1)}
+  ${t < .5 ? `<g ${S}><rect x="146" y="130" width="48" height="42" rx="15" fill="#bfe3ff55"/><rect x="206" y="130" width="48" height="42" rx="15" fill="#bfe3ff55"/>
+    <path d="M194 148h12M146 146l-20-4M254 146l20-4" fill="none"/><path d="M156 140l8 12M216 140l8 12" stroke="#fff" stroke-width="4" fill="none"/></g>` : ''}
+  <path d="M182 ${190 - 4 * t}Q200 ${180 + 26 * t} 218 ${190 - 4 * t}" fill="none" ${S}/>
+  ${t < .3 ? `<path d="M286 78q12 18 0 26q-12-8 0-26z" fill="#7dd3fc" ${S} stroke-width="3.5"/>` : ''}`;
+}
+const CHARS = [['', '👨'], ['c2-', '👩']];   // [tiền tố file ảnh, biểu tượng nút đổi]; thêm nhân vật = thêm một dòng + ảnh c3-rank1..6
+const pics = CHARS.map(c => RANKS.map((_, i) => { const im = new Image(); im.onload = () => { im.ok = true; drawArt(); }; im.src = `assets/${c[0]}rank${i + 1}.webp`; return im; }));
+function drawArt() {
+  const im = pics[s.char][shown];
+  $('who').textContent = CHARS[s.char][1];
+  $('pic').hidden = !im.ok; $('guy').style.display = im.ok ? 'none' : '';
+  if (im.ok) $('pic').src = im.src; else $('guy').innerHTML = guy(shown / (RANKS.length - 1));
+  $('art').classList.toggle('pic', !!im.ok);
+  // nền theo màn: văn phòng, phòng gym, nhà; thiếu ảnh thì hiện nền vẽ bằng CSS
+  for (const k of ['office', 'gym', 'home']) $('frame').classList.toggle(k, s.scene === k);
+  $('bg').style.backgroundImage = `linear-gradient(#150e28e6,#150e2855 30%,#150e2800 60%,#150e2890),url(assets/bg${{office: 1, gym: 2, home: 3}[s.scene]}.webp)`;
+  document.documentElement.style.setProperty('--aura', RANKS[shown].aura);
+}
+
+function buildTexts() {
+  nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
+  document.documentElement.lang = s.lang;
+  for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).textContent = tr(id);
+  $('chipMax').textContent = tr('max'); $('lang').textContent = tr('other'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no');
+  $('list').innerHTML = EX.map((e, i) => `<div class="card">
+    <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>
+    <div><b></b><span class="lv"></span><small class="d"></small><em></em><i class="ms"></i><i class="goal"></i></div>
+    <button class="buy" data-i="${i}"><span></span><br><small></small></button></div>`).join('');
+  $('quests').innerHTML = `<div class="league">${tr('hQuest')}</div>` + [0, 1, 2].map(j => `<div class="card"><div class="tile" style="background:#0005"></div>
+    <div><b></b><small></small><div class="bar"><i></i></div></div><button class="buy" data-q="${j}" style="--p:0%"></button></div>`).join('');
+  $('achs').innerHTML = ACH.map(a => `<div class="card"><div class="tile" style="background:linear-gradient(#ffd35c,#ff9a1f)">🏆</div>
+    <div><b>${achText(a)}</b><small></small></div><span class="rar" style="--c:var(--gold)">+1%</span></div>`).join('');
+  $('stats').innerHTML = ['stPlay','stClicks','stTotal','stAsc','stWins','stSummons','stAch','stMult'].map((k, j) => `<div class="stat"><span>${tr(k)}</span><b id="st${j}"></b></div>`).join('');
+  $('mute').textContent = s.mute ? '🔇' : '🔊';
+  // màn văn phòng: một câu nói ngẫu nhiên mỗi lần mở game + các thông số, chưa chơi được
+  drawMeals();
+  drawDay();
+  $('ostats').innerHTML = ['oCal','perSec','oKg','oSta','oFat','stWins'].map((k, j) => `<div class="stat"><span>${tr(k)}</span><b id="os${j}"></b></div>`).join('');
+  const pct = x => Math.round(x * 100) + '%';
+  $('pets').innerHTML = PETS.map(q => `<div class="card">
+    <div class="tile" style="background:#0005"><img src="assets/pet-${q.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${q.i}')"></div>
+    <div><b></b><span class="lv"></span><small>+${pct(q.pps || q.click)} ${tr(q.pps && q.click ? 'both' : q.pps ? 'perSec' : 'perClick')} ${tr('each')}</small><em></em></div>
+    <span class="rar" style="--c:${RAR[q.w]}">${tr('r' + q.w)}<br><small>${q.w}%</small></span></div>`).join('');
+  $('rivals').innerHTML = RIVALS.map((r, i) => (i % 5 ? '' : '<div class="league"></div>') + `<div class="card">
+    <div class="tile" style="background:#0005">${rivalPic(i)}</div>
+    <div><b>${r[s.lang === 'vi' ? 1 : 2]}</b><small>${tr('need')} 🔥 ${fmt(target(i))} / ${DUEL}s</small><em>+${WIN_BONUS * 100}% ${tr('forever')} · +${fmt(prize(i))} 🔥</em></div>
+    <button class="buy fight" data-r="${i}" style="--p:0%"></button></div>`).join('');
+  ui();
+}
+
+function drawDay() {   // phần chỉ đổi khi sang ngày/màn mới: câu nói, lịch tuần
+  $('say').textContent = fatLv() === 3 ? tr('over') : T[s.lang].say[sayIdx];
+  $('hsay').textContent = tr(unl() < 1 ? 'homeSay0' : 'homeSay');
+  $('meals').hidden = unl() < 1;   // người mới: hạng 1 chưa có ăn uống
+  $('wk').hidden = $('fatTxt').parentNode.hidden = unl() < 2;
+  $('oday').textContent = `${tr('day')} ${s.day} · ${T[s.lang].dow[dow()]}`;
+  $('wk').innerHTML = T[s.lang].dw.map((d, j) => `<i class="${j === dow() ? 'now' : ''}">${j < s.week.length ? (s.week[j] ? '💪' : '💤') : d}</i>`).join('');
+  $('wkTxt').textContent = [unl() >= 2 && `${tr('wkGoal')}: ${s.week.reduce((a, b) => a + b, 0)} / ${WK[rankOf()]}`, s.wkBonus && '+10% 🔥', s.rec && tr('recOn'), dow() === 6 && tr('sun')].filter(Boolean).join(' · ');
+}
+
+function ui() {
+  const r = rankOf(), p = points(), next = RANKS[r + 1], m = mult(), goal = next ? next.goal : [];
+  const lvOf = i => s.lv[EX[i].k], sum = a => a.reduce((x, y) => x + y, 0);
+  $('cal').textContent = fmt(s.cal);
+  $('rate').textContent = `+${fmt(pps())} ${tr('perSec')} · +${fmt(clickPower())} ${tr('perClick')}`;
+  $('rk').textContent = r + 1;
+  $('rname').textContent = RANKS[r][s.lang];
+  const gm = goal.filter((g, i) => g && lvOf(i) >= g).length, gn = goal.filter(g => g).length;
+  $('rpts').textContent = !next ? tr('maxRank') : gm === gn && s.kg > KG[r + 1] ? tr('needKg').replace('{n}', (s.kg - KG[r + 1]).toFixed(1))
+    : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (s.kg <= KG[r + 1] ? '✓' : `(−${(s.kg - KG[r + 1]).toFixed(1)})`));
+  $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, lvOf(i)))) / sum(goal) * 100 : 100) + '%';
+  while (s.seen < EX.length && (s.cal >= EX[s.seen].c / 2 || s.lv[EX[s.seen - 1].k] > 0)) s.seen++;   // bài tập ẩn "???" cho tới khi gần mua được
+  const newbie = p === 0;
+  [...$('list').children].forEach((c, i) => {
+    const e = EX[i], n = count(e), cost = bulk(e, n), b = c.querySelector('.buy'), g = goal[i] || 0, hid = i >= s.seen && !g, lv = s.lv[e.k], next = MS.find(x => x > lv), gl = c.querySelector('.goal');   // bài tập hạng kế cần thì luôn hiện
+    c.classList.toggle('hid', hid);
+    c.querySelector('b').textContent = hid ? '???' : e[s.lang][0];
+    c.querySelector('.d').textContent = hid ? '' : e[s.lang][1];
+    c.querySelector('.lv').textContent = hid ? '' : `${tr('lv')} ${lv}`;
+    c.querySelector('em').textContent = hid ? '' : `+${fmt((e.pps || e.click) * boost(lv) * m)} ${tr(e.pps ? 'perSec' : 'perClick')}`;
+    c.querySelector('.ms').textContent = hid || !next ? '' : `x2 ${tr('at')} ${next}`;
+    gl.textContent = g ? `🎯 ${kg(e, lv)} / ${kg(e, g)}${lv >= g ? ' ✓' : ''}` : ''; gl.classList.toggle('ok', lv >= g);
+    b.disabled = s.cal < cost;
+    b.classList.toggle('pulse', newbie && !b.disabled);
+    b.style.setProperty('--p', Math.min(100, s.cal / cost * 100) + '%');   // nút đầy dần khi sắp đủ calo
+    b.firstChild.textContent = '🔥 ' + fmt(cost);
+    b.lastChild.textContent = 'x' + n;
+  });
+  $('tip').textContent = tr(s.scene === 'home' ? 'homeTip' : duel ? 'duelTip' : s.sta < 1 ? 'noSta' : newbie && s.cal >= EX[0].c ? 'tipBuy' : 'tip');
+  document.querySelectorAll('#rivals .league').forEach((h, l) => {
+    h.textContent = `${tr('league')} ${l + 1}: ${LEAGUES[l][s.lang]} (${Math.max(0, Math.min(5, s.wins - l * 5))}/5)`;
+    h.classList.toggle('lock', s.wins < l * 5);
+  });
+  document.querySelectorAll('#rivals .card').forEach((c, i) => {
+    const b = c.querySelector('.buy');
+    c.classList.toggle('done', i < s.wins); c.classList.toggle('hid', i > s.wins);
+    b.textContent = i < s.wins ? '✓' : i > s.wins ? '🔒' : tr('fight') + (dow() === 6 ? '' : ' ⚡40');
+    b.disabled = i !== s.wins || !!duel || (dow() !== 6 && s.sta < 40);
+  });
+  // chấm đỏ khi ước tính đủ sức thắng đối thủ kế tiếp (bấm 5 lần/giây)
+  const pct = x => Math.round(x * 100) + '%', sc = summonCost();
+  $('petSum').textContent = `+${pct(petBonus('click'))} ${tr('perClick')} · +${pct(petBonus('pps'))} ${tr('perSec')}`;
+  $('summon').disabled = s.cal < sc;
+  $('summon').style.setProperty('--p', Math.min(100, s.cal / sc * 100) + '%');
+  $('summon').firstChild.textContent = tr('summon'); $('summon').lastChild.textContent = '🔥 ' + fmt(sc);
+  $('tabPet').classList.toggle('dot', s.cal >= sc);
+  [...$('pets').children].forEach((c, i) => {
+    const q = PETS[i], lv = s.pets[q.k] || 0;
+    c.classList.toggle('hid', !lv);
+    c.querySelector('b').textContent = lv ? q[s.lang] : '???';
+    c.querySelector('.lv').textContent = lv ? `${tr('lv')} ${lv}` : '';
+    c.querySelector('em').textContent = lv ? '= +' + pct((q.pps || q.click) * lv) : '';
+  });
+  $('tabDuel').classList.toggle('dot', !duel && s.wins < RIVALS.length && DUEL * (pps() + 5 * clickPower()) >= target(s.wins));
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.m == mode));
+  const g = starGain();
+  $('vStars').textContent = '⭐ ' + s.stars; $('vBonus').textContent = '+' + s.stars * 10 + '%'; $('vGain').textContent = '⭐ ' + g;
+  $('tabAsc').classList.toggle('dot', g >= 1);
+  $('boost').hidden = !CG || s.scene !== 'gym' || s.drink || !!duel; $('boost').textContent = tr('x2');   // nước tăng lực: một lần mỗi ngày
+  $('ascBtn').disabled = g < 1; $('ascBtn').textContent = g < 1 ? tr('ascNeed') : tr('ascBtn');
+  // nhiệm vụ hằng ngày
+  if (s.q.day !== dayIdx()) s.q = {day: dayIdx(), p: {}, got: {}};
+  let claimable = false;
+  document.querySelectorAll('#quests .card').forEach((c, j) => {
+    const q = todayQuests()[j], v = qProg(q), ok = v >= q.n, got = s.q.got[q.k], b = c.querySelector('.buy');
+    c.querySelector('.tile').textContent = q.i;
+    c.querySelector('b').textContent = tr('q' + q.k).replace('{n}', q.n);
+    c.querySelector('small').textContent = q.k === 'play' ? `${Math.floor(v / 60)} / ${q.n / 60} min` : `${Math.floor(v)} / ${q.n}`;
+    c.querySelector('.bar i').style.width = v / q.n * 100 + '%';
+    c.classList.toggle('done', !!got);
+    b.disabled = !ok || !!got; b.textContent = got ? '✓' : '🔥 ' + fmt(qReward());
+    claimable ||= ok && !got;
+  });
+  $('tabQuest').classList.toggle('dot', claimable);
+  // thành tựu + thống kê
+  s.best = Math.max(s.best, r);
+  ACH.forEach((a, j) => {
+    const v = AV[a.t](), c = $('achs').children[j];
+    if (!s.ach[a.id] && v >= a.n) { s.ach[a.id] = 1; toast('🏆 ' + achText(a), '+1%'); sfx.up(); }
+    c.classList.toggle('hid', !s.ach[a.id]);
+    c.querySelector('small').textContent = `${fmt(Math.min(v, a.n))} / ${fmt(a.n)}`;
+  });
+  const hrs = s.play / 3600;
+  // thể lực, mệt mỏi, cân nặng, ngày
+  const sm = Math.max(s.cap, s.sta), fatTxt = `${Math.round(s.fat)} · ${tr('fat' + fatLv())}`, staTxt = `${Math.floor(s.sta)} / ${sm}`;
+  $('staTxt').textContent = staTxt; $('staBar').style.width = s.sta / sm * 100 + '%';
+  $('fatTxt').textContent = fatTxt; $('kgTxt').textContent = s.kg.toFixed(1) + ' kg';
+  $('dayTxt').textContent = `${tr('day')} ${s.day} · ${T[s.lang].dw[dow()]}`;
+  $('goHome').classList.toggle('pulse', s.sta < 1);
+  $('go').disabled = fatLv() === 3;
+  if (s.scene === 'office') [fmt(s.cal), fmt(pps()), s.kg.toFixed(1) + ' kg', staTxt, fatTxt, `${s.wins} / ${RIVALS.length}`].forEach((v, j) => { $('os' + j).textContent = v; if (j === 4) $('os4').parentNode.hidden = unl() < 2; });
+  if (s.scene === 'home') [...$('meals').children].forEach(b => {
+    const M = MEALS[b.dataset.m], c = mealCost(M);
+    b.classList.toggle('on', s.next === M.k); b.disabled = !!s.next || s.cal < c; b.lastChild.textContent = '🔥 ' + fmt(c);
+  });
+  [`${Math.floor(hrs)}h ${Math.floor(hrs % 1 * 60)}m`, fmt(s.clicks), fmt(s.total), s.ascends, `${s.wins} / ${RIVALS.length}`, s.summons, `${Object.keys(s.ach).length} / ${ACH.length}`, 'x' + (m * (1 + petBonus('pps'))).toFixed(2)]
+    .forEach((v, j) => $('st' + j).textContent = v);
+}
+
+function toast(big, small, ms = 2200) {
+  $('toast').innerHTML = ''; $('toast').append(big);
+  if (small) { const x = document.createElement('small'); x.textContent = small; $('toast').append(x); }
+  $('toast').animate([{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
+}
+function celebrate() {   // lên hạng: loé sáng, rung, đổi hình
+  $('flash').animate([{opacity:.9}, {opacity:0}], 600);
+  $('frame').animate([{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
+  $('art').animate([{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
+  sfx.up();
+  const u = shown > s.best && T[s.lang].unlock[shown];   // lần đầu đạt hạng này: báo tính năng mới
+  toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
+}
+function syncRank(quiet) {
+  while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && s.kg <= KG[s.rk + 1]) s.rk++;
+  const r = rankOf(); if (r === shown) return;
+  const up = r > shown; shown = r; drawArt();
+  if (up && !quiet) celebrate();
+}
+
+// ============ Âm thanh (tổng hợp bằng WebAudio, không cần file) ============
+let ac;
+function beep(f, d = .08, type = 'square', v = .04, when = 0) {
+  if (s.mute || adOn || CG?.game.settings.muteAudio) return;   // cài đặt tắt tiếng của CrazyGames luôn được ưu tiên
+  try {
+    ac ??= new (window.AudioContext || window.webkitAudioContext)();
+    const o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime + when;
+    o.type = type; o.frequency.value = f;
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(g).connect(ac.destination); o.start(t); o.stop(t + d);
+  } catch {}
+}
+const sfx = {
+  click: () => beep(500 + Math.random() * 120, .05, 'triangle', .06),
+  buy:   () => { beep(660, .07); beep(880, .1, 'square', .04, .07); },
+  up:    () => [523, 659, 784, 1047].forEach((f, i) => beep(f, .16, 'square', .05, i * .09)),
+  hit:   () => beep(140, .09, 'sawtooth', .05),
+  lose:  () => { beep(220, .2, 'sawtooth'); beep(165, .3, 'sawtooth', .04, .18); },
+};
+
+// ============ Thao tác ============
+function buy(e) {
+  const n = count(e), c = bulk(e, n);
+  if (s.cal < c) return false;
+  const b0 = boost(s.lv[e.k]), g = RANKS[rankOf() + 1]?.goal[EX.indexOf(e)] || 0, was = s.lv[e.k];
+  s.cal -= c; s.lv[e.k] += n;
+  bump('buy', n); sfx.buy();
+  if (boost(s.lv[e.k]) > b0) toast(e[s.lang][0] + ' x' + boost(s.lv[e.k]) / b0 + '!');
+  if (g && was < g && s.lv[e.k] >= g) toast('🎯 ' + e[s.lang][0], kg(e, g) + ' ✓');
+  syncRank(); ui(); save();
+  return true;
+}
+let hold;   // giữ nút để mua liên tục
+const stopHold = () => { clearTimeout(hold); clearInterval(hold); };
+$('list').onpointerdown = ev => {
+  const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
+  const e = EX[b.dataset.i]; buy(e); stopHold();
+  hold = setTimeout(() => { hold = setInterval(() => buy(e) || stopHold(), 90); }, 350);
+};
+addEventListener('pointerup', stopHold); addEventListener('pointercancel', stopHold); addEventListener('blur', stopHold);
+$('list').onclick = ev => { const b = ev.target.closest('.buy'); if (b && ev.detail === 0) buy(EX[b.dataset.i]); };   // bàn phím
+$('list').oncontextmenu = ev => ev.preventDefault();
+
+$('hero').onclick = ev => {
+  // chống auto click: bỏ cú bấm do script tạo ra và giới hạn 20 lần/giây (người thật bấm nhanh nhất ~14 lần/giây)
+  const t = performance.now(); if (s.scene !== 'gym' || !ev.isTrusted || t - lastClick < 50) return; lastClick = t;
+  if (!duel) {   // mỗi cú bấm tốn 1 thể lực (trong trận đấu thì đã trả trước)
+    if (s.sta < 1) { $('goHome').animate([{transform:'scale(1.3)'}, {transform:'none'}], 200); return; }
+    s.sta--; s.used++;
+  }
+  if (CG && !playing) { playing = true; CG.game.gameplayStart(); }
+  const c = clickPower(), r = $('hero').getBoundingClientRect(), p = document.createElement('span');
+  earn(c); s.clicks++; bump('click'); sfx.click();
+  if (duel) { duel.score += c; $('foe').animate([{transform:'translateX(10px) rotate(5deg)', filter:'brightness(2)'}, {transform:'none', filter:'none'}], 140); }
+  $('art').animate([{transform:'scale(.94)'}, {transform:'scale(1)'}], 120);
+  p.className = 'pop'; p.textContent = '+' + fmt(c);
+  p.style.setProperty('--r', Math.random() * 24 - 12 + 'deg');
+  p.style.left = (ev.detail ? ev.clientX - r.left : r.width / 2) + Math.random() * 30 - 15 + 'px'; p.style.top = (ev.detail ? ev.clientY - r.top : r.height / 2) + 'px';
+  p.onanimationend = () => p.remove();
+  $('hero').append(p);
+  ui();
+};
+
+document.querySelector('.tools').onclick = ev => { const m = ev.target.dataset.m; if (m) { mode = m === 'max' ? m : +m; ui(); } };
+const TABS = ['Ex', 'Duel', 'Pet', 'Quest', 'Ach', 'Asc'];
+$('summon').onclick = () => {
+  const c = summonCost(); if (s.cal < c) return;
+  s.cal -= c; s.summons++; bump('summon'); sfx.buy();
+  let r = Math.random() * 100, q = PETS.find(x => (r -= x.w) < 0) || PETS[0];
+  s.pets[q.k] = (s.pets[q.k] || 0) + 1;
+  toast(q.i + ' ' + q[s.lang], `${tr('lv')} ${s.pets[q.k]}`);
+  ui(); save();
+};
+const tab = k => TABS.forEach(n => { $('v' + n).hidden = n !== k; $('tab' + n).classList.toggle('on', n === k); });
+for (const n of TABS) $('tab' + n).onclick = () => tab(n);
+
+function startDuel(i) {
+  if (dow() !== 6) { if (s.sta < 40) return; s.sta -= 40; s.used += 40; }   // thách đấu tốn 40 thể lực, Chủ nhật miễn phí
+  duel = {i, score: 0, end: Date.now() + DUEL * 1000, hit: Date.now() + 1000}; bump('duel');
+  $('dAva').innerHTML = rivalPic(i); $('dName').textContent = RIVALS[i][s.lang === 'vi' ? 1 : 2]; $('dYou').textContent = tr('you');
+  $('foe').src = `assets/rival-${String(i + 1).padStart(2, '0')}.webp`;
+  $('duel').hidden = $('foe').hidden = $('vs').hidden = false; $('frame').classList.add('fight');
+  duelTick(0, Date.now());
+}
+function stopDuel() { duel = null; $('duel').hidden = $('foe').hidden = $('vs').hidden = true; $('frame').classList.remove('fight'); }
+$('foe').onerror = () => { $('foe').hidden = true; };
+function duelTick(dt, now) {
+  if (!duel) return;
+  const goal = target(duel.i);
+  duel.score += pps() * dt;
+  $('dFill').style.width = Math.min(100, duel.score / goal * 100) + '%';
+  $('dTxt').textContent = `${fmt(duel.score)} / ${fmt(goal)}`;
+  $('dTime').textContent = Math.max(0, Math.ceil((duel.end - now) / 1000)) + 's';
+  $('dFoe').style.width = Math.min(100, (1 - (duel.end - now) / (DUEL * 1000)) * 100) + '%';   // đối thủ về đích đúng lúc hết giờ: bạn phải đầy thanh trước
+  if (now >= duel.hit) {   // đối thủ ra đòn (chỉ là hình ảnh)
+    duel.hit = now + 900 + Math.random() * 900; sfx.hit();
+    $('foe').animate([{transform:'none'}, {transform:'translateX(-40%) scale(1.15)'}, {transform:'none'}], 260);
+    $('art').animate([{transform:'none', filter:'none'}, {transform:'translateX(-14px) rotate(-5deg)', filter:'brightness(2) saturate(0)'}, {transform:'none', filter:'none'}], 260);
+  }
+  if (duel.score >= goal) {
+    const i = duel.i; stopDuel();
+    const pz = prize(i) * (dow() === 6 ? 2 : 1);   // Chủ nhật thưởng gấp đôi
+    s.wins++; earn(pz); save(); sfx.up();
+    $('flash').animate([{opacity:.9}, {opacity:0}], 600);
+    toast(tr('win'), `+${WIN_BONUS * 100}% · +${fmt(pz)} 🔥`);
+  } else if (now >= duel.end) { stopDuel(); toast(tr('lose'), tr('loseTip')); sfx.lose(); }
+}
+$('rivals').onclick = ev => { const b = ev.target.closest('.buy'); if (b && !b.disabled) startDuel(+b.dataset.r); };
+$('lang').onclick = () => { s.lang = s.lang === 'vi' ? 'en' : 'vi'; buildTexts(); save(); };
+$('mute').onclick = () => { s.mute = !s.mute; $('mute').textContent = s.mute ? '🔇' : '🔊'; save(); };
+$('quests').onclick = ev => {
+  const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
+  const q = todayQuests()[b.dataset.q], r = qReward();
+  s.q.got[q.k] = 1; earn(r); sfx.buy(); toast('📋 ' + tr('qDone'), '+' + fmt(r) + ' 🔥'); ui(); save();
+};
+
+function ask(text, yes) {   // hộp xác nhận trong game (confirm() bị chặn trong iframe của cổng game)
+  $('mText').textContent = text; $('modal').hidden = false;
+  $('mYes').onclick = () => { $('modal').hidden = true; yes(); };
+  $('mNo').onclick = () => { $('modal').hidden = true; };
+}
+$('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => {
+  // chỉ xoá những gì thuộc về một đời: calo và cấp bài tập; mọi thứ khác giữ nguyên
+  stopDuel(); Object.assign(s, {cal: 0, run: 0, rk: 0, lv: fresh().lv, stars: s.stars + starGain(), ascends: s.ascends + 1});
+  syncRank(true); ui(); save(); tab('Ex'); sfx.up();
+  $('flash').animate([{opacity:.9}, {opacity:0}], 800); toast('⭐ ' + s.stars, '+' + s.stars * 10 + '%');
+  CG?.game.happytime(); showAd('midgame', () => {});
+});
+$('boost').onclick = () => showAd('rewarded', ok => { if (ok) { s.sta += Math.floor(staMax() * .5); s.drink = true; sfx.up(); ui(); save(); } });
+// ============ Một ngày: văn phòng → phòng tập → nhà → ngủ → ngày mới ============
+function drawMeals() {
+  $('meals').innerHTML = menu().map(j => MEALS[j]).map((m, n, _, j = MEALS.indexOf(m)) => `<button class="meal" data-m="${j}"><img src="assets/food-${m.f}.webp" alt="" draggable="false" onerror="this.outerHTML='<span>${m.i}</span>'"><b>${m[s.lang]}</b><em>${mealDesc(m)}</em><i style="font-style:normal">${m.kg ? (m.kg > 0 ? '+' : '') + m.kg + ' kg' : '±0 kg'}</i><small></small></button>`).join('');
+}
+function go(scene) {
+  s.scene = scene; stopDuel(); drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
+  $('flash').animate([{opacity:.9}, {opacity:0}], 500); ui(); save();
+}
+function endDay() {
+  const frac = Math.min(1, s.used / Math.max(1, s.cap)), r = rankOf(), note = [], kg0 = s.kg, trained = s.used > 0;
+  if (!s.used) {   // ngày nghỉ: nghỉ khi đang mỏi thì được "Hồi phục", nghỉ khi còn sung sức là lười
+    const lazy = s.fat < 40; s.rec = !lazy; setKg(s.kg + (lazy ? .3 : .1)); s.fat = Math.max(0, s.fat - 60);
+  } else {         // ngày tập: mệt mỏi và cân nặng theo tỉ lệ thể lực đã dùng; trước hạng 3 chưa tính mệt mỏi
+    s.rec = false; setKg(s.kg - .3 * frac); s.fat = Math.min(100, Math.max(0, s.fat + (unl() >= 2 ? FAT[r] * frac : 0) - 5));
+  }
+  s.week.push(frac >= .5 ? 1 : 0);
+  if (s.week.length >= 7) { s.wkBonus = unl() >= 2 && s.week.reduce((a, b) => a + b) >= WK[r]; if (unl() >= 2) note.push(tr(s.wkBonus ? 'wkOk' : 'wkNo')); s.week = []; }
+  s.day++; s.meal = s.next; s.next = null; s.drink = false;
+  if ((s.day - 1) % 30 === 0) {   // cân kiểm tra mỗi 30 ngày: 1 Sao cho mỗi 2 kg giảm được
+    const st = Math.max(0, Math.floor((s.kg30 - s.kg) / 2)); s.stars += st; s.kg30 = s.kg; note.push(`${tr('weigh')}: +${st} ⭐`);
+  }
+  s.cap = s.sta = staMax(); s.used = 0; s.q = {day: s.day, p: {}, got: {}};
+  sayIdx = Math.floor(Math.random() * 8);
+  const dk = s.kg - kg0;
+  note.unshift(`${tr(trained ? 'kgTrain' : 'kgRest')}: ${dk > 0 ? '+' : '−'}${Math.abs(dk).toFixed(1)} kg → ⚖️ ${s.kg.toFixed(1)} kg` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
+  go('office'); sfx.buy(); toast(`${tr('day')} ${s.day}`, note.join(' · '), 3500); syncRank(); ui(); save();
+  if (s.day % 3 === 0) showAd('midgame', () => {});
+}
+$('go').onclick = () => { go('gym'); sfx.up(); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } };
+$('rest').onclick = () => ask(tr('qRest'), () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); });   // nghỉ khi còn sung sức = bỏ tập
+$('goHome').onclick = () => ask(tr('qHome'), () => go('home'));
+$('sleep').onclick = endDay;
+$('meals').onclick = ev => {
+  const b = ev.target.closest('.meal'); if (!b || b.disabled) return;
+  const m = MEALS[b.dataset.m], c = mealCost(m);
+  s.cal -= c; setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.buy(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); ui(); save();
+};
+$('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.buy(); save(); };
+$('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); s = Object.assign(fresh(), {lang: s.lang, mute: s.mute, char: s.char}); syncRank(true); ui(); save(); tab('Ex'); });
+
+// ============ Khởi động + vòng lặp ============
+(async () => {
+try {
+  const k = window.CrazyGames.SDK;
+  await Promise.race([k.init(), new Promise((_, no) => setTimeout(no, 4000))]);
+  if (k.environment !== 'disabled') {
+    CG = k; CG.game.loadingStart();
+    const old = localStorage.getItem(KEY);   // bản lưu có từ trước khi gắn SDK
+    if (old && !CG.data.getItem(KEY)) CG.data.setItem(KEY, old);
+  }
+} catch {}
+load(); ready = true;
+shown = rankOf(); drawArt(); buildTexts(); tab(s.scene === 'home' ? 'Pet' : 'Ex');
+if (CG) CG.game.loadingStop();
+if (Date.now() - s.t > 864e5) { s.used = 0; s.scene = 'home'; endDay(); }   // vắng hơn 24 giờ thật: tính là 1 ngày nghỉ
+{ // calo kiếm được lúc tắt game, tối đa 8 giờ
+  const away = Math.min((Date.now() - s.t) / 1000, 8 * 3600), gain = pps() * away;
+  if (away > 60 && gain >= 1) { earn(gain); toast(tr('away'), '+' + fmt(gain) + ' 🔥'); }
+  s.t = Date.now();
+}
+setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn cộng đúng
+  const now = Date.now();
+  const dt = Math.min((now - s.t) / 1000, 8 * 3600);
+  earn(pps() * dt); duelTick(dt, now);
+  const live = Math.min(dt, 5); s.play += live; bump('play', live);   // không tính thời gian tab bị ẩn lâu
+  s.t = now; ui();
+}, 100);
+setInterval(save, 5000);
+addEventListener('visibilitychange', save);
+})();
+</script>
+</body>
+</html>

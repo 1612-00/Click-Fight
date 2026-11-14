@@ -1,0 +1,88 @@
+"""Mô phỏng nhịp chơi theo ngày trong game: python tools/sim.py
+In ra ngày và tổng thời gian chơi khi đạt từng hạng, với ba kiểu nghỉ: không bao giờ nghỉ / nghỉ khi Mỏi (>=40) / nghỉ khi Kiệt sức (>=70).
+Người chơi bấm CPS lần/giây cho tới khi hết thể lực, mua thứ còn thiếu mục tiêu (rẻ nhất trước), thách đấu khi thắng được, tối ăn cơm gà.
+Các số trong G phải khớp với index.html (EX, RANKS, R, MS, KG, FAT, WK, staMax, target, prize, summonCost, MEALS)."""
+import sys
+sys.stdout.reconfigure(encoding="utf-8")
+EX = [(15, 1, 0), (100, 0, 1), (1100, 0, 8), (12000, 0, 47), (40000, 12, 0), (130000, 0, 260), (1400000, 0, 1400), (20000000, 0, 7800)]  # giá, +bấm, +giây
+MS = [25, 50, 100]
+CPS = 4
+IDLE = 30   # giây mỗi ngày không bấm: văn phòng, mua bài tập, ở nhà
+G = dict(goals=[[0] * 8, [10, 8, 5, 0, 0, 0, 0, 0], [25, 20, 15, 10, 5, 0, 0, 0], [40, 35, 30, 22, 15, 10, 0, 0], [55, 48, 42, 35, 28, 25, 15, 0], [70, 60, 55, 48, 40, 40, 32, 20]],
+         mults=[1, 1.25, 1.5, 2, 2.5, 3], R=1.17,
+         kg=[999, 999, 999, 82, 77, 73], fat=[30, 26, 22, 18, 14, 10], wk=[4, 4, 5, 5, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,
+         duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=20, duel_sta=40,
+         s0=5000, sg=2.5, pet=.042, ach=.01)
+
+
+def run(g, rest_at=40, meal='h', limit=400):
+    lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = 85.0; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
+    out = {}; rests = 0; gm = {}   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
+    boost = lambda l: 2 ** sum(l >= m for m in MS)
+
+    def rates():
+        m = g['mults'][rk] * (1 + g['win'] * wins) * (1 + g['ach'] * min(16, rk * 2 + wins // 4 + summons // 5 + 3)) * (1.1 if wkb else 1) * (1.2 if 68 <= kg <= 72 else 1) * {'p': 1.25, 'j': 1.1}.get(today, 1)
+        pb = 1 + g['pet'] * summons
+        base = sum(e[2] * l * boost(l) for e, l in zip(EX, lv))
+        click = (1 + sum(e[1] * l * boost(l) for e, l in zip(EX, lv)) + base * .05) * m * pb * (1.25 if rec else 1) * (1.5 if today == 'j' else 1)
+        return base * m * pb, click
+
+    def shop():
+        nonlocal cal, summons, rk
+        while True:
+            while rk < 5 and all(l >= x for l, x in zip(lv, g['goals'][rk + 1])) and kg <= g['kg'][rk + 1]: rk += 1
+            if rk == 5: return
+            if all(l >= x for l, x in zip(lv, g['goals'][rk + 1])): gm.setdefault(rk + 1, (day, t))
+            miss = [i for i in range(8) if lv[i] < g['goals'][rk + 1][i]]
+            if not miss:   # chỉ còn kẹt cân nặng: mua thứ rẻ nhất để tăng thu nhập
+                miss = list(range(8))
+            i = min(miss, key=lambda i: EX[i][0] * g['R'] ** lv[i]); c = EX[i][0] * g['R'] ** lv[i]
+            sc = g['s0'] * g['sg'] ** summons
+            if sc <= c * 2 and cal >= sc: cal -= sc; summons += 1; continue
+            if cal < c: return
+            cal -= c; lv[i] += 1
+
+    while day <= limit and rk < 5:
+        flv = 3 if fat >= 100 else 2 if fat >= 70 else 1 if fat >= 40 else 0
+        cap = int((g['sta0'] + g['sta_rank'] * rk + g['sta_cardio'] * lv[7]) * [1, .75, .5, .5][flv] * (.8 if kg > 90 else 1) * ({'h': 1.1, 'j': 1.5}.get(today, 1)))
+        r0 = rk; used = 0; sunday = (day - 1) % 7 == 6
+        pps, click = rates(); cal += pps * IDLE; t += IDLE
+        if fat >= 100 or fat >= rest_at:
+            rests += 1; lazy = fat < 40; rec_next = not lazy; kg += .3 if lazy else .1; fat = max(0, fat - 60)
+        else:
+            sta = cap
+            while sta >= 1:
+                pps, click = rates()
+                if wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= g['t0'] * g['tg'] ** wins:
+                    if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
+                    cal += g['t0'] * g['tg'] ** wins * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
+                else:
+                    n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS
+                shop()
+            frac = min(1, used / max(1, cap)); rec_next = False
+            kg -= .3 * frac; fat = min(100, max(0, fat + (g['fat'][r0] * frac if r0 >= 2 else 0) - 5))
+        frac = min(1, used / max(1, cap)); week.append(1 if frac >= .5 else 0)
+        if len(week) >= 7: wkb = r0 >= 2 and sum(week) >= g['wk'][r0]; week = []
+        nxt = None
+        if rk >= 1 and meal: nxt = meal; kg += {'h': -.1, 'p': 0, 'j': .2}[meal]; pps, click = rates(); cal -= min(cal, {'h': 30, 'p': 180, 'j': 30}[meal] * (pps + 3 * click))
+        kg = min(120, max(65, kg)); rec = rec_next; today = nxt; day += 1
+        shop()
+        if rk not in out and rk > 0:
+            for r in range(1, rk + 1): out.setdefault(r, (day, t, kg))
+    return out, dict(day=day, t=t, kg=kg, wins=wins, summons=summons, rests=rests, lv=lv, rk=rk, gm=gm)
+
+
+def fmt(s): return f'{int(s // 3600)}h{int(s % 3600 // 60):02d}m' if s >= 3600 else f'{int(s // 60)}m{int(s % 60):02d}s'
+
+
+def report(name, **over):
+    g = {**G, **over}
+    print(name, over or '')
+    for label, ra in (('không nghỉ', 999), ('nghỉ khi Mỏi', 40), ('nghỉ khi Kiệt sức', 70)):
+        out, e = run(g, ra)
+        print(f'  {label:18}', '  '.join(f'H{r + 1}: ngày {d} ({fmt(t)}, {k:.1f}kg)' for r, (d, t, k) in sorted(out.items())),
+              f"| cuối: hạng {e['rk'] + 1}, ngày {e['day']}, nghỉ {e['rests']}, đấu {e['wins']}, gọi {e['summons']}, {fmt(e['t'] / max(1, e['day'] - 1))}/ngày")
+
+
+if __name__ == '__main__':
+    report('HIỆN TẠI')

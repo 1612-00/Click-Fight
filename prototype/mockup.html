@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo giao diện – Văn Phòng Lột Xác</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2a1b3d;--bg:#171028;--panel:#231a3d;--card:#30245280;--line:#463670;--txt:#f4efff;--mute:#a99cc9;--gold:#ffc83d;--gold2:#ff9a1f;--aura:#7c8aa5}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Baloo 2',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:grid;place-items:center}
+.frame{width:100%;max-width:1100px;height:100vh;max-height:700px;display:grid;grid-template-columns:1fr minmax(320px,380px);background:#120c20;overflow:hidden}
+@media(min-width:1100px){.frame{border-radius:20px;box-shadow:0 30px 80px #0009}}
+@media(max-width:700px){.frame{grid-template-columns:1fr;height:auto;max-height:none}.stage{height:560px}}
+
+/* ---------- sân khấu ---------- */
+.stage{position:relative;overflow:hidden;display:flex;flex-direction:column;background:
+  radial-gradient(120% 60% at 50% 100%,#3b2a6b 0,transparent 70%),
+  linear-gradient(#1c1336,#2a1d52 62%,#1a1230 62.2%,#140e26)}
+.stage::before{content:"";position:absolute;inset:0 0 38% 0;opacity:.07;background:
+  repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 64px),repeating-linear-gradient(#fff 0 2px,transparent 2px 64px)}
+.hud{position:relative;z-index:2;padding:12px 14px 0;display:flex;gap:10px;align-items:center}
+.rank{flex:1;min-width:0;display:flex;gap:10px;align-items:center;background:#0006;border:2px solid var(--line);border-radius:16px;padding:6px 12px 6px 6px}
+.rank .badge{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1.2rem;color:var(--ink);background:linear-gradient(#fff,var(--aura));box-shadow:0 0 14px var(--aura)}
+.rank b{display:block;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:8px;border-radius:9px;background:#0008;margin-top:5px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--aura),#fff)}
+.round{flex:none;width:42px;height:42px;border-radius:14px;border:2px solid var(--line);background:#0006;font-size:1.1rem;cursor:pointer}
+.money{position:relative;z-index:2;text-align:center;margin-top:8px;line-height:1}
+.money .n{font-size:3rem;font-weight:800;letter-spacing:.5px;color:#fff;text-shadow:0 3px 0 var(--ink),0 0 24px #ffb02e88}
+.money .n span{font-size:2.2rem;filter:drop-shadow(0 2px 0 var(--ink))}
+.money .r{display:inline-block;margin-top:6px;padding:2px 12px;border-radius:99px;background:#0007;color:var(--gold);font-weight:700;font-size:.95rem}
+.hero{position:relative;flex:1;min-height:0;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.hero>*{grid-area:1/1}
+.aura,.rays{width:min(96%,460px);aspect-ratio:1;border-radius:50%;pointer-events:none}
+.aura{background:radial-gradient(circle,var(--aura) 0,transparent 66%);opacity:.6}
+.rays{background:repeating-conic-gradient(var(--aura) 0 7deg,transparent 7deg 22deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 68%);mask:radial-gradient(circle,#000 18%,transparent 68%);opacity:.28;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+#guy{height:100%;max-height:430px;min-height:0;position:relative;animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 0 #0003)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.hero:active #guy{animation:none;transform:scale(.96)}
+.pop{position:absolute;z-index:3;pointer-events:none;font-weight:800;font-size:1.6rem;color:var(--gold);text-shadow:0 2px 0 var(--ink),0 0 10px #ff9a1f;animation:pop .9s ease-out forwards}
+@keyframes pop{from{transform:translate(-50%,-50%) scale(.6)}20%{transform:translate(-50%,-80%) scale(1.15)}to{transform:translate(-50%,-190%) scale(1);opacity:0}}
+.foot{position:relative;z-index:2;display:flex;gap:10px;align-items:center;padding:0 14px 12px}
+.demo{flex:1;background:#0007;border:2px dashed var(--line);border-radius:14px;padding:4px 12px 8px;font-size:.85rem;color:var(--mute)}
+.demo input{width:100%;accent-color:var(--gold);display:block}
+.ascend{flex:none;border:0;border-radius:14px;padding:8px 14px;font:inherit;font-weight:800;color:#fff;background:linear-gradient(#b17cff,#7a3cf0);box-shadow:0 4px 0 #4a1fa8;cursor:pointer;line-height:1.1}
+.ascend small{display:block;font-weight:500;opacity:.85}
+
+/* ---------- bảng bên phải ---------- */
+.panel{display:flex;flex-direction:column;min-height:0;background:var(--panel);border-left:3px solid #0006}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:10px 10px 0}
+.tabs button{border:0;border-radius:12px 12px 0 0;padding:6px 0 4px;font:inherit;font-size:.72rem;font-weight:700;color:var(--mute);background:#0004;cursor:pointer;line-height:1.15}
+.tabs button span{display:block;font-size:1.25rem}
+.tabs .on{background:#3a2c66;color:#fff;box-shadow:inset 0 3px 0 var(--gold)}
+.tools{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#3a2c66;font-weight:700}
+.tools span{flex:1}
+.chip{border:2px solid var(--line);background:#0004;color:var(--mute);border-radius:99px;padding:0 12px;font:inherit;font-weight:700;cursor:pointer}
+.chip.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.list{flex:1;overflow:auto;padding:10px;display:grid;gap:8px;align-content:start;background:linear-gradient(#3a2c66,var(--panel) 80px)}
+.card{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:8px;border-radius:16px;background:var(--card);border:2px solid var(--line)}
+.tile{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.8rem;box-shadow:inset 0 -4px 0 #0003,inset 0 2px 0 #fff5}
+.card b{font-size:1.05rem;line-height:1.1}
+.lv{font-size:.75rem;font-weight:700;color:var(--ink);background:#fff;border-radius:99px;padding:0 7px;margin-left:4px;vertical-align:1px}
+.card small{display:block;color:var(--mute);line-height:1.2}
+.card em{font-style:normal;color:#7dffb0;font-weight:700;font-size:.85rem}
+.buy{border:0;border-radius:12px;min-width:84px;padding:7px 10px;font:inherit;font-weight:800;font-size:1rem;color:var(--ink);background:linear-gradient(var(--gold),var(--gold2));box-shadow:0 4px 0 #b85c00;cursor:pointer}
+.buy:active{transform:translateY(3px);box-shadow:0 1px 0 #b85c00}
+.card.no .buy{background:#4b3f6e;color:#a99cc9;box-shadow:0 4px 0 #2c2247;cursor:not-allowed}
+.card.lock{opacity:.6;border-style:dashed}
+.card.lock .tile{filter:grayscale(1)}
+</style>
+</head>
+<body>
+<div class="frame">
+  <section class="stage">
+    <div class="hud">
+      <div class="rank">
+        <div class="badge" id="rk">1</div>
+        <div style="flex:1;min-width:0"><b id="rname"></b><div class="bar"><i id="rbar"></i></div></div>
+      </div>
+      <button class="round" aria-label="Âm thanh">🔊</button>
+      <button class="round" aria-label="Cài đặt">⚙️</button>
+    </div>
+    <div class="money"><div class="n"><span>🔥</span> <b id="cal">1.248</b></div><div class="r">+86 calo/giây</div></div>
+    <div class="hero" id="hero">
+      <div class="aura"></div><div class="rays"></div>
+      <svg id="guy" viewBox="0 0 400 510"></svg>
+    </div>
+    <div class="foot">
+      <label class="demo">Demo: kéo để xem nhân vật lột xác
+        <input id="t" type="range" min="0" max="1" step="0.01" value="0">
+      </label>
+      <button class="ascend">⭐ Lên đời<small>x1,5 vĩnh viễn</small></button>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="tabs">
+      <button class="on"><span>💪</span>Bài tập</button>
+      <button><span>⚔️</span>Đối thủ</button>
+      <button><span>🐶</span>Bạn tập</button>
+      <button><span>📋</span>Nhiệm vụ</button>
+      <button><span>🏆</span>Thành tựu</button>
+    </div>
+    <div class="tools"><span>Mua mỗi lần</span><button class="chip on">x1</button><button class="chip">x10</button><button class="chip">Tối đa</button></div>
+    <div class="list" id="list"></div>
+  </aside>
+</div>
+<script>
+const O = '#2a1b3d', SKIN = '#f8c9a0', PANTS = '#46558f';
+const RANKS = [['Dân văn phòng suy nhược','#7c8aa5'],['Tập tành cho vui','#4ade80'],['Gymer nghiệp dư','#22d3ee'],['Body săn chắc','#a78bfa'],['Sáu múi lấp ló','#fb923c'],['Thần gym công sở','#fde047']];
+const CARDS = [
+  ['💪','Tay','Cuốn tạ bằng chai nước','+1 mỗi lần bấm',12,'78','#ff8a5c,#e5484d',''],
+  ['🏋️','Vai','Đẩy vai bằng ghế xoay','+1 calo/giây',8,'184','#ffd35c,#ff9a1f',''],
+  ['🤜','Ngực','Hít đất cạnh bàn làm việc','+5 calo/giây',5,'603','#7dd3fc,#3b82f6',''],
+  ['🔥','Bụng','Gập bụng giờ nghỉ trưa','+20 calo/giây',2,'1,6 N','#f9a8d4,#db2777','no'],
+  ['👀','Mắt','Nhìn xa 20-20-20','+8 mỗi lần bấm',0,'2,5 N','#86efac,#16a34a','no'],
+  ['🦵','Chân','Mở khoá ở hạng Gymer nghiệp dư','',0,'🔒','#c4b5fd,#7c3aed','no lock'],
+];
+const $ = id => document.getElementById(id);
+
+$('list').innerHTML = CARDS.map(([i,n,d,e,l,p,g,c]) => `<div class="card ${c}">
+  <div class="tile" style="background:linear-gradient(${g})">${i}</div>
+  <div><b>${n}</b>${c.includes('lock') ? '' : `<span class="lv">Cấp ${l}</span>`}<small>${d}</small><em>${e}</em></div>
+  <button class="buy">${c.includes('lock') ? p : '🔥 ' + p}</button></div>`).join('');
+
+// t: 0 = suy nhược, 1 = thần gym
+function guy(t) {
+  const sw = 62 + 40 * t, ww = 62 - 12 * t, b = 36 * (1 - t), aw = 22 + 26 * t, lw = 28 + 14 * t, nw = 28 + 18 * t;
+  const S = `stroke="${O}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"`;
+  const arm = d => { const x1 = 200 + d * (sw - 4), x2 = 200 + d * (sw + 16 + 8 * t + b * .75), xs = x1 + (x2 - x1) * .34;
+    return `<path d="M${x1} 258L${x2} 352" stroke="${O}" stroke-width="${aw + 10}" stroke-linecap="round"/>
+      <path d="M${x1} 258L${x2} 352" stroke="${SKIN}" stroke-width="${aw}" stroke-linecap="round"/>
+      <path d="M${x1} 256L${xs} 290" stroke="${O}" stroke-width="${aw + 16}" stroke-linecap="round"/>
+      <path d="M${x1} 256L${xs} 290" stroke="#eef2fb" stroke-width="${aw + 6}" stroke-linecap="round"/>
+      <circle cx="${x2}" cy="358" r="${aw / 2 + 4}" fill="${SKIN}" ${S}/>`; };
+  const leg = d => { const cx = 200 + d * (ww * .5 + 2);
+    return `<rect x="${cx - lw / 2}" y="398" width="${lw}" height="76" rx="10" fill="${PANTS}" ${S}/>
+      <ellipse cx="${cx + d * 7}" cy="478" rx="${lw / 2 + 13}" ry="13" fill="#3a2a4a" ${S}/>`; };
+  const brow = d => `<path d="M${200 + d * 46} ${128 - 9 * t}L${200 + d * 17} ${119 + 8 * t}" ${S} stroke-width="6" fill="none"/>`;
+  const eye = d => `<ellipse cx="${200 + d * 30}" cy="150" rx="7" ry="9" fill="${O}"/><circle cx="${200 + d * 30 + 2.5}" cy="146" r="2.5" fill="#fff"/>
+    <path d="M${200 + d * 30 - 11} 166q11 7 22 0" stroke="#d99a78" stroke-width="3" fill="none" stroke-linecap="round" opacity="${1 - t * 1.5}"/>`;
+  return `
+  <defs>
+    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdcbd"/><stop offset="1" stop-color="#f2b488"/></linearGradient>
+    <linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d3dcf2"/></linearGradient>
+  </defs>
+  <ellipse cx="200" cy="490" rx="${105 + 20 * t}" ry="14" fill="#0006"/>
+  ${leg(-1)}${leg(1)}${arm(-1)}${arm(1)}
+  <rect x="${200 - nw / 2}" y="196" width="${nw}" height="50" fill="${SKIN}" ${S}/>
+  <path d="M${200 - sw} 252Q${200 - sw} 232 ${200 - sw + 20} 232H${200 + sw - 20}Q${200 + sw} 232 ${200 + sw} 252C${200 + sw - 4 + b} 300 ${200 + ww + b * 1.3} 362 ${200 + ww} 394H${200 - ww}C${200 - ww - b * 1.3} 362 ${200 - sw + 4 - b} 300 ${200 - sw} 252Z" fill="url(#sh)" ${S}/>
+  <path d="M${200 - sw * .72} 288Q${200 - sw * .36} ${300 + 14 * t} 196 290M204 290Q${200 + sw * .36} ${300 + 14 * t} ${200 + sw * .72} 288" stroke="#aab6d6" stroke-width="4" fill="none" stroke-linecap="round" opacity="${t}"/>
+  <path d="M152 364Q200 388 248 364" stroke="#b9c4e0" stroke-width="4" fill="none" stroke-linecap="round" opacity="${1 - t * 1.6}"/>
+  <g fill="#b9c4e0" opacity="${1 - t}"><circle cx="200" cy="346" r="3.5"/><circle cx="200" cy="364" r="3.5"/></g>
+  <rect x="${200 - ww - 2}" y="380" width="${2 * ww + 4}" height="36" rx="12" fill="${PANTS}" ${S}/>
+  <rect x="${200 - ww - 2}" y="380" width="${2 * ww + 4}" height="13" rx="5" fill="#5a3d2b" ${S} stroke-width="4"/>
+  <rect x="191" y="378" width="18" height="17" rx="3" fill="#ffcc4d" ${S} stroke-width="3.5"/>
+  <g transform="rotate(${7 * (1 - t)} 200 240)">
+    <path d="M195 250h10l8 68-13 15-13-15z" fill="#e5484d" ${S} stroke-width="4"/>
+    <path d="M191 236h18l-4 15h-10z" fill="#c2333c" ${S} stroke-width="4"/>
+  </g>
+  <path d="M200 240l-30-9 9 27zM200 240l30-9-9 27z" fill="#fff" ${S} stroke-width="4"/>
+  <circle cx="124" cy="150" r="13" fill="url(#sk)" ${S}/><circle cx="276" cy="150" r="13" fill="url(#sk)" ${S}/>
+  <ellipse cx="200" cy="140" rx="76" ry="72" fill="url(#sk)" ${S}/>
+  <path d="M126 130C116 58 200 42 250 60C284 70 288 104 276 132C262 104 236 95 206 100C176 100 148 104 126 130Z" fill="#3b2a25" ${S}/>
+  <ellipse cx="156" cy="176" rx="12" ry="7" fill="#ff8f8f" opacity=".45"/><ellipse cx="244" cy="176" rx="12" ry="7" fill="#ff8f8f" opacity=".45"/>
+  ${brow(-1)}${brow(1)}${eye(-1)}${eye(1)}
+  <g opacity="${t < .5 ? 1 : 0}" ${S}>
+    <rect x="146" y="130" width="48" height="42" rx="15" fill="#bfe3ff55"/><rect x="206" y="130" width="48" height="42" rx="15" fill="#bfe3ff55"/>
+    <path d="M194 148h12M146 146l-20-4M254 146l20-4" fill="none"/>
+    <path d="M156 140l8 12M216 140l8 12" stroke="#fff" stroke-width="4" fill="none"/>
+  </g>
+  <path d="M182 ${190 - 4 * t}Q200 ${180 + 26 * t} 218 ${190 - 4 * t}" fill="none" ${S}/>
+  <path d="M286 78q12 18 0 26q-12-8 0-26z" fill="#7dd3fc" ${S} stroke-width="3.5" opacity="${1 - t * 2.5}"/>`;
+}
+
+function set(t) {
+  const i = Math.min(Math.floor(t * RANKS.length), RANKS.length - 1);
+  $('guy').innerHTML = guy(t);
+  $('rk').textContent = i + 1;
+  $('rname').textContent = RANKS[i][0];
+  $('rbar').style.width = (t * RANKS.length - i) * 100 + '%';
+  document.documentElement.style.setProperty('--aura', RANKS[i][1]);
+}
+$('t').oninput = e => set(+e.target.value);
+set(0);
+
+let cal = 1248;
+$('hero').onclick = e => {
+  cal += 13; $('cal').textContent = cal.toLocaleString('vi');
+  const r = $('hero').getBoundingClientRect(), p = document.createElement('span');
+  p.className = 'pop'; p.textContent = '+13';
+  p.style.left = e.clientX - r.left + 'px'; p.style.top = e.clientY - r.top + 'px';
+  p.onanimationend = () => p.remove();
+  $('hero').append(p);
+};
+</script>
+</body>
+</html>
