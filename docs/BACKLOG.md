@@ -4,8 +4,6 @@ Xong việc nào thì xoá dòng đó. Phát hiện việc mới thì thêm vào
 
 ## Cần chủ dự án làm
 
-- Tạo 4 ảnh: `bg3.png` (nền nhà), `food-healthy.png`, `food-protein.png`, `food-junk.png`. Prompt ở cuối `assets/PROMPTS.md`. Thả vào `assets/original/` rồi chạy `python assets/build.py`. Hiện game dùng nền màu và emoji.
-- Quyết định: mỗi món một ảnh (9 ảnh) hay mỗi nhóm một ảnh (3 ảnh, như hiện tại).
 - Tài khoản nhà phát triển CrazyGames và tải game lên. Mục Progress Save chọn "Yes, using the Data Module".
 
 ## Chưa kiểm tra trực tiếp

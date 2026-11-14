@@ -1,4 +1,5 @@
-"""Nén ảnh gốc trong assets/original/*.png thành .webp nhỏ cho game (chạy: python assets/build.py).
+"""Nén ảnh gốc trong assets/original/<nhóm>/*.png thành assets/<nhóm>/*.webp cho game (chạy: python assets/build.py).
+Nhóm: char, bg, icon, pet, rival, food, scene, ui. Thư mục original/store (ảnh bìa, logo) chỉ dùng cho trang đăng game nên bỏ qua.
 Icon nào bị vẽ dính nền ô caro giả (ảnh RGB không có kênh trong suốt) thì tự tách nền."""
 import glob, os
 import numpy as np
@@ -58,24 +59,28 @@ def cut_bg(im):
 
 
 def save(im, name, **kw):
-    path = os.path.join(HERE, name + '.webp')
+    os.makedirs(os.path.join(HERE, sub), exist_ok=True)
+    path = os.path.join(HERE, sub, name + '.webp')
     im.save(path, 'WEBP', method=6, **kw)
-    print(f'{name}.webp  {im.size}  {os.path.getsize(path) // 1024} KB')
+    print(f'{sub}/{name}.webp  {im.size}  {os.path.getsize(path) // 1024} KB')
 
 
-for f in sorted(glob.glob(os.path.join(SRC, '*.png'))):
+for f in sorted(glob.glob(os.path.join(SRC, '*', '*.png'))):
     name = os.path.splitext(os.path.basename(f))[0]
+    sub = os.path.basename(os.path.dirname(f))
+    if sub == 'store':
+        continue
     im = Image.open(f)
     if name.startswith('bg'):
         save(im.convert('RGB'), name, quality=82)
     elif 'rank' in name:   # rank1.. và c2-rank1..: giữ nguyên khung để nhân vật không nhảy vị trí giữa các hạng
         im = im.convert('RGBA') if im.mode == 'RGBA' else cut_bg(im)
         save(im.resize((683, 1024), Image.LANCZOS), name, quality=88)
-    elif name.startswith(('icon', 'pet', 'rival', 'food')):
+    elif name.startswith(('icon', 'pet', 'rival', 'food', 'ui', 'tab', 'scene')):
         im = im.convert('RGBA') if im.mode == 'RGBA' else cut_bg(im)
         im = im.crop(im.getchannel('A').getbbox())
         side = max(im.size)
         sq = Image.new('RGBA', (side, side))
         sq.paste(im, ((side - im.width) // 2, (side - im.height) // 2))
-        px = 384 if name.startswith('rival') else 192   # đối thủ còn hiện to ở màn đấu
+        px = 384 if sub in ('rival', 'scene') else 96 if sub == 'ui' else 192   # đối thủ hiện to ở màn đấu, scene ở màn chờ; icon giao diện rất nhỏ
         save(sq.resize((px, px), Image.LANCZOS), name, quality=90)

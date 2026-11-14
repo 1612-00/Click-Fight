@@ -16,7 +16,7 @@ Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đún
 ## Cấu trúc
 
 - `index.html`: toàn bộ game (CSS, HTML, JS thuần). Không build, không thư viện. Script chia mục bằng chú thích `// ============ Tên mục ============`: Dữ liệu, Trạng thái + lưu, Công thức, Hiển thị, Âm thanh, Thao tác, Một ngày, Khởi động + vòng lặp.
-- `assets/original/*.png`: ảnh gốc do chủ dự án tạo. `assets/*.webp`: ảnh game dùng, sinh ra bởi `assets/build.py`, không sửa tay.
+- `assets/original/<nhóm>/*.png`: ảnh gốc do chủ dự án tạo. `assets/<nhóm>/*.webp`: ảnh game dùng, sinh ra bởi `assets/build.py`, không sửa tay. Nhóm: `char` (nhân vật theo hạng), `bg` (nền), `icon` (bài tập), `pet`, `rival`, `food`, `scene` (màn chờ), `ui` (icon giao diện `ui-*`, `tab-*`). `original/store` (ảnh bìa, logo cho CrazyGames) không build và không nằm trong game.
 - `tools/sim.py`: mô phỏng nhịp chơi theo ngày để cân bằng.
 - `prototype/`: bản thử ban đầu, không còn dùng.
 - `.claude/launch.json`: server xem thử tên `game`, cổng 8766.
@@ -41,6 +41,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Vòng lặp**: tick 100 ms cộng calo theo thời gian thực rồi gọi `ui()`. Tự lưu mỗi 5 giây.
 - **Hiển thị**: `buildTexts()` dựng lại HTML khi đổi ngôn ngữ; `drawDay()` phần đổi theo ngày/màn; `ui()` chỉ cập nhật số mỗi tick.
 - **Chữ**: mọi chuỗi hiển thị nằm trong `T = {vi, en}`, lấy bằng `tr(key)`. Thêm chuỗi phải thêm cả hai ngôn ngữ.
+- **Icon**: chuỗi vẫn viết emoji; `rich(text)` đổi các emoji trong bảng `ICO` thành ảnh `assets/ui/*.webp`. Chỗ cập nhật mỗi tick dùng `put(el, text)` thay cho `textContent`. Thêm icon mới: thêm ảnh vào `original/ui` và một dòng vào `ICO`.
 - **Màn**: `s.scene` = `office | gym | home`, đổi bằng `go(scene)`. `endDay()` kết thúc ngày.
 - **Hạng**: `s.rk`, chỉ tăng trong `syncRank()`. Tính năng mở theo `unl()` (hạng cao nhất từng đạt).
 - **Hộp xác nhận**: dùng `ask(text, yes)`. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
@@ -60,4 +61,4 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - Chủ dự án có thể đang chơi trên cùng tab: không để trạng thái thử tồn tại qua nhiều lần gọi.
 - Bấm nhân vật cần cú bấm thật (`ev.isTrusted`, tối đa 20 lần/giây); `$('hero').click()` bị bỏ qua. Các nút khác bấm bằng `.click()` được.
 - Thử cả khung máy tính và điện thoại (375×812) khi đổi bố cục.
-- 404 của `assets/bg3.webp`, `assets/food-*.webp` là bình thường khi chưa có ảnh (game dùng nền màu và emoji).
+- Mọi ảnh đều có phương án dự phòng (emoji hoặc nền màu), nên thiếu ảnh game vẫn chạy; nhưng hiện tại không còn ảnh nào thiếu, thấy 404 là có lỗi đường dẫn.

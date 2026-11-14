@@ -8,7 +8,7 @@ Prompt viết bằng tiếng Anh vì công cụ tạo ảnh hiểu tiếng Anh c
 2. Dán prompt số 1 của nhóm. Tạo lại cho đến khi ưng ý, vì ảnh đầu tiên quyết định phong cách cho cả nhóm.
 3. Dán lần lượt các prompt tiếp theo **trong cùng cuộc trò chuyện đó** để giữ đúng nhân vật và nét vẽ.
 4. Nếu nhân vật bị lệch (khác mặt, khác tóc), đính kèm lại ảnh `rank1.png` và viết thêm: `Use the attached image as the character reference.`
-5. Tải ảnh về, đổi tên đúng như bảng dưới, thả vào thư mục `assets/original`.
+5. Tải ảnh về, đổi tên đúng như bảng dưới, thả vào đúng thư mục con của `assets/original/`: `char` (rank, c2-rank…), `bg`, `icon`, `pet`, `rival`, `food`, `scene`, `ui` (ui-*, tab-*), `store` (cover-*, logo).
 6. Chạy `python assets/build.py` để nén thành file `.webp` mà game dùng (tự tách nền ô caro giả nếu có).
 
 ## Tên file và quy cách
@@ -384,24 +384,218 @@ STAGE 6 of 6 — "Gym god": the peak heroic athlete version of this character, v
 
 ---
 
-# Phần 3: Màn nhà và món ăn
+# Phần 3: Ảnh còn thiếu (34 ảnh)
 
-Lưu vào `assets/original/` đúng tên file, rồi chạy `python assets/build.py`. Đính kèm `original/bg1.png` làm ảnh tham chiếu phong cách cho nền, và một icon bài tập bất kỳ (ví dụ `original/icon-tay.png`) cho món ăn.
+Cả 34 ảnh của phần này đã có và đã nối vào game. Prompt giữ lại để tạo lại ảnh khi cần. Ảnh lưu vào thư mục con tương ứng của `assets/original/` rồi chạy `python assets/build.py`.
 
-## `bg3.png` — nền nhà buổi tối (ngang 3:2, 1536x1024)
+| Nhóm | Số ảnh | Tên file | Khung | Nền | Ưu tiên |
+|---|---|---|---|---|---|
+| 7. Nền nhà | 1 | `bg3.png` | Ngang 1536×1024 | Kín | Cao |
+| 8. Món ăn | 9 | `food-*.png` | Vuông 1024×1024 | Trong suốt | Cao |
+| 9. Màn chờ chuyển cảnh | 6 | `scene-*.png` | Vuông 1024×1024 | Trong suốt | Vừa |
+| 10. Icon giao diện | 14 | `ui-*.png`, `tab-*.png` | Vuông 1024×1024 | Trong suốt | Vừa |
+| 11. Ảnh bìa và logo | 4 | `cover-*.png`, `logo.png` | Xem từng ảnh | Kín | Trước khi đăng game |
+
+`cover-*` và `logo` (thư mục `original/store`) chỉ dùng cho trang CrazyGames, không nằm trong game.
+
+---
+
+## Nhóm 7: Nền nhà (cuộc trò chuyện mới, đính kèm `original/bg1.png`)
+
+### bg3.png
 
 ```
-Anime-style 2D game background, same art style, line weight and colour palette as the attached reference image. A small, cosy modern apartment at night: living room on the left with a sofa, a low table and a TV, an open kitchenette on the right with a fridge, a rice cooker and a small dining table. Warm yellow lamp light, city lights visible through a window, a yoga mat rolled up in a corner, a pair of dumbbells on the floor. The centre of the floor is empty and clear so a character can stand there. No people, no text, no logos, no UI. Landscape 3:2.
+Create a 2D game background. Landscape canvas 1536x1024, fully painted, no transparency. Use the attached image as the art style reference: same clean modern anime background art, same line weight, same slightly muted and darker colors so that a bright character placed in front stands out.
+
+SCENE: a small, cosy modern apartment at night, seen straight on at eye level. Living area on the left with a sofa, a low table and a TV. Open kitchenette on the right with a fridge, a rice cooker and a small dining table. Warm yellow lamp light, a window showing the same city skyline at night, a rolled-up yoga mat in a corner, a pair of dumbbells on the floor near the wall.
+
+LAYOUT RULES:
+- The floor takes up the bottom 40% of the image and is plain and uncluttered (wooden floor or a simple rug).
+- The middle third of the image is kept open and simple, with furniture pushed to the left and right sides, because a character will stand in the center.
+- No people, no characters, no animals.
+- No readable text, no logos, no brand names, no UI elements, no border.
 ```
 
-## Ba món ăn (vuông 1:1, nền trong suốt)
+---
 
-Phần chung, dán trước mỗi prompt:
+## Nhóm 8: Món ăn (cuộc trò chuyện mới, đính kèm `original/icon-tay.png`, 9 ảnh)
+
+### food-h.png (Cơm gà luộc) — dán nguyên khối này trước
 
 ```
-Game icon, chunky cartoon style with thick dark outlines, same style as the attached reference icon. Single object centred, slight 3/4 top-down view, soft shading, transparent background, no text, no border, no shadow on the ground. Square 1:1.
+Create a 2D game icon. Square canvas 1024x1024, transparent background. Use the attached image as the art style reference.
+
+ART STYLE (keep identical for every icon of this chat): clean modern anime mobile game icon, crisp dark outline of even thickness, soft cel shading with two tones, bright saturated appetizing colors, simple readable shape that is still clear when shrunk to 64 pixels.
+
+ICON RULES (apply to every icon of this chat):
+- One single dish or combo, centered, filling about 80% of the canvas, seen from a slight 3/4 top-down angle.
+- No background, no frame, no badge shape behind it, no table, no ground shadow, no text, no numbers, no logo, no brand names.
+- No hands, no people.
+
+SUBJECT: a healthy meal on a tray: a bowl of white rice, sliced boiled chicken breast, steamed green vegetables and a small bowl of clear soup.
 ```
 
-- `food-healthy.png`: `A healthy meal tray: a bowl of white rice, sliced boiled chicken breast, steamed green vegetables and a small bowl of clear soup.`
-- `food-protein.png`: `A high-protein meal: grilled chicken breast, two boiled eggs cut in half, and a shaker bottle of whey protein next to the plate.`
-- `food-junk.png`: `A junk food combo: a tall cup of bubble milk tea with tapioca pearls and a straw, next to a paper bucket of crispy fried chicken.`
+### 8 món còn lại — dán từng khối, lưu đúng tên file ghi phía trên
+
+`food-h2.png` (Salad cá hồi)
+```
+Same art style and icon rules as the first icon. SUBJECT: a salmon salad bowl: fresh green lettuce, slices of pink grilled salmon, cherry tomatoes, cucumber and a lemon wedge.
+```
+
+`food-h3.png` (Yến mạch chuối)
+```
+Same art style and icon rules as the first icon. SUBJECT: a bowl of oatmeal topped with banana slices, a few blueberries and a drizzle of honey, with a spoon in the bowl.
+```
+
+`food-p.png` (Ức gà, trứng)
+```
+Same art style and icon rules as the first icon. SUBJECT: a high-protein plate: a grilled chicken breast with grill marks, two boiled eggs cut in half, and a few broccoli florets.
+```
+
+`food-p2.png` (Bò bít tết)
+```
+Same art style and icon rules as the first icon. SUBJECT: a thick juicy beef steak on a black cast-iron sizzling plate, with a fried egg and a few french fries on the side, a little steam rising.
+```
+
+`food-p3.png` (Sinh tố whey)
+```
+Same art style and icon rules as the first icon. SUBJECT: a plastic protein shaker bottle filled with a creamy chocolate shake, next to a scoop of protein powder and half a banana.
+```
+
+`food-j.png` (Trà sữa, gà rán)
+```
+Same art style and icon rules as the first icon. SUBJECT: a tall cup of bubble milk tea with black tapioca pearls and a wide straw, next to a paper bucket of crispy golden fried chicken.
+```
+
+`food-j2.png` (Pizza phô mai)
+```
+Same art style and icon rules as the first icon. SUBJECT: a cheese pizza with one slice being pulled away, long strings of melted cheese stretching, pepperoni on top.
+```
+
+`food-j3.png` (Mì tôm trứng)
+```
+Same art style and icon rules as the first icon. SUBJECT: a steaming bowl of instant ramen noodles with a soft egg yolk on top, chopped green onions, and chopsticks resting on the bowl.
+```
+
+---
+
+## Nhóm 9: Màn chờ chuyển cảnh (cuộc trò chuyện mới, đính kèm `original/rank1.png`, 6 ảnh)
+
+Hiện ở giữa màn hình tối trong 2–3 giây, phía trên dòng chữ "Khò khò...", "Đi đến công ty...". Nhân vật vẽ kiểu chibi cho dễ thương và khỏi phải khớp với hình theo hạng.
+
+### scene-sleep.png (Khò khò) — dán nguyên khối này trước
+
+```
+Create a 2D game illustration sticker. Square canvas 1024x1024, transparent background. Use the attached image as the character reference: a young Asian office worker with messy black hair and round glasses.
+
+ART STYLE (keep identical for every image of this chat): cute chibi version of the character (big head, small body, about 2.5 heads tall), clean modern anime mobile game art, crisp dark outline of even thickness, soft cel shading, bright colors.
+
+RULES (apply to every image of this chat):
+- One small self-contained scene, centered, filling about 80% of the canvas.
+- No background, no frame, no ground shadow, no text, no letters, no numbers, no logo.
+
+SUBJECT: the character sleeping soundly in bed under a blanket, mouth slightly open, glasses on the bedside table, a small crescent moon and a few stars floating above. No "Z" letters.
+```
+
+### 5 ảnh còn lại
+
+`scene-morning.png` (Buổi sáng)
+```
+Same art style, same character and rules as the first image. SUBJECT: the character sitting up in bed stretching both arms with a big yawn, messy bed hair, a bright cheerful sun rising behind him, a ringing alarm clock next to him.
+```
+
+`scene-commute.png` (Đi đến công ty)
+```
+Same art style, same character and rules as the first image. SUBJECT: the character in white shirt and red tie riding a small motor scooter, wearing a helmet, a briefcase strapped behind him, looking sleepy, small speed lines behind the scooter.
+```
+
+`scene-work.png` (Đang làm việc)
+```
+Same art style, same character and rules as the first image. SUBJECT: the character sitting at an office desk typing on a computer, a tall pile of paper documents next to him, a cup of coffee, a tired but determined face.
+```
+
+`scene-gym.png` (Đi đến phòng tập)
+```
+Same art style, same character and rules as the first image. SUBJECT: the character walking energetically to the right with a gym bag over his shoulder and a water bottle in his hand, tie loosened, an excited determined smile.
+```
+
+`scene-home.png` (Đi về nhà)
+```
+Same art style, same character and rules as the first image. SUBJECT: the character walking home tired but happy, a towel around his neck, gym bag in hand, a small cozy house with a lit window next to him under an evening moon.
+```
+
+---
+
+## Nhóm 10: Icon giao diện (cuộc trò chuyện mới, đính kèm `original/icon-tay.png`, 14 ảnh)
+
+Thay cho emoji trên thanh chỉ số, các tab và nhiệm vụ. Icon hiện rất nhỏ (20–40 pixel) nên hình phải thật đơn giản.
+
+### ui-cal.png (Calo) — dán nguyên khối này trước
+
+```
+Create a 2D game UI icon. Square canvas 1024x1024, transparent background. Use the attached image as the art style reference.
+
+ART STYLE (keep identical for every icon of this chat): clean modern anime mobile game icon, thick crisp dark outline of even thickness, flat cel shading with two tones and one small highlight, bright saturated colors. Extremely simple bold silhouette that is still clear when shrunk to 24 pixels.
+
+ICON RULES (apply to every icon of this chat):
+- One single object, centered, filling about 85% of the canvas, seen straight on.
+- No background, no frame, no badge or circle behind it, no ground shadow, no text, no letters, no numbers, no logo.
+
+SUBJECT: a bold orange and yellow flame, the calorie currency of the game.
+```
+
+### 13 icon còn lại
+
+Với mỗi dòng, dán: `Same art style and icon rules as the first icon. SUBJECT:` rồi tới phần mô tả ở cột cuối.
+
+| File | Dùng cho | Mô tả (SUBJECT) |
+|---|---|---|
+| `ui-star.png` | Sao lên đời | `a chunky golden five-pointed star with a small sparkle.` |
+| `ui-sta.png` | Thể lực | `a bold yellow lightning bolt.` |
+| `ui-fat.png` | Mệt mỏi | `a round tired face, light warm tan skin, half-closed eyes, a blue sweat drop on the forehead and a small puff of breath.` |
+| `ui-kg.png` | Cân nặng | `a bathroom weighing scale seen from the front top, light blue, with a round dial that has a needle but no numbers.` |
+| `ui-day.png` | Ngày | `a desk calendar page with a red top strip and two binder rings, the page is blank white.` |
+| `ui-trophy.png` | Thành tựu | `a golden trophy cup with two handles on a small dark base.` |
+| `ui-drink.png` | Nước tăng lực | `a slim energy drink can, electric blue with a yellow lightning bolt shape on it, no words.` |
+| `ui-tap.png` | Nhiệm vụ bấm | `a hand with the index finger pointing and tapping, light warm tan skin, three small impact lines at the fingertip.` |
+| `ui-clock.png` | Nhiệm vụ thời gian chơi | `a round stopwatch with a red button on top, plain white face with one hand, no numbers.` |
+| `tab-ex.png` | Tab Bài tập | `a single heavy dumbbell, dark grey weights and a silver handle, tilted slightly.` |
+| `tab-duel.png` | Tab Thách đấu | `two red boxing gloves bumping into each other with a small yellow impact star between them.` |
+| `tab-pet.png` | Tab Bạn tập | `a cute orange animal paw print with pink toe pads.` |
+| `tab-quest.png` | Tab Nhiệm vụ | `a brown clipboard holding a white sheet with three green check marks and three short grey lines.` |
+
+---
+
+## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
+
+Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.
+
+### cover-wide.png — ngang 16:9 (1920×1080)
+
+```
+Create a key art illustration for a 2D clicker game called "Gym God". Landscape canvas 16:9, fully painted, no transparency. Use the attached images as references: the two characters are the same man before and after training, and the background image is the art style and setting reference.
+
+ART STYLE: clean modern anime game key art, crisp outlines, vivid cel shading, dramatic rim lighting, high contrast, eye-catching at thumbnail size.
+
+SCENE: split composition. On the left, the weak tired office worker (first reference) slouching in a dim blue-grey office, holding a water bottle like a dumbbell. On the right, the same man transformed into the muscular confident gym god (second reference) flexing in a bright golden-lit gym, with a glowing golden aura and light rays behind him. A diagonal burst of energy and flame shapes separates the two halves. A few flames and dumbbells fly through the air.
+
+RULES: both characters fully visible from the knees up, faces clear. Keep the top center 25% of the image calmer so a title can be placed there. No text, no letters, no logos, no UI, no border.
+```
+
+### cover-tall.png — dọc 2:3 (800×1200)
+
+```
+Same art style and same two characters as the previous image, portrait canvas 2:3. SCENE: the muscular gym god stands tall in the center flexing, glowing golden aura and light rays behind him; the weak tired office worker version of himself is smaller in the lower left corner, looking up in amazement. Gym background with flames and dumbbells flying. Keep the top 20% calmer for a title. No text, no letters, no logos, no UI, no border.
+```
+
+### cover-square.png — vuông 1:1 (800×800)
+
+```
+Same art style and same character as the previous images, square canvas 1:1. SCENE: close-up from the chest up of the muscular gym god flexing one arm with a confident grin, golden aura and light rays behind him, a flame near his fist. Very simple bold composition that is readable as a tiny thumbnail. No text, no letters, no logos, no UI, no border.
+```
+
+### logo.png — vuông 1:1 (1024×1024), nền trong suốt
+
+```
+Create a game app icon. Square canvas 1024x1024, transparent background. Clean modern anime mobile game style, thick dark outline, bright saturated colors. SUBJECT: a flexed muscular arm in a rolled-up white office shirt sleeve holding a dumbbell, with a bold orange flame behind it. Very simple bold shape, readable at 32 pixels. No text, no letters, no frame.
+```

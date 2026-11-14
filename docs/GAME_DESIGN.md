@@ -58,11 +58,13 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 | Hạng | Tên | Hệ số calo | Cấp tối thiểu (Tay, Vai, Ngực, Bụng, Mắt, Chân, Lưng, Cardio) | Cân tối đa |
 |---|---|---|---|---|
 | 1 | Dân văn phòng suy nhược | x1 | — | — |
-| 2 | Tập tành cho vui | x1,25 | 10, 8, 5 | không chặn |
-| 3 | Gymer nghiệp dư | x1,5 | 25, 20, 15, 10, 5 | không chặn |
-| 4 | Body săn chắc | x2 | 40, 35, 30, 22, 15, 10 | 82 kg |
-| 5 | Sáu múi lấp ló | x2,5 | 55, 48, 42, 35, 28, 25, 15 | 77 kg |
-| 6 | Thần gym công sở | x3 | 70, 60, 55, 48, 40, 40, 32, 20 | 73 kg |
+| 2 | Tập tành cho vui | x1,25 | 5, 4, 2 | không chặn |
+| 3 | Gymer nghiệp dư | x1,5 | 12, 10, 5, 1 | không chặn |
+| 4 | Body săn chắc | x2 | 22, 18, 14, 8, 3 | 84,5 kg |
+| 5 | Sáu múi lấp ló | x2,5 | 40, 35, 30, 22, 15, 10, 3 | 82 kg |
+| 6 | Thần gym công sở | x3 | 70, 60, 55, 48, 40, 40, 32, 20 | 78 kg |
+
+Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 12 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
 
 Có 2 nhân vật (nam, nữ), mỗi nhân vật 6 hình theo hạng.
 
@@ -154,9 +156,19 @@ SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ng
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py`. Kết quả gần nhất (người chơi 4 lần bấm/giây, ăn cơm gà): hạng 6 ở ngày 47–60, khoảng 2h23 chơi, 2,5–3 phút mỗi ngày. Người mới (3 lần bấm/giây): hạng 2 phút thứ 4, hạng 3 phút 16, hạng 4 phút 32.
+Đo bằng `python tools/sim.py`. Kết quả gần nhất:
+
+| Hạng | Người mới (3 lần bấm/giây, bỏ bữa, không nghỉ) | Người quen (4 lần bấm/giây, ăn cơm gà, nghỉ khi Mỏi) |
+|---|---|---|
+| 2 | ngày 1, phút 2 | ngày 1, phút 2 |
+| 3 | ngày 2, phút 5 | ngày 2, phút 4,5 |
+| 4 | ngày 4, phút 12 | ngày 5, phút 14 |
+| 5 | ngày 12, phút 34 | ngày 10, phút 29 |
+| 6 | ngày 46, 2h17 | ngày 38, 2h07 |
+
+Mỗi ngày dài khoảng 3 phút.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
-- Hạng 2 trong 5 phút đầu; lên hạng 6 quanh ngày 50–60, khoảng 2,5 giờ.
+- Hạng 2 ngay trong ngày đầu (khoảng 2 phút), hạng 4 trong khoảng 15 phút; hạng 6 quanh ngày 40–50, hơn 2 giờ.
 - Người nghỉ hợp lý lên hạng sớm ngày hơn người không nghỉ.
 - Người tập đều không bị cân nặng chặn quá 1–3 ngày.
