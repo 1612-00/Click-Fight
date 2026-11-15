@@ -227,6 +227,16 @@ Bảng đối chiếu cho H6:
 | L7 | Sau L6 (đã từng đạt hạng 3 trước khi lên đời), về nhà và về văn phòng. | Bữa tối, ô mệt mỏi và lịch tuần **vẫn còn** dù đang ở hạng 1. | |
 | L8 | Sau L6, so calo mỗi lần bấm với một ván mới chưa có Sao. | Cao hơn đúng 20% (2 Sao). | |
 | L9 | Cuối tab Lên đời, bấm "Xoá toàn bộ tiến trình" → Huỷ; rồi bấm lại → Đồng ý. | Huỷ: không đổi gì. Đồng ý: mọi thứ về như chơi mới (calo, cấp, Sao, bạn tập, trận thắng, ngày 1, 85 kg), nhưng **giữ** ngôn ngữ, trạng thái loa và nhân vật đang chọn. | |
+| L10 | Bản lưu có vài Sao (vd lên đời hoặc cân kiểm tra). Mở tab Lên đời, cuộn xuống "Kỹ năng Sao". | Có dòng "Sao chưa dùng", 3 nhánh x 3 kỹ năng. Kỹ năng thứ 2, 3 mỗi nhánh mờ, nút 🔒, ghi "Cần học … trước". Nút kỹ năng giá 1 bấm được khi có ≥ 1 Sao. | |
+| L11 | Học Cú bấm vàng 2 cấp. | Sao chưa dùng giảm 1 rồi 2 (tổng 3). Thưởng "+N%" của Sao **không đổi**. Calo mỗi lần bấm x1,25 rồi x1,5 so với lúc chưa học. Ký ức cơ bắp mở khoá. | |
+| L12 | Học Đấu tiết kiệm (cần Phổi thép, Hồi phục nhanh trước). | Nút thách đấu ghi "⚡20", trận đấu chỉ trừ 20 thể lực. Hướng dẫn ❓ mục Thi đấu ghi 20. | |
+| L13 | Học Ký ức cơ bắp 1 cấp rồi lên đời. | Đời mới bắt đầu ở hạng 2, Tay 5, Vai 4, Ngực 2. Lên 2 cấp: hạng 3. | |
+| L14 | Chưa từng đạt hạng 6: xem mục "Thử thách". Đạt hạng 6 (`?test`). | Trước: "🔒 Mở khi đạt hạng 6", nút 🔒. Lúc lên hạng 6: thông báo mở khoá Thử thách. Sau: 4 thử thách có nút "Bắt đầu"; lần đầu mở tab Lên đời hiện mục hướng dẫn Thử thách. | |
+| L15 | Bắt đầu "Sếp soi" → Đồng ý. | Như lên đời (nhận Sao, calo và cấp về 0). Nhãn hồng "👔 Sếp soi · 🎯 Mục tiêu: đạt hạng 6" dưới thanh calo. Calo/giây và mỗi lần bấm còn khoảng 1/4. Các nút thử thách khác bị khoá, nút này ghi "Đang làm", có link "Bỏ thử thách". | |
+| L16 | Đang làm thử thách, đạt hạng mục tiêu (`?test`). | Thông báo "🏅 Hoàn thành thử thách!" kèm thưởng. Nhãn hồng biến mất, thẻ thử thách mờ với ✓. Calo trở lại bình thường và có thêm thưởng vĩnh viễn. | |
+| L17 | Từng thử thách: Chỉ dùng tay / Phòng gym tăng giá / Mùa tiệc cưới. | Tay: calo/giây = 0, vắng mặt không cộng calo. Tăng giá: giá bài tập x3 (Tay cấp 0: 45). Tiệc cưới: cân lên ít nhất 85 kg ngay, mỗi sáng thông báo cân có +0,1 kg. | |
+| L18 | Đang làm thử thách: bấm "Bỏ thử thách" → Đồng ý. Làm lại, lần này bấm "Lên đời" thường. | Cả hai: nhãn hồng biến mất, luật hết, không có thưởng, thử thách có thể bắt đầu lại. | |
+| L19 | Tải lại trang khi đang làm thử thách và đã học kỹ năng. | Kỹ năng, thử thách đang làm, thử thách đã xong giữ nguyên. | |
 
 ## M. Âm thanh và nhạc
 

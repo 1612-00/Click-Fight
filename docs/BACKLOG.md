@@ -29,4 +29,5 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
 - Font chữ riêng đóng kèm game (cần tải file font).
 - Nhân vật thứ 3 và 4 (chú bảo vệ, thực tập sinh): đã quyết định bỏ qua, ảnh chưa có.
-- Thêm cách giảm cân hoặc nội dung cuối game sau hạng 6.
+- Thêm cách giảm cân hoặc nội dung cuối game sau hạng 6 (đã có kỹ năng Sao và 4 thử thách; xem người chơi thật có làm hết không).
+- Sim chưa mô phỏng kỹ năng Sao và nhiều đời liên tiếp; độ dài thử thách mới đo bằng cách nhân hệ số x4,5 cho đời 2.

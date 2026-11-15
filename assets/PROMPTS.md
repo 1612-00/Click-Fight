@@ -598,6 +598,95 @@ Same art style and icon rules as the first icon, but the subject is an object in
 SUBJECT: a small round birthday cake seen slightly from above, white frosting with pink drips, strawberries on top and one lit candle with a bright yellow flame, on a small paper plate. Looks extremely tempting.
 ```
 
+## Nhóm 13: Kỹ năng Sao và Thử thách (cuộc trò chuyện mới, đính kèm `original/icon-tay.png`, 13 ảnh)
+
+Icon hiện trong ô vuông 60px ở tab Lên đời, nền ô tối, nên vật thể phải sáng màu, nét đậm, thật đơn giản. Thả vào `assets/original/icon/`, chạy `python assets/build.py`, rồi báo để nối ảnh vào game.
+
+### icon-sk-gold.png (Cú bấm vàng) — dán nguyên khối này trước
+
+```
+Create a 2D game icon. Square canvas 1024x1024, transparent background. Use the attached image as the art style reference.
+
+ART STYLE (keep identical for every icon of this chat): clean modern anime mobile game icon, crisp dark outline of even thickness, soft cel shading with two tones, bright saturated colors, simple readable shape that is still clear when shrunk to 48 pixels. The icon will sit on a dark tile, so keep the subject bright with a strong outline.
+
+ICON RULES (apply to every icon of this chat):
+- One single subject, centered, filling about 80% of the canvas.
+- No background, no frame, no badge or circle behind it, no ground shadow, no text, no letters, no numbers, no logo.
+- Skin tone, when skin is shown: light warm tan.
+
+SUBJECT: a golden hand with the index finger pressing down, shining like polished gold, with three small sparkles and short impact lines at the fingertip.
+```
+
+### 12 icon còn lại — dán từng khối trong cùng cuộc trò chuyện, lưu đúng tên file ghi phía trên
+
+**Kỹ năng, nhánh 💪 Sức mạnh**
+
+`icon-sk-mem.png` (Ký ức cơ bắp)
+```
+Same art style and icon rules as the first icon. SUBJECT: a cute pink cartoon brain with a flexed muscular arm on each side, lifting itself proudly, one small sparkle.
+```
+
+`icon-sk-crit.png` (Bấm chí mạng)
+```
+Same art style and icon rules as the first icon. SUBJECT: a jagged comic-book explosion burst in red, orange and yellow, with a fist punching out of its center.
+```
+
+**Kỹ năng, nhánh ⚡ Bền bỉ**
+
+`icon-sk-lung.png` (Phổi thép)
+```
+Same art style and icon rules as the first icon. SUBJECT: a pair of stylized cartoon lungs made of shiny steel-blue metal with rivets, a small white puff of air above them.
+```
+
+`icon-sk-calm.png` (Hồi phục nhanh)
+```
+Same art style and icon rules as the first icon. SUBJECT: a green leaf and a small blue water drop together, with a soft circular arrow around them meaning recovery.
+```
+
+`icon-sk-spar.png` (Đấu tiết kiệm)
+```
+Same art style and icon rules as the first icon. SUBJECT: one red boxing glove resting on top of a small stack of three gold coins.
+```
+
+**Kỹ năng, nhánh 🌟 Lối sống**
+
+`icon-sk-inv.png` (Đầu tư dài hạn)
+```
+Same art style and icon rules as the first icon. SUBJECT: a small green potted plant whose leaves are shaped like an upward arrow, a gold coin in the pot soil.
+```
+
+`icon-sk-fan.png` (Khách quen)
+```
+Same art style and icon rules as the first icon. SUBJECT: a gym membership card in bright orange with a small dumbbell symbol and a red heart, tilted slightly.
+```
+
+`icon-sk-away.png` (Ngủ ngon)
+```
+Same art style and icon rules as the first icon. SUBJECT: a fluffy white pillow with a yellow crescent moon resting on it and two small stars above.
+```
+
+**Thử thách**
+
+`icon-ch-tap.png` (Chỉ dùng tay)
+```
+Same art style and icon rules as the first icon. SUBJECT: two open hands, palms facing the viewer, wrapped in white gym tape, with small sweat drops.
+```
+
+`icon-ch-fee.png` (Phòng gym tăng giá)
+```
+Same art style and icon rules as the first icon. SUBJECT: a big red price tag hanging from a heavy dumbbell, a bold upward red arrow on the tag, no numbers.
+```
+
+`icon-ch-party.png` (Mùa tiệc cưới)
+```
+Same art style and icon rules as the first icon. SUBJECT: a tall white wedding cake with pink ribbons and two small toasting champagne glasses in front of it, a little confetti.
+```
+
+`icon-ch-boss.png` (Sếp soi)
+```
+Same art style and icon rules as the first icon. SUBJECT: the stern face of a bald office boss with thick eyebrows and a red necktie, peeking over the top edge of a big pair of binoculars, cropped at the shoulders.
+```
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

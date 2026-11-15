@@ -14,13 +14,14 @@ G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=20, duel_sta=40,
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
+         kg0=85, night=0, hands=0, fee=1,   # hands: thử thách Chỉ dùng tay; fee: hệ số giá bài tập (Phòng gym tăng giá)   # cân lúc bắt đầu (lên đời giữ cân nặng), cân cộng thêm mỗi tối
          cr_tap=7, cr_sec=10, cr_cal=2, cr_lose=.1, ck_cal=1.5, ck_kg=.1)
 # Khách xoay vòng theo đúng tỉ lệ thay cho ngẫu nhiên: PT 50% (f bấm x5, s thể lực, c calo), crush 30% (65% được: R bấm x7 / C calo x2; còn lại L mất thể lực), bánh 20% (K, luôn ăn)
 VIS = 'fscfsRCLKK'
 
 
 def run(g, rest_at=40, meal='h', limit=400):
-    lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = 85.0; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
+    lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = g['kg0']; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
     out = {}; rests = 0; ptc = 0.0; ptn = 0; gm = {}; earned = [0.0] * 6; tapped = [0.0] * 6   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
     boost = lambda l: 2 ** sum(l >= m for m in MS)
 
@@ -29,7 +30,7 @@ def run(g, rest_at=40, meal='h', limit=400):
         pb = 1 + g['pet'] * summons
         base = sum(e[2] * l * boost(l) for e, l in zip(EX, lv))
         click = (1 + sum(e[1] * l * boost(l) for e, l in zip(EX, lv)) + base * g['tap']) * m * pb * (1.25 if rec else 1) * (1.5 if today == 'j' else 1)
-        return base * m * pb, click
+        return (0 if g['hands'] else base * m * pb), click   # thử thách Chỉ dùng tay: không có calo/giây, cú bấm vẫn ăn 25% calo/giây gốc
 
     def shop():
         nonlocal cal, summons, rk
@@ -40,7 +41,7 @@ def run(g, rest_at=40, meal='h', limit=400):
             miss = [i for i in range(8) if lv[i] < g['goals'][rk + 1][i]]
             if not miss:   # chỉ còn kẹt cân nặng: mua thứ rẻ nhất để tăng thu nhập
                 miss = list(range(8))
-            i = min(miss, key=lambda i: EX[i][0] * g['R'] ** lv[i]); c = EX[i][0] * g['R'] ** lv[i]
+            i = min(miss, key=lambda i: EX[i][0] * g['R'] ** lv[i]); c = EX[i][0] * g['R'] ** lv[i] * g['fee']
             sc = g['s0'] * g['sg'] ** summons
             if sc <= c * 2 and cal >= sc: cal -= sc; summons += 1; continue
             if cal < c: return
@@ -80,12 +81,13 @@ def run(g, rest_at=40, meal='h', limit=400):
         frac = min(1, used / max(1, cap)); week.append(1 if frac >= .5 else 0)
         if len(week) >= 7: wkb = r0 >= 2 and sum(week) >= g['wk'][r0]; week = []
         nxt = None
+        kg += g['night']   # thử thách Mùa tiệc cưới: +0,2 kg mỗi tối
         if rk >= 1 and meal: nxt = meal; kg += {'h': -.1, 'p': 0, 'j': .2}[meal]
         kg = min(120, max(65, kg)); rec = rec_next; today = nxt; day += 1
         shop()
         if rk not in out and rk > 0:
             for r in range(1, rk + 1): out.setdefault(r, (day, t, kg))
-    return out, dict(day=day, t=t, kg=kg, wins=wins, summons=summons, rests=rests, lv=lv, rk=rk, gm=gm, share=[tp / e for tp, e in zip(tapped, earned) if e])
+    return out, dict(day=day, t=t, kg=kg, wins=wins, summons=summons, rests=rests, lv=lv, rk=rk, gm=gm, earned=sum(earned), share=[tp / e for tp, e in zip(tapped, earned) if e])
 
 
 def fmt(s): return f'{int(s // 3600)}h{int(s % 3600 // 60):02d}m' if s >= 3600 else f'{int(s // 60)}m{int(s % 60):02d}s'

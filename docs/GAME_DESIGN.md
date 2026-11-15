@@ -33,6 +33,7 @@ Tính theo hạng cao nhất từng đạt (`unl()`), nên lên đời không b�
 | 2 | Bữa tối ở nhà |
 | 3 | Mệt mỏi, lịch tuần và mục tiêu tuần |
 | 4 | Cân nặng bắt đầu chặn lên hạng |
+| 6 | Thử thách (tab Lên đời) |
 
 Lần đầu đạt hạng 2 và 3, thông báo lên hạng nói rõ tính năng vừa mở.
 
@@ -146,7 +147,40 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 
 - **Nhiệm vụ ngày**: 3 trong 5 loại (bấm 200, mua 20 cấp, đấu 1, gọi 1, chơi 120 giây), làm mới theo ngày trong game. Thưởng = 300 giây thu nhập, tối thiểu 500.
 - **Thành tựu**: 19 cái, mỗi cái +1% calo vĩnh viễn.
-- **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng giữ nguyên.
+- **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng, kỹ năng, thử thách đã xong giữ nguyên. Lên đời thường khi đang làm thử thách thì bỏ thử thách.
+
+## Kỹ năng Sao (cuối tab Lên đời)
+
+Sao vừa là thưởng vừa là tiền: mỗi Sao **vẫn giữ +10% calo kể cả khi đã tiêu** (như cấp uy tín của Cookie Clicker), nên học kỹ năng không bao giờ làm người chơi yếu đi. Sao chưa dùng = tổng Sao − Sao đã tiêu (tính lại từ cấp kỹ năng, không lưu riêng).
+
+Ba nhánh, mỗi nhánh ba kỹ năng; học kỹ năng sau cần cấp 1 của kỹ năng trước trong nhánh. Cấp kế tốn `giá × (cấp hiện tại + 1)` Sao. Học hết tốn 116 Sao; đời đầu tới hạng 6 được khoảng 21 Sao (sim), nên cần vài lần lên đời.
+
+| Nhánh | Kỹ năng | Giá | Tối đa | Mỗi cấp |
+|---|---|---|---|---|
+| 💪 Sức mạnh | Cú bấm vàng | 1 | 5 | +25% calo/bấm |
+| | Ký ức cơ bắp | 3 | 2 | Đời mới bắt đầu ở hạng 2 / hạng 3, đủ cấp bài tập của hạng đó |
+| | Bấm chí mạng | 4 | 3 | 5% cú bấm được x10 |
+| ⚡ Bền bỉ | Phổi thép | 1 | 5 | +10% thể lực tối đa |
+| | Hồi phục nhanh | 3 | 3 | Mệt mỏi tăng chậm hơn 15% |
+| | Đấu tiết kiệm | 5 | 1 | Thách đấu tốn 20 thể lực thay vì 40 |
+| 🌟 Lối sống | Đầu tư dài hạn | 1 | 5 | +25% calo/giây |
+| | Khách quen | 3 | 2 | +1 khách ghé phòng tập mỗi ngày |
+| | Ngủ ngon | 2 | 2 | Calo lúc vắng mặt tính thêm 4 giờ (gốc 8 giờ) |
+
+Ảnh: `assets/icon/icon-sk-<khoá>.webp` và `icon-ch-<khoá>.webp` (thiếu ảnh thì hiện emoji). Nhánh nào cũng có một kỹ năng rẻ (giá 1) để lần đầu có Sao là học được ngay. Sim chưa mô phỏng kỹ năng (sim chỉ chạy đời đầu).
+
+## Thử thách (từ hạng 6, cuối tab Lên đời)
+
+Bắt đầu thử thách = lên đời (vẫn nhận Sao) với một luật khó. Đạt hạng mục tiêu dưới luật đó thì luật hết, nhận thưởng vĩnh viễn; mỗi thử thách làm một lần. Bỏ giữa chừng hoặc lên đời thường: luật hết, không thưởng. Đang làm thì có nhãn hồng dưới thanh calo. Lưu ở `s.ch` (đang làm) và `s.chd` (đã xong); hằng số `CH`, `CHX`.
+
+| Thử thách | Luật | Mục tiêu | Thưởng vĩnh viễn | Sim (sau đời đầu) |
+|---|---|---|---|---|
+| 👆 Chỉ dùng tay | Không có calo/giây (cả lúc vắng mặt); cú bấm vẫn ăn 25% calo/giây gốc | Hạng 6 | +25% calo/bấm | 31 phút |
+| 🏷️ Phòng gym tăng giá | Bài tập đắt x3 | Hạng 6 | Bài tập rẻ hơn 10% | 43 phút |
+| 🎉 Mùa tiệc cưới | Bắt đầu ở ít nhất 85 kg, mỗi tối +0,1 kg | Hạng 5 | Ngày tập đủ giảm 0,4 kg thay vì 0,3 | 55 phút |
+| 👔 Sếp soi | Calo x0,25 | Hạng 6 | +15% calo | 1 giờ |
+
+Cân bằng: sau đời đầu (hệ số calo khoảng x4,5 nhờ Sao, trận thắng, thành tựu; giữ cân 78 kg) một đời thường tới hạng 6 chỉ 17 phút, nên mỗi thử thách nhắm 30–60 phút. Đo bằng `run(G, …)` trong `tools/sim.py` với `mults` x4,5, `kg0`, `night`, `hands`, `fee`. Đã loại: cắt thể lực (Tăng ca) gần như không làm chậm vì về sau calo/giây chiếm phần lớn; Sếp soi x0,5 và đích hạng 5 chỉ 10 phút; Tiệc cưới 88 kg +0,2/tối mất 5 giờ.
 
 ## Khách ghé phòng tập
 
@@ -168,8 +202,8 @@ Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ
 
 ## Hướng dẫn
 
-- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 10 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
-- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời, lần đầu bấm vào khách. Đã hiện thì lưu vào `s.tips`.
+- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 11 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời (kèm kỹ năng Sao), thử thách. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
+- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời (thêm mục thử thách khi đã đạt hạng 6), lần đầu bấm vào khách. Đã hiện thì lưu vào `s.tips`.
 - Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
 - Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
 

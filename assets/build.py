@@ -8,6 +8,11 @@ from PIL import Image, ImageDraw, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, 'original')
 
+# Ảnh gốc đặt nhầm vào thư mục game (assets/<nhóm>/) thì build không thấy: báo ngay thay vì im lặng bỏ qua.
+for f in glob.glob(os.path.join(HERE, '*', '*.png')):
+    if os.path.basename(os.path.dirname(f)) != 'original':
+        print(f'!! {os.path.relpath(f, HERE)}: ảnh gốc phải nằm trong original/{os.path.basename(os.path.dirname(f))}/, file này bị bỏ qua')
+
 
 def cut_fake_checker(im):
     """Nền ô caro giả = trắng xen xám nhạt (~230) hoàn toàn không màu. Xoá mọi vùng sáng liền nhau
