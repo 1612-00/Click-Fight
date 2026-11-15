@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8766", "--bind", "127.0.0.1", "--directory", "D:/Game/gym-god"],
       "port": 8766
+    },
+    {
+      "name": "dist",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8767", "--bind", "127.0.0.1", "--directory", "D:/Game/gym-god/dist/gym-god"],
+      "port": 8767
     }
   ]
 }

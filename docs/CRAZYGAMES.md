@@ -45,6 +45,16 @@ Works with mouse and touch. No keyboard needed.
 
 Tap the ? button in the game for the full guide.
 
+## Gói upload
+
+**Không upload cả thư mục dự án** (khoảng 340 MB: `.git`, ảnh gốc PNG, video bìa). CrazyGames sẽ báo lỗi tải file, và game nặng hơn 20 MB không được lên trang chủ điện thoại (hơn 50 MB thì bị từ chối). Game thật chỉ cần `index.html` và ảnh/nhạc đã build, khoảng 6 MB.
+
+```bash
+python tools/dist.py
+```
+
+Lệnh này tạo `dist/gym-god.zip` (upload file này) và thư mục `dist/gym-god/` cùng nội dung. Muốn chơi thử đúng gói đó: mở server `dist` (preview), cổng 8767; bộ nhớ riêng nên không đụng bản lưu ở cổng 8766. Chạy lại lệnh mỗi lần sửa game hoặc thêm ảnh.
+
 ## File đi kèm
 
 | File | Dùng cho | Yêu cầu của CrazyGames |

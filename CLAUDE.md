@@ -21,6 +21,7 @@ Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đún
 - `index.html`: toàn bộ game (CSS, HTML, JS thuần). Không build, không thư viện. Script chia mục bằng chú thích `// ============ Tên mục ============`: Dữ liệu, Trạng thái + lưu, Công thức, Hiển thị, Âm thanh, Thao tác, Một ngày, Khởi động + vòng lặp.
 - `assets/original/<nhóm>/*.png`: ảnh gốc do chủ dự án tạo. `assets/<nhóm>/*.webp`: ảnh game dùng, sinh ra bởi `assets/build.py`, không sửa tay. Nhóm: `char` (nhân vật theo hạng), `bg` (nền), `icon` (bài tập), `pet`, `rival`, `food`, `scene` (màn chờ), `ui` (icon giao diện `ui-*`, `tab-*`). `original/store` (ảnh bìa, logo, video xem trước cho CrazyGames) không build và không nằm trong game.
 - `tools/sim.py`: mô phỏng nhịp chơi theo ngày để cân bằng.
+- `tools/dist.py`: đóng gói bản upload vào `dist/` (không đưa vào git). Server xem thử `dist`, cổng 8767.
 - `tools/video/`: quay (`record.js`, chạy qua Playwright MCP) và ghép (`build.py`) video xem trước CrazyGames. Đoạn quay thô ở `tools/video/raw/`, không đưa vào git.
 - `prototype/`: bản thử ban đầu, không còn dùng.
 - `.claude/launch.json`: server xem thử tên `game`, cổng 8766.
@@ -33,6 +34,12 @@ python assets/build.py
 
 ```bash
 python tools/sim.py
+```
+
+Đóng gói bản upload CrazyGames (`dist/gym-god.zip`, chỉ `index.html` + `assets/<nhóm>/*.webp|mp3`, khoảng 6 MB; không upload cả thư mục dự án):
+
+```bash
+python tools/dist.py
 ```
 
 Xem thử: mở server `game` (preview) rồi vào `http://localhost:8766/?v=N`, tăng `N` mỗi lần để tránh cache.

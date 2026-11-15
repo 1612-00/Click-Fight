@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 tools/video/raw/
 .playwright-mcp/
+dist/
