@@ -148,10 +148,28 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 - **Thành tựu**: 19 cái, mỗi cái +1% calo vĩnh viễn.
 - **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng giữ nguyên.
 
+## Khách ghé phòng tập
+
+Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ để người chơi nhìn màn hình thay vì treo máy. Có ba loại khách, hai loại sau là **lựa chọn**: bấm hay bỏ qua.
+
+- Chỉ hiện ở phòng tập, ngoài trận đấu, khi không có màn chờ, hộp xác nhận hay hướng dẫn. Lần đầu sau khoảng 30 giây ở phòng tập, sau đó mỗi 60–120 giây ở phòng tập. **Tối đa 3 khách mỗi ngày** (lưu trong `s.vis`, sang ngày mới về 0). Chế độ thử: nhanh gấp 10, vẫn tối đa 3.
+- Lý do giới hạn: quà thể lực kéo dài buổi tập, buổi tập dài lại có thêm khách. Khi chơi thật vòng này yếu (trung bình 0,8–2,6 khách/ngày, ngày tập dài thêm 4–12%), nhưng khách đến dày (chế độ thử) thì ngày gần như không bao giờ hết: thể lực 1.000 thì trung bình 82 phút/ngày, khoảng 540 khách. Giới hạn 3 khách chặn vòng này mà gần như không đổi gì khi chơi thật. Giảm quà thể lực xuống 15% không đủ (chế độ thử vẫn dài gấp đôi).
+- Khách là một vòng tròn nhấp nháy, mỗi loại một màu, kèm nhãn bên dưới (76px trên điện thoại, 110px trên máy tính). Ở lại 8 giây; không bấm thì đi mất, không phạt.
+
+| Khách | Tỉ lệ | Nhãn | Bấm vào |
+|---|---|---|---|
+| 🧑‍🏫 PT (vàng) | 50% | Bấm tôi! | Luôn có quà, ngẫu nhiên đều: bấm x5 trong 8 giây / +30% thể lực tối đa / thưởng calo |
+| 💃 Crush (hồng), đi ngang qua màn hình | 30% | Bắt chuyện? | 65%: crush cười, được bấm x7 trong 10 giây hoặc thưởng calo x2 (đều nhau). 35%: crush ngó lơ, mất 10% thể lực đang có |
+| 🎂 Bánh sinh nhật đồng nghiệp (xanh) | 20% | Ăn bánh? | Thưởng calo x1,5 nhưng +0,1 kg |
+
+- Thưởng calo = 60 giây calo/giây + 30 cú bấm. Trong lúc bấm x5 / x7 vầng sáng quanh nhân vật chuyển cam; mỗi cú vẫn tốn 1 thể lực.
+- Khi chưa từng bấm khách nào, khách đầu tiên mỗi lần mở game là PT (người mới không gặp ngay crush ngó lơ), các khách sau ngẫu nhiên theo tỉ lệ. Lần đầu bấm PT luôn cho thưởng calo, rồi hiện mục hướng dẫn "Khách ghé phòng tập" (để khung hướng dẫn không làm phí 8 giây bấm x5).
+- Không lưu gì: tải lại trang thì đếm lại từ đầu. Hằng số ở `PT` và `VIS` trong `index.html`. Ảnh: `assets/icon/icon-vis-pt|crush|cake.webp` (thiếu ảnh thì hiện emoji).
+
 ## Hướng dẫn
 
-- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 9 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
-- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời. Đã hiện thì lưu vào `s.tips`.
+- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 10 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
+- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời, lần đầu bấm vào khách. Đã hiện thì lưu vào `s.tips`.
 - Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
 - Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
 
@@ -172,12 +190,12 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 | Hạng | Người mới (3 lần bấm/giây, bỏ bữa, không nghỉ) | Người quen (4 lần bấm/giây, ăn cơm gà, nghỉ khi Mỏi) |
 |---|---|---|
 | 2 | ngày 2, phút 2 | ngày 2, phút 2 |
-| 3 | ngày 3, phút 5 | ngày 3, phút 4,5 |
+| 3 | ngày 3, phút 6 | ngày 3, phút 5 |
 | 4 | ngày 4, phút 9 | ngày 4, phút 8 |
-| 5 | ngày 13, phút 35 | ngày 10, phút 26 |
-| 6 | ngày 34, 1h40 | ngày 26, 1h22 |
+| 5 | ngày 14, phút 42 | ngày 11, phút 33 |
+| 6 | ngày 32, 1h45 | ngày 25, 1h28 |
 
-Mỗi ngày dài khoảng 3 phút. Phần calo từ cú bấm (người mới, hạng 1 → 6): 76%, 55%, 48%, 44%, 40%, 43%.
+Sim giả định bấm mọi khách, kể cả ăn mọi chiếc bánh; khách xoay vòng đúng tỉ lệ. So với khi chưa có khách: gần như không đổi (hạng 6 chậm 5–6 phút, sớm hơn 1–2 ngày), vì quà thể lực làm ngày dài hơn (người mới 3 → 3,4 phút, người quen 3,3 → 3,7 phút) còn bánh làm tăng cân. Phần calo từ cú bấm (người mới, hạng 1 → 5): 76%, 55%, 48%, 39%, 37%.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
 - Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 1 giờ (trước là 1,5 giờ, đoạn dễ bỏ cuộc nhất); hạng 6 sau khoảng 1,5 giờ.

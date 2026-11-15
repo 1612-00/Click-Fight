@@ -12,12 +12,16 @@ G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [
          mults=[1, 1.25, 1.5, 2, 2.5, 3], R=1.17,
          kg=[999, 999, 999, 84.5, 82, 78], fat=[30, 26, 22, 18, 14, 10], wk=[4, 4, 5, 5, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=20, duel_sta=40,
-         s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25)   # tap: mỗi cú bấm thêm tap x calo/giây gốc
+         s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
+         pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
+         cr_tap=7, cr_sec=10, cr_cal=2, cr_lose=.1, ck_cal=1.5, ck_kg=.1)
+# Khách xoay vòng theo đúng tỉ lệ thay cho ngẫu nhiên: PT 50% (f bấm x5, s thể lực, c calo), crush 30% (65% được: R bấm x7 / C calo x2; còn lại L mất thể lực), bánh 20% (K, luôn ăn)
+VIS = 'fscfsRCLKK'
 
 
 def run(g, rest_at=40, meal='h', limit=400):
     lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = 85.0; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
-    out = {}; rests = 0; gm = {}; earned = [0.0] * 6; tapped = [0.0] * 6   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
+    out = {}; rests = 0; ptc = 0.0; ptn = 0; gm = {}; earned = [0.0] * 6; tapped = [0.0] * 6   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
     boost = lambda l: 2 ** sum(l >= m for m in MS)
 
     def rates():
@@ -45,7 +49,7 @@ def run(g, rest_at=40, meal='h', limit=400):
     while day <= limit and rk < 5:
         flv = 3 if fat >= 100 else 2 if fat >= 70 else 1 if fat >= 40 else 0
         cap = int((g['sta0'] + g['sta_rank'] * rk + g['sta_cardio'] * lv[7]) * [1, .75, .5, .5][flv] * (.8 if kg > 90 else 1) * ({'h': 1.1, 'j': 1.5}.get(today, 1)))
-        r0 = rk; used = 0; sunday = (day - 1) % 7 == 6
+        r0 = rk; used = 0; pv = 0; sunday = (day - 1) % 7 == 6
         pps, click = rates(); cal += pps * IDLE; t += IDLE; earned[rk] += pps * IDLE
         if fat >= 100 or fat >= rest_at:
             rests += 1; lazy = fat < 40; rec_next = not lazy; kg += .3 if lazy else .1; fat = max(0, fat - 60)
@@ -58,6 +62,18 @@ def run(g, rest_at=40, meal='h', limit=400):
                     cal += g['t0'] * g['tg'] ** wins * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
                 else:
                     n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
+                    ptc += n / CPS
+                    if ptc >= g['pt_gap'] * 1.5 and g['pt'] and pv < g['pt_day']:   # khách đến sau trung bình 1,5 x gap giây ở phòng tập
+                        ptc = 0; ptn += 1; pv += 1; k = VIS[ptn % len(VIS)]; x = 0; bonus = (pps * g['pt_cps'] + click * g['pt_taps']) * g['pt']
+                        if k in 'fR':   # bấm nhân: PT x5 trong 8 giây, crush x7 trong 10 giây
+                            mx, sec = (g['pt_tap'], g['pt_life']) if k == 'f' else (g['cr_tap'], g['cr_sec'])
+                            x = min(sta, sec * CPS) * click * (mx - 1) * g['pt']; tapped[rk] += x
+                        elif k == 's': sta += int(cap * g['pt_sta'] * g['pt'])
+                        elif k == 'c': x = bonus
+                        elif k == 'C': x = bonus * g['cr_cal']
+                        elif k == 'L': sta -= int(sta * g['cr_lose'] * g['pt'])
+                        elif k == 'K': x = bonus * g['ck_cal']; kg += g['ck_kg'] * g['pt']
+                        cal += x; earned[rk] += x
                 shop()
             frac = min(1, used / max(1, cap)); rec_next = False
             kg -= .3 * frac; fat = min(100, max(0, fat + (g['fat'][r0] * frac if r0 >= 2 else 0) - 5))
@@ -89,3 +105,4 @@ if __name__ == '__main__':
     report('HIỆN TẠI')
     if '-x' in sys.argv:   # thử phương án: python tools/sim.py -x
         for v in (.05, .3): report('THỬ', tap=v)
+        report('THỬ', pt=0)

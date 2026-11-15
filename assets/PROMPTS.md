@@ -566,6 +566,38 @@ Với mỗi dòng, dán: `Same art style and icon rules as the first icon. SUBJE
 
 ---
 
+## Nhóm 12: Khách ghé phòng tập (cuộc trò chuyện mới, đính kèm `original/rank1.png`, 3 ảnh)
+
+Game tự vẽ vòng tròn màu và viền trắng bao quanh, nên ảnh chỉ cần người/vật, nền trong suốt, không khung. Ảnh hiện nhỏ (76–110px), nên chỉ lấy **từ ngực trở lên** và nét phải thật đậm. Thả vào `assets/original/icon/`, chạy `python assets/build.py`, rồi báo để nối ảnh vào game.
+
+### icon-vis-pt.png (PT, vòng vàng) — dán nguyên khối này trước
+
+```
+Create a 2D game icon of a character bust. Square canvas 1024x1024, transparent background. Use the attached image as the art style reference: same clean modern anime mobile game style, crisp dark outlines of even thickness, two-tone cel shading, bright saturated colors, big expressive eyes.
+
+ICON RULES (apply to every icon of this chat):
+- Head and upper chest only, facing the viewer, centered, filling about 85% of the canvas. The head is large and easy to read when shrunk to 64 pixels.
+- Single subject. No background, no frame, no circle or badge behind it, no ground shadow, no text, no letters, no numbers, no logo.
+
+SUBJECT: a friendly, very muscular Vietnamese personal trainer, about 30 years old. Short undercut black hair, a red sports cap worn backwards, a tight black tank top showing big shoulders, a silver whistle on a red cord around the neck. Big confident grin, winking, one hand giving a thumbs up next to his face.
+```
+
+### icon-vis-crush.png (Crush, vòng hồng)
+
+```
+Same art style and icon rules as the first icon.
+
+SUBJECT: the office crush, a pretty Vietnamese woman about 26 years old. Long glossy black hair in a high ponytail, a pastel pink sports jacket over a white top, a small towel over one shoulder. Shy sweet smile with rosy cheeks, one hand giving a small wave. Two tiny pink hearts floating near her head.
+```
+
+### icon-vis-cake.png (Bánh sinh nhật, vòng xanh)
+
+```
+Same art style and icon rules as the first icon, but the subject is an object instead of a person: one single object, centered, filling about 85% of the canvas.
+
+SUBJECT: a small round birthday cake seen slightly from above, white frosting with pink drips, strawberries on top and one lit candle with a bright yellow flame, on a small paper plate. Looks extremely tempting.
+```
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

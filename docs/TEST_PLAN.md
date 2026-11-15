@@ -88,6 +88,14 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | C4 | Khi còn thể lực, dán vào Console: `for (let i = 0; i < 200; i++) $('hero').click()` | Calo và thể lực **không đổi** (cú bấm giả bị bỏ qua). | |
 | C5 | Dùng phần mềm auto-click hoặc bấm thật nhanh trong 5 giây, đếm thể lực đã mất. | Mất không quá khoảng 100 thể lực trong 5 giây (tối đa 20 cú mỗi giây được tính). | |
 | C6 | Đứng yên ở phòng tập khi đã có calo/giây (đã mua Vai). | Calo tự tăng theo calo/giây, thể lực không giảm. Về văn phòng hoặc ở nhà calo vẫn tăng. | |
+| C7 | Mở `?test`, vào phòng tập, chờ khoảng 3–12 giây. | Một vòng tròn nhấp nháy, phát sáng hiện trên sân khấu, có nhãn bên dưới; to khoảng 110px trên máy tính, 76px trên điện thoại; không che các nút. Không bấm: sau 8 giây biến mất. | |
+| C8 | Bản lưu chưa từng gặp khách: bấm vào khách đầu tiên. | Khách đầu luôn là PT 🧑‍🏫 (vàng, "Bấm tôi!"). Thông báo "PT: Thưởng calo!" kèm số calo. Sau đó hiện mục hướng dẫn "🧑‍🏫 Khách ghé phòng tập". Lần sau không hiện lại. | |
+| C9 | Bấm PT nhiều lần cho tới khi gặp đủ ba quà. | Bấm x5: thông báo "PT: Bấm x5!", vầng sáng chuyển cam, số bay lên màu vàng, mỗi cú x5 trong 8 giây. Thêm sức: thể lực +30% tối đa (vd 300 → +90). Thưởng calo: calo tăng đúng số trong thông báo. | |
+| C10 | Chờ crush 💃 (hồng, "Bắt chuyện?"). Bấm nhiều lần qua nhiều ngày. | Crush đi từ trái sang phải màn hình trong 8 giây. Khoảng 2/3 số lần: "Crush cười với bạn!" kèm bấm x7 trong 10 giây hoặc calo. Còn lại: "Crush ngó lơ..." có tiếng buồn, thể lực mất 10% số đang có. | |
+| C11 | Chờ bánh 🎂 (xanh, "Ăn bánh?"), bấm vào. Lần sau để bánh tự đi. | Bấm: "Bánh sinh nhật đồng nghiệp", calo tăng và cân +0,1 kg. Không bấm: không có gì thay đổi. | |
+| C13 | Bản lưu chưa từng bấm khách. Ở phòng tập (`?test`), **không bấm** khách nào, chờ 5–6 khách. | Khách đầu là PT; các khách sau có cả crush 💃 và bánh 🎂. |  |
+| C14 | Ở `?test`, ở lì phòng tập, bấm mọi khách (nhất là quà thể lực). | Mỗi ngày tối đa 3 khách; sau khách thứ 3 không còn ai tới, thể lực cạn dần và ngày kết thúc. Tải lại trang không làm khách tới thêm. Sáng hôm sau khách lại tới. | |
+| C12 | Khi khách đang hiện: thách đấu, hoặc về nhà. Ở văn phòng, nhà, trong trận đấu, khi mở ❓ thì chờ 2 phút. | Khách biến mất khi bắt đầu đấu hay rời phòng tập. Khách không bao giờ hiện ngoài phòng tập, trong trận đấu, hay khi có khung hướng dẫn / hộp xác nhận / màn chờ. | |
 
 ## D. Bài tập và mua
 
