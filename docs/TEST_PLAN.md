@@ -11,6 +11,7 @@ Ngày 2026-11-15, chạy bằng script trên trình duyệt (cửa sổ 1024×76
 - **Đạt**: A1, A3–A6, B1–B8, C1–C4, C6, D1–D6, E1–E10, F1–F7, G1–G9, H1–H8, I1–I7, J1–J9, K1–K5, L1–L9, M7, N1–N7, O1–O4, P1, P3, P4.
 - **Lỗi tìm được và đã sửa**: E2 (thông báo thành tựu đè mất thông báo lên hạng và mở khoá); N5 (màn đấu trên điện thoại chỉ thấy đầu nhân vật, không thấy đối thủ; ô thông số văn phòng bị xuống dòng; màn nhà trên điện thoại không thấy nhân vật).
 - **2026-11-16, bổ sung** (bộ nhớ riêng ở `127.0.0.1`): A1, N8, G5, H7, I3–I6, O3 đều **đạt**. Tìm và sửa: ô Mệt mỏi hiện ở phòng tập khi mới hạng 1 (CSS `.pill` đè thuộc tính `hidden`).
+- **2026-11-16, nhóm 2**: B9–B12 **đạt** (ngày 1 về nhà 2,0 giây, ngày 5 đi tập 0,8 giây, đi ngủ 3,4 giây; cuộn tới thẻ Lưng).
 - **Chưa chạy được bằng script, cần người thử**: A2 (nhìn câu nói đổi), C5 (auto-click thật), M1–M6 và M8–M10 (phải nghe), K4 (tỉ lệ độ hiếm khi gọi nhiều lần), P2 (bỏ ngang quảng cáo), P5–P7 (cần CrazyGames), R1–R6 (chơi thật bấm đồng hồ), và mọi thứ trên điện thoại thật.
 
 ## Chuẩn bị
@@ -72,6 +73,10 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | B6 | Bấm "Về nhà nghỉ" rồi "Đồng ý" (mệt mỏi dưới 40 hoặc chưa mở mệt mỏi). | Màn chờ "Đi về nhà..." 2 giây, vào nhà, thông báo "Tiếc quá, lại một ngày không luyện tập!". | |
 | B7 | Ở nhà nhìn bảng bên phải; ở phòng tập nhìn bảng bên phải. | Ở nhà chỉ có tab Bạn tập. Ở phòng tập có Bài tập, Thi đấu, Nhiệm vụ, Thành tựu, Lên đời và **không có** tab Bạn tập. | |
 | B8 | Ở văn phòng, bấm vào nhân vật nhiều lần. | Không có gì xảy ra: calo không tăng, thể lực không giảm. | |
+| B9 | Ở phòng tập, bấm tới hết thể lực rồi bấm "Về nhà". | **Không** có hộp hỏi, vào thẳng màn chờ về nhà. | |
+| B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Màn chờ đi tập khoảng 0,8 giây; chuỗi đi ngủ khoảng 3,4 giây, đủ 4 hình. Ngày 1–3 vẫn là 2 giây và 8,5 giây như B1, B4. | |
+| B11 | Bấm "Đi ngủ", chạm vào màn chờ sau khoảng 1 giây. Lần sau chạm ngay khi màn chờ vừa hiện. | Màn chờ có dòng "Chạm để bỏ qua". Chạm sau 1 giây: bỏ qua phần còn lại, sang ngày mới ngay (ngày +1, thông báo ngày mới). Chạm ngay lập tức (dưới 0,4 giây): không có tác dụng. | |
+| B12 | Ở phòng tập, nhìn bảng Bài tập; bấm vào thanh hạng trên cùng. | Đúng một thẻ có viền vàng phát sáng: bài rẻ nhất còn thiếu mục tiêu hạng kế (ván mới: Tay; Tay đủ 5 thì sang Vai). Bấm thanh hạng: mở tab Bài tập, cuộn tới thẻ đó, thẻ nảy nhẹ. Ở văn phòng bấm thanh hạng không làm gì. Hạng cao nhất hoặc chỉ còn thiếu cân nặng: không thẻ nào viền vàng. | |
 
 ## C. Bấm, thể lực, chống auto-click
 

@@ -140,6 +140,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .goal{display:block;font-style:normal;font-size:.8rem;font-weight:700;color:#ffb3b3}
 .goal.ok{color:#7dffb0}
 .card.hid{opacity:.8}
+.card.next{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 18px #ffd35c66}   /* bài cần mua tiếp để lên hạng */
+.frame:not(.office) .rank{cursor:pointer}
 .card.hid .tile{background:#0005!important;box-shadow:none}
 .card.hid .tile img{filter:brightness(0);opacity:.45}
 .buy:disabled,.big:disabled{background:#3d5f8f;color:#b5c9e6;box-shadow:0 4px 0 #223c63;cursor:not-allowed}
@@ -152,6 +154,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #wait{position:absolute;inset:0;z-index:8;background:#0a1d3df2;display:grid;place-items:center;font-weight:800;font-size:1.4rem;color:#fff;animation:fadeIn .25s}
 #wait[hidden]{display:none}
 #wait p{margin:0;text-align:center}
+#wait small{display:block;margin-top:14px;font-size:.85rem;font-weight:600;color:var(--mute)}
 #wait img{display:block;width:min(46vmin,260px);height:min(46vmin,260px);object-fit:contain;margin:0 auto 10px}
 .ico{width:1.2em;height:1.2em;vertical-align:-.22em;object-fit:contain}
 .tabs .ico{width:24px;height:24px;vertical-align:middle}
@@ -279,7 +282,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
     </div>
   </aside>
 
-  <div id="wait" hidden><p><img id="waitPic" alt="" draggable="false" onerror="this.hidden=true"><span></span><i>...</i></p></div>
+  <div id="wait" hidden><p><img id="waitPic" alt="" draggable="false" onerror="this.hidden=true"><span></span><i>...</i><small id="wSkip"></small></p></div>
   <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
   <div id="guide" hidden><div><h2 id="gTitle"></h2><button class="round" id="gX" aria-label="Close">✕</button><div id="gBody"></div><button class="big" id="gOk"></button></div></div>
 </div>
@@ -320,7 +323,7 @@ const T = {
       unlock:{1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 84,5 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
       homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp! Lên hạng 2 sẽ mở bữa tối.',
-      guide:'Hướng dẫn', gOk:'Đã hiểu', lock:'🔒 Mở khi đạt hạng {n}',
+      guide:'Hướng dẫn', gOk:'Đã hiểu', skip:'Chạm để bỏ qua', nextUp:'Bấm để tới bài tập cần mua tiếp', lock:'🔒 Mở khi đạt hạng {n}',
       g:{day:['📅 Một ngày của bạn', ['Văn phòng → 🏋️ phòng tập → 🏠 nhà → 😴 ngủ là hết một ngày.', 'Ở phòng tập: bấm vào nhân vật để kiếm 🔥 calo, dùng calo mua bài tập.', 'Tập đủ mục tiêu 🎯 của mọi nhóm cơ để lên hạng. Lên hạng mở thêm tính năng.', 'Bấm ❓ bất cứ lúc nào để xem lại hướng dẫn.']],
          gym:['💪 Bấm hay để calo tự chạy?', ['Mỗi cú bấm tốn 1 ⚡ thể lực. Thể lực đầy lại mỗi sáng.', 'Bài Tay và Mắt tăng calo mỗi lần bấm. Các bài khác tăng calo mỗi giây.', 'Calo mỗi giây vẫn chạy khi bạn không bấm, cả khi tắt game (tối đa 8 giờ).', 'Mỗi bài tập nhân đôi hiệu quả ở cấp 25, 50 và 100.']],
          sta:['⚡ Hết thể lực', ['Hết thể lực thì không bấm được nữa, nhưng calo mỗi giây vẫn chạy.', 'Về nhà rồi đi ngủ: sáng mai thể lực đầy lại.', 'Dùng càng nhiều thể lực trong ngày, càng giảm cân nhiều.']],
@@ -348,7 +351,7 @@ const T = {
       unlock:{1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 84,5 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
       homeSay0:'Home at last. Get some sleep and train again tomorrow! Reach rank 2 to unlock dinner.',
-      guide:'How to play', gOk:'Got it', lock:'🔒 Unlocks at rank {n}',
+      guide:'How to play', gOk:'Got it', skip:'Tap to skip', nextUp:'Tap to jump to the next workout to buy', lock:'🔒 Unlocks at rank {n}',
       g:{day:['📅 Your day', ['Office → 🏋️ gym → 🏠 home → 😴 sleep makes one day.', 'At the gym: tap the character to earn 🔥 calories, then spend them on workouts.', 'Hit every 🎯 muscle target to rank up. Each rank unlocks new features.', 'Tap ❓ any time to read this again.']],
          gym:['💪 Tap or let it run?', ['Every tap costs 1 ⚡ stamina. Stamina refills each morning.', 'Arms and Eyes add calories per tap. Every other workout adds calories per second.', 'Calories per second keep coming when you stop tapping, even with the game closed (up to 8 hours).', 'Each workout doubles its effect at levels 25, 50 and 100.']],
          sta:['⚡ Out of stamina', ['No more taps today, but calories per second keep coming.', 'Go home and sleep: stamina is full again in the morning.', 'The more stamina you use in a day, the more weight you lose.']],
@@ -575,7 +578,7 @@ function buildTexts() {
   nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
   document.documentElement.lang = s.lang;
   for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
-  $('chipMax').textContent = tr('max'); $('lang').textContent = tr('other'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gTitle').textContent = tr('guide'); $('gOk').textContent = tr('gOk');
+  $('chipMax').textContent = tr('max'); $('lang').textContent = tr('other'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gTitle').textContent = tr('guide'); $('gOk').textContent = tr('gOk'); $('wSkip').textContent = tr('skip'); document.querySelector('.rank').title = tr('nextUp');
   $('list').innerHTML = EX.map((e, i) => `<div class="card">
     <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>
     <div><b></b><span class="lv"></span><small class="d"></small><em></em><i class="ms"></i><i class="goal"></i></div>
@@ -626,7 +629,9 @@ function ui() {
   $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, lvOf(i)))) / sum(goal) * 100 : 100) + '%';
   while (s.seen < EX.length && (s.cal >= EX[s.seen].c / 2 || s.lv[EX[s.seen - 1].k] > 0)) s.seen++;   // bài tập ẩn "???" cho tới khi gần mua được
   const newbie = p === 0;
+  const want = goal.map((g, i) => g > lvOf(i) ? EX[i].c * R ** lvOf(i) : Infinity), low = Math.min(...want), nextI = isFinite(low) ? want.indexOf(low) : -1;   // bài còn thiếu mục tiêu, rẻ nhất
   [...$('list').children].forEach((c, i) => {
+    c.classList.toggle('next', i === nextI);
     const e = EX[i], n = count(e), cost = bulk(e, n), b = c.querySelector('.buy'), g = goal[i] || 0, hid = i >= s.seen && !g, lv = s.lv[e.k], next = MS.find(x => x > lv), gl = c.querySelector('.goal');   // bài tập hạng kế cần thì luôn hiện
     c.classList.toggle('hid', hid);
     c.querySelector('b').textContent = hid ? '???' : e[s.lang][0];
@@ -910,6 +915,11 @@ function coach(...keys) {
   guide(keys); save();
 }
 $('help').onclick = () => guide(GUIDE.map(g => g[0]));
+document.querySelector('.rank').onclick = () => {   // bấm thanh hạng: mở tab Bài tập và cuộn tới bài cần mua tiếp
+  if (s.scene === 'office' || duel) return;
+  tab('Ex'); const c = document.querySelector('#list .card.next'); if (!c) return;
+  c.scrollIntoView({behavior: 'smooth', block: 'center'}); c.animate([{transform: 'scale(1)'}, {transform: 'scale(1.04)'}, {transform: 'scale(1)'}], 500);
+};
 const closeGuide = () => { $('guide').hidden = true; };
 $('gOk').onclick = $('gX').onclick = closeGuide;
 $('guide').onclick = ev => { if (ev.target === $('guide')) closeGuide(); };   // bấm ra ngoài khung
@@ -952,15 +962,21 @@ function endDay() {
   save(); backup(); go('office'); sfx.buy(); toast(`${tr('day')} ${s.day}`, note.join(' · '), 3500); syncRank(); ui(); save();
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
-function travel(steps, done) {   // màn chờ khi chuyển cảnh: lần lượt từng [chữ, ms]; che cả khung nên không bấm được gì trong lúc đó
+let waitT, waitDone, waitAt = 0;
+function travel(steps, done) {   // màn chờ khi chuyển cảnh: lần lượt từng [chữ, ms]; che cả khung. Ba ngày đầu chạy đủ để kể chuyện, sau đó còn 40%; chạm để bỏ qua.
   const [[key, ms], ...rest] = steps;
+  if (!waitDone) waitAt = Date.now();
+  waitDone = done;
   $('waitPic').hidden = false; $('waitPic').src = `assets/scene/scene-${key.slice(1).toLowerCase()}.webp`;
   $('wait').querySelector('span').textContent = tr(key); $('wait').hidden = false;
-  setTimeout(() => { if (rest.length) return travel(rest, done); $('wait').hidden = true; done(); }, ms);
+  waitT = setTimeout(() => rest.length ? travel(rest, done) : endWait(), ms * (s.day > 3 ? .4 : 1));
 }
+function endWait() { clearTimeout(waitT); const d = waitDone; waitDone = null; $('wait').hidden = true; d?.(); }
+$('wait').onclick = () => { if (Date.now() - waitAt > 400) endWait(); };   // chờ 0,4 giây để cú bấm vừa rồi không vô tình bỏ qua luôn
 $('go').onclick = () => travel([['tGym', 2000]], () => { go('gym'); sfx.up(); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } });
 $('rest').onclick = () => ask(tr('qRest'), () => travel([['tHome', 2000]], () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); }));   // nghỉ khi còn sung sức = bỏ tập
-$('goHome').onclick = () => ask(tr('qHome'), () => travel([['tHome', 2000]], () => go('home')));
+const goHome = () => travel([['tHome', 2000]], () => go('home'));
+$('goHome').onclick = () => s.sta < 1 ? goHome() : ask(tr('qHome'), goHome);   // hết thể lực thì về luôn: không thể là bấm nhầm
 $('sleep').onclick = () => { music('sleep'); travel([['tSleep', 2000], ['tMorning', 1500], ['tCommute', 2000], ['tWork', 3000]], endDay); };
 for (const k of ['gym', 'home', 'sleep', 'morning', 'commute', 'work']) new Image().src = `assets/scene/scene-${k}.webp`;   // tải trước để màn chờ không bị trễ ảnh
 if (TEST > 1) $('frame').insertAdjacentHTML('beforeend', '<div id="testTag">TEST x100</div>');

@@ -14,7 +14,7 @@ Mỗi màn có nhạc riêng để người chơi cảm được nhịp một ng
 | `gym.mp3` | Màn phòng tập | Nhịp nhanh, trống điện tử, tạo hứng bấm | Lặp 60–90 giây |
 | `home.mp3` | Màn nhà | Ấm, nhẹ, guitar hoặc piano buổi tối | Lặp 60–90 giây |
 | `duel.mp3` | Trong 15 giây thi đấu | Dồn dập, căng | Lặp 15–30 giây |
-| `sleep.mp3` | Chuỗi màn chờ khi đi ngủ (8,5 giây) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
+| `sleep.mp3` | Chuỗi màn chờ khi đi ngủ (8,5 giây; từ ngày 4 còn 3,4 giây, chạm để bỏ qua) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
 
 Đợt 2 (sau khi đợt 1 chạy ổn): `gym2.mp3` mạnh hơn cho hạng 4–6, để nhạc phòng tập "lớn lên" cùng nhân vật; đoạn nhạc ngắn khi lên hạng và khi thắng trận (hiện đang là tiếng bíp).
 
