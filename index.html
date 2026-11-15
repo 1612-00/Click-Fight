@@ -33,6 +33,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .money .r{display:inline-block;margin-top:6px;padding:3px 12px;border-radius:99px;background:#0007;color:var(--gold);font-size:.9rem}
 .hero{position:relative;flex:1;min-height:0;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;cursor:pointer;border:0;background:none;padding:0;width:100%}
 .hero>*{grid-area:1/1}
+.hero.hint::after{content:'👆';grid-area:1/1;z-index:3;translate:0 45%;font-size:3.4rem;pointer-events:none;filter:drop-shadow(0 3px 0 #0008);animation:poke .9s ease-in-out infinite}   /* người mới: tay chỉ vào nhân vật cho tới vài cú bấm đầu */
+@keyframes poke{50%{transform:translateY(-16px) scale(.9)}}
 .aura,.rays{height:min(100%,640px);aspect-ratio:1;border-radius:50%;pointer-events:none}
 .aura{background:radial-gradient(circle,var(--aura) 0,transparent 66%);opacity:.6}
 .rays{background:repeating-conic-gradient(var(--aura) 0 7deg,transparent 7deg 22deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 68%);mask:radial-gradient(circle,#000 18%,transparent 68%);opacity:.28;animation:spin 40s linear infinite}
@@ -74,6 +76,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 }
 .pill{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:#000a;border:2px solid var(--line);font-weight:800;white-space:nowrap}
 .pill .bar{width:70px;margin:0}
+.pill[hidden]{display:none}
 #staBar{background:linear-gradient(90deg,#3ddc84,#b6ff8a)}
 @media(min-width:901px){#vit{font-size:1.05rem;gap:10px;margin-top:10px}#vit .pill{padding:6px 16px}#vit .pill .bar{width:110px;height:10px}#boost{font-size:1.05rem;padding:6px 16px}}   /* máy tính: chỉ số to hơn cho dễ nhìn */
 #goHome{cursor:pointer;color:var(--gold);border-color:var(--gold)}
@@ -406,7 +409,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'office', mute:0, ach:{}, tips:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'gym', mute:0, ach:{}, tips:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);   // gym: mỗi lần mở game bắt đầu ở văn phòng, bấm nút mới sang phòng tập
@@ -485,7 +488,8 @@ const basePps = () => EX.reduce((a, e) => a + (e.pps || 0) * s.lv[e.k] * boost(s
 const pps = () => basePps() * mult() * (1 + petBonus('pps'));
 // Chế độ thử: mở http://localhost:8766/?test thì mỗi cú bấm x100. Chỉ chạy trên máy phát triển, không có tác dụng trên bản phát hành.
 const TEST = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && new URLSearchParams(location.search).has('test') ? 100 : 1;
-const clickPower = () => (1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0) + basePps() * .05) * mult() * (1 + petBonus('click')) * (s.rec ? 1.25 : 1) * (fx().tap || 1) * TEST;
+const TAP = .25;   // mỗi cú bấm thêm 25% calo/giây gốc: bấm luôn chiếm khoảng một nửa thu nhập ở mọi hạng (5% thì về cuối game chỉ còn 15%)
+const clickPower = () => (1 + EX.reduce((a, e) => a + (e.click || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0) + basePps() * TAP) * mult() * (1 + petBonus('click')) * (s.rec ? 1.25 : 1) * (fx().tap || 1) * TEST;
 const bulk = (e, n) => e.c * R ** s.lv[e.k] * (R ** n - 1) / (R - 1);          // giá mua n cấp liền
 function maxAff(e) {
   let n = Math.floor(Math.log(s.cal * (R - 1) / (e.c * R ** s.lv[e.k]) + 1) / Math.log(R));
@@ -636,6 +640,7 @@ function ui() {
     put(b.firstChild, '🔥 ' + fmt(cost));
     b.lastChild.textContent = 'x' + n;
   });
+  $('hero').classList.toggle('hint', s.scene === 'gym' && !duel && s.clicks < 5);
   $('tip').classList.toggle('warn', s.scene === 'gym' && !duel && s.sta < 1);   // hết thể lực: nhấp nháy đỏ cho dễ thấy
   $('tip').textContent = tr(s.scene === 'home' ? 'homeTip' : duel ? 'duelTip' : s.sta < 1 ? 'noSta' : newbie && s.cal >= EX[0].c ? 'tipBuy' : 'tip');
   document.querySelectorAll('#rivals .league').forEach((h, l) => {
@@ -816,7 +821,7 @@ $('hero').onclick = ev => {
   if (!duel) {   // mỗi cú bấm tốn 1 thể lực (trong trận đấu thì đã trả trước)
     if (s.sta < 1) { $('goHome').animate([{transform:'scale(1.3)'}, {transform:'none'}], 200); return; }
     s.sta--; s.used++;
-    if (s.sta < 1) coach('sta');
+    if (s.sta < 1) coach('sta', 'gym', 'day');   // người mới vào thẳng phòng tập, không bị khung nào chặn; luật một ngày dạy ở lần nghỉ tự nhiên đầu tiên này
   }
   if (CG && !playing) { playing = true; CG.game.gameplayStart(); }
   const c = clickPower(), r = $('hero').getBoundingClientRect(), p = document.createElement('span');

@@ -12,19 +12,19 @@ G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [
          mults=[1, 1.25, 1.5, 2, 2.5, 3], R=1.17,
          kg=[999, 999, 999, 84.5, 82, 78], fat=[30, 26, 22, 18, 14, 10], wk=[4, 4, 5, 5, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=20, duel_sta=40,
-         s0=5000, sg=2.5, pet=.042, ach=.01)
+         s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25)   # tap: mỗi cú bấm thêm tap x calo/giây gốc
 
 
 def run(g, rest_at=40, meal='h', limit=400):
     lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = 85.0; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
-    out = {}; rests = 0; gm = {}   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
+    out = {}; rests = 0; gm = {}; earned = [0.0] * 6; tapped = [0.0] * 6   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
     boost = lambda l: 2 ** sum(l >= m for m in MS)
 
     def rates():
         m = g['mults'][rk] * (1 + g['win'] * wins) * (1 + g['ach'] * min(16, rk * 2 + wins // 4 + summons // 5 + 3)) * (1.1 if wkb else 1) * (1.2 if 68 <= kg <= 72 else 1) * {'p': 1.25, 'j': 1.1}.get(today, 1)
         pb = 1 + g['pet'] * summons
         base = sum(e[2] * l * boost(l) for e, l in zip(EX, lv))
-        click = (1 + sum(e[1] * l * boost(l) for e, l in zip(EX, lv)) + base * .05) * m * pb * (1.25 if rec else 1) * (1.5 if today == 'j' else 1)
+        click = (1 + sum(e[1] * l * boost(l) for e, l in zip(EX, lv)) + base * g['tap']) * m * pb * (1.25 if rec else 1) * (1.5 if today == 'j' else 1)
         return base * m * pb, click
 
     def shop():
@@ -46,7 +46,7 @@ def run(g, rest_at=40, meal='h', limit=400):
         flv = 3 if fat >= 100 else 2 if fat >= 70 else 1 if fat >= 40 else 0
         cap = int((g['sta0'] + g['sta_rank'] * rk + g['sta_cardio'] * lv[7]) * [1, .75, .5, .5][flv] * (.8 if kg > 90 else 1) * ({'h': 1.1, 'j': 1.5}.get(today, 1)))
         r0 = rk; used = 0; sunday = (day - 1) % 7 == 6
-        pps, click = rates(); cal += pps * IDLE; t += IDLE
+        pps, click = rates(); cal += pps * IDLE; t += IDLE; earned[rk] += pps * IDLE
         if fat >= 100 or fat >= rest_at:
             rests += 1; lazy = fat < 40; rec_next = not lazy; kg += .3 if lazy else .1; fat = max(0, fat - 60)
         else:
@@ -57,7 +57,7 @@ def run(g, rest_at=40, meal='h', limit=400):
                     if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
                     cal += g['t0'] * g['tg'] ** wins * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
                 else:
-                    n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS
+                    n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
                 shop()
             frac = min(1, used / max(1, cap)); rec_next = False
             kg -= .3 * frac; fat = min(100, max(0, fat + (g['fat'][r0] * frac if r0 >= 2 else 0) - 5))
@@ -69,7 +69,7 @@ def run(g, rest_at=40, meal='h', limit=400):
         shop()
         if rk not in out and rk > 0:
             for r in range(1, rk + 1): out.setdefault(r, (day, t, kg))
-    return out, dict(day=day, t=t, kg=kg, wins=wins, summons=summons, rests=rests, lv=lv, rk=rk, gm=gm)
+    return out, dict(day=day, t=t, kg=kg, wins=wins, summons=summons, rests=rests, lv=lv, rk=rk, gm=gm, share=[tp / e for tp, e in zip(tapped, earned) if e])
 
 
 def fmt(s): return f'{int(s // 3600)}h{int(s % 3600 // 60):02d}m' if s >= 3600 else f'{int(s // 60)}m{int(s % 60):02d}s'
@@ -81,8 +81,11 @@ def report(name, **over):
     for label, ra in (('không nghỉ', 999), ('nghỉ khi Mỏi', 40), ('nghỉ khi Kiệt sức', 70)):
         out, e = run(g, ra)
         print(f'  {label:18}', '  '.join(f'H{r + 1}: ngày {d} ({fmt(t)}, {k:.1f}kg)' for r, (d, t, k) in sorted(out.items())),
-              f"| cuối: hạng {e['rk'] + 1}, ngày {e['day']}, nghỉ {e['rests']}, đấu {e['wins']}, gọi {e['summons']}, {fmt(e['t'] / max(1, e['day'] - 1))}/ngày")
+              f"| cuối: hạng {e['rk'] + 1}, ngày {e['day']}, nghỉ {e['rests']}, đấu {e['wins']}, gọi {e['summons']}, {fmt(e['t'] / max(1, e['day'] - 1))}/ngày"
+              + ' | bấm: ' + ' '.join(f'{x:.0%}' for x in e['share']))
 
 
 if __name__ == '__main__':
     report('HIỆN TẠI')
+    if '-x' in sys.argv:   # thử phương án: python tools/sim.py -x
+        for v in (.05, .3): report('THỬ', tap=v)

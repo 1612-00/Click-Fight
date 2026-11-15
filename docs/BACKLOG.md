@@ -10,15 +10,8 @@ Xong việc nào thì xoá dòng đó. Phát hiện việc mới thì thêm vào
 
 Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
-- Chủ nhật: đấu miễn phí thể lực, thưởng x2.
-- Mục tiêu tuần và thưởng +10% tuần sau.
-- Cân kiểm tra ngày 30.
-- Bắt buộc nghỉ khi mệt mỏi 100.
-- Vắng mặt hơn 24 giờ tính là ngày nghỉ.
 - Nước tăng lực (cần SDK CrazyGames thật).
-- Thắng một trận trong màn đấu mới.
-- Ăn Yến mạch chuối / Mì tôm trứng để xem mệt mỏi giảm.
-- Game chạy thế nào khi SDK tải lỗi.
+- Game chạy thế nào khi SDK tải lỗi (đọc code thì an toàn: lỗi bị bắt, `CG = null`, lưu vào `localStorage`; chưa chạy thử).
 - Lưu theo tài khoản CrazyGames: đăng nhập giữa chừng, chơi trên hai máy (TEST_PLAN A10, A11) chỉ thử được trên CrazyGames thật.
 - Nhạc nền: mức âm lượng (`LOUD` = 0,05) đã được chủ dự án nghe và chốt; chưa thử trên điện thoại thật (iOS chặn tiếng khắt khe nhất); chưa thử nhạc tắt khi có quảng cáo thật.
 - Bố cục điện thoại sau các thay đổi mở tính năng theo hạng.

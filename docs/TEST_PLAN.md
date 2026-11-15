@@ -10,6 +10,7 @@ Ngày 2026-11-15, chạy bằng script trên trình duyệt (cửa sổ 1024×76
 
 - **Đạt**: A1, A3–A6, B1–B8, C1–C4, C6, D1–D6, E1–E10, F1–F7, G1–G9, H1–H8, I1–I7, J1–J9, K1–K5, L1–L9, M7, N1–N7, O1–O4, P1, P3, P4.
 - **Lỗi tìm được và đã sửa**: E2 (thông báo thành tựu đè mất thông báo lên hạng và mở khoá); N5 (màn đấu trên điện thoại chỉ thấy đầu nhân vật, không thấy đối thủ; ô thông số văn phòng bị xuống dòng; màn nhà trên điện thoại không thấy nhân vật).
+- **2026-11-16, bổ sung** (bộ nhớ riêng ở `127.0.0.1`): A1, N8, G5, H7, I3–I6, O3 đều **đạt**. Tìm và sửa: ô Mệt mỏi hiện ở phòng tập khi mới hạng 1 (CSS `.pill` đè thuộc tính `hidden`).
 - **Chưa chạy được bằng script, cần người thử**: A2 (nhìn câu nói đổi), C5 (auto-click thật), M1–M6 và M8–M10 (phải nghe), K4 (tỉ lệ độ hiếm khi gọi nhiều lần), P2 (bỏ ngang quảng cáo), P5–P7 (cần CrazyGames), R1–R6 (chơi thật bấm đồng hồ), và mọi thứ trên điện thoại thật.
 
 ## Chuẩn bị
@@ -47,7 +48,7 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| A1 | Chạy lệnh "Chơi mới từ đầu". | Ở màn văn phòng, "Ngày 1 · Thứ Hai", một câu nói trong khung trắng. Bảng thông số: Calo 0, calo/giây 0, Cân nặng 85.0 kg, Thể lực 300 / 300, Đối thủ đã thắng 0 / 20. Không thấy ô Mệt mỏi, không thấy lịch tuần. Thanh hạng: "1 · Dân văn phòng suy nhược", "0/3 nhóm cơ". Không có bảng bài tập bên phải. | |
+| A1 | Chạy lệnh "Chơi mới từ đầu". | Vào thẳng **phòng tập**, không có khung nào che. Calo 0, Thể lực 300 / 300, Cân nặng 85.0 kg. Không thấy ô Mệt mỏi. Thanh hạng: "1 · Dân văn phòng suy nhược", "0/3 nhóm cơ". Bàn tay 👆 nhún nhảy trên nhân vật, dòng nhắc "Bấm vào nhân vật để tập!". Bảng bài tập bên phải. | |
 | A2 | Tải lại trang (F5) 5 lần. | Câu nói ở văn phòng thay đổi giữa các lần (có 8 câu, có thể trùng). Các thông số không đổi. | |
 | A3 | Vào phòng tập, bấm 20 cú, mua 1 cấp Tay. Đợi 6 giây rồi tải lại trang. | Mở lại ở **văn phòng** (không phải phòng tập). Calo, cấp Tay và thể lực còn lại giữ nguyên như trước khi tải lại. | |
 | A4 | Về nhà (chưa ngủ), đợi 6 giây, tải lại trang. | Mở lại ở **nhà**, vẫn cùng ngày, nút "Đi ngủ" còn đó. | |
@@ -240,8 +241,8 @@ Bảng đối chiếu cho H6:
 | N5 | Tablet dọc 768×1024 và điện thoại 375×812, lần lượt ở văn phòng, phòng tập, nhà, màn đấu. | Bố cục xếp chồng: nhân vật ở trên, bảng ở dưới rộng hết màn hình. Không có chữ bị cắt, nút nào cũng bấm được, không cuộn ngang. Ở nhà thấy đủ 3 món ăn và nút "Đi ngủ"; trên điện thoại màn nhà ẩn số calo lớn và nhân vật nhỏ (khoảng 80px). Màn đấu trên điện thoại ẩn số calo và các ô chỉ số, thấy đủ cả hai nhân vật. Bảng thông số ở văn phòng mỗi ô một dòng. | |
 | N6 | Nhìn mọi chỗ có icon: calo, thể lực, mệt mỏi, cân nặng, ngày, sao, cúp, các tab, nhiệm vụ, giá mua. | Đều là icon ảnh cùng phong cách, không có ô vuông trống hay ảnh vỡ. | |
 | N7 | Khi số calo lớn (nghìn, triệu, tỷ). | Tiếng Việt: "1,5 N", "4,2 Tr", "1,2 T". Tiếng Anh: "1.5K", "4.2M", "1.2B". Số không tràn khỏi nút hay thẻ. | |
-| N8 | Ván mới (cửa sổ ẩn danh), mở game. | Khung "Hướng dẫn" tự hiện mục "Một ngày của bạn". Bấm "Đã hiểu" thì đóng; tải lại trang thì không hiện lại. | |
-| N9 | Ván mới: vào phòng tập; bấm tới hết thể lực; về nhà; mở tab Thi đấu; mở tab Lên đời. | Mỗi lần hiện đúng một mục tương ứng, chỉ lần đầu. Về nhà ở hạng 1 chỉ hiện "Buổi tối ở nhà", không hiện mục bữa tối. | |
+| N8 | Ván mới (cửa sổ ẩn danh), bấm nhân vật 5 cú, rồi bấm tới hết thể lực. | Bàn tay 👆 biến mất sau cú bấm thứ 5. Lúc hết thể lực, khung "Hướng dẫn" hiện cùng lúc 3 mục: "Hết thể lực", "Bấm hay để calo tự chạy?", "Một ngày của bạn". Bấm "Đã hiểu" thì đóng, không hiện lại. | |
+| N9 | Tiếp N8: về nhà; mở tab Thi đấu; mở tab Lên đời; ngủ sang ngày 2 rồi vào phòng tập. | Mỗi lần hiện đúng một mục tương ứng, chỉ lần đầu. Về nhà ở hạng 1 chỉ hiện "Buổi tối ở nhà", không hiện mục bữa tối. Vào phòng tập ngày 2 không hiện gì (đã xem). | |
 | N10 | Lần đầu về nhà sau khi đạt hạng 3 (chưa từng xem). | Một khung hiện cùng lúc ba mục: bữa tối, mệt mỏi, cân nặng. Mục cân nặng ghi đúng ngưỡng 84,5 / 82 / 78 kg. | |
 | N11 | Bấm nút ❓ ở hạng 1, rồi ở hạng 3, cả hai ngôn ngữ. | Hiện đủ 9 mục. Ở hạng 1: bữa tối ghi "🔒 Mở khi đạt hạng 2", mệt mỏi và cân nặng ghi "hạng 3". Khung cuộn được, nút "Đã hiểu" luôn thấy trên điện thoại. Bấm ❓ không làm đổi bản lưu. | |
 | N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 4 nút tròn (❓, nhân vật, âm thanh, ngôn ngữ). Tên hạng dài xuống dòng, không bị cắt. | |

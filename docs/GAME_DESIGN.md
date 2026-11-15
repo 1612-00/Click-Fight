@@ -15,7 +15,7 @@ Nguyên tắc thiết kế:
 
 ## Vòng lặp một ngày (2–3 phút)
 
-1. **Văn phòng**: mở game luôn ở đây. Chỉ có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
+1. **Văn phòng**: mở game luôn ở đây (trừ ván mới: vào thẳng phòng tập để bấm được ngay). Chỉ có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
 2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" có hộp xác nhận.
 3. **Nhà**: chọn một bữa tối, xem/gọi bạn tập, bấm "Đi ngủ" sang ngày mới.
 
@@ -49,7 +49,7 @@ Giá cấp kế tiếp = giá gốc × 1,17^cấp. Đạt cấp 25, 50, 100 thì
 | Lưng | 1.400.000 | +1.400 calo/giây |
 | Cardio | 20.000.000 | +7.800 calo/giây, +5 thể lực tối đa |
 
-Calo mỗi cú bấm = (1 + tổng calo/bấm + 5% calo/giây gốc) × các hệ số.
+Calo mỗi cú bấm = (1 + tổng calo/bấm + 25% calo/giây gốc) × các hệ số (hằng `TAP`). Nhờ phần 25% này, cú bấm chiếm khoảng một nửa thu nhập ở mọi hạng (trước là 5%: hạng 5–6 chỉ còn 15%, bấm gần như vô nghĩa). Treo máy vẫn có calo, nhưng người chịu bấm được gấp đôi.
 
 ## Hạng
 
@@ -64,7 +64,7 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 | 5 | Sáu múi lấp ló | x2,5 | 40, 35, 30, 22, 15, 10, 3 | 82 kg |
 | 6 | Thần gym công sở | x3 | 70, 60, 55, 48, 40, 40, 32, 20 | 78 kg |
 
-Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 12 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
+Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 8–9 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
 
 Có 2 nhân vật (nam, nữ), mỗi nhân vật 6 hình theo hạng.
 
@@ -149,7 +149,7 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 ## Hướng dẫn
 
 - **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 9 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
-- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó: mở game ở văn phòng (một ngày), vào phòng tập, hết thể lực, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời. Đã hiện thì lưu vào `s.tips`.
+- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời. Đã hiện thì lưu vào `s.tips`.
 - Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
 - Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
 
@@ -167,15 +167,16 @@ SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ng
 
 | Hạng | Người mới (3 lần bấm/giây, bỏ bữa, không nghỉ) | Người quen (4 lần bấm/giây, ăn cơm gà, nghỉ khi Mỏi) |
 |---|---|---|
-| 2 | ngày 1, phút 2 | ngày 1, phút 2 |
-| 3 | ngày 2, phút 5 | ngày 2, phút 4,5 |
-| 4 | ngày 4, phút 12 | ngày 5, phút 14 |
-| 5 | ngày 12, phút 34 | ngày 10, phút 29 |
-| 6 | ngày 46, 2h17 | ngày 38, 2h07 |
+| 2 | ngày 2, phút 2 | ngày 2, phút 2 |
+| 3 | ngày 3, phút 5 | ngày 3, phút 4,5 |
+| 4 | ngày 4, phút 9 | ngày 4, phút 8 |
+| 5 | ngày 13, phút 35 | ngày 10, phút 26 |
+| 6 | ngày 34, 1h40 | ngày 26, 1h22 |
 
-Mỗi ngày dài khoảng 3 phút.
+Mỗi ngày dài khoảng 3 phút. Phần calo từ cú bấm (người mới, hạng 1 → 6): 76%, 55%, 48%, 44%, 40%, 43%.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
-- Hạng 2 ngay trong ngày đầu (khoảng 2 phút), hạng 4 trong khoảng 15 phút; hạng 6 quanh ngày 40–50, hơn 2 giờ.
+- Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 1 giờ (trước là 1,5 giờ, đoạn dễ bỏ cuộc nhất); hạng 6 sau khoảng 1,5 giờ.
+- Cú bấm chiếm 40–55% calo từ hạng 2 trở đi.
 - Người nghỉ hợp lý lên hạng sớm ngày hơn người không nghỉ.
 - Người tập đều không bị cân nặng chặn quá 1–3 ngày.
