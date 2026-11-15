@@ -251,6 +251,7 @@ Bảng đối chiếu cho H6:
 | N10 | Lần đầu về nhà sau khi đạt hạng 3 (chưa từng xem). | Một khung hiện cùng lúc ba mục: bữa tối, mệt mỏi, cân nặng. Mục cân nặng ghi đúng ngưỡng 84,5 / 82 / 78 kg. | |
 | N11 | Bấm nút ❓ ở hạng 1, rồi ở hạng 3, cả hai ngôn ngữ. | Hiện đủ 9 mục. Ở hạng 1: bữa tối ghi "🔒 Mở khi đạt hạng 2", mệt mỏi và cân nặng ghi "hạng 3". Khung không cao quá màn hình (thử cả 1440×900, 1366×650, 375×812), nội dung cuộn bên trong, nút "Đã hiểu" luôn thấy. Máy tính 2 cột, điện thoại 1 cột. Đóng được bằng "Đã hiểu", nút ✕, bấm ra ngoài khung, phím Esc; bấm vào trong khung thì không đóng. Bấm ❓ không làm đổi bản lưu. | |
 | N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 4 nút tròn (❓, nhân vật, âm thanh, ngôn ngữ). Tên hạng dài xuống dòng, không bị cắt. | |
+| N13 | Ván mới (cửa sổ ẩn danh), kể cả trên máy cài tiếng Việt. | Game hiện **tiếng Anh**, nút ngôn ngữ ghi "VI". Bấm "VI" rồi tải lại: vẫn tiếng Việt. Bản lưu có từ trước vẫn giữ ngôn ngữ đang dùng. | |
 ## O. Vắng mặt
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |

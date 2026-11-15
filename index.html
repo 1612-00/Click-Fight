@@ -413,7 +413,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'gym', mute:0, ach:{}, tips:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'gym', mute:0, ach:{}, tips:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);   // gym: mỗi lần mở game bắt đầu ở văn phòng, bấm nút mới sang phòng tập

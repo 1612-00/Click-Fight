@@ -163,6 +163,8 @@ Cú bấm nhân vật phải là cú bấm thật và cách cú trước ít nh�
 
 SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ngày một lần, và khi lên đời. Quảng cáo thưởng: nước tăng lực. Tắt tiếng khi có quảng cáo. Không có SDK thì game vẫn chạy, không có quảng cáo.
 
+Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả CrazyGames phần lớn nói tiếng Anh), đổi sang tiếng Việt bằng nút "VI". Lựa chọn được lưu; bản lưu cũ giữ ngôn ngữ đang dùng.
+
 ## Mục tiêu cân bằng
 
 Đo bằng `python tools/sim.py`. Kết quả gần nhất:
