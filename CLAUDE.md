@@ -11,6 +11,7 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | [docs/BACKLOG.md](docs/BACKLOG.md) | Việc còn tồn, phần chưa kiểm tra, ý tưởng | Khi phát hiện/xong một việc |
 | [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | Bộ test thủ công: bước làm và kết quả mong muốn | Mỗi lần đổi luật, con số hoặc thêm tính năng |
 | [docs/MUSIC_PLAN.md](docs/MUSIC_PLAN.md) | Kế hoạch nhạc nền theo màn (chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
+| [docs/CRAZYGAMES.md](docs/CRAZYGAMES.md) | Mô tả, điều khiển, hướng dẫn (tiếng Anh) để nộp CrazyGames; file ảnh bìa, video; cách quay lại video | Khi thêm tính năng hoặc đổi giao diện |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, giữ phong cách thống nhất | Khi cần ảnh mới |
 
 Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đúng nhất khi lệch nhau), `G` trong `tools/sim.py`, và `docs/GAME_DESIGN.md`. Chữ hướng dẫn (`T.vi.g`, `T.en.g`) cũng ghi số: ngưỡng cân, thời gian đấu, thưởng thắng tự lấy từ hằng số; các số còn lại (mệt mỏi 40/70/100, ±0,3 kg, 40 thể lực, 68–72 kg…) viết tay, đổi luật thì sửa theo.
@@ -18,8 +19,9 @@ Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đún
 ## Cấu trúc
 
 - `index.html`: toàn bộ game (CSS, HTML, JS thuần). Không build, không thư viện. Script chia mục bằng chú thích `// ============ Tên mục ============`: Dữ liệu, Trạng thái + lưu, Công thức, Hiển thị, Âm thanh, Thao tác, Một ngày, Khởi động + vòng lặp.
-- `assets/original/<nhóm>/*.png`: ảnh gốc do chủ dự án tạo. `assets/<nhóm>/*.webp`: ảnh game dùng, sinh ra bởi `assets/build.py`, không sửa tay. Nhóm: `char` (nhân vật theo hạng), `bg` (nền), `icon` (bài tập), `pet`, `rival`, `food`, `scene` (màn chờ), `ui` (icon giao diện `ui-*`, `tab-*`). `original/store` (ảnh bìa, logo cho CrazyGames) không build và không nằm trong game.
+- `assets/original/<nhóm>/*.png`: ảnh gốc do chủ dự án tạo. `assets/<nhóm>/*.webp`: ảnh game dùng, sinh ra bởi `assets/build.py`, không sửa tay. Nhóm: `char` (nhân vật theo hạng), `bg` (nền), `icon` (bài tập), `pet`, `rival`, `food`, `scene` (màn chờ), `ui` (icon giao diện `ui-*`, `tab-*`). `original/store` (ảnh bìa, logo, video xem trước cho CrazyGames) không build và không nằm trong game.
 - `tools/sim.py`: mô phỏng nhịp chơi theo ngày để cân bằng.
+- `tools/video/`: quay (`record.js`, chạy qua Playwright MCP) và ghép (`build.py`) video xem trước CrazyGames. Đoạn quay thô ở `tools/video/raw/`, không đưa vào git.
 - `prototype/`: bản thử ban đầu, không còn dùng.
 - `.claude/launch.json`: server xem thử tên `game`, cổng 8766.
 
