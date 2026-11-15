@@ -9,10 +9,11 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | `CLAUDE.md` | Ngữ cảnh, quy ước làm việc (file này) | Khi đổi cách làm việc, cấu trúc file |
 | [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md) | Luật chơi và mọi con số hiện hành, kèm lý do | Mỗi lần đổi luật hoặc con số |
 | [docs/BACKLOG.md](docs/BACKLOG.md) | Việc còn tồn, phần chưa kiểm tra, ý tưởng | Khi phát hiện/xong một việc |
+| [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | Bộ test thủ công: bước làm và kết quả mong muốn | Mỗi lần đổi luật, con số hoặc thêm tính năng |
 | [docs/MUSIC_PLAN.md](docs/MUSIC_PLAN.md) | Kế hoạch nhạc nền theo màn (chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, giữ phong cách thống nhất | Khi cần ảnh mới |
 
-Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đúng nhất khi lệch nhau), `G` trong `tools/sim.py`, và `docs/GAME_DESIGN.md`.
+Con số nằm ở ba nơi và **phải đổi cùng lúc**: `index.html` (đúng nhất khi lệch nhau), `G` trong `tools/sim.py`, và `docs/GAME_DESIGN.md`. Chữ hướng dẫn (`T.vi.g`, `T.en.g`) cũng ghi số: ngưỡng cân, thời gian đấu, thưởng thắng tự lấy từ hằng số; các số còn lại (mệt mỏi 40/70/100, ±0,3 kg, 40 thể lực, 68–72 kg…) viết tay, đổi luật thì sửa theo.
 
 ## Cấu trúc
 
@@ -39,6 +40,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 ## Kiến trúc trong `index.html`
 
 - **Trạng thái**: một object `s`, mặc định từ `fresh()`. Lưu bằng `save()` qua `store()` (CrazyGames `SDK.data` nếu có, không thì `localStorage`), khoá `gymgod-save`. `load()` chỉ nhận từng trường hợp lệ. Thêm trường mới thì thêm vào cả `fresh()` và `load()`.
+- **An toàn bản lưu** (tiến trình là thứ quan trọng nhất của game): `gymgod-save-bak` là bản dự phòng ghi mỗi sáng và trước khi lên đời; bản chính hỏng hoặc mất thì `load()` dùng bản dự phòng. `gymgod-save-old` giữ trạng thái ngay trước khi xoá tiến trình. Không lưu gì trước khi `ready`. Đăng nhập CrazyGames giữa chừng thì ngừng lưu (trang sẽ tự tải lại với dữ liệu tài khoản). Chờ SDK tối đa 15 giây để không rơi sang bộ nhớ máy. Mọi thay đổi chạm tới `save`/`load` phải chạy lại nhóm A trong TEST_PLAN.
 - **Vòng lặp**: tick 100 ms cộng calo theo thời gian thực rồi gọi `ui()`. Tự lưu mỗi 5 giây.
 - **Hiển thị**: `buildTexts()` dựng lại HTML khi đổi ngôn ngữ; `drawDay()` phần đổi theo ngày/màn; `ui()` chỉ cập nhật số mỗi tick.
 - **Chữ**: mọi chuỗi hiển thị nằm trong `T = {vi, en}`, lấy bằng `tr(key)`. Thêm chuỗi phải thêm cả hai ngôn ngữ.
@@ -46,6 +48,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Màn**: `s.scene` = `office | gym | home`, đổi bằng `go(scene)`. `endDay()` kết thúc ngày.
 - **Hạng**: `s.rk`, chỉ tăng trong `syncRank()`. Tính năng mở theo `unl()` (hạng cao nhất từng đạt).
 - **Âm thanh**: hiệu ứng tạo bằng code (`beep`, `sfx`); nhạc nền là `assets/music/<tên>.mp3`, phát qua `music(name)`, và `tune()` chọn bài theo màn (`office`, `gym`, `home`), `duel` khi đấu, `sleep` khi ngủ. Nhạc chỉ bắt đầu sau cú chạm đầu tiên. `s.mute`: 0 bật hết, 1 tắt nhạc, 2 tắt hết.
+- **Hướng dẫn**: danh sách mục `GUIDE` (kèm hạng cần để mở), chữ trong `T.*.g`. `guide(keys)` mở khung; `coach(...keys)` hiện mục lần đầu người chơi gặp và ghi vào `s.tips`. Thêm tính năng mới thì thêm một mục và gọi `coach` ở chỗ người chơi gặp nó lần đầu.
 - **Hộp xác nhận**: dùng `ask(text, yes)`. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
 - **SDK**: `CG` là `null` khi không có CrazyGames; mọi lời gọi SDK phải chịu được `CG === null`.
 

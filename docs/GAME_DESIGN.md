@@ -146,6 +146,13 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 - **Thành tựu**: 19 cái, mỗi cái +1% calo vĩnh viễn.
 - **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng giữ nguyên.
 
+## Hướng dẫn
+
+- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 9 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
+- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó: mở game ở văn phòng (một ngày), vào phòng tập, hết thể lực, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời. Đã hiện thì lưu vào `s.tips`.
+- Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
+- Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
+
 ## Chống auto-click
 
 Cú bấm nhân vật phải là cú bấm thật và cách cú trước ít nhất 50 ms (tối đa 20 lần/giây). Thể lực cũng giới hạn tổng số cú bấm mỗi ngày.

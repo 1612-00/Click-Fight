@@ -31,7 +31,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .money{position:relative;z-index:2;text-align:center;margin-top:6px;line-height:1}
 .money .n{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:800;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink),0 0 24px #ffb02e88}
 .money .r{display:inline-block;margin-top:6px;padding:3px 12px;border-radius:99px;background:#0007;color:var(--gold);font-size:.9rem}
-.hero{position:relative;flex:1;min-height:0;display:grid;place-items:center;cursor:pointer;border:0;background:none;padding:0;width:100%}
+.hero{position:relative;flex:1;min-height:0;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;cursor:pointer;border:0;background:none;padding:0;width:100%}
 .hero>*{grid-area:1/1}
 .aura,.rays{height:min(100%,640px);aspect-ratio:1;border-radius:50%;pointer-events:none}
 .aura{background:radial-gradient(circle,var(--aura) 0,transparent 66%);opacity:.6}
@@ -44,11 +44,13 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .pop{position:absolute;z-index:3;pointer-events:none;font-weight:800;font-size:1.9rem;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;rotate:var(--r);animation:pop .8s ease-out forwards}
 @keyframes pop{from{transform:translate(-50%,-50%) scale(.6)}20%{transform:translate(-50%,-80%) scale(1.15)}to{transform:translate(-50%,-190%) scale(1);opacity:0}}
 .tip{position:relative;z-index:2;align-self:center;margin-bottom:10px;padding:2px 14px;border-radius:99px;background:#000a;font-size:.9rem}
+.tip.warn{padding:8px 22px;background:#e5484d;color:#fff;font-size:1.15rem;font-weight:800;border:3px solid #fff;box-shadow:0 0 0 0 #ff4d5e;animation:warn 1s ease-in-out infinite}
+@keyframes warn{50%{transform:scale(1.1);background:#ff7b88;box-shadow:0 0 22px 6px #ff4d5e}}
 #office{position:relative;z-index:2;align-self:center;width:min(92%,460px);margin-top:12px}
 .frame:not(.office) #office,.office .money,.office .tip{display:none}
 #say,#hsay{margin:0 0 8px;padding:12px 16px;border-radius:16px;background:#fff;color:var(--ink);font-weight:800;font-size:1.1rem;line-height:1.25;text-align:center;box-shadow:0 4px 0 #0005}
 #ostats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-#ostats .stat{padding:6px 12px;background:#000b;font-size:.9rem}
+#ostats .stat{padding:6px 12px;background:#000b;font-size:.9rem;white-space:nowrap}
 #nav{position:relative;z-index:2;align-self:center;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
 #nav .big{padding:12px 22px;font-size:1.2rem}
 #go:not(:disabled),#sleep{animation:pulseG 1.2s ease-in-out infinite}
@@ -65,10 +67,15 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
   #vit{font-size:.75rem;gap:4px;margin-top:6px}.pill{padding:2px 8px}.pill .bar{width:48px}
   .meal{padding:6px 4px;font-size:.72rem}.meal span{font-size:1.5rem}.meal img{width:36px;height:36px}
   #nav .big{padding:9px 18px;font-size:1.05rem}
+  .frame.fight .money,.frame.fight #vit{display:none}   /* màn đấu trên điện thoại: nhường chỗ cho hai nhân vật */
+  .frame.home .money,.frame.home .tip{display:none}   /* ở nhà trên điện thoại: nhường chỗ cho nhân vật; giá gọi bạn tập vẫn hiện trên nút */
+  #ostats .stat{padding:5px 8px;font-size:.78rem}
+  .hud{gap:5px;padding:10px 8px 0}.round{min-width:38px;height:40px;border-radius:12px}.rank{gap:8px;padding-right:8px}.rank b{white-space:normal;font-size:.9rem}   /* 4 nút tròn: tên hạng dài xuống dòng thay vì bị cắt */
 }
 .pill{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:#000a;border:2px solid var(--line);font-weight:800;white-space:nowrap}
 .pill .bar{width:70px;margin:0}
 #staBar{background:linear-gradient(90deg,#3ddc84,#b6ff8a)}
+@media(min-width:901px){#vit{font-size:1.05rem;gap:10px;margin-top:10px}#vit .pill{padding:6px 16px}#vit .pill .bar{width:110px;height:10px}#boost{font-size:1.05rem;padding:6px 16px}}   /* máy tính: chỉ số to hơn cho dễ nhìn */
 #goHome{cursor:pointer;color:var(--gold);border-color:var(--gold)}
 #goHome.pulse{animation:pulse .8s ease-in-out infinite}
 .frame:not(.gym) #goHome,.fight #goHome{display:none}
@@ -156,6 +163,15 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #modal p{margin:0 0 14px;line-height:1.35}
 #modal button{margin:0 4px}
 #modal .no{background:#3d5f8f;color:#fff;box-shadow:0 4px 0 #223c63}
+#guide{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
+#guide[hidden]{display:none}
+#guide>div{display:flex;flex-direction:column;background:var(--panel);border:3px solid var(--gold);border-radius:18px;padding:16px 18px;width:min(100%,460px);max-height:88%}
+#guide h2{margin:0 0 6px;text-align:center}
+#gBody{overflow:auto;min-height:0;margin-bottom:12px;line-height:1.35}
+#gBody h3{margin:10px 0 4px;color:var(--gold);font-size:1.05rem}
+#gBody ul{margin:0;padding-left:20px}
+#gBody li{margin:3px 0}
+#gBody p{margin:0;color:var(--mute)}
 @media(max-width:900px){.panel{margin:0 8px 8px}#bg{bottom:46%}}
 #duel{position:relative;z-index:2;margin:8px 14px 0;padding:8px 12px;border-radius:16px;background:#000c;border:2px solid #ff4d5e}
 #duel[hidden]{display:none}
@@ -202,6 +218,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
         <div class="badge" id="rk"></div>
         <div style="flex:1;min-width:0"><b id="rname"></b><small id="rpts"></small><div class="bar"><i id="rbar"></i></div></div>
       </div>
+      <button class="round" id="help" aria-label="Help">❓</button>
       <button class="round" id="who" aria-label="Character"></button>
       <button class="round" id="mute" aria-label="Sound"></button>
       <button class="round" id="lang" aria-label="Language"></button>
@@ -260,6 +277,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 
   <div id="wait" hidden><p><img id="waitPic" alt="" draggable="false" onerror="this.hidden=true"><span></span><i>...</i></p></div>
   <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
+  <div id="guide" hidden><div><h2 id="gTitle"></h2><div id="gBody"></div><button class="big" id="gOk"></button></div></div>
 </div>
 
 <script>
@@ -297,7 +315,17 @@ const T = {
       reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', other:'EN', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', tGym:'Đi đến phòng tập', tHome:'Đi về nhà', tWork:'Đang làm việc', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', snd0:'Bật nhạc và âm thanh', snd1:'Tắt nhạc', snd2:'Tắt hết âm thanh', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay',
       unlock:{1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 84,5 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
-      homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp!', homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
+      homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp! Lên hạng 2 sẽ mở bữa tối.',
+      guide:'Hướng dẫn', gOk:'Đã hiểu', lock:'🔒 Mở khi đạt hạng {n}',
+      g:{day:['📅 Một ngày của bạn', ['Văn phòng → 🏋️ phòng tập → 🏠 nhà → 😴 ngủ là hết một ngày.', 'Ở phòng tập: bấm vào nhân vật để kiếm 🔥 calo, dùng calo mua bài tập.', 'Tập đủ mục tiêu 🎯 của mọi nhóm cơ để lên hạng. Lên hạng mở thêm tính năng.', 'Bấm ❓ bất cứ lúc nào để xem lại hướng dẫn.']],
+         gym:['💪 Bấm hay để calo tự chạy?', ['Mỗi cú bấm tốn 1 ⚡ thể lực. Thể lực đầy lại mỗi sáng.', 'Bài Tay và Mắt tăng calo mỗi lần bấm. Các bài khác tăng calo mỗi giây.', 'Calo mỗi giây vẫn chạy khi bạn không bấm, cả khi tắt game (tối đa 8 giờ).', 'Mỗi bài tập nhân đôi hiệu quả ở cấp 25, 50 và 100.']],
+         sta:['⚡ Hết thể lực', ['Hết thể lực thì không bấm được nữa, nhưng calo mỗi giây vẫn chạy.', 'Về nhà rồi đi ngủ: sáng mai thể lực đầy lại.', 'Dùng càng nhiều thể lực trong ngày, càng giảm cân nhiều.']],
+         home:['🏠 Buổi tối ở nhà', ['Gọi 🐶 bạn tập: ra ngẫu nhiên, trùng con cũ thì con đó lên cấp. Mỗi lần gọi, giá tăng gấp 2,5.', 'Calo gọi bạn tập là calo không dùng mua bài tập: gọi khi bài tập đã đắt.', 'Đi ngủ để sang ngày mới.']],
+         meal:['🍱 Chọn bữa tối', ['Miễn phí, mỗi tối chọn một món hoặc bỏ bữa. Cân nặng và mệt mỏi đổi ngay, các chỉ số khác có tác dụng vào ngày mai.', '🥗 Healthy: giảm cân, thêm chút thể lực hoặc bớt mệt.', '🍳 Protein: thêm 10–35% calo ngày mai, cân gần như không đổi.', '🧋 Ăn vặt: nhiều thể lực và sức bấm nhất, nhưng tăng cân.', 'Mẹo: tới hạng 3 cân nặng chưa chặn gì, cứ ăn vặt để tập được nhiều. Muốn lên hạng 4 thì phải giảm cân.']],
+         fat:['😮‍💨 Mệt mỏi và ngày nghỉ', ['Tập càng nhiều càng mệt. Mỏi (40): thể lực −25%. Kiệt sức (70): −50%. Quá tải (100): bắt buộc nghỉ.', 'Ngày nghỉ (không bấm lần nào) giảm 60 mệt mỏi.', 'Nghỉ lúc đang mỏi: mai bấm +25%. Nghỉ lúc còn sung sức là lười: +0,3 kg.', 'Mục tiêu tuần: đủ số buổi tập (mỗi buổi dùng ít nhất nửa thể lực) thì tuần sau +10% calo.', 'Chủ nhật: thách đấu miễn phí, thưởng x2.']],
+         kg:['⚖️ Cân nặng', ['Hạng 4 cần ≤ {k4} kg, hạng 5 ≤ {k5} kg, hạng 6 ≤ {k6} kg.', 'Một ngày tập hết thể lực: −0,3 kg. Ngày nghỉ: +0,1 kg (lười thì +0,3 kg).', 'Trong khoảng 68–72 kg: +20% calo. Trên 90 kg: thể lực −20%.', 'Cứ 30 ngày có một lần cân kiểm tra: mỗi 2 kg giảm được = 1 ⭐.']],
+         duel:['⚔️ Thi đấu', ['Mỗi trận tốn 40 ⚡ (Chủ nhật miễn phí). Đạt đủ calo trong {d} giây là thắng, calo mỗi giây cũng được tính.', 'Thắng: +{w}% calo vĩnh viễn và một khoản calo lớn. Thua: mất 40 thể lực.', 'Tab có chấm đỏ nghĩa là bạn đủ sức thắng.', 'Đánh đổi: 40 thể lực là 40 cú bấm, nên chỉ đấu khi chắc thắng.']],
+         asc:['⭐ Lên đời', ['Mất: calo, cấp bài tập, hạng hiện tại.', 'Giữ: Sao, bạn tập, trận thắng, thành tựu, cân nặng và tính năng đã mở.', 'Mỗi ⭐ +10% calo vĩnh viễn. Đời này kiếm càng nhiều calo, càng nhận nhiều Sao.', 'Mẹo: lên đời khi Sao nhận được ít nhất bằng số Sao đang có, hoặc khi tiến độ đã chậm hẳn.']]}, homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
       wkGoal:'Buổi tập tuần này', wkOk:'Đạt mục tiêu tuần: +10% calo tuần này!', wkNo:'Chưa đạt mục tiêu tuần', sun:'Chủ nhật: thách đấu miễn phí, thưởng x2', weigh:'Cân kiểm tra',
       needKg:'⚖️ Giảm thêm {n} kg để lên hạng', recOn:'Hồi phục: bấm +25%',
       dow:['Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy','Chủ nhật'], dw:['T2','T3','T4','T5','T6','T7','CN'],
@@ -315,7 +343,17 @@ const T = {
       reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', other:'VI', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', tGym:'Heading to the gym', tHome:'Heading home', tWork:'Working', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', snd0:'Music and sound on', snd1:'Music off', snd2:'All sound off', kgTrain:'Training today', kgRest:'Rest today',
       unlock:{1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 84,5 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
-      homeSay0:'Home at last. Get some sleep and train again tomorrow!', homeSay:'Evening. Pick one meal (or skip it), then go to sleep.', homeTip:'Your buddies are waiting at home',
+      homeSay0:'Home at last. Get some sleep and train again tomorrow! Reach rank 2 to unlock dinner.',
+      guide:'How to play', gOk:'Got it', lock:'🔒 Unlocks at rank {n}',
+      g:{day:['📅 Your day', ['Office → 🏋️ gym → 🏠 home → 😴 sleep makes one day.', 'At the gym: tap the character to earn 🔥 calories, then spend them on workouts.', 'Hit every 🎯 muscle target to rank up. Each rank unlocks new features.', 'Tap ❓ any time to read this again.']],
+         gym:['💪 Tap or let it run?', ['Every tap costs 1 ⚡ stamina. Stamina refills each morning.', 'Arms and Eyes add calories per tap. Every other workout adds calories per second.', 'Calories per second keep coming when you stop tapping, even with the game closed (up to 8 hours).', 'Each workout doubles its effect at levels 25, 50 and 100.']],
+         sta:['⚡ Out of stamina', ['No more taps today, but calories per second keep coming.', 'Go home and sleep: stamina is full again in the morning.', 'The more stamina you use in a day, the more weight you lose.']],
+         home:['🏠 Evening at home', ['Summon 🐶 buddies: you get a random one, and a duplicate levels up. Each summon costs 2.5x more.', 'Calories spent on buddies are not spent on workouts: summon once workouts get pricey.', 'Go to sleep to start the next day.']],
+         meal:['🍱 Pick a dinner', ['Free: pick one meal each night, or skip it. Weight and fatigue change right away; the other effects apply tomorrow.', '🥗 Healthy: lose weight, plus a bit of stamina or less fatigue.', '🍳 Protein: 10–35% more calories tomorrow, weight barely moves.', '🧋 Junk food: the most stamina and tap power, but you gain weight.', 'Tip: up to rank 3 weight does not block anything, so junk food lets you train more. Rank 4 needs you to slim down.']],
+         fat:['😮‍💨 Fatigue and rest days', ['Training tires you. Tired (40): stamina −25%. Exhausted (70): −50%. Overloaded (100): you must rest.', 'A rest day (no taps at all) removes 60 fatigue.', 'Rest while tired: taps +25% tomorrow. Rest while fresh counts as lazy: +0.3 kg.', 'Weekly goal: train enough days (each using at least half your stamina) and next week gives +10% calories.', 'Sunday: free fights, double prize.']],
+         kg:['⚖️ Weight', ['Rank 4 needs ≤ {k4} kg, rank 5 ≤ {k5} kg, rank 6 ≤ {k6} kg.', 'A day using all your stamina: −0.3 kg. A rest day: +0.1 kg (+0.3 kg if lazy).', 'Between 68 and 72 kg: +20% calories. Over 90 kg: stamina −20%.', 'Every 30 days there is a weigh-in: each 2 kg lost = 1 ⭐.']],
+         duel:['⚔️ Rivals', ['Each fight costs 40 ⚡ (free on Sunday). Reach the calorie goal within {d} seconds to win; calories per second count too.', 'Win: +{w}% calories forever plus a big calorie prize. Lose: the 40 stamina is gone.', 'A red dot on the tab means you are strong enough to win.', 'Trade-off: 40 stamina is 40 taps, so only fight when you are sure.']],
+         asc:['⭐ Ascend', ['You lose: calories, workout levels, current rank.', 'You keep: Stars, buddies, rivals beaten, achievements, weight and unlocked features.', 'Each ⭐ gives +10% calories forever. The more calories this life, the more Stars.', 'Tip: ascend when the Stars you would get at least match the Stars you have, or when progress has clearly slowed.']]}, homeSay:'Evening. Pick one meal (or skip it), then go to sleep.', homeTip:'Your buddies are waiting at home',
       wkGoal:'Sessions this week', wkOk:'Weekly goal reached: +10% calories this week!', wkNo:'Weekly goal missed', sun:'Sunday: free fights, double prize', weigh:'Weigh-in',
       needKg:'⚖️ Lose {n} more kg to rank up', recOn:'Recovered: taps +25%',
       dow:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], dw:['Mo','Tu','We','Th','Fr','Sa','Su'],
@@ -368,7 +406,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'office', mute:0, ach:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, week:[], scene:'office', mute:0, ach:{}, tips:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:(navigator.language || '').startsWith('vi') ? 'vi' : 'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);   // gym: mỗi lần mở game bắt đầu ở văn phòng, bấm nút mới sang phòng tập
@@ -380,10 +418,14 @@ function showAd(type, done) {
   const end = ok => { adOn = false; tune(); done(ok); };
   try { CG.ad.requestAd(type, {adStarted: () => { adOn = true; tune(); }, adFinished: () => end(true), adError: () => end(false)}); } catch { end(false); }
 }
+// Bản lưu: KEY là bản chính (ghi mỗi 5 giây), KEY-bak là bản dự phòng ghi mỗi sáng và trước khi lên đời.
+// Bản chính hỏng hoặc mất thì tải bản dự phòng, nên tệ nhất chỉ mất một ngày chơi. KEY-old giữ trạng thái ngay trước khi bấm "Xoá toàn bộ tiến trình".
+const BAK = KEY + '-bak', OLD = KEY + '-old';
+function readSave(key) { try { const o = JSON.parse(store().getItem(key)); return o && typeof o === 'object' && Number.isFinite(o.cal) ? o : null; } catch { return null; } }
 function load() {
+  const o = readSave(KEY) || readSave(BAK);
+  if (!o) return;
   try {
-    const o = JSON.parse(store().getItem(KEY));
-    if (!o) return;
     for (const k of ['cal','run','stars','t','seen','wins','summons','clicks','total','ascends','play','best','x2','day','sta','cap','used','fat','kg','kg30']) if (Number.isFinite(o[k]) && o[k] >= 0) s[k] = o[k];
     s.wins = Math.min(RIVALS.length, Math.floor(s.wins)); s.summons = Math.floor(s.summons);
     for (const q of PETS) if (Number.isInteger(o.pets?.[q.k]) && o.pets[q.k] > 0) s.pets[q.k] = o.pets[q.k];
@@ -395,6 +437,7 @@ function load() {
     if (Array.isArray(o.week)) s.week = o.week.slice(0, 6).map(x => x ? 1 : 0);
     s.scene = o.scene === 'home' ? 'home' : 'office';   // mở game luôn bắt đầu ở văn phòng, trừ khi ngày đã sang buổi tối
     for (const a of ACH) if (o.ach?.[a.id]) s.ach[a.id] = 1;
+    for (const [k] of GUIDE) if (o.tips ? o.tips[k] : ['day', 'gym', 'sta', 'home'].includes(k)) s.tips[k] = 1;   // bản lưu cũ chưa có tips: người chơi đã quen vòng ngày, chỉ còn gợi ý các tính năng
     if (Number.isFinite(o.q?.day)) {
       s.q.day = o.q.day;
       for (const q of QUESTS) { if (o.q.p?.[q.k] > 0) s.q.p[q.k] = +o.q.p[q.k]; if (o.q.got?.[q.k]) s.q.got[q.k] = 1; }
@@ -405,7 +448,8 @@ function load() {
   } catch {}
 }
 let ready = false;   // chưa tải xong bản lưu thì không được ghi, kẻo ghi đè bằng trạng thái trống
-const save = () => { if (ready) try { store().setItem(KEY, JSON.stringify(s)); } catch {} };
+const write = key => { if (ready) try { store().setItem(key, JSON.stringify(s)); } catch (e) { console.warn('Gym God: không lưu được', key, e); } };
+const save = () => write(KEY), backup = () => write(BAK);
 
 // ============ Công thức ============
 const points = () => EX.reduce((a, e) => a + s.lv[e.k], 0);
@@ -429,6 +473,7 @@ const mealDesc = m => [[m.sta && `${tr('mSta')} ${pc(m.sta)}`, m.cal && `${tr('m
   .map((x, j) => x && (j ? x : tr('tmr') + ': ' + x)).filter(Boolean).join(' · ');
 const goalsMet = r => RANKS[r].goal.every((g, i) => s.lv[EX[i].k] >= g);
 const rankOf = () => s.rk;
+const kgShow = () => Math.round(s.kg * 10) / 10;   // cân nặng như đang hiển thị (1 số lẻ); chặn hạng so theo số này để không có cảnh "84.5 kg" mà vẫn thiếu "0.0 kg"
 const unl = () => Math.max(s.rk, s.best);   // mở tính năng theo hạng cao nhất từng đạt: hạng 2 bữa ăn, hạng 3 mệt mỏi + lịch tuần, hạng 4 chặn cân nặng
 const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(65, x)) * 100) / 100; };
 const dow = () => (s.day - 1) % 7;   // 0 = Thứ Hai … 6 = Chủ nhật
@@ -525,7 +570,7 @@ function buildTexts() {
   nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
   document.documentElement.lang = s.lang;
   for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
-  $('chipMax').textContent = tr('max'); $('lang').textContent = tr('other'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no');
+  $('chipMax').textContent = tr('max'); $('lang').textContent = tr('other'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gTitle').textContent = tr('guide'); $('gOk').textContent = tr('gOk');
   $('list').innerHTML = EX.map((e, i) => `<div class="card">
     <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>
     <div><b></b><span class="lv"></span><small class="d"></small><em></em><i class="ms"></i><i class="goal"></i></div>
@@ -570,8 +615,9 @@ function ui() {
   $('rk').textContent = r + 1;
   $('rname').textContent = RANKS[r][s.lang];
   const gm = goal.filter((g, i) => g && lvOf(i) >= g).length, gn = goal.filter(g => g).length;
-  $('rpts').textContent = !next ? tr('maxRank') : gm === gn && s.kg > KG[r + 1] ? tr('needKg').replace('{n}', (s.kg - KG[r + 1]).toFixed(1))
-    : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (s.kg <= KG[r + 1] ? '✓' : `(−${(s.kg - KG[r + 1]).toFixed(1)})`));
+  const over = next ? (kgShow() - KG[r + 1]).toFixed(1) : '';
+  $('rpts').textContent = !next ? tr('maxRank') : gm === gn && kgShow() > KG[r + 1] ? tr('needKg').replace('{n}', over)
+    : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (kgShow() <= KG[r + 1] ? '✓' : `(−${over})`));
   $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, lvOf(i)))) / sum(goal) * 100 : 100) + '%';
   while (s.seen < EX.length && (s.cal >= EX[s.seen].c / 2 || s.lv[EX[s.seen - 1].k] > 0)) s.seen++;   // bài tập ẩn "???" cho tới khi gần mua được
   const newbie = p === 0;
@@ -590,6 +636,7 @@ function ui() {
     put(b.firstChild, '🔥 ' + fmt(cost));
     b.lastChild.textContent = 'x' + n;
   });
+  $('tip').classList.toggle('warn', s.scene === 'gym' && !duel && s.sta < 1);   // hết thể lực: nhấp nháy đỏ cho dễ thấy
   $('tip').textContent = tr(s.scene === 'home' ? 'homeTip' : duel ? 'duelTip' : s.sta < 1 ? 'noSta' : newbie && s.cal >= EX[0].c ? 'tipBuy' : 'tip');
   document.querySelectorAll('#rivals .league').forEach((h, l) => {
     h.textContent = `${tr('league')} ${l + 1}: ${LEAGUES[l][s.lang]} (${Math.max(0, Math.min(5, s.wins - l * 5))}/5)`;
@@ -640,7 +687,7 @@ function ui() {
   s.best = Math.max(s.best, r);
   ACH.forEach((a, j) => {
     const v = AV[a.t](), c = $('achs').children[j];
-    if (!s.ach[a.id] && v >= a.n) { s.ach[a.id] = 1; toast('🏆 ' + achText(a), '+1%'); sfx.up(); }
+    if (!s.ach[a.id] && v >= a.n) { s.ach[a.id] = 1; toastLater('🏆 ' + achText(a), '+1%'); sfx.up(); }
     c.classList.toggle('hid', !s.ach[a.id]);
     c.querySelector('small').textContent = `${fmt(Math.min(v, a.n))} / ${fmt(a.n)}`;
   });
@@ -660,7 +707,13 @@ function ui() {
     .forEach((v, j) => $('st' + j).textContent = v);
 }
 
+let toastEnd = 0;
+function toastLater(big, small) {   // thông báo phụ (thành tựu) xếp hàng sau thông báo đang hiện, để không đè mất tin lên hạng / mở khoá
+  const w = Math.max(0, toastEnd - Date.now()); toastEnd = Date.now() + w + 2200;
+  setTimeout(() => toast(big, small), w);
+}
 function toast(big, small, ms = 2200) {
+  toastEnd = Date.now() + ms;
   $('toast').innerHTML = rich(big) + (small ? `<small>${rich(small)}</small>` : '');
   $('toast').animate([{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
 }
@@ -673,7 +726,7 @@ function celebrate() {   // lên hạng: loé sáng, rung, đổi hình
   toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
 }
 function syncRank(quiet) {
-  while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && s.kg <= KG[s.rk + 1]) s.rk++;
+  while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && kgShow() <= KG[s.rk + 1]) s.rk++;
   const r = rankOf(); if (r === shown) return;
   const up = r > shown; shown = r; drawArt();
   if (up && !quiet) celebrate();
@@ -763,6 +816,7 @@ $('hero').onclick = ev => {
   if (!duel) {   // mỗi cú bấm tốn 1 thể lực (trong trận đấu thì đã trả trước)
     if (s.sta < 1) { $('goHome').animate([{transform:'scale(1.3)'}, {transform:'none'}], 200); return; }
     s.sta--; s.used++;
+    if (s.sta < 1) coach('sta');
   }
   if (CG && !playing) { playing = true; CG.game.gameplayStart(); }
   const c = clickPower(), r = $('hero').getBoundingClientRect(), p = document.createElement('span');
@@ -788,7 +842,7 @@ $('summon').onclick = () => {
   ui(); save();
 };
 const tab = k => TABS.forEach(n => { $('v' + n).hidden = n !== k; $('tab' + n).classList.toggle('on', n === k); });
-for (const n of TABS) $('tab' + n).onclick = () => tab(n);
+for (const n of TABS) $('tab' + n).onclick = () => { tab(n); coach({Duel: 'duel', Asc: 'asc'}[n]); };
 
 function startDuel(i) {
   if (dow() !== 6) { if (s.sta < 40) return; s.sta -= 40; s.used += 40; }   // thách đấu tốn 40 thể lực, Chủ nhật miễn phí
@@ -835,7 +889,24 @@ function ask(text, yes) {   // hộp xác nhận trong game (confirm() bị ch�
   $('mYes').onclick = () => { $('modal').hidden = true; yes(); };
   $('mNo').onclick = () => { $('modal').hidden = true; };
 }
+// Hướng dẫn: nút ❓ mở toàn bộ; coach() tự hiện một mục lần đầu người chơi gặp nó (đánh dấu trong s.tips).
+const GUIDE = [['day', 0], ['gym', 0], ['sta', 0], ['home', 0], ['meal', 1], ['fat', 2], ['kg', 2], ['duel', 0], ['asc', 0]];   // [mục, unl() cần để mở]
+function guide(keys) {
+  const V = {k4: KG[3], k5: KG[4], k6: KG[5], d: DUEL, w: WIN_BONUS * 100}, num = l => l.replace(/\{(\w+)\}/g, (_, v) => V[v].toLocaleString(s.lang));
+  $('gBody').innerHTML = keys.map(k => { const [t, lines] = tr('g')[k], need = GUIDE.find(g => g[0] === k)[1];
+    return `<h3>${rich(t)}</h3>` + (need > unl() ? `<p>${rich(tr('lock').replace('{n}', need + 1))}</p>` : `<ul>${lines.map(l => `<li>${rich(num(l))}</li>`).join('')}</ul>`); }).join('');
+  $('guide').hidden = false; $('gBody').scrollTop = 0;
+}
+function coach(...keys) {
+  keys = keys.filter(k => !s.tips[k] && GUIDE.find(g => g[0] === k)?.[1] <= unl());
+  if (!keys.length || !$('guide').hidden || !$('wait').hidden || !$('modal').hidden || duel) return;
+  for (const k of keys) s.tips[k] = 1;
+  guide(keys); save();
+}
+$('help').onclick = () => guide(GUIDE.map(g => g[0]));
+$('gOk').onclick = () => { $('guide').hidden = true; };
 $('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => {
+  backup();
   // chỉ xoá những gì thuộc về một đời: calo và cấp bài tập; mọi thứ khác giữ nguyên
   stopDuel(); Object.assign(s, {cal: 0, run: 0, rk: 0, lv: fresh().lv, stars: s.stars + starGain(), ascends: s.ascends + 1});
   syncRank(true); ui(); save(); tab('Ex'); sfx.up();
@@ -850,6 +921,7 @@ function drawMeals() {
 function go(scene) {
   s.scene = scene; stopDuel(); drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
   $('flash').animate([{opacity:.9}, {opacity:0}], 500); ui(); save(); tune();
+  coach(...{gym: ['gym'], home: ['home', 'meal', 'fat', 'kg']}[scene] || []);
 }
 function endDay() {
   const frac = Math.min(1, s.used / Math.max(1, s.cap)), r = rankOf(), note = [], kg0 = s.kg, trained = s.used > 0;
@@ -868,7 +940,7 @@ function endDay() {
   sayIdx = Math.floor(Math.random() * 8);
   const dk = s.kg - kg0;
   note.unshift(`${tr(trained ? 'kgTrain' : 'kgRest')}: ${dk > 0 ? '+' : '−'}${Math.abs(dk).toFixed(1)} kg → ⚖️ ${s.kg.toFixed(1)} kg` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
-  go('office'); sfx.buy(); toast(`${tr('day')} ${s.day}`, note.join(' · '), 3500); syncRank(); ui(); save();
+  save(); backup(); go('office'); sfx.buy(); toast(`${tr('day')} ${s.day}`, note.join(' · '), 3500); syncRank(); ui(); save();
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
 function travel(steps, done) {   // màn chờ khi chuyển cảnh: lần lượt từng [chữ, ms]; che cả khung nên không bấm được gì trong lúc đó
@@ -889,13 +961,13 @@ $('meals').onclick = ev => {
   setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.buy(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); ui(); save();
 };
 $('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.buy(); save(); };
-$('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); s = Object.assign(fresh(), {lang: s.lang, mute: s.mute, char: s.char}); syncRank(true); ui(); save(); tab('Ex'); });
+$('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, mute: s.mute, char: s.char}); syncRank(true); ui(); save(); tab('Ex'); });
 
 // ============ Khởi động + vòng lặp ============
 (async () => {
 try {
   const k = window.CrazyGames.SDK;
-  await Promise.race([k.init(), new Promise((_, no) => setTimeout(no, 4000))]);
+  await Promise.race([k.init(), new Promise((_, no) => setTimeout(no, 15000))]);   // chờ lâu: nếu bỏ cuộc sớm, game dùng bộ nhớ máy thay vì tài khoản CrazyGames và người chơi tưởng mất tiến trình
   if (k.environment !== 'disabled') {
     CG = k; CG.game.loadingStart();
     const old = localStorage.getItem(KEY);   // bản lưu có từ trước khi gắn SDK
@@ -904,13 +976,17 @@ try {
 } catch {}
 load(); ready = true;
 shown = rankOf(); drawArt(); buildTexts(); tab(s.scene === 'home' ? 'Pet' : 'Ex');
-if (CG) { CG.game.loadingStop(); try { CG.game.addSettingsChangeListener(tune); } catch {} }
+if (CG) {
+  CG.game.loadingStop(); try { CG.game.addSettingsChangeListener(tune); } catch {}
+  try { CG.user.addAuthListener(() => { ready = false; }); } catch {}   // đăng nhập giữa chừng: CrazyGames tự tải lại trang với dữ liệu tài khoản; ngừng lưu để bản khách không ghi đè lên tài khoản
+}
 if (Date.now() - s.t > 864e5) { s.used = 0; s.scene = 'home'; endDay(); }   // vắng hơn 24 giờ thật: tính là 1 ngày nghỉ
 { // calo kiếm được lúc tắt game, tối đa 8 giờ
   const away = Math.min((Date.now() - s.t) / 1000, 8 * 3600), gain = pps() * away;
   if (away > 60 && gain >= 1) { earn(gain); toast(tr('away'), '+' + fmt(gain) + ' 🔥'); }
   s.t = Date.now();
 }
+if (s.scene === 'office') coach('day');
 setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn cộng đúng
   const now = Date.now();
   const dt = Math.min((now - s.t) / 1000, 8 * 3600);
@@ -920,6 +996,7 @@ setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn 
 }, 100);
 setInterval(save, 5000);
 addEventListener('visibilitychange', save);
+addEventListener('pagehide', save);
 })();
 </script>
 </body>
