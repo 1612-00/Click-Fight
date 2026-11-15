@@ -168,9 +168,10 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #modal .no{background:#3d5f8f;color:#fff;box-shadow:0 4px 0 #223c63}
 #guide{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
 #guide[hidden]{display:none}
-#guide>div{display:flex;flex-direction:column;background:var(--panel);border:3px solid var(--gold);border-radius:18px;padding:16px 18px;width:min(100%,460px);max-height:88%}
+#guide>div{position:relative;display:flex;flex-direction:column;background:var(--panel);border:3px solid var(--gold);border-radius:18px;padding:16px 18px;width:min(100%,860px);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px)}   /* theo màn hình: % ở đây bị tính theo nội dung nên không chặn được chiều cao */
 #guide h2{margin:0 0 6px;text-align:center}
-#gBody{overflow:auto;min-height:0;margin-bottom:12px;line-height:1.35}
+#gX{position:absolute;top:8px;right:8px;min-width:40px;height:40px}
+#gBody{overflow:auto;min-height:0;margin-bottom:12px;line-height:1.35;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px 24px;align-content:start}   /* desktop 2 cột, điện thoại 1 cột */
 #gBody h3{margin:10px 0 4px;color:var(--gold);font-size:1.05rem}
 #gBody ul{margin:0;padding-left:20px}
 #gBody li{margin:3px 0}
@@ -280,7 +281,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 
   <div id="wait" hidden><p><img id="waitPic" alt="" draggable="false" onerror="this.hidden=true"><span></span><i>...</i></p></div>
   <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
-  <div id="guide" hidden><div><h2 id="gTitle"></h2><div id="gBody"></div><button class="big" id="gOk"></button></div></div>
+  <div id="guide" hidden><div><h2 id="gTitle"></h2><button class="round" id="gX" aria-label="Close">✕</button><div id="gBody"></div><button class="big" id="gOk"></button></div></div>
 </div>
 
 <script>
@@ -899,7 +900,7 @@ const GUIDE = [['day', 0], ['gym', 0], ['sta', 0], ['home', 0], ['meal', 1], ['f
 function guide(keys) {
   const V = {k4: KG[3], k5: KG[4], k6: KG[5], d: DUEL, w: WIN_BONUS * 100}, num = l => l.replace(/\{(\w+)\}/g, (_, v) => V[v].toLocaleString(s.lang));
   $('gBody').innerHTML = keys.map(k => { const [t, lines] = tr('g')[k], need = GUIDE.find(g => g[0] === k)[1];
-    return `<h3>${rich(t)}</h3>` + (need > unl() ? `<p>${rich(tr('lock').replace('{n}', need + 1))}</p>` : `<ul>${lines.map(l => `<li>${rich(num(l))}</li>`).join('')}</ul>`); }).join('');
+    return `<section><h3>${rich(t)}</h3>` + (need > unl() ? `<p>${rich(tr('lock').replace('{n}', need + 1))}</p>` : `<ul>${lines.map(l => `<li>${rich(num(l))}</li>`).join('')}</ul>`) + '</section>'; }).join('');
   $('guide').hidden = false; $('gBody').scrollTop = 0;
 }
 function coach(...keys) {
@@ -909,7 +910,10 @@ function coach(...keys) {
   guide(keys); save();
 }
 $('help').onclick = () => guide(GUIDE.map(g => g[0]));
-$('gOk').onclick = () => { $('guide').hidden = true; };
+const closeGuide = () => { $('guide').hidden = true; };
+$('gOk').onclick = $('gX').onclick = closeGuide;
+$('guide').onclick = ev => { if (ev.target === $('guide')) closeGuide(); };   // bấm ra ngoài khung
+addEventListener('keydown', ev => { if (ev.key === 'Escape') closeGuide(); });
 $('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => {
   backup();
   // chỉ xoá những gì thuộc về một đời: calo và cấp bài tập; mọi thứ khác giữ nguyên
