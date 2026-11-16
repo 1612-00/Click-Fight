@@ -94,7 +94,7 @@ Có 2 nhân vật (nam, nữ), mỗi nhân vật 9 hình theo hạng. Chưa có 
 
 ## Mệt mỏi (0–100, từ hạng 3)
 
-Tập hết thanh thể lực cộng theo hạng: 30, 26, 22, 18, 14, 10 (hạng 1 → 6); tập một phần thì theo tỉ lệ. Ngủ sau ngày tập −5. Ngày nghỉ −60.
+Mỗi ngày tập đủ cộng 40 điểm trước khi giảm 5 qua đêm; tập một phần thì tăng theo tỉ lệ thể lực đã dùng. Không có kỹ năng Hồi phục nhanh, bắt đầu từ 0 sẽ thành 35 → 70 → 100 sau ba ngày tập đủ liên tiếp. Ngày nghỉ −60.
 
 | Mệt mỏi | Trạng thái | Thể lực tối đa |
 |---|---|---|
@@ -103,7 +103,7 @@ Tập hết thanh thể lực cộng theo hạng: 30, 26, 22, 18, 14, 10 (hạng
 | 70–99 | Kiệt sức | 50% |
 | 100 | Quá tải | bắt buộc nghỉ |
 
-Lý do: hạng thấp nhanh mệt, hạng cao lâu mệt, để người chơi tự xếp ngày nghỉ trong tuần.
+Lý do: tạo nhịp tập ba ngày rồi cần nghỉ, thay vì để người chơi tập đủ nhiều ngày liên tục. Mức tăng như nhau ở mọi hạng; kỹ năng Hồi phục nhanh vẫn giảm tốc độ tích mệt.
 
 ## Ngày nghỉ
 
@@ -282,17 +282,17 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py`. Kết quả gần nhất:
+Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi:
 
-| Hạng | Người mới (3 lần bấm/giây, bỏ bữa, không nghỉ) | Người quen (4 lần bấm/giây, ăn cơm gà, nghỉ khi Mỏi) |
+| Hạng | Không chủ động nghỉ (vẫn bắt buộc nghỉ ở 100) | Tự nghỉ khi Mỏi (mệt ≥40) |
 |---|---|---|
-| 2 | ngày 2, phút 2 | ngày 2, phút 2 |
-| 3 | ngày 3, phút 6 | ngày 3, phút 5,5 |
-| 4 | ngày 4, phút 10 | ngày 4, phút 8,5 |
-| 5 | ngày 14, phút 43 | ngày 11, phút 34 |
-| 6 | ngày 32, 1h48 | ngày 25, 1h32 |
+| 2 | ngày 2, 2m20 | ngày 2, 2m20 |
+| 3 | ngày 3, 5m49 | ngày 3, 5m49 |
+| 4 | ngày 4, 9m16 | ngày 4, 9m16 |
+| 5 | ngày 12, 28m07 | ngày 14, 36m51 |
+| 6 | ngày 34, 1h17 | ngày 32, 1h37 |
 
-Sim giả định bấm mọi khách, kể cả ăn mọi chiếc bánh; khách xoay vòng đúng tỉ lệ. So với khi chưa có khách: gần như không đổi (hạng 6 chậm 5–6 phút, sớm hơn 1–2 ngày), vì quà thể lực làm ngày dài hơn (người mới 3 → 3,4 phút, người quen 3,3 → 3,7 phút) còn bánh làm tăng cân. Phần calo từ cú bấm (người mới, hạng 1 → 5): 76%, 55%, 48%, 39%, 37%. Rep hoàn hảo với tỉ lệ PERFECT 50%: số ngày không đổi, thời gian dài thêm 3–4 phút vì dừng tay chờ vòng; phần calo từ cú bấm (người mới, hạng 1 → 5): 77%, 57%, 42%, 41%, 39%.
+Các ước tính cũ về tác động riêng của khách ghé và Rep hoàn hảo bên dưới được đo trước khi tăng mệt mỏi; cần chạy lại nếu cân bằng lại hai tính năng đó. Sim hiện giả định khách xoay vòng đúng tỉ lệ và người chơi bấm mọi khách, kể cả bánh.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
 - Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 1 giờ (trước là 1,5 giờ, đoạn dễ bỏ cuộc nhất); hạng 6 sau khoảng 1,5 giờ.

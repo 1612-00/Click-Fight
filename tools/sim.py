@@ -11,7 +11,7 @@ IDLE = 30   # giây mỗi ngày không bấm: văn phòng, mua bài tập, ở n
 G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [22, 18, 14, 8, 3, 0, 0, 0], [40, 35, 30, 22, 15, 10, 3, 0], [70, 60, 55, 48, 40, 40, 32, 20],
                [85, 75, 70, 64, 55, 55, 45, 32], [100, 92, 88, 80, 70, 70, 60, 44], [120, 112, 106, 98, 88, 86, 76, 58]],   # hạng 7–9
          mults=[1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
-         kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], fat=[30, 26, 22, 18, 14, 10, 8, 6, 5], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # thể lực +sta_rank mỗi hạng, chỉ tới hạng 6
+         kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], fat=[40, 40, 40, 40, 40, 40, 40, 40, 40], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # mệt mỏi tăng cùng mức ở mọi hạng; thể lực +sta_rank mỗi hạng, chỉ tới hạng 6
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp

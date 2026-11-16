@@ -156,14 +156,14 @@ Trước các bài này: đạt hạng 3, rồi `s.fat = 0; go('office')`.
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
 | G1 | Ở hạng 1 hoặc 2, tập hết thể lực nhiều ngày liền. | Không có ô Mệt mỏi, thể lực tối đa không bị giảm. | |
-| G2 | Hạng 3, mệt mỏi 0. Tập hết thể lực, ngủ. | Mệt mỏi thành 17 (cộng 22, trừ 5 khi ngủ), trạng thái "Sung sức". Thể lực 540 / 540. | |
-| G3 | Tập hết thể lực thêm 2 ngày nữa. | Mệt mỏi 34 rồi 51. Ở 51: trạng thái "Mỏi", thể lực tối đa còn 405 (75% của 540). | |
-| G4 | `s.fat = 80; s.used = s.cap * .1; endDay()` (tập rất ít để mệt mỏi vẫn trên 70). | Ô mệt mỏi ghi "Kiệt sức". Thể lực tối đa sáng nay còn 50% (hạng 3: 270). | |
+| G2 | Hạng 3, mệt mỏi 0, không học Hồi phục nhanh. Tập hết thể lực, ngủ. | Mệt mỏi thành 35 (cộng 40, trừ 5 khi ngủ), trạng thái "Sung sức". Thể lực 540 / 540. | |
+| G3 | Tập hết thể lực thêm 2 ngày nữa. | Mệt mỏi thành 70 rồi 100. Ở 70: "Kiệt sức", thể lực tối đa còn 270 (50% của 540); sau ngày tập đủ thứ ba, sáng kế tiếp bắt buộc nghỉ và nút đi tập bị khoá. | |
+| G4 | `s.fat = 80; s.used = s.cap * .2; endDay()` (đạt ngưỡng 20% để tính là ngày tập). | Ô mệt mỏi ghi "Kiệt sức". Thể lực tối đa sáng nay còn 50% (hạng 3: 270). | |
 | G5 | `s.fat = 100; go('office')` | Câu nói đổi thành "Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!". Nút "Đến phòng tập" mờ, không bấm được. Chỉ còn "Về nhà nghỉ". | |
 | G6 | `s.fat = 50; go('office')`, bấm "Về nhà nghỉ" → Đồng ý, rồi ngủ. | Thông báo khi về nhà: "Nghỉ hôm nay để mai khoẻ hơn." Sáng hôm sau: mệt mỏi 0, cân chỉ +0,1 kg, dòng dưới lịch tuần có "Hồi phục: bấm +25%", calo mỗi lần bấm cao hơn 25% so với bình thường. | |
 | G7 | Sau G6, tập rồi ngủ thêm một ngày. | "Hồi phục" biến mất, calo mỗi lần bấm về bình thường. | |
 | G8 | `s.fat = 30; go('office')`, nghỉ, ngủ. | Thông báo "Tiếc quá, lại một ngày không luyện tập!". Sáng hôm sau: mệt mỏi 0, cân +0,3 kg, **không** có "Hồi phục". | |
-| G9 | So mức cộng mệt mỏi khi tập hết thanh ở hạng 3, 4, 5, 6 (đặt `s.fat = 0` trước mỗi lần). | Sau một ngày tập đủ: hạng 3 → 17, hạng 4 → 13, hạng 5 → 9, hạng 6 → 5. Hạng càng cao càng lâu mệt. | |
+| G9 | So mức cộng mệt mỏi khi tập hết thanh ở hạng 3, 4, 5, 6 (đặt `s.fat = 0` trước mỗi lần, không học Hồi phục nhanh). | Sau một ngày tập đủ: mọi hạng đều lên 35 sau khi trừ 5 qua đêm. | |
 
 ## H. Bữa tối (từ hạng 2)
 
