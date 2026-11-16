@@ -200,10 +200,46 @@ Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ
 - Khi chưa từng bấm khách nào, khách đầu tiên mỗi lần mở game là PT (người mới không gặp ngay crush ngó lơ), các khách sau ngẫu nhiên theo tỉ lệ. Lần đầu bấm PT luôn cho thưởng calo, rồi hiện mục hướng dẫn "Khách ghé phòng tập" (để khung hướng dẫn không làm phí 8 giây bấm x5).
 - Không lưu gì: tải lại trang thì đếm lại từ đầu. Hằng số ở `PT` và `VIS` trong `index.html`. Ảnh: `assets/icon/icon-vis-pt|crush|cake.webp` (thiếu ảnh thì hiện emoji).
 
+## Rep hoàn hảo
+
+Cho cú bấm một chút kỹ năng (giống nạp đạn chủ động của Gears of War, thanh lực đánh golf). Hằng số `REP` trong `index.html`.
+
+- Sau khoảng 30 cú bấm (ngẫu nhiên 25–35), **báo trước 2 giây**: viền đích vàng nhấp nháy kèm chữ "Sắp có Rep hoàn hảo, chuẩn bị!" (vẫn bấm bình thường, không chấm điểm). Sau đó một vòng trắng co dần quanh nhân vật trong 1,1 giây; viền đứt nét là đích. Vòng chuyển vàng trong khoảng 50–70% thời gian (±110 ms quanh lúc chạm đích).
+- **Cú bấm ngay sau khi vòng hiện** được chấm: rơi vào lúc vàng là PERFECT, cú đó x5; PERFECT liên tiếp x6, x7… tối đa x10. Sớm hay trễ là hụt, mất chuỗi. Không bấm thì vòng tự biến mất, cũng mất chuỗi.
+- Bấm liên tục (4 lần/giây) thì cú kế tiếp tới sau khoảng 250 ms, luôn hụt: muốn PERFECT phải dừng tay một nhịp. Đó là đánh đổi: chậm hơn chút, nhưng cùng một thanh thể lực ra nhiều calo hơn. Mỗi cú vẫn tốn 1 thể lực như thường.
+- Ban đầu là 15 cú và không báo trước: chơi thử thấy đến quá dày, bị bất ngờ nên bỏ qua.
+- Không hiện trong trận đấu, lúc đang bấm x5/x7 của khách (bắt đầu đấu hay bấm x5/x7 trong lúc báo trước thì huỷ vòng), và trong 20 cú bấm đầu tiên của người mới. Vòng đầu tiên có chữ "Đợi vòng vàng rồi bấm!" cho tới lần PERFECT đầu (lưu ở `s.tips.rep`).
+- Cân bằng (sim, tham số `rep_p` = tỉ lệ PERFECT): calo thêm trung bình mỗi vòng = 1,3 / 2,5 / 5,4 / 7,9 cú bấm với tỉ lệ 30 / 50 / 80 / 95% (mỗi 30 cú bấm). **Số ngày lên hạng không đổi** dù bắt vòng giỏi hay không, vì từ hạng 4 tiến độ bị chặn bởi cân nặng và thể lực mỗi ngày; người giỏi có thêm calo cho bạn tập và thi đấu (phần calo từ cú bấm của người quen: 45% → 49%). Giá phải trả: khoảng 0,4 giây dừng tay mỗi vòng, làm tổng thời gian tới hạng 6 dài thêm 3–4 phút.
+
+## Sự kiện văn phòng
+
+Màn văn phòng trước đây chỉ có câu nói và nút. Giờ mỗi ngày (từ ngày 2) có một tình huống với hai lựa chọn, như Reigns: chữ trong khung vàng, hai nút ghi rõ tác dụng. Danh sách `EV` trong `index.html`.
+
+- Chọn sự kiện lúc sang ngày, ngẫu nhiên, không lặp lại sự kiện hôm qua; lưu ở `s.ev` (tải lại trang không đổi được). Không chọn mà đi tập hay về nhà thì bỏ qua sự kiện đó.
+- Tác dụng: cân nặng, mệt mỏi, thể lực (theo % thể lực tối đa) cộng ngay; calo = số giây thu nhập như phần thưởng nhiệm vụ; "hôm nay" (calo hoặc sức bấm) kéo dài tới khi đi ngủ, lưu ở `s.buff`; Sao.
+- Lựa chọn may rủi ghi tỉ lệ trên nút; kết quả hiện trong thông báo ("Thành công" / "Không may").
+- Sự kiện về mệt mỏi chỉ xuất hiện từ hạng 3 (khi mệt mỏi đã mở).
+
+| Sự kiện | Lựa chọn A | Lựa chọn B |
+|---|---|---|
+| Sếp rủ làm vài ly | +0,3 kg, calo (300 giây) | thể lực +10% |
+| Thang máy hỏng, tầng 12 | thể lực −15%, −0,1 kg, bấm hôm nay +20% | thể lực +5% |
+| Sếp nhờ tăng ca | thể lực −20%, calo (600 giây) | 50%: không sao; còn lại calo hôm nay −10% |
+| Trà sữa full topping | +0,2 kg, thể lực +20% | −0,1 kg |
+| Bàn làm việc đứng | thể lực −10%, calo hôm nay +15% | thể lực +10% |
+| Bốc thăm quà | 30%: +1 Sao; còn lại thể lực −5% | thể lực +5% |
+| Yoga trưa (hạng 3) | mệt mỏi −15 | thể lực +10% |
+| Deadline (hạng 3) | mệt mỏi +10, calo (600 giây) | bấm hôm nay +15% |
+| Crush rủ ăn trưa | 60%: bấm hôm nay +30%; còn lại thể lực −10% | −0,1 kg |
+| Đạp xe về | −0,15 kg, thể lực −10% | thể lực +10% |
+| Phiếu massage (hạng 3) | mệt mỏi −10, thể lực −5% | calo hôm nay +10% |
+
+Tác dụng nhỏ so với bữa tối và nghỉ ngơi, nên sim chưa mô phỏng sự kiện.
+
 ## Hướng dẫn
 
-- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 11 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời (kèm kỹ năng Sao), thử thách. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
-- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời (thêm mục thử thách khi đã đạt hạng 6), lần đầu bấm vào khách. Đã hiện thì lưu vào `s.tips`.
+- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 13 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, rep hoàn hảo, sự kiện văn phòng, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời (kèm kỹ năng Sao), thử thách. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
+- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời (thêm mục thử thách khi đã đạt hạng 6), lần đầu bấm vào khách, lần đầu gặp sự kiện văn phòng. Rep hoàn hảo không bật khung hướng dẫn (đang bấm dở), chỉ có dòng chữ trên vòng. Đã hiện thì lưu vào `s.tips`.
 - Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
 - Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
 
@@ -224,12 +260,12 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 | Hạng | Người mới (3 lần bấm/giây, bỏ bữa, không nghỉ) | Người quen (4 lần bấm/giây, ăn cơm gà, nghỉ khi Mỏi) |
 |---|---|---|
 | 2 | ngày 2, phút 2 | ngày 2, phút 2 |
-| 3 | ngày 3, phút 6 | ngày 3, phút 5 |
-| 4 | ngày 4, phút 9 | ngày 4, phút 8 |
-| 5 | ngày 14, phút 42 | ngày 11, phút 33 |
-| 6 | ngày 32, 1h45 | ngày 25, 1h28 |
+| 3 | ngày 3, phút 6 | ngày 3, phút 5,5 |
+| 4 | ngày 4, phút 10 | ngày 4, phút 8,5 |
+| 5 | ngày 14, phút 43 | ngày 11, phút 34 |
+| 6 | ngày 32, 1h48 | ngày 25, 1h32 |
 
-Sim giả định bấm mọi khách, kể cả ăn mọi chiếc bánh; khách xoay vòng đúng tỉ lệ. So với khi chưa có khách: gần như không đổi (hạng 6 chậm 5–6 phút, sớm hơn 1–2 ngày), vì quà thể lực làm ngày dài hơn (người mới 3 → 3,4 phút, người quen 3,3 → 3,7 phút) còn bánh làm tăng cân. Phần calo từ cú bấm (người mới, hạng 1 → 5): 76%, 55%, 48%, 39%, 37%.
+Sim giả định bấm mọi khách, kể cả ăn mọi chiếc bánh; khách xoay vòng đúng tỉ lệ. So với khi chưa có khách: gần như không đổi (hạng 6 chậm 5–6 phút, sớm hơn 1–2 ngày), vì quà thể lực làm ngày dài hơn (người mới 3 → 3,4 phút, người quen 3,3 → 3,7 phút) còn bánh làm tăng cân. Phần calo từ cú bấm (người mới, hạng 1 → 5): 76%, 55%, 48%, 39%, 37%. Rep hoàn hảo với tỉ lệ PERFECT 50%: số ngày không đổi, thời gian dài thêm 3–4 phút vì dừng tay chờ vòng; phần calo từ cú bấm (người mới, hạng 1 → 5): 77%, 57%, 42%, 41%, 39%.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
 - Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 1 giờ (trước là 1,5 giờ, đoạn dễ bỏ cuộc nhất); hạng 6 sau khoảng 1,5 giờ.

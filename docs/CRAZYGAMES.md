@@ -17,6 +17,8 @@ Features:
 - Tap to earn calories and spend them on 8 workouts, from water-bottle curls to jogging to work. Calories per second keep coming even when you stop tapping.
 - 6 ranks, each with a new look for your character. To rank up you have to train every muscle group, not just one.
 - 20 rivals in 4 leagues, from Tom from Accounting to Blake the Legend. Every win gives a permanent calorie bonus.
+- Perfect reps: time your tap when the ring turns gold for x5, and chain PERFECTs up to x10.
+- Office events every day: drinks with the boss, a broken elevator, lunch with your crush. Every choice has a cost.
 - Visitors drop by the gym: your coach always brings a gift, your crush might smile at you or ignore you, and a coworker's birthday cake is tasty but adds weight.
 - Choose your dinner: healthy food helps you lose weight, protein boosts tomorrow's calories, junk food gives the most stamina but adds weight.
 - Fatigue and rest days, a weekly training goal and a weigh-in every 30 days.
@@ -29,6 +31,7 @@ Features:
 ## Controls
 
 - Click or tap the character: train (each tap costs 1 stamina)
+- When the outline flashes "Perfect rep coming": a white ring will shrink around the character; wait until it turns gold, then tap for a PERFECT rep
 - Click or tap buttons: buy workouts, fight rivals, pick a meal, go home, go to sleep
 - Hold a buy button: keep buying
 - Esc: close the guide

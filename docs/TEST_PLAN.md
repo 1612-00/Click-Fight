@@ -77,6 +77,10 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Màn chờ đi tập khoảng 0,8 giây; chuỗi đi ngủ khoảng 3,4 giây, đủ 4 hình. Ngày 1–3 vẫn là 2 giây và 8,5 giây như B1, B4. | |
 | B11 | Bấm "Đi ngủ", chạm vào màn chờ sau khoảng 1 giây. Lần sau chạm ngay khi màn chờ vừa hiện. | Màn chờ có dòng "Chạm để bỏ qua". Chạm sau 1 giây: bỏ qua phần còn lại, sang ngày mới ngay (ngày +1, thông báo ngày mới). Chạm ngay lập tức (dưới 0,4 giây): không có tác dụng. | |
 | B12 | Ở phòng tập, nhìn bảng Bài tập; bấm vào thanh hạng trên cùng. | Đúng một thẻ có viền vàng phát sáng: bài rẻ nhất còn thiếu mục tiêu hạng kế (ván mới: Tay; Tay đủ 5 thì sang Vai). Bấm thanh hạng: mở tab Bài tập, cuộn tới thẻ đó, thẻ nảy nhẹ. Ở văn phòng bấm thanh hạng không làm gì. Hạng cao nhất hoặc chỉ còn thiếu cân nặng: không thẻ nào viền vàng. | |
+| B13 | Ngày 1 và lúc mở game ở văn phòng khi chưa có sự kiện. Đi ngủ sang ngày 2. | Ngày 1: câu nói thường, không có nút sự kiện. Sáng ngày 2: khung câu nói viền vàng "📌 …", hai nút lựa chọn ghi tác dụng; lần đầu hiện mục hướng dẫn "📌 Sự kiện văn phòng". | |
+| B14 | Bấm một lựa chọn (vd "Sếp rủ làm vài ly" → "Đi cho sếp vui"). | Thông báo tên lựa chọn và tác dụng. Cân +0,3 kg, calo cộng đúng số ghi trên nút. Hai nút biến mất, khung về câu nói thường. Tải lại trang: không hiện lại sự kiện. | |
+| B15 | Lựa chọn may rủi (Crush rủ ăn trưa → Đi ngay; Bốc thăm). Làm nhiều ngày. | Nút ghi "60%: … · còn lại: …". Thông báo "Thành công: …" hoặc "Không may: …", tác dụng khớp. Bấm hôm nay +30% hiện ở số "mỗi lần bấm" và hết sau khi ngủ. | |
+| B16 | Có sự kiện nhưng bấm "Đến phòng tập" luôn. Đi ngủ. Ở hạng 1–2 xem nhiều ngày. | Sự kiện bị bỏ qua, hôm sau có sự kiện khác (không trùng hôm qua). Trước hạng 3 không gặp Yoga, Deadline, Massage (sự kiện về mệt mỏi). | |
 
 ## C. Bấm, thể lực, chống auto-click
 
@@ -95,6 +99,10 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | C11 | Chờ bánh 🎂 (xanh, "Ăn bánh?"), bấm vào. Lần sau để bánh tự đi. | Bấm: "Bánh sinh nhật đồng nghiệp", calo tăng và cân +0,1 kg. Không bấm: không có gì thay đổi. | |
 | C13 | Bản lưu chưa từng bấm khách. Ở phòng tập (`?test`), **không bấm** khách nào, chờ 5–6 khách. | Khách đầu là PT; các khách sau có cả crush 💃 và bánh 🎂. |  |
 | C14 | Ở `?test`, ở lì phòng tập, bấm mọi khách (nhất là quà thể lực). | Mỗi ngày tối đa 3 khách; sau khách thứ 3 không còn ai tới, thể lực cạn dần và ngày kết thúc. Tải lại trang không làm khách tới thêm. Sáng hôm sau khách lại tới. | |
+| C15 | Ván mới: bấm 20 cú đầu. Bấm tiếp. | 20 cú đầu không có vòng. Sau đó cứ khoảng 25–35 cú: viền đích vàng nhấp nháy 2 giây kèm chữ "Sắp có Rep hoàn hảo, chuẩn bị!" (bấm trong lúc này vẫn tính bình thường), rồi mới hiện vòng trắng co dần với dòng chữ "Đợi vòng vàng rồi bấm!". | |
+| C16 | Khi vòng hiện, dừng tay, bấm đúng lúc vòng chuyển vàng. Làm vài lần liên tiếp. | Chữ vàng "PERFECT x5", có tiếng "ting", cú đó ra gấp 5 calo. Liên tiếp: x6, x7… tối đa x10. Sau lần PERFECT đầu, vòng không còn dòng chữ hướng dẫn. | |
+| C17 | Khi vòng hiện, bấm liên tục không dừng; lần khác bấm trễ; lần khác không bấm. | Bấm liên tục hoặc trễ: chữ "Hụt", cú đó x1, chuỗi PERFECT về 0. Không bấm: vòng tự biến mất sau 1,1 giây, chuỗi về 0. Thể lực vẫn trừ 1 mỗi cú như thường. | |
+| C18 | Trong trận đấu, trong lúc bấm x5/x7 của khách; khi đang báo trước hoặc vòng đang hiện thì về nhà, thách đấu, hoặc bấm khách cho x5. | Không có vòng trong trận đấu và lúc bấm x5/x7. Vòng biến mất khi rời phòng tập hay bắt đầu đấu. Trên điện thoại vòng tròn đều (không méo), bao quanh nhân vật. | |
 | C12 | Khi khách đang hiện: thách đấu, hoặc về nhà. Ở văn phòng, nhà, trong trận đấu, khi mở ❓ thì chờ 2 phút. | Khách biến mất khi bắt đầu đấu hay rời phòng tập. Khách không bao giờ hiện ngoài phòng tập, trong trận đấu, hay khi có khung hướng dẫn / hộp xác nhận / màn chờ. | |
 
 ## D. Bài tập và mua

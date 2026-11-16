@@ -15,7 +15,14 @@ G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
          kg0=85, night=0, hands=0, fee=1,   # hands: thử thách Chỉ dùng tay; fee: hệ số giá bài tập (Phòng gym tăng giá)   # cân lúc bắt đầu (lên đời giữ cân nặng), cân cộng thêm mỗi tối
-         cr_tap=7, cr_sec=10, cr_cal=2, cr_lose=.1, ck_cal=1.5, ck_kg=.1)
+         cr_tap=7, cr_sec=10, cr_cal=2, cr_lose=.1, ck_cal=1.5, ck_kg=.1,
+         rep_every=30, rep_p=.5, rep_x=5, rep_max=10, rep_wait=.4)   # Rep hoàn hảo (index.html: REP); rep_p = tỉ lệ PERFECT, rep_wait = giây dừng tay chờ vòng
+
+
+def rep_gain(g):
+    """Calo thêm trung bình mỗi vòng, tính bằng số cú bấm: PERFECT với xác suất p, chuỗi k PERFECT liên tiếp (phân phối hình học) cho x(rep_x + k - 1), tối đa rep_max."""
+    p = g['rep_p']
+    return sum(p * (1 - p) * p ** (k - 1) * (min(g['rep_x'] + k - 1, g['rep_max']) - 1) for k in range(1, 200)) + p ** 200 * (g['rep_max'] - 1)
 # Khách xoay vòng theo đúng tỉ lệ thay cho ngẫu nhiên: PT 50% (f bấm x5, s thể lực, c calo), crush 30% (65% được: R bấm x7 / C calo x2; còn lại L mất thể lực), bánh 20% (K, luôn ăn)
 VIS = 'fscfsRCLKK'
 
@@ -64,6 +71,8 @@ def run(g, rest_at=40, meal='h', limit=400):
                 else:
                     n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
                     ptc += n / CPS
+                    rings = n / g['rep_every']; x = rings * rep_gain(g) * click   # Rep hoàn hảo: tính trung bình thay cho từng vòng
+                    cal += x; earned[rk] += x; tapped[rk] += x; t += rings * g['rep_wait'] * (g['rep_p'] > 0)   # không bắt vòng thì không phải dừng tay
                     if ptc >= g['pt_gap'] * 1.5 and g['pt'] and pv < g['pt_day']:   # khách đến sau trung bình 1,5 x gap giây ở phòng tập
                         ptc = 0; ptn += 1; pv += 1; k = VIS[ptn % len(VIS)]; x = 0; bonus = (pps * g['pt_cps'] + click * g['pt_taps']) * g['pt']
                         if k in 'fR':   # bấm nhân: PT x5 trong 8 giây, crush x7 trong 10 giây
