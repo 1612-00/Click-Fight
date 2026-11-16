@@ -11,6 +11,7 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | [docs/BACKLOG.md](docs/BACKLOG.md) | Việc còn tồn, phần chưa kiểm tra, ý tưởng | Khi phát hiện/xong một việc |
 | [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | Bộ test thủ công: bước làm và kết quả mong muốn | Mỗi lần đổi luật, con số hoặc thêm tính năng |
 | [docs/MUSIC_PLAN.md](docs/MUSIC_PLAN.md) | Kế hoạch nhạc nền theo màn (chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
+| [docs/ARENA_PLAN.md](docs/ARENA_PLAN.md) | Kế hoạch đấu trường riêng và lời thoại 30 đối thủ (chờ duyệt) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/CRAZYGAMES.md](docs/CRAZYGAMES.md) | Mô tả, điều khiển, hướng dẫn (tiếng Anh) để nộp CrazyGames; file ảnh bìa, video; cách quay lại video | Khi thêm tính năng hoặc đổi giao diện |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, giữ phong cách thống nhất | Khi cần ảnh mới |
 
@@ -54,9 +55,9 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Hiển thị**: `buildTexts()` dựng lại HTML khi đổi ngôn ngữ; `drawDay()` phần đổi theo ngày/màn; `ui()` chỉ cập nhật số mỗi tick.
 - **Chữ**: mọi chuỗi hiển thị nằm trong `T = {vi, en}`, lấy bằng `tr(key)`. Thêm chuỗi phải thêm cả hai ngôn ngữ.
 - **Icon**: chuỗi vẫn viết emoji; `rich(text)` đổi các emoji trong bảng `ICO` thành ảnh `assets/ui/*.webp`. Chỗ cập nhật mỗi tick dùng `put(el, text)` thay cho `textContent`. Thêm icon mới: thêm ảnh vào `original/ui` và một dòng vào `ICO`.
-- **Màn**: `s.scene` = `office | gym | home`, đổi bằng `go(scene)`. `endDay()` kết thúc ngày.
+- **Màn**: `s.scene` = `office | gym | home`, đổi bằng `go(scene)`. `endDay()` kết thúc ngày. Thi đấu là lớp `#arena` che cả khung (không đổi `s.scene`): `startDuel()` → VS → `talk()` → `countdown()` → `fight()` → `duelEnd()`; `stopDuel()` đóng lại. Thoại ở `T.*.rv`.
 - **Hạng**: `s.rk`, chỉ tăng trong `syncRank()`. Tính năng mở theo `unl()` (hạng cao nhất từng đạt).
-- **Âm thanh**: hiệu ứng tạo bằng code (`beep`, `sfx`); nhạc nền là `assets/music/<tên>.mp3`, phát qua `music(name)`, và `tune()` chọn bài theo màn (`office`, `gym`, `home`), `duel` khi đấu, `sleep` khi ngủ. Nhạc chỉ bắt đầu sau cú chạm đầu tiên. `s.mute`: 0 bật hết, 1 tắt nhạc, 2 tắt hết.
+- **Âm thanh**: hiệu ứng tạo bằng code: `beep` (nốt), `noise` (tiếng ồn lọc: thịch, va chạm, vút), gộp trong `sfx`, đi qua bộ nén `ac.fx`, tối đa 16 tiếng cùng lúc. Ba tầng thưởng: tiếng nhỏ (`buy`, `eat`, `pick`) < `ding`/`coin` < `up` (chỉ dành cho lên hạng, thắng trận, lên đời). Rung bằng `buzz(ms)`; nhạc nền là `assets/music/<tên>.mp3`, phát qua `music(name)`, và `tune()` chọn bài theo màn (`office`, `gym`, `home`), `duel` khi đấu, `sleep` khi ngủ. Nhạc chỉ bắt đầu sau cú chạm đầu tiên. Âm lượng `s.vm` (nhạc) và `s.vs` (hiệu ứng), 0–10 nấc, mặc định 3 và 5, chỉnh trong khung cài đặt ⚙️ (`#setBox`, `drawSet()`), đổi ra độ lợi trong `setVol()`. Khung cài đặt cũng chứa nút ngôn ngữ.
 - **Hướng dẫn**: danh sách mục `GUIDE` (kèm hạng cần để mở), chữ trong `T.*.g`. `guide(keys)` mở khung; `coach(...keys)` hiện mục lần đầu người chơi gặp và ghi vào `s.tips`. Thêm tính năng mới thì thêm một mục và gọi `coach` ở chỗ người chơi gặp nó lần đầu.
 - **Hộp xác nhận**: dùng `ask(text, yes)`. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
 - **SDK**: `CG` là `null` khi không có CrazyGames; mọi lời gọi SDK phải chịu được `CG === null`.

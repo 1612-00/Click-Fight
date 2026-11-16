@@ -16,7 +16,7 @@ Features:
 
 - Tap to earn calories and spend them on 8 workouts, from water-bottle curls to jogging to work. Calories per second keep coming even when you stop tapping.
 - 9 ranks, each with a new look for your character, from office slump to superpowers. To rank up you have to train every muscle group, not just one.
-- 30 rivals in 6 leagues, from Tom from Accounting to Earth's super villains like the Cobra Queen and the Core King. Every win gives a permanent calorie bonus.
+- 30 rivals in 6 leagues, from Tom from Accounting to Earth's super villains like the Cobra Queen and the Core King. Every fight happens in its own arena with a VS intro and dialogue, and the villains slowly reveal who is behind humanity's laziness. Every win gives a permanent calorie bonus.
 - Perfect reps: time your tap when the ring turns gold for x5, and chain PERFECTs up to x10.
 - Office events every day: drinks with the boss, a broken elevator, lunch with your crush. Every choice has a cost.
 - Visitors drop by the gym: your coach always brings a gift, your crush might smile at you or ignore you, and a coworker's birthday cake is tasty but adds weight.

@@ -145,7 +145,15 @@ Vai trò từng nhóm: lành mạnh để siết cân; đạm tăng thu nhập m
 
 30 đối thủ theo thứ tự, 6 giải: Phòng ban, Công ty, Phòng gym, Giải quốc gia, rồi **phản diện trên Trái Đất**: Thế giới ngầm (Hàm Thép, Bà trùm Hổ Mang, Tiến sĩ Độc Dược, Gã Máy Xúc, Ông trùm Mặt Nạ Bạc) và Trùm Trái Đất (Tướng Bão Tố, Nữ hoàng Băng Giá, Titan Dung Nham, Siêu máy tính Omega, Hắc Vương Lõi Đất). Ngoài Trái Đất để dành cho lần mở rộng sau.
 
-Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0, i − 19) calo trong 15 giây (phản diện chỉ khó hơn x1,25 mỗi người: giữ x2,4 thì không ai đánh nổi; sim: đời 3 tới hạng 9 đã hạ 6 phản diện, 4 trùm còn lại là mục tiêu dài hạn); thưởng = mục tiêu × 3. Mỗi trận thắng +3% calo vĩnh viễn. Màn đấu: hai nhân vật hai bên, hai thanh chạy đua; thanh đối thủ đầy đúng lúc hết giờ.
+Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0, i − 19) calo trong 15 giây (phản diện chỉ khó hơn x1,25 mỗi người: giữ x2,4 thì không ai đánh nổi; sim: đời 3 tới hạng 9 đã hạ 6 phản diện, 4 trùm còn lại là mục tiêu dài hạn); thưởng = mục tiêu × 3. Mỗi trận thắng +3% calo vĩnh viễn.
+
+**Đấu trường** (chi tiết và toàn bộ lời thoại: [ARENA_PLAN.md](ARENA_PLAN.md)): thách đấu mở một màn riêng che cả khung, nền theo giải (phòng họp, sàn đấu, bãi xe ngầm, hang dung nham). Thứ tự: màn VS (1,3 giây) → thoại → đếm ngược 3·2·1·ĐẤU → 15 giây đấu → đối thủ nói câu kết → nút "Về phòng tập" (thua thì thêm "Đấu lại ⚡40").
+
+- Lần đầu gặp đối thủ: xem hết thoại (giải 1–2 một câu, 3–4 hai câu, 5–6 ba câu, rồi nhân vật đáp một câu). Gặp lại (đấu lại sau khi thua): một câu. Đã gặp lưu ở `s.met`.
+- Thoại có chữ chạy; chạm để hiện hết câu, chạm nữa để sang câu kế. Xưng hô `{anh|chị}` theo nhân vật.
+- **Đấu đòn**: thanh mỗi bên chỉ tăng khi bên đó ra đòn (hằng `HIT`). Đòn của bạn: mỗi cú bấm, tối đa 20% thanh mỗi đòn, hai đòn cách nhau ít nhất 0,55 giây; không bấm thì cứ 0,7 giây tự ra đòn bằng calo/giây đã tích. Số sát thương đỏ hiện trên đối thủ; chỗ bấm chỉ hiện 👊 (số "+…" trông như được calo). Đối thủ ra đòn mỗi 0,8–1,4 giây, thanh đỏ nhảy tới đúng tỉ lệ thời gian đã trôi, đầy lúc hết giờ. Thắng thua vẫn theo tổng sát thương thật (hết giờ mà đủ sát thương thì có đòn kết liễu), nên độ khó không đổi. Lý do: trước đây đánh kẻ yếu thì thanh đầy ngay khung hình đầu, không thấy đánh nhau; giờ kẻ yếu nhất cũng mất khoảng 2,5 giây, 5 đòn của bạn và 2 đòn của đối thủ.
+- **Trong trận, cú bấm chỉ đẩy thanh đấu, không ra calo** (trước đây vừa đẩy thanh vừa cộng calo, trận đấu không khác gì phòng tập). Calo/giây vẫn chạy ngầm và vẫn tính vào thanh đấu. Sim: hạng 6 chậm thêm 1–2 phút (mất calo từ cú bấm trong trận và khoảng 6 giây VS, thoại, đếm ngược mỗi trận).
+- Mạch truyện: đồng nghiệp (giải 1–2) → người tập thật (3–4) → phản diện sống nhờ sự lười biếng của con người, nuôi Hắc Vương Lõi Đất (5–6); câu thua của Hắc Vương mở đường ra ngoài Trái Đất.
 
 ## Bạn tập
 
@@ -267,7 +275,9 @@ Cú bấm nhân vật phải là cú bấm thật và cách cú trước ít nh�
 
 SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ngày một lần, và khi lên đời. Quảng cáo thưởng: nước tăng lực. Tắt tiếng khi có quảng cáo. Không có SDK thì game vẫn chạy, không có quảng cáo.
 
-Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả CrazyGames phần lớn nói tiếng Anh), đổi sang tiếng Việt bằng nút "VI". Lựa chọn được lưu; bản lưu cũ giữ ngôn ngữ đang dùng.
+Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả CrazyGames phần lớn nói tiếng Anh), đổi sang tiếng Việt trong khung cài đặt ⚙️. Lựa chọn được lưu; bản lưu cũ giữ ngôn ngữ đang dùng.
+
+Âm lượng: khung cài đặt ⚙️ có hai thanh 0–10 nấc, nhạc nền mặc định 3, hiệu ứng mặc định 5. Nấc v nhân âm lượng với (v/5)²: nấc 5 là mức gốc, nấc 3 nhỏ hơn khoảng 9 dB (nhạc gốc bị chê hơi to). Bản lưu cũ có nút loa 3 trạng thái: "tắt nhạc" thành nhạc 0, "tắt hết" thành cả hai 0, còn lại dùng mặc định.
 
 ## Mục tiêu cân bằng
 

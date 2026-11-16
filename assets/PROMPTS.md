@@ -788,6 +788,44 @@ Các phản diện còn lại, mỗi khối một ảnh, cùng câu mở đầu 
 | `rival-29.png` | Siêu máy tính Omega | `"Omega the Machine Mind", a sleek chrome android head and shoulders, a transparent dome on top showing a glowing blue circuit brain, a single red horizontal visor eye, thin cables on the neck, emotionless smile.` |
 | `rival-30.png` | Hắc Vương Lõi Đất | `"The Core King", the final villain of Earth, a giant demonic king from the planet's core, dark crimson skin, a crown of black rock with glowing magma gems, four short horns, a heavy black and gold armored cape collar, burning orange eyes. He must look the most powerful of all villains.` |
 
+## Nhóm 15: Nền đấu trường (cuộc trò chuyện mới, đính kèm `original/bg/bg1.png`, 4 ảnh)
+
+Đấu trường là màn riêng khi thách đấu: nhân vật đứng bên trái, đối thủ bên phải, khung thoại ở dưới. Thiếu ảnh thì game dùng nền màu. Lưu vào `assets/original/bg/` đúng tên dưới đây (bắt đầu bằng `bg` để `build.py` nén như ảnh nền), rồi chạy `python assets/build.py`.
+
+### bg-arena1.png (giải 1–2: phòng họp sau giờ làm) — dán nguyên khối này trước
+
+```
+Create a 2D game background. Landscape canvas 1536x1024, fully painted, no transparency. Use the attached image as the art style reference.
+
+ART STYLE (keep identical for every image of this chat): clean modern anime background art for a mobile game, soft cel shading, slightly muted and darker colors so that bright characters placed in front stand out. Dramatic "showdown" lighting.
+
+LAYOUT RULES (apply to every image of this chat):
+- This is an arena for a one-on-one fight: one character will stand on the left third, the other on the right third, and a dialogue box will cover the bottom 25%.
+- Keep the left third and right third open and simple; the center can have a focal detail in the background.
+- The floor takes up the bottom 35% and is plain and uncluttered.
+- No people, no characters, no animals.
+- No readable text, no logos, no brand names, no UI elements, no border.
+
+SCENE: a large company meeting room after work hours. The long meeting table and chairs are pushed against the walls, a projector on the ceiling throws a bright empty rectangle of light on the back wall, ceiling lights are dimmed with one flickering, city lights through the blinds at night.
+```
+
+### 3 nền còn lại — dán từng khối, lưu đúng tên file
+
+`bg-arena2.png` (giải 3–4: sàn đấu thể hình)
+```
+Same art style and layout rules as the first image. SCENE: a fitness competition stage in a sports hall at night: a raised square platform with a rubber floor, two strong spotlights crossing from above, dark crowd stands in the background as simple silhouettes of empty seats, blank colorful banners hanging from the ceiling, light haze in the air.
+```
+
+`bg-arena3.png` (giải 5: Thế giới ngầm)
+```
+Same art style and layout rules as the first image. SCENE: an abandoned underground parking garage turned into a villains' hideout: concrete pillars, purple and magenta neon tubes, piles of lazy beanbag chairs and stacked bubble tea cups at the sides, a glowing vending machine full of sugary drinks, puddles on the floor reflecting neon light.
+```
+
+`bg-arena4.png` (giải 6: Trùm Trái Đất)
+```
+Same art style and layout rules as the first image. SCENE: a huge cavern deep inside the Earth: rivers of glowing orange lava along the sides, dark volcanic rock, giant glowing red crystals, and far in the center background a massive empty stone throne on a rocky hill, heat shimmer and floating embers.
+```
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

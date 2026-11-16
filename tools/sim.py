@@ -70,7 +70,7 @@ def run(g, rest_at=40, meal='h', limit=400):
                 pps, click = rates()
                 if wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= foe(wins):
                     if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
-                    cal += foe(wins) * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
+                    cal += foe(wins) * g['prize'] * (2 if sunday else 1) + g['duel'] * pps; t += g['duel'] + 6; wins += 1   # cú bấm trong trận không ra calo; +6 giây VS, thoại, đếm ngược
                 else:
                     n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
                     ptc += n / CPS

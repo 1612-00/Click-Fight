@@ -14,6 +14,7 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Game chạy thế nào khi SDK tải lỗi (đọc code thì an toàn: lỗi bị bắt, `CG = null`, lưu vào `localStorage`; chưa chạy thử).
 - Lưu theo tài khoản CrazyGames: đăng nhập giữa chừng, chơi trên hai máy (TEST_PLAN A10, A11) chỉ thử được trên CrazyGames thật.
 - Nhạc nền: mức âm lượng (`LOUD` = 0,05) đã được chủ dự án nghe và chốt; chưa thử trên điện thoại thật (iOS chặn tiếng khắt khe nhất); chưa thử nhạc tắt khi có quảng cáo thật.
+- Hiệu ứng âm thanh đợt 1 (bộ nén, tiếng bấm 2 lớp, combo PERFECT tăng cao độ, ba tầng thưởng, nhạc nhỏ lại khi lên hạng, lọc nhạc khi mở bảng, nhạc nhanh 5 giây cuối trận, rung): đã kiểm tra chạy không lỗi bằng code, **chưa nghe bằng tai** để chốt độ to từng tiếng (TEST_PLAN M11–M17); chưa thử rung trên điện thoại thật; nhạc nhanh cuối trận chưa thử trong trận thật.
 - Bố cục điện thoại sau các thay đổi mở tính năng theo hạng.
 - Rep hoàn hảo: canh nhịp trên điện thoại thật (độ trễ cảm ứng), khoảng ±110 ms có quá khó hay quá dễ không; người chơi thật bắt được bao nhiêu phần trăm (sim giả định 50%).
 - Khách ghé phòng tập: bấm thật trên điện thoại (khách có che nhân vật hay nút không), người chơi thật bấm được bao nhiêu phần trăm và có bỏ qua bánh không (sim giả định bấm hết).
@@ -27,6 +28,8 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Số thập phân hiển thị dấu chấm (`84.8 kg`) cả ở tiếng Việt.
 
 ## Ý tưởng chưa làm
+
+- Bấm đối thủ đã hạ trong tab Thi đấu để xem lại thoại.
 
 - Mở rộng ngoài Trái Đất: hạng 10+ và các giải phản diện vũ trụ (Mặt Trăng, Sao Hỏa…), nối tiếp sau Hắc Vương Lõi Đất.
 

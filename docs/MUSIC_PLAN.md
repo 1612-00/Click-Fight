@@ -16,6 +16,8 @@ Mỗi màn có nhạc riêng để người chơi cảm được nhịp một ng
 | `duel.mp3` | Trong 15 giây thi đấu | Dồn dập, căng | Lặp 15–30 giây |
 | `sleep.mp3` | Chuỗi màn chờ khi đi ngủ (8,5 giây; từ ngày 4 còn 3,4 giây, chạm để bỏ qua) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
 
+Nhạc đã phản ứng theo lối chơi (làm bằng code, không cần file): nhỏ lại ~1,5 giây khi lên hạng/thắng/thua (`duck()`), đục đi khi mở hướng dẫn hoặc hộp xác nhận (`muffle()`), nhanh x1,08 trong 5 giây cuối trận.
+
 Đợt 2 (sau khi đợt 1 chạy ổn): `gym2.mp3` mạnh hơn cho hạng 4–6, để nhạc phòng tập "lớn lên" cùng nhân vật; đoạn nhạc ngắn khi lên hạng và khi thắng trận (hiện đang là tiếng bíp).
 
 ## Nguồn nhạc
@@ -31,12 +33,12 @@ Không tạo nhạc bằng code: làm được nhưng nghe như máy chơi game 
 - **Lặp không hở**: phát bằng WebAudio (`AudioBufferSourceNode`, `loop = true`) thay cho thẻ `<audio>`, vì mp3 phát lặp bằng `<audio>` bị khựng ở chỗ nối. Game đã có sẵn `AudioContext` (`ac`) cho hiệu ứng âm thanh.
 - **Chuyển bài**: trong `go(scene)` và `startDuel()/stopDuel()`, làm mờ bài cũ 0,5 giây rồi lên bài mới. Một hàm `music(name)` duy nhất.
 - **Âm lượng**: nhạc khoảng 30% để không át tiếng bấm.
-- **Im lặng đúng lúc**: tắt nhạc khi `s.mute`, khi có quảng cáo (`adOn`), khi CrazyGames bật `muteAudio`, và khi tab bị ẩn. Đây là yêu cầu bắt buộc của CrazyGames.
+- **Im lặng đúng lúc**: tắt nhạc khi nấc nhạc `s.vm` = 0, khi có quảng cáo (`adOn`), khi CrazyGames bật `muteAudio`, và khi tab bị ẩn. Đây là yêu cầu bắt buộc của CrazyGames.
 - **Chính sách tự phát của trình duyệt**: nhạc chỉ bắt đầu sau cú bấm đầu tiên của người chơi (nút "Đến phòng tập" là đủ). Màn văn phòng lúc mới mở game sẽ im lặng cho tới cú bấm đầu.
 
 ## Quyết định đã chốt
 
-1. **Nút tắt tiếng**: một nút, bấm lần lượt qua 3 trạng thái: bật hết → tắt nhạc → tắt hết.
+1. **Âm lượng**: khung cài đặt ⚙️, nhạc và hiệu ứng mỗi loại 0–10 nấc, mặc định 3 và 5 (thay cho nút loa 3 trạng thái trước đây).
 2. **Nhạc theo hạng** (`gym2.mp3` cho hạng 4–6): để đợt 2.
 3. **Màn chờ ngắn** (đi đến phòng tập, về nhà, 2 giây): không có nhạc riêng, chỉ làm mờ chuyển bài.
 

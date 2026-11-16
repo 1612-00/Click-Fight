@@ -100,7 +100,7 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | C13 | Bản lưu chưa từng bấm khách. Ở phòng tập (`?test`), **không bấm** khách nào, chờ 5–6 khách. | Khách đầu là PT; các khách sau có cả crush 💃 và bánh 🎂. |  |
 | C14 | Ở `?test`, ở lì phòng tập, bấm mọi khách (nhất là quà thể lực). | Mỗi ngày tối đa 3 khách; sau khách thứ 3 không còn ai tới, thể lực cạn dần và ngày kết thúc. Tải lại trang không làm khách tới thêm. Sáng hôm sau khách lại tới. | |
 | C15 | Ván mới: bấm 20 cú đầu. Bấm tiếp. | 20 cú đầu không có vòng. Sau đó cứ khoảng 25–35 cú: viền đích vàng nhấp nháy 2 giây kèm chữ "Sắp có Rep hoàn hảo, chuẩn bị!" (bấm trong lúc này vẫn tính bình thường), rồi mới hiện vòng trắng co dần với dòng chữ "Đợi vòng vàng rồi bấm!". | |
-| C16 | Khi vòng hiện, dừng tay, bấm đúng lúc vòng chuyển vàng. Làm vài lần liên tiếp. | Chữ vàng "PERFECT x5", có tiếng "ting", cú đó ra gấp 5 calo. Liên tiếp: x6, x7… tối đa x10. Sau lần PERFECT đầu, vòng không còn dòng chữ hướng dẫn. | |
+| C16 | Khi vòng hiện, dừng tay, bấm đúng lúc vòng chuyển vàng. Làm vài lần liên tiếp. | Chữ vàng "PERFECT x5", có tiếng "ting" (mỗi lần liên tiếp cao hơn), cú đó ra gấp 5 calo. Liên tiếp: x6, x7… tối đa x10. Sau lần PERFECT đầu, vòng không còn dòng chữ hướng dẫn. | |
 | C17 | Khi vòng hiện, bấm liên tục không dừng; lần khác bấm trễ; lần khác không bấm. | Bấm liên tục hoặc trễ: chữ "Hụt", cú đó x1, chuỗi PERFECT về 0. Không bấm: vòng tự biến mất sau 1,1 giây, chuỗi về 0. Thể lực vẫn trừ 1 mỗi cú như thường. | |
 | C18 | Trong trận đấu, trong lúc bấm x5/x7 của khách; khi đang báo trước hoặc vòng đang hiện thì về nhà, thách đấu, hoặc bấm khách cho x5. | Không có vòng trong trận đấu và lúc bấm x5/x7. Vòng biến mất khi rời phòng tập hay bắt đầu đấu. Trên điện thoại vòng tròn đều (không méo), bao quanh nhân vật. | |
 | C12 | Khi khách đang hiện: thách đấu, hoặc về nhà. Ở văn phòng, nhà, trong trận đấu, khi mở ❓ thì chờ 2 phút. | Khách biến mất khi bắt đầu đấu hay rời phòng tập. Khách không bao giờ hiện ngoài phòng tập, trong trận đấu, hay khi có khung hướng dẫn / hộp xác nhận / màn chờ. | |
@@ -204,16 +204,18 @@ Bảng đối chiếu cho H6:
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| J1 | Chơi mới, vào tab Thi đấu. | 20 đối thủ có ảnh và tên. Chỉ đối thủ đầu (Anh Tom kế toán) có nút "Thách đấu" bấm được; thẻ ghi "Cần 300 / 15s" và "+3% vĩnh viễn · +900". | |
+| J1 | Chơi mới, vào tab Thi đấu. | 30 đối thủ có ảnh và tên. Chỉ đối thủ đầu (Anh Tom kế toán) có nút "Thách đấu" bấm được; thẻ ghi "Cần 300 / 15s" và "+3% vĩnh viễn · +900". | |
 | J2 | Khi thể lực dưới 40 (không phải Chủ nhật). | Nút "Thách đấu" mờ, không bấm được. | |
-| J3 | Thể lực từ 40 trở lên, bấm "Thách đấu". | Thể lực −40 ngay. Vào màn đấu: nhân vật bên trái, đối thủ bên phải, chữ "VS", đồng hồ đếm 15 giây, thanh xanh của bạn và thanh đỏ của đối thủ. Thanh đỏ đầy dần đều và đầy đúng lúc hết giờ. Nhạc đổi sang bài thi đấu. Nút "Về nhà" ẩn. | |
-| J4 | Trong lúc đấu, bấm nhân vật liên tục. | Thanh xanh tăng theo mỗi cú bấm; thể lực **không giảm**. Thỉnh thoảng đối thủ lao tới "ra đòn", nhân vật chớp sáng (chỉ là hình ảnh, không mất điểm). | |
-| J5 | Làm đầy thanh xanh trước khi hết giờ. | Thông báo "THẮNG!" · "+3% · +900". Calo +900, "Đối thủ đã thắng" tăng 1, calo/giây và calo/bấm tăng 3% (trận đầu tiên tăng 4% vì kèm thành tựu "Thắng 1 đối thủ"). Đối thủ vừa thắng không đấu lại được; đối thủ kế tiếp mở ra (cần 720). Nhạc về bài phòng tập. | |
-| J6 | Chế độ thường, vào đấu rồi không bấm gì (khi calo/giây còn thấp). | Hết 15 giây: "Thua rồi!" · "Tập thêm rồi quay lại", có tiếng thua. Không mất gì ngoài 40 thể lực. Đấu lại được nếu còn thể lực. | |
+| J3 | Thể lực từ 40 trở lên, bấm "Thách đấu" (lần đầu gặp Anh Tom). | Thể lực −40 ngay. Đấu trường che cả màn hình (cả bảng bên phải): nhân vật trượt vào từ trái, đối thủ từ phải, chữ "VS" đập xuống, tên giải và tên đối thủ ở trên. Nhạc đổi sang bài thi đấu. Sau đó khung thoại: Tom nói 1 câu, rồi "Bạn" đáp 1 câu; người đang nói sáng, người kia tối. Chạm khi chữ đang chạy thì hiện hết câu, chạm nữa sang câu kế. Hết thoại: đếm 3·2·1·ĐẤU!, rồi thanh đấu hiện ở trên, đồng hồ 15 giây, thanh đỏ đầy dần đều và đầy đúng lúc hết giờ. | |
+| J4 | Trong lúc đấu, bấm liên tục vào đấu trường. Bấm trong lúc đếm ngược. Lần khác không bấm gì. | Chỗ bấm hiện 👊, không có số "+…". Thanh xanh **chỉ nhảy khi nhân vật ra đòn** (lao sang phải, đối thủ giật lùi, số sát thương đỏ trên đối thủ), không quá khoảng 2 đòn mỗi giây, mỗi đòn tối đa 1/5 thanh. Thể lực **không giảm**; **calo không tăng theo cú bấm**. Bấm lúc đếm ngược không tính. Không bấm: nhân vật vẫn tự ra đòn khoảng 0,7 giây một lần. Đối thủ ra đòn khoảng mỗi giây: lao sang trái, nhân vật chớp, màn rung, thanh đỏ nhảy lên một nấc. | |
+| J5 | Làm đầy thanh xanh trước khi hết giờ. Đánh cả đối thủ rất yếu (Tom, khi đã mạnh). | Đối thủ nói câu khi thua ("Ơ… chắc anh nhập nhầm ô nào rồi."), chạm xong hiện nút "Về phòng tập" (không có nút Đấu lại). Thông báo "THẮNG!" · "+3% · +900". Calo +900, "Đối thủ đã thắng" tăng 1, calo/giây và calo/bấm tăng 3% (trận đầu tiên tăng 4% vì kèm thành tựu "Thắng 1 đối thủ"). Đối thủ vừa thắng không đấu lại được; đối thủ kế tiếp mở ra (cần 720). Nhạc về bài phòng tập. | |
+| J6 | Chế độ thường, vào đấu rồi không bấm gì (khi calo/giây còn thấp). Sau đó bấm "Đấu lại". | Hết 15 giây: "Thua rồi!", có tiếng thua, đối thủ nói câu chế giễu. Hiện "Đấu lại ⚡40" (mờ nếu thiếu thể lực) và "Về phòng tập". Đấu lại: chỉ một câu gặp lại ("Anh sửa lại bảng tính rồi. Lần này hết đường."), rồi đếm ngược luôn. Tải lại trang rồi thách đấu lại: vẫn chỉ câu gặp lại. | |
 | J7 | Đang đấu thì hết giờ hoặc thắng, kiểm tra tab Thi đấu. | Khi một trận đang diễn ra, mọi nút "Thách đấu" đều mờ. | |
 | J8 | Thắng đủ 30 đối thủ (chế độ test). | "Đối thủ đã thắng 30 / 30". Không còn nút đấu nào bấm được. Nhiệm vụ "Thách đấu 1 lần" tự tính là xong. | |
 | J10 | Thắng 20 đối thủ đầu, mở tab Thi đấu. | Có giải 5 "Thế giới ngầm" và giải 6 "Trùm Trái Đất", mỗi giải 5 phản diện. Phản diện 21 cần khoảng 6,3 nghìn tỷ calo, phản diện 30 khoảng 47 nghìn tỷ. Chưa có ảnh thì ô ảnh hiện emoji (🦹‍♂️ 🐍 🧪 …), có ảnh thì hiện ảnh. | |
 | J9 | Khi ước chừng đủ sức thắng đối thủ kế tiếp. | Tab Thi đấu có chấm đỏ. | |
+| J11 | Chơi nhân vật nữ, đấu Cody (giải 3) và một phản diện giải 5. Đổi sang EN. | Cody gọi "Chị" (nam: "Anh"). Giải 3 có 2 câu, giải 5 có 3 câu trước câu đáp. Nền đấu trường đổi theo giải (chưa có ảnh: nền màu tím, đỏ…). Bản tiếng Anh đủ thoại, không còn chữ tiếng Việt. Trên điện thoại: đối thủ ở trên bên phải, nhân vật dưới bên trái, khung thoại ở dưới, không cuộn ngang. |
+| J12 | Đã mạnh hơn hẳn, thách đấu đối thủ đầu (Tom), bấm liên tục. | Trận vẫn kéo dài khoảng 2,5 giây: 5 đòn của bạn (thanh xanh 5 nấc), đối thủ kịp đánh lại khoảng 2 lần, rồi mới thắng. |
 
 ## K. Bạn tập
 
@@ -237,7 +239,7 @@ Bảng đối chiếu cho H6:
 | L6 | Kiếm 8 triệu calo trong đời này (chế độ test, hoặc `s.run = 8e6; ui()`). Bấm "Lên đời" → Đồng ý. | Trước khi bấm: "Sao nhận nếu lên đời: 2", tab có chấm đỏ. Hộp hỏi "Lên đời? Calo và cấp bài tập về 0, bạn nhận 2 Sao." Sau khi đồng ý: calo 0, mọi bài tập cấp 0, về hạng 1, Sao +2, "Thưởng hiện tại +20%". **Giữ nguyên**: ngày, cân nặng, mệt mỏi, bạn tập, số trận thắng, thành tựu. | |
 | L7 | Sau L6 (đã từng đạt hạng 3 trước khi lên đời), về nhà và về văn phòng. | Bữa tối, ô mệt mỏi và lịch tuần **vẫn còn** dù đang ở hạng 1. | |
 | L8 | Sau L6, so calo mỗi lần bấm với một ván mới chưa có Sao. | Cao hơn đúng 20% (2 Sao). | |
-| L9 | Cuối tab Lên đời, bấm "Xoá toàn bộ tiến trình" → Huỷ; rồi bấm lại → Đồng ý. | Huỷ: không đổi gì. Đồng ý: mọi thứ về như chơi mới (calo, cấp, Sao, bạn tập, trận thắng, ngày 1, 85 kg), nhưng **giữ** ngôn ngữ, trạng thái loa và nhân vật đang chọn. | |
+| L9 | Cuối tab Lên đời, bấm "Xoá toàn bộ tiến trình" → Huỷ; rồi bấm lại → Đồng ý. | Huỷ: không đổi gì. Đồng ý: mọi thứ về như chơi mới (calo, cấp, Sao, bạn tập, trận thắng, ngày 1, 85 kg), nhưng **giữ** ngôn ngữ, âm lượng và nhân vật đang chọn. | |
 | L10 | Bản lưu có vài Sao (vd lên đời hoặc cân kiểm tra). Mở tab Lên đời, cuộn xuống "Kỹ năng Sao". | Có dòng "Sao chưa dùng", 3 nhánh x 3 kỹ năng. Kỹ năng thứ 2, 3 mỗi nhánh mờ, nút 🔒, ghi "Cần học … trước". Nút kỹ năng giá 1 bấm được khi có ≥ 1 Sao. | |
 | L11 | Học Cú bấm vàng 2 cấp. | Sao chưa dùng giảm 1 rồi 2 (tổng 3). Thưởng "+N%" của Sao **không đổi**. Calo mỗi lần bấm x1,25 rồi x1,5 so với lúc chưa học. Ký ức cơ bắp mở khoá. | |
 | L12 | Học Đấu tiết kiệm (cần Phổi thép, Hồi phục nhanh trước). | Nút thách đấu ghi "⚡20", trận đấu chỉ trừ 20 thể lực. Hướng dẫn ❓ mục Thi đấu ghi 20. | |
@@ -259,17 +261,25 @@ Bảng đối chiếu cho H6:
 | M4 | Ở mỗi màn, nghe đủ lâu để bài lặp lại ít nhất 2 lần. | Chỗ nối khi lặp không có khoảng lặng hay tiếng "khựng" rõ rệt. | |
 | M5 | Bấm "Đi ngủ". | Đoạn nhạc ru ngủ rồi sáng dần phát một lần trong chuỗi màn chờ, không lặp. Về văn phòng thì nhạc văn phòng trở lại. | |
 | M6 | So độ to giữa 5 bài, và giữa nhạc với tiếng bấm/tiếng mua. | Các bài to gần bằng nhau. Tiếng bấm, tiếng mua, tiếng lên hạng vẫn nghe rõ trên nền nhạc. | |
-| M7 | Bấm nút loa 3 lần. | Lần 1: icon 🔉, thông báo "Tắt nhạc", nhạc dừng nhưng tiếng bấm vẫn còn. Lần 2: 🔇, "Tắt hết âm thanh", không còn tiếng gì. Lần 3: 🔊, "Bật nhạc và âm thanh", nhạc phát lại. | |
-| M8 | Đặt loa ở 🔉, tải lại trang. | Vẫn ở 🔉, không có nhạc, còn tiếng bấm. | |
+| M7 | Ván mới, bấm ⚙️. Thử − và +, bấm thẳng vào một ô, bấm lại đúng ô cuối đang sáng. | Mặc định Nhạc 3 ô sáng, Âm thanh 5 ô. − / + đổi một nấc, không xuống dưới 0, không quá 10. Bấm ô thứ 7: sáng 7 ô; bấm lại ô đó: còn 6. Nhạc to nhỏ ngay khi chỉnh; chỉnh Âm thanh thì nghe một tiếng bấm thử ở mức mới. Nhạc 0: nhạc dừng, tiếng bấm còn. Âm thanh 0: không còn tiếng hiệu ứng, không rung. Bấm ✕, bấm ra ngoài khung hoặc Esc đều đóng. | |
+| M8 | Đặt Nhạc 0, Âm thanh 8, tải lại trang. Rồi dán bản lưu cũ có `mute: 2` (hoặc `mute: 1`) vào và tải lại. | Vẫn Nhạc 0, Âm thanh 8. Bản lưu cũ `mute: 2` thành 0 / 0; `mute: 1` thành 0 / 5; không có `mute` thành 3 / 5. | |
 | M9 | Đang có nhạc, chuyển sang tab trình duyệt khác rồi quay lại. | Nhạc dừng khi rời tab và phát lại khi quay về. | |
 | M10 | Trên điện thoại thật (đặc biệt iPhone/Safari): mở game, chạm một lần. | Nhạc phát được sau cú chạm đầu tiên. Bật chế độ im lặng của máy thì không có tiếng. | |
+| M11 | Bấm nhân vật liên tục 20 giây thật nhanh, có PERFECT chen vào. | Tiếng bấm là tiếng "thịch" trầm, mỗi cú hơi khác nhau. Không rè, không vỡ tiếng khi bấm dồn. Cú chí mạng có thêm tiếng "chát" sáng. | |
+| M12 | PERFECT liên tiếp 5 lần, rồi trượt một lần, rồi PERFECT lại. | Mỗi lần PERFECT cao hơn lần trước một chút; trượt xong thì về lại nốt thấp nhất. Trên điện thoại: rung nhẹ mỗi lần PERFECT. | |
+| M13 | Mua bài tập; ăn ở nhà; chọn sự kiện văn phòng; nhận thưởng nhiệm vụ; đạt một thành tựu; lên hạng. | Ba tầng nghe khác nhau rõ: mua/ăn/chọn là tiếng nhỏ, nhiệm vụ/thành tựu là tiếng "ding"/"xu", lên hạng là đoạn kèn to nhất, nhạc nền nhỏ hẳn lại ~1,5 giây rồi lên lại. | |
+| M14 | Bấm "Đến phòng tập". Ngủ sang ngày mới. | Đến phòng tập: tiếng "vút". Sáng ngày mới: 4 nốt đi lên nhẹ nhàng. | |
+| M15 | Mở hướng dẫn ❓ hoặc hộp xác nhận (ví dụ "Về nhà"). Đóng lại. | Khi mở: nhạc nghe đục như vọng từ phòng bên. Đóng: nhạc trong lại. | |
+| M16 | Thi đấu, để trận chạy tới cuối. | 5 giây cuối nhạc nhanh hơn một chút; 3 giây cuối có tiếng tích mỗi giây. Đòn của bạn và của đối thủ có tiếng va chạm khác nhau; trên điện thoại rung khi bị đánh. | |
+| M17 | Bấm nhân vật liên tục 2 phút đến khi thể lực xuống dưới 20%. | Đúng một tiếng tim đập trầm khi vừa qua mốc 20%, không lặp lại. | |
+| M18 | Tải lại trang và chạm ngay khi game còn đang tải (kể cả chạm vào nhân vật). | Không có lỗi trong console. Khi tải xong, nhạc là bài của màn đang hiện (không phải bài phòng tập khi đang ở văn phòng). | |
 
 ## N. Giao diện, ngôn ngữ, bố cục
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| N1 | Bấm nút "EN" trên cùng. | Toàn bộ chữ đổi sang tiếng Anh: tên hạng, tab, bài tập, đối thủ (Tom from Accounting…), món ăn, nhiệm vụ, thành tựu, câu nói, màn chờ. Không còn chữ tiếng Việt sót lại. Nút đổi thành "VI". Số liệu không đổi. | |
-| N2 | Đổi lại "VI", tải lại trang. | Ngôn ngữ được nhớ sau khi tải lại. | |
+| N1 | Bấm ⚙️ → "English". | Toàn bộ chữ đổi sang tiếng Anh: tên hạng, tab, bài tập, đối thủ (Tom from Accounting…), món ăn, nhiệm vụ, thành tựu, câu nói, màn chờ. Không còn chữ tiếng Việt sót lại. Nút "English" sáng, tiêu đề khung thành "Settings". Số liệu không đổi. | |
+| N2 | Chọn lại "Tiếng Việt", tải lại trang. | Ngôn ngữ được nhớ sau khi tải lại. | |
 | N3 | Bấm nút nhân vật (mặt người). | Đổi giữa nhân vật nam và nữ ở đúng hạng hiện tại; lựa chọn được nhớ sau khi tải lại. | |
 | N4 | Cửa sổ máy tính rộng hơn 900px. | Nhân vật bên trái, bảng bên phải rộng khoảng 430px. Màu chủ đạo xanh dương, nút mua vàng cam, nút hành động xanh lá. Không có thanh cuộn ngang. | |
 | N5 | Tablet dọc 768×1024 và điện thoại 375×812, lần lượt ở văn phòng, phòng tập, nhà, màn đấu. | Bố cục xếp chồng: nhân vật ở trên, bảng ở dưới rộng hết màn hình. Không có chữ bị cắt, nút nào cũng bấm được, không cuộn ngang. Ở nhà thấy đủ 3 món ăn và nút "Đi ngủ"; trên điện thoại màn nhà ẩn số calo lớn và nhân vật nhỏ (khoảng 80px). Màn đấu trên điện thoại ẩn số calo và các ô chỉ số, thấy đủ cả hai nhân vật. Bảng thông số ở văn phòng mỗi ô một dòng. | |
@@ -279,8 +289,9 @@ Bảng đối chiếu cho H6:
 | N9 | Tiếp N8: về nhà; mở tab Thi đấu; mở tab Lên đời; ngủ sang ngày 2 rồi vào phòng tập. | Mỗi lần hiện đúng một mục tương ứng, chỉ lần đầu. Về nhà ở hạng 1 chỉ hiện "Buổi tối ở nhà", không hiện mục bữa tối. Vào phòng tập ngày 2 không hiện gì (đã xem). | |
 | N10 | Lần đầu về nhà sau khi đạt hạng 3 (chưa từng xem). | Một khung hiện cùng lúc ba mục: bữa tối, mệt mỏi, cân nặng. Mục cân nặng ghi đúng ngưỡng 84,5 / 82 / 78 kg. | |
 | N11 | Bấm nút ❓ ở hạng 1, rồi ở hạng 3, cả hai ngôn ngữ. | Hiện đủ 9 mục. Ở hạng 1: bữa tối ghi "🔒 Mở khi đạt hạng 2", mệt mỏi và cân nặng ghi "hạng 3". Khung không cao quá màn hình (thử cả 1440×900, 1366×650, 375×812), nội dung cuộn bên trong, nút "Đã hiểu" luôn thấy. Máy tính 2 cột, điện thoại 1 cột. Đóng được bằng "Đã hiểu", nút ✕, bấm ra ngoài khung, phím Esc; bấm vào trong khung thì không đóng. Bấm ❓ không làm đổi bản lưu. | |
-| N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 4 nút tròn (❓, nhân vật, âm thanh, ngôn ngữ). Tên hạng dài xuống dòng, không bị cắt. | |
-| N13 | Ván mới (cửa sổ ẩn danh), kể cả trên máy cài tiếng Việt. | Game hiện **tiếng Anh**, nút ngôn ngữ ghi "VI". Bấm "VI" rồi tải lại: vẫn tiếng Việt. Bản lưu có từ trước vẫn giữ ngôn ngữ đang dùng. | |
+| N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 3 nút tròn (❓, nhân vật, ⚙️). Khung cài đặt vừa màn hình, không cuộn ngang. Tên hạng dài xuống dòng, không bị cắt. | |
+| N14 | Điện thoại 375×812, phòng tập, xem tab Bài tập, Đối thủ, Thú cưng, Thành tựu, Lên đời. | Thẻ gọn (ô ảnh 44 px, chữ nhỏ hơn bản máy tính), thấy khoảng 4 thẻ trong bảng, chữ vẫn đọc được, nút mua vẫn dễ bấm. Dòng mục tiêu (🎯 kg) nằm cùng dòng với chỉ số khi đủ chỗ. Máy tính không đổi. | |
+| N13 | Ván mới (cửa sổ ẩn danh), kể cả trên máy cài tiếng Việt. | Game hiện **tiếng Anh**, trong ⚙️ nút "English" sáng. Chọn "Tiếng Việt" rồi tải lại: vẫn tiếng Việt. Bản lưu có từ trước vẫn giữ ngôn ngữ đang dùng. | |
 ## O. Vắng mặt
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
@@ -300,7 +311,7 @@ Bản chạy trên máy dùng quảng cáo giả của SDK. Phần này cần th
 | P2 | Bỏ ngang hoặc quảng cáo lỗi. | Không được cộng thể lực, nút vẫn còn. | |
 | P3 | Ngủ để sang ngày 3, 6, 9… | Có quảng cáo giữa game ngay sau khi sang ngày (ngày chia hết cho 3). Các ngày khác không có. Lên đời cũng có một quảng cáo. | |
 | P4 | Trong lúc quảng cáo chạy. | Nhạc và mọi tiếng trong game tắt; hết quảng cáo thì nhạc phát lại. | |
-| P5 | Trên CrazyGames: bật tắt tiếng bằng nút của cổng game. | Game tắt hết tiếng khi cổng yêu cầu, bất kể nút loa trong game. | |
+| P5 | Trên CrazyGames: bật tắt tiếng bằng nút của cổng game. | Game tắt hết tiếng khi cổng yêu cầu, bất kể âm lượng chỉnh trong game. | |
 | P6 | Trên CrazyGames: chơi, đăng xuất/đổi máy cùng tài khoản. | Tiến trình được giữ (lưu qua Data Module). | |
 | P7 | Chặn mạng tới `sdk.crazygames.com` rồi mở game. | Game vẫn vào được sau tối đa khoảng 4 giây, chơi bình thường, không có nút nước tăng lực và không có quảng cáo. | |
 
