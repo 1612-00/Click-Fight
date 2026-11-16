@@ -137,9 +137,13 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| F1 | Chơi mới, tập hết 300 thể lực, về nhà, ngủ. | Thông báo "Ngày 2" · "Tập hôm nay: −0.3 kg → 84.7 kg". Ô cân nặng ghi 84.7 kg. | |
+| F1 | Chơi mới, tập hết 300 thể lực, về nhà, ngủ. | Thông báo "Ngày 2" · "Tập hôm nay: −0.3 kg → 84.7 kg (−0.3)". Ô cân nặng ghi 84.7 kg. | |
 | F2 | Tập đúng nửa thanh thể lực (150 cú) rồi về nhà ngủ. | Cân giảm 0,15 kg so với hôm trước (hiển thị làm tròn 1 chữ số). | |
-| F3 | Không tập, về nhà nghỉ, ngủ (mệt mỏi dưới 40). | Thông báo "Nghỉ hôm nay: +0.3 kg". Cân tăng 0,3 kg. | |
+| F3 | Không tập, về nhà nghỉ, ngủ (mệt mỏi dưới 40). | Thông báo "Nghỉ hôm nay: +0.3 kg → … (+0.3)". Cân tăng 0,3 kg. | |
+| F8 | Mệt mỏi dưới 40. Vào phòng tập, bấm 5 cú, về nhà ăn Salad cá hồi (−0,2), ngủ. | Sáng hôm sau: "Tập quá ít, tính là nghỉ: +0.3 kg · Ăn uống, sự kiện: −0.2 kg → … (+0.1)". Cân cả ngày +0,1. Mệt mỏi giảm 60 như ngày nghỉ. | |
+| F9 | Dùng khoảng 25% thể lực (trên mức 20%), ăn Salad, ngủ. | Tính là ngày tập: "Tập hôm nay: −0.1 kg · Ăn uống, sự kiện: −0.2 kg → … (−0.3)". | |
+| F10 | Chọn sự kiện văn phòng có +0,3 kg, tập hết thể lực, ăn món ăn vặt +0,2, ngủ. | "Tập hôm nay: −0.3 kg · Ăn uống, sự kiện: +0.5 kg → … (+0.2)". Số trong ngoặc khớp đúng chênh lệch cân giữa hai buổi sáng. | |
+| F11 | Đang thiếu ít cân để lên hạng (ví dụ cần −0,2), tập hết thể lực, ngủ. | Sáng hôm sau: thông báo "LỘT XÁC!" hiện trước, **sau đó** mới tới thông báo ngày mới có dòng cân (không bị che mất). | |
 | F4 | `s.kg = 70; go('gym')` rồi so calo/giây với lúc `s.kg = 75; go('gym')`. | Ở 70 kg (vùng 68–72) calo/giây và calo/bấm cao hơn đúng 20% so với ở 75 kg. | |
 | F5 | `s.kg = 91; s.used = 0; endDay()` rồi xem thể lực tối đa; so với khi cân 85. | Trên 90 kg, thể lực tối đa chỉ còn 80% (hạng 1: 240 thay vì 300). | |
 | F6 | `s.kg = 65; s.used = s.cap; endDay()` và `s.kg = 120; s.used = 0; endDay()`. | Cân không xuống dưới 65.0 kg và không vượt 120.0 kg. | |
@@ -273,6 +277,9 @@ Bảng đối chiếu cho H6:
 | M16 | Thi đấu, để trận chạy tới cuối. | 5 giây cuối nhạc nhanh hơn một chút; 3 giây cuối có tiếng tích mỗi giây. Đòn của bạn và của đối thủ có tiếng va chạm khác nhau; trên điện thoại rung khi bị đánh. | |
 | M17 | Bấm nhân vật liên tục 2 phút đến khi thể lực xuống dưới 20%. | Đúng một tiếng tim đập trầm khi vừa qua mốc 20%, không lặp lại. | |
 | M18 | Tải lại trang và chạm ngay khi game còn đang tải (kể cả chạm vào nhân vật). | Không có lỗi trong console. Khi tải xong, nhạc là bài của màn đang hiện (không phải bài phòng tập khi đang ở văn phòng). | |
+| M19 | Vào phòng tập ở hạng 1–3, rồi 4–6, rồi 7–9 (dùng `?test` để lên nhanh). | Hạng 1–3: bài điện tử cũ. Hạng 4–6: bài funk có kèn. Hạng 7–9: bài kiểu phim siêu anh hùng. Đúng lúc lên hạng 4 hoặc 7 trong phòng tập: bài đổi ngay, mờ dần sang bài mới. Lên đời về hạng 1: về bài cũ. | |
+| M20 | Lên hạng; thắng một trận; thua một trận; lên đời. | Lên hạng và lên đời: đoạn kèn đồng (~5,7 giây). Thắng: đoạn nhạc thắng (~5 giây). Thua: trombone "wah wah" (~4 giây). Trong lúc đó nhạc nền nhỏ hẳn lại, hết đoạn thì lên lại. Đoạn thưởng to nhỏ theo nấc Âm thanh, Âm thanh 0 thì im. | |
+| M21 | Chặn file `rankup.mp3` (DevTools → Network → Block request URL), tải lại, lên hạng. | Không lỗi; nghe tiếng bíp lên hạng như trước. | |
 
 ## N. Giao diện, ngôn ngữ, bố cục
 

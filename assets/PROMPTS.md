@@ -919,6 +919,70 @@ Instrumental 10-second jingle for a mobile game, in two halves. First half: a so
 
 Bài này công cụ sẽ tạo dài hơn 10 giây. Chọn bản có đoạn ru ngủ rồi sáng lên rõ nhất, cắt lấy khoảng 9 giây: khoảng 4 giây ru ngủ, 5 giây sáng dần.
 
-## Đợt 2 (chưa cần làm)
+## Đợt 2: nhạc lớn lên theo hạng và đoạn nhạc thưởng (5 file)
 
-`gym2.mp3` cho hạng 4–6: dùng lại prompt `gym.mp3`, đổi câu mô tả thành `heavier and more powerful version: bigger drums, stronger bass, added electric guitar power chords, 132 BPM, heroic and confident`.
+| File | Phát khi | Độ dài sau khi cắt | Lặp | Nhịp |
+|---|---|---|---|---|
+| `gym2.mp3` | Phòng tập, hạng 4–6 | 60–90 giây | Có | 120–126 BPM |
+| `gym3.mp3` | Phòng tập, hạng 7–9 (siêu năng lực). Không bắt buộc: thiếu thì dùng `gym2` | 60–90 giây | Có | 132–138 BPM |
+| `rankup.mp3` | Lên hạng, lên đời | 2–3 giây | Không | Tự do |
+| `win.mp3` | Thắng trận | 3–4 giây | Không | Tự do |
+| `lose.mp3` | Thua trận | 2–3 giây | Không | Tự do |
+
+### Cách để nhạc nghe tự nhiên, bớt "chất AI"
+
+Nhạc AI dễ lộ khi prompt chung chung ("epic, uplifting, motivational"): công cụ sẽ trả về loại nhạc stock nhiều lớp synth, nén chặt, mọi thứ đều to và hoàn hảo. Prompt dưới đây đi theo hướng ngược lại:
+
+- **Ban nhạc nhỏ, nhạc cụ thật, gọi tên cụ thể** (trống jazz, bass điện, kèn trumpet có tắt tiếng…) thay cho "synth", "pad", "orchestral".
+- **Mô tả cách thu âm**: thu sống trong một phòng, nghe được không gian phòng, nhạc công chơi cùng lúc, nhịp hơi lệch theo kiểu người chơi, mix khô, không nén chặt.
+- **Ô loại trừ** (Exclude styles của Suno, hoặc thêm vào cuối prompt với công cụ khác), dán cho mọi bài:
+
+```
+EDM, synth pad, supersaw, cinematic, epic trailer, orchestral hybrid, dubstep, drop, riser, autotune, vocals, choir, heavy sidechain, stock music
+```
+
+Khi nghe chọn bản, bỏ những bản có: tiếng "xì xào" kim loại ở dải cao (dấu hiệu AI rõ nhất), nhạc cụ đổi âm sắc giữa chừng, giai điệu lang thang không về chủ âm, đoạn sau to hơn hẳn đoạn đầu. Ưu tiên bản nghe như một ban nhạc thật chơi trong phòng, có chút "thô".
+
+Đoạn ngắn (rankup, win, lose): công cụ không tạo được bài 3 giây. Cách làm: tạo bài bình thường (30 giây trở lên), chọn bản **mở đầu** bằng đúng câu nhạc đó, cắt lấy vài giây đầu, làm nhỏ dần 0,3 giây cuối cho khỏi bị cụt. Nếu câu hay nằm ở **đoạn kết** thì cắt đoạn kết.
+
+### gym2.mp3 — phòng tập, hạng 4–6
+
+```
+Instrumental live funk band groove, background music for a cartoon gym game. 124 BPM. Real drum kit played by a human, tight snare with ghost notes, open hi-hat, round electric bass with slap accents, clean rhythm guitar with wah pedal, short three-piece horn section stabs (trumpet, tenor sax, trombone), a little Hammond organ. Recorded live in a small room, warm analog tape sound, dry mix, natural dynamics, slight human timing. Mood: confident, sweaty, grinning, getting stronger. Steady groove, no solos, no build-ups, same energy from start to finish, seamless loop. No vocals.
+```
+
+Khác `gym.mp3` (điện tử, vui nhộn) ở chỗ "lớn lên": ban nhạc thật, dày và chắc tay hơn nhưng không ồn hơn. Hạng 4–6 là lúc nhân vật bắt đầu có cơ bắp.
+
+### gym3.mp3 — phòng tập, hạng 7–9 (không bắt buộc)
+
+```
+Instrumental 1970s superhero TV show theme style groove, background music for a cartoon gym game. 135 BPM. Live drum kit with big tom fills, driving electric bass, crunchy overdriven electric guitar riff, bold brass section playing short heroic stabs, timpani hits on the downbeat now and then. Recorded live by a real band in a studio room, analog warmth, natural reverb, dynamic, not compressed. Mood: heroic and a bit over the top, the hero has superpowers now, still fun and playful. Short repeating riff, no long melody, no solos, same energy throughout, seamless loop. No vocals.
+```
+
+### rankup.mp3 — lên hạng (2–3 giây)
+
+```
+Instrumental short triumphant fanfare played by a real brass ensemble: trumpets, French horns and trombones, with a snare drum roll and one big crash cymbal on the final chord. Recorded live in a concert hall, natural room reverb, warm and bright, slightly imperfect human playing. Opens immediately with a rising three-note fanfare that lands on a big major chord, like a hero levelling up in a cartoon. No synth, no vocals.
+```
+
+Cắt từ đầu bài tới hết hợp âm lớn đầu tiên (cho tiếng ngân tự tắt hoặc làm nhỏ dần). Không nên dài quá 3 giây: lên hạng còn có thông báo và rung màn hình chạy cùng lúc.
+
+### win.mp3 — thắng trận (3–4 giây)
+
+```
+Instrumental short victory jingle played by a live small band: punchy brass section, electric guitar, bass and drum kit. Upbeat, celebratory and a little cheeky, like winning a cartoon boxing match. Opens straight away with a bright brass melody of four or five notes, a drum fill, and ends on a strong final hit with cymbal crash. Recorded live in a room, natural and warm, human timing. No synth, no vocals, no crowd.
+```
+
+Nên khác `rankup` một chút (có trống và guitar, vui hơn, ít trang trọng hơn), để người chơi phân biệt "thắng trận" với "lên hạng".
+
+### lose.mp3 — thua trận (2–3 giây)
+
+```
+Instrumental short comedic fail jingle: a muted trombone plays a slow descending "wah wah wah" phrase, with a soft tuba note and a quiet brushed snare at the end. Recorded live, natural room sound, playful and gentle, cartoon style, a funny "better luck next time" feeling, not sad, not dramatic. No synth, no vocals.
+```
+
+Thua là chuyện thường gặp (người chơi thách đấu lại nhiều lần) nên tiếng thua phải **nhẹ và hài**, không làm nản.
+
+### Sau khi có file
+
+Thả vào `assets/music/` đúng tên, báo lại để nối vào game: chọn bài phòng tập theo hạng, đoạn thưởng phát thay cho tiếng bíp `sfx.up` / `sfx.lose` (thiếu file thì vẫn dùng tiếng bíp như hiện tại), đi theo nấc **Âm thanh** chứ không theo nấc Nhạc.

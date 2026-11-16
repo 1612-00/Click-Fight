@@ -107,13 +107,14 @@ Lý do: hạng thấp nhanh mệt, hạng cao lâu mệt, để người chơi t
 
 ## Ngày nghỉ
 
+- Ngày nghỉ là ngày dùng dưới 20% thể lực (hằng `REST`), kể cả có vào phòng tập bấm vài cú. Trước đây bấm 1 cú là tính ngày tập, thoát được phạt lười.
 - Nghỉ khi mệt mỏi từ 40: hôm sau có "Hồi phục" (calo/bấm +25%), +0,1 kg.
 - Nghỉ khi mệt mỏi dưới 40 (lười): không có Hồi phục, +0,3 kg.
 
 ## Cân nặng
 
 - Bắt đầu 85 kg, giới hạn 65–120 kg.
-- **Tập là cách giảm cân chính**: hết thanh thể lực −0,3 kg (một phần thì theo tỉ lệ). Thông báo đầu ngày ghi rõ số kg vừa giảm.
+- **Tập là cách giảm cân chính**: hết thanh thể lực −0,3 kg (một phần thì theo tỉ lệ). Thông báo đầu ngày ghi phần tập/nghỉ, phần ăn uống và sự kiện trong ngày (đã cộng ngay lúc chọn), và tổng thay đổi so với sáng hôm trước (trường `kg1` = cân đầu ngày). Nếu qua đêm lên hạng, thông báo lên hạng hiện trước, báo cân xếp hàng sau.
 - Vùng lý tưởng 68–72 kg: calo +20%. Trên 90 kg: thể lực tối đa −20%.
 - Cân kiểm tra mỗi 30 ngày: 1 Sao cho mỗi 2 kg giảm so với lần trước.
 

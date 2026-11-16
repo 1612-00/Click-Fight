@@ -1,6 +1,6 @@
 # Kế hoạch: nhạc nền theo giai đoạn
 
-Trạng thái: **đợt 1 đã vào game** (5 bài trong `assets/music/`, hàm `music()`/`tune()` trong `index.html`). Còn lại: bước 6 và đợt 2. Hiện game chỉ có hiệu ứng âm thanh ngắn tạo bằng code (`beep()`, `sfx`), không có nhạc.
+Trạng thái: **đợt 1 và đợt 2 đã vào game** (10 file trong `assets/music/`, hàm `music()`/`tune()`/`sting()` trong `index.html`). Còn lại: bước 6 (thử trên điện thoại thật).
 
 ## Mục tiêu
 
@@ -15,10 +15,15 @@ Mỗi màn có nhạc riêng để người chơi cảm được nhịp một ng
 | `home.mp3` | Màn nhà | Ấm, nhẹ, guitar hoặc piano buổi tối | Lặp 60–90 giây |
 | `duel.mp3` | Trong 15 giây thi đấu | Dồn dập, căng | Lặp 15–30 giây |
 | `sleep.mp3` | Chuỗi màn chờ khi đi ngủ (8,5 giây; từ ngày 4 còn 3,4 giây, chạm để bỏ qua) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
+| `gym2.mp3` | Phòng tập, hạng 4–6 | Ban nhạc funk thật, kèn đồng | Lặp 31 giây |
+| `gym3.mp3` | Phòng tập, hạng 7–9 | Nhạc phim siêu anh hùng thập niên 70 | Lặp 28 giây |
+| `rankup.mp3` | Lên hạng, lên đời | Kèn đồng hùng tráng | 5,7 giây |
+| `win.mp3` | Thắng trận | Ban nhỏ, vui | 5,1 giây |
+| `lose.mp3` | Thua trận | Trombone "wah wah" hài | 4,1 giây |
 
 Nhạc đã phản ứng theo lối chơi (làm bằng code, không cần file): nhỏ lại ~1,5 giây khi lên hạng/thắng/thua (`duck()`), đục đi khi mở hướng dẫn hoặc hộp xác nhận (`muffle()`), nhanh x1,08 trong 5 giây cuối trận.
 
-Đợt 2 (sau khi đợt 1 chạy ổn): `gym2.mp3` mạnh hơn cho hạng 4–6, để nhạc phòng tập "lớn lên" cùng nhân vật; đoạn nhạc ngắn khi lên hạng và khi thắng trận (hiện đang là tiếng bíp).
+Đợt 2 (prompt ở `assets/PROMPTS.md` Phần 4, mục Đợt 2; đã vào game): `gym2.mp3` cho hạng 4–6 và `gym3.mp3` (không bắt buộc) cho hạng 7–9, để nhạc phòng tập "lớn lên" cùng nhân vật; đoạn nhạc ngắn `rankup`, `win`, `lose` thay tiếng bíp. Hướng âm thanh: ban nhạc thật chơi trong phòng (funk, kèn đồng, nhạc phim siêu anh hùng thập niên 70), tránh chất nhạc stock/AI nhiều synth.
 
 ## Nguồn nhạc
 
@@ -39,7 +44,7 @@ Không tạo nhạc bằng code: làm được nhưng nghe như máy chơi game 
 ## Quyết định đã chốt
 
 1. **Âm lượng**: khung cài đặt ⚙️, nhạc và hiệu ứng mỗi loại 0–10 nấc, mặc định 3 và 5 (thay cho nút loa 3 trạng thái trước đây).
-2. **Nhạc theo hạng** (`gym2.mp3` cho hạng 4–6): để đợt 2.
+2. **Nhạc theo hạng**: `gym` hạng 1–3, `gym2` hạng 4–6, `gym3` hạng 7–9 (thiếu `gym3` thì dùng `gym2`). Đoạn thưởng đi theo nấc Âm thanh, thiếu file thì dùng tiếng bíp.
 3. **Màn chờ ngắn** (đi đến phòng tập, về nhà, 2 giây): không có nhạc riêng, chỉ làm mờ chuyển bài.
 
 ## Các bước
@@ -50,6 +55,9 @@ Không tạo nhạc bằng code: làm được nhưng nghe như máy chơi game 
 4. ~~Viết `music(name)` và nối vào `go()`.~~ Xong. Âm lượng tự cân theo độ to thật của từng file (hằng `LOUD`), nên file to nhỏ khác nhau vẫn nghe đều.
 5. ~~Nối thi đấu và chuỗi đi ngủ; nút tắt tiếng 3 trạng thái; xử lý quảng cáo, tab ẩn.~~ Xong.
 6. Thử trên máy tính và điện thoại thật (chính sách tự phát trên iOS khắt khe nhất), đo dung lượng tải.
+7. ~~Đợt 2: viết prompt.~~ Xong.
+8. ~~Đợt 2: chủ dự án tạo 5 file.~~ Xong (WAV gốc ở `assets/original/music/`, đổi sang MP3; `rankup` cắt còn 5,7 giây, `lose` còn 4,1 giây, bỏ khoảng lặng cuối).
+9. ~~Đợt 2: nối vào game.~~ Xong. Đoạn thưởng cân độ to theo hằng `STING` (to hơn nhạc nền), nhạc nền nhỏ lại suốt độ dài đoạn thưởng.
 
 ## Rủi ro
 
