@@ -34,6 +34,7 @@ Tính theo hạng cao nhất từng đạt (`unl()`), nên lên đời không b�
 | 3 | Mệt mỏi, lịch tuần và mục tiêu tuần |
 | 4 | Cân nặng bắt đầu chặn lên hạng |
 | 6 | Thử thách (tab Lên đời) |
+| 7 | Thông báo sức mạnh siêu nhân thức tỉnh (phản diện mở theo số trận thắng, không theo hạng) |
 
 Lần đầu đạt hạng 2 và 3, thông báo lên hạng nói rõ tính năng vừa mở.
 
@@ -66,14 +67,27 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 | 4 | Body săn chắc | x2 | 22, 18, 14, 8, 3 | 84,5 kg |
 | 5 | Sáu múi lấp ló | x2,5 | 40, 35, 30, 22, 15, 10, 3 | 82 kg |
 | 6 | Thần gym công sở | x3 | 70, 60, 55, 48, 40, 40, 32, 20 | 78 kg |
+| 7 | Siêu nhân văn phòng | x3,5 | 85, 75, 70, 64, 55, 55, 45, 32 | 76 kg |
+| 8 | Người hùng thành phố | x4 | 100, 92, 88, 80, 70, 70, 60, 44 | 74 kg |
+| 9 | Hộ vệ Trái Đất | x5 | 120, 112, 106, 98, 88, 86, 76, 58 | 72 kg |
 
 Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 8–9 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
 
-Có 2 nhân vật (nam, nữ), mỗi nhân vật 6 hình theo hạng.
+**Hạng 7–9 (sức mạnh siêu nhân)** dành cho các đời sau: giá bài tập tăng x1,17 mỗi cấp còn thu nhập tăng chậm hơn, nên đời đầu chạm "bức tường" sau hạng 7 và cách vượt là lên đời. Sim (người quen):
+
+| | Đời 1 | Đời 2 (hệ số calo khoảng x4,5, giữ 78 kg) | Đời 3 (khoảng x11, 74 kg) |
+|---|---|---|---|
+| Hạng 7 | 2h22 | 30 phút | 13 phút |
+| Hạng 8 | 5h27 | 1h17 | 33 phút |
+| Hạng 9 | 24 giờ | 5 giờ | 1h50 |
+
+Đã thử bộ mục tiêu cao hơn (hạng 9 cần cấp 150): đời 2 tới hạng 9 mất 13 giờ, bỏ. Cân tối đa 76 / 74 / 72 kg kéo người chơi về vùng lý tưởng 68–72 kg.
+
+Có 2 nhân vật (nam, nữ), mỗi nhân vật 9 hình theo hạng. Chưa có ảnh hạng nào thì game dùng ảnh hạng thấp hơn gần nhất. Prompt ảnh hạng 7–9 và phản diện: `assets/PROMPTS.md` nhóm 14.
 
 ## Thể lực
 
-- Tối đa = (300 + 120 × hạng + 5 × cấp Cardio) × hệ số mệt mỏi × (trên 90 kg: 0,8) × hệ số bữa ăn. Hạng tính từ 0.
+- Tối đa = (300 + 120 × min(hạng, 5) + 5 × cấp Cardio) × hệ số mệt mỏi × (trên 90 kg: 0,8) × hệ số bữa ăn. Hạng tính từ 0. Từ hạng 7 thể lực không tăng theo hạng nữa: nếu tăng tiếp, một ngày ở hạng 9 dài hơn 6 phút.
 - Mỗi cú bấm tốn 1 (miễn phí trong lúc đấu). Thách đấu tốn 40, Chủ nhật miễn phí.
 - Đầy lại mỗi sáng.
 - Quảng cáo thưởng "Nước tăng lực": +50% thể lực, một lần mỗi ngày.
@@ -129,7 +143,9 @@ Vai trò từng nhóm: lành mạnh để siết cân; đạm tăng thu nhập m
 
 ## Thách đấu
 
-20 đối thủ theo thứ tự. Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^i calo trong 15 giây; thưởng = mục tiêu × 3. Mỗi trận thắng +3% calo vĩnh viễn. Màn đấu: hai nhân vật hai bên, hai thanh chạy đua; thanh đối thủ đầy đúng lúc hết giờ.
+30 đối thủ theo thứ tự, 6 giải: Phòng ban, Công ty, Phòng gym, Giải quốc gia, rồi **phản diện trên Trái Đất**: Thế giới ngầm (Hàm Thép, Bà trùm Hổ Mang, Tiến sĩ Độc Dược, Gã Máy Xúc, Ông trùm Mặt Nạ Bạc) và Trùm Trái Đất (Tướng Bão Tố, Nữ hoàng Băng Giá, Titan Dung Nham, Siêu máy tính Omega, Hắc Vương Lõi Đất). Ngoài Trái Đất để dành cho lần mở rộng sau.
+
+Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0, i − 19) calo trong 15 giây (phản diện chỉ khó hơn x1,25 mỗi người: giữ x2,4 thì không ai đánh nổi; sim: đời 3 tới hạng 9 đã hạ 6 phản diện, 4 trùm còn lại là mục tiêu dài hạn); thưởng = mục tiêu × 3. Mỗi trận thắng +3% calo vĩnh viễn. Màn đấu: hai nhân vật hai bên, hai thanh chạy đua; thanh đối thủ đầy đúng lúc hết giờ.
 
 ## Bạn tập
 
@@ -146,7 +162,7 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 ## Nhiệm vụ, thành tựu, lên đời
 
 - **Nhiệm vụ ngày**: 3 trong 5 loại (bấm 200, mua 20 cấp, đấu 1, gọi 1, chơi 120 giây), làm mới theo ngày trong game. Thưởng = 300 giây thu nhập, tối thiểu 500.
-- **Thành tựu**: 19 cái, mỗi cái +1% calo vĩnh viễn.
+- **Thành tựu**: 21 cái (thêm đạt hạng 9, thắng 30 đối thủ), mỗi cái +1% calo vĩnh viễn.
 - **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng, kỹ năng, thử thách đã xong giữ nguyên. Lên đời thường khi đang làm thử thách thì bỏ thử thách.
 
 ## Kỹ năng Sao (cuối tab Lên đời)

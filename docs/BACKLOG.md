@@ -28,6 +28,8 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
 ## Ý tưởng chưa làm
 
+- Mở rộng ngoài Trái Đất: hạng 10+ và các giải phản diện vũ trụ (Mặt Trăng, Sao Hỏa…), nối tiếp sau Hắc Vương Lõi Đất.
+
 - Font chữ riêng đóng kèm game (cần tải file font).
 - Nhân vật thứ 3 và 4 (chú bảo vệ, thực tập sinh): đã quyết định bỏ qua, ảnh chưa có.
 - Thêm cách giảm cân hoặc nội dung cuối game sau hạng 6 (đã có kỹ năng Sao và 4 thử thách; xem người chơi thật có làm hết không).

@@ -687,6 +687,107 @@ Same art style and icon rules as the first icon. SUBJECT: a tall white wedding c
 Same art style and icon rules as the first icon. SUBJECT: the stern face of a bald office boss with thick eyebrows and a red necktie, peeking over the top edge of a big pair of binoculars, cropped at the shoulders.
 ```
 
+## Nhóm 14: Hạng 7–9 và phản diện Trái Đất (16 ảnh: 6 nhân vật, 10 phản diện)
+
+Từ hạng 7, nhân vật có **sức mạnh siêu nhân**; đối thủ từ số 21 là **phản diện trên Trái Đất** (giải 5 "Thế giới ngầm", giải 6 "Trùm Trái Đất"). Ngoài Trái Đất để dành cho lần mở rộng sau.
+
+Thiếu ảnh hạng mới thì game tạm dùng ảnh hạng 6; thiếu ảnh phản diện thì hiện emoji. Ảnh lưu vào `assets/original/char/` (nhân vật) và `assets/original/rival/` (phản diện), rồi chạy `python assets/build.py`.
+
+### 14a. Nam, hạng 7–9 (cuộc trò chuyện mới, đính kèm `original/char/rank6.png` và `original/char/rank1.png`)
+
+`rank7.png` — khối đầu tiên, dán cùng hai ảnh đính kèm:
+
+```
+The two attached images show the same 2D game character at stage 1 and stage 6 of his growth. Keep his face, hairstyle and art style identical.
+
+ART STYLE: clean modern anime mobile game art, crisp dark outlines of even thickness, soft cel shading with two tones, bright saturated colors, slightly chibi proportions (about 4.5 heads tall), big expressive eyes.
+
+FRAMING RULES (apply to every image of this chat):
+- Portrait canvas 1024x1536, real transparent background (alpha channel). Do not draw a checkerboard pattern.
+- Full body, from the top of the hair to the soles of the shoes, nothing cropped. If there is a cape, keep it inside the canvas.
+- Standing, facing the viewer straight on, centered horizontally, feet near the bottom edge with a small margin.
+- The character fills about 85% of the canvas height.
+- Single character only. No ground shadow, no floor, no background, no big glow or aura around the body (the game draws its own aura), no text, no logo.
+
+STAGE 7 of 9 — "Office superhuman": the stage 6 body, now awakened with a first superpower. Small crackling electric-blue sparks around both fists only, kept tight to the hands. The red tie is now tied around his neck as a short flowing scarf. Torn white shirt collar and cuffs, navy slacks, belt and shoes as before, the office lanyard ID card now shows a simple lightning bolt shape. One fist raised toward the sky, the other at his side. Determined heroic grin, eyes shining.
+```
+
+`rank8.png`
+```
+Same character, same art style, same canvas and framing rules.
+
+STAGE 8 of 9 — "City hero": a full superhero suit designed from his office clothes: a navy bodysuit with white shirt-collar details at the neck, a red chest emblem shaped like a necktie, white gloves, navy boots with red trim, a long red cape. Small electric sparks around the fists only. Standing tall with both fists on his hips, chest out, cape flowing behind him. Confident heroic smile.
+```
+
+`rank9.png`
+```
+Same character, same art style, same canvas and framing rules.
+
+STAGE 9 of 9 — "Guardian of Earth": the ultimate form. Navy and gold armored hero suit over the same muscular body, gold shoulder guards, a round chest emblem showing a small blue-and-green planet Earth, a long deep red cape with a subtle star pattern on the inside, gold-trimmed boots and gloves. The red tie is now a red headband with long flying ends. Arms crossed, feet apart, calm and unbeatable expression. Remember: no big glow or aura, no background.
+```
+
+### 14b. Nữ, hạng 7–9 (cuộc trò chuyện mới, đính kèm `original/char/c2-rank6.png` và `original/char/c2-rank1.png`)
+
+`c2-rank7.png`: dán lại khối đầu tiên của 14a, chỉ đổi câu đầu thành:
+
+```
+The two attached images show the same 2D game character at stage 1 and stage 6 of her growth. Keep her face, hairstyle and art style identical.
+```
+
+và thay đoạn STAGE 7 bằng:
+
+```
+STAGE 7 of 9 — "Office superhuman": the stage 6 body, now awakened with a first superpower. Small crackling electric-blue sparks around both fists only, kept tight to the hands. A short red scarf tied around the neck, flowing. Battle-worn sleeveless sporty version of her pink and navy outfit, lanyard ID card now showing a simple lightning bolt shape. One fist raised toward the sky, the other at her side. Determined heroic grin, eyes shining.
+```
+
+`c2-rank8.png`
+```
+Same character, same art style, same canvas and framing rules.
+
+STAGE 8 of 9 — "City hero": a full superhero suit designed from her office clothes: a navy bodysuit with pale pink panels and a white blouse-collar detail at the neck, a red chest emblem shaped like a lightning bolt, white gloves, navy boots with pink trim, a long red cape. Ponytail kept. Small electric sparks around the fists only. Standing tall with both fists on her hips, cape flowing behind her. Confident heroic smile.
+```
+
+`c2-rank9.png`
+```
+Same character, same art style, same canvas and framing rules.
+
+STAGE 9 of 9 — "Guardian of Earth": the ultimate form. Navy, pink and gold armored hero suit, gold shoulder guards, a round chest emblem showing a small blue-and-green planet Earth, a long deep red cape with a subtle star pattern on the inside, gold-trimmed boots and gloves, a red headband with long flying ends, ponytail flowing. Arms crossed, feet apart, calm and unbeatable expression. Remember: no big glow or aura, no background.
+```
+
+### 14c. Phản diện 21–30 (cuộc trò chuyện mới, đính kèm `original/char/rank1.png`)
+
+Phản diện vẽ cùng phong cách và cùng khung chân dung với 20 đối thủ cũ, để thẻ đối thủ trông đồng bộ. Tất cả là nhân vật tự nghĩ ra, không giống phản diện của truyện, phim hay game nào.
+
+`rival-21.png` — dán nguyên khối này trước
+```
+Create a 2D game character portrait. Square canvas 1024x1024, real transparent background (alpha channel). Do not draw a checkerboard pattern.
+
+ART STYLE (keep identical for every image of this chat): match the art style of the attached image: clean modern anime mobile game art, crisp dark outline of even thickness, soft cel shading with two tones, bright saturated colors, slightly chibi proportions with big expressive eyes.
+
+PORTRAIT RULES (apply to every image of this chat):
+- Bust portrait: head, shoulders and upper chest only, facing the viewer, centered, filling about 85% of the canvas.
+- These are original comic-book super villains who threaten planet Earth. They are menacing but still fun and colorful, suitable for all ages: no blood, no gore, no weapons pointed at the viewer.
+- Each one must look clearly different from the others (silhouette, colors, outfit, expression). Some are not fully human.
+- A villainous expression: evil grin, narrowed eyes or cold stare.
+- No background, no frame, no ground shadow, no text, no logo.
+
+SUBJECT: "Iron Jaw the Enforcer", a hulking underworld bodyguard about 40, buzz cut, a shiny steel jaw plate, tiny round dark sunglasses, black suit jacket stretched over huge shoulders, a thick gold chain, cracking his knuckles near his chin.
+```
+
+Các phản diện còn lại, mỗi khối một ảnh, cùng câu mở đầu `Same art style and portrait rules as the first image. SUBJECT:` rồi tới mô tả:
+
+| File | Tên trong game | SUBJECT |
+|---|---|---|
+| `rival-22.png` | Bà trùm Hổ Mang | `"The Cobra Queen", an elegant underworld boss woman about 45, sleek black hair in a high bun held by two golden snake hairpins, emerald green high-collar coat with scale patterns, a small green cobra coiled on her shoulder, cold smile.` |
+| `rival-23.png` | Tiến sĩ Độc Dược | `"Dr. Toxin", a mad scientist about 50, wild spiky white hair, round goggles with green lenses pushed up on his forehead, purple lab coat with stains, holding a bubbling green flask near his face, maniacal grin.` |
+| `rival-24.png` | Gã Máy Xúc | `"Bulldozer the Cyborg", a giant half-machine brute, one arm replaced by a yellow construction-machine claw arm raised beside his head, orange hard hat welded to his head, one red glowing robotic eye, angry snarl.` |
+| `rival-25.png` | Ông trùm Mặt Nạ Bạc | `"The Silver Mask Kingpin", the boss of the underworld, a tall man in a white tuxedo with a purple flower, face hidden behind a smooth silver mask with a thin smile carved on it, slicked-back black hair, gloved fingers pressed together.` |
+| `rival-26.png` | Tướng Bão Tố | `"General Tempest", a storm villain in a dark gray military greatcoat with silver lightning-shaped epaulettes, long white hair whipping sideways in the wind, eyes glowing pale blue, a small storm cloud swirling above one hand.` |
+| `rival-27.png` | Nữ hoàng Băng Giá | `"The Frost Empress", a regal ice villain woman, pale blue skin, a crown of jagged ice crystals, long silver-white hair, a high-collared white and icy blue gown, frost forming on her shoulders, haughty cold stare.` |
+| `rival-28.png` | Titan Dung Nham | `"The Magma Titan", a huge humanoid made of cracked black volcanic rock with glowing orange lava in the cracks, glowing yellow eyes, small flames on top of the head like hair, roaring with the mouth open.` |
+| `rival-29.png` | Siêu máy tính Omega | `"Omega the Machine Mind", a sleek chrome android head and shoulders, a transparent dome on top showing a glowing blue circuit brain, a single red horizontal visor eye, thin cables on the neck, emotionless smile.` |
+| `rival-30.png` | Hắc Vương Lõi Đất | `"The Core King", the final villain of Earth, a giant demonic king from the planet's core, dark crimson skin, a crown of black rock with glowing magma gems, four short horns, a heavy black and gold armored cape collar, burning orange eyes. He must look the most powerful of all villains.` |
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

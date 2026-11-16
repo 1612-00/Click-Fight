@@ -338,6 +338,10 @@ const RANKS = [
   {goal:[22,18,14,8,3,0,0,0], mult:2,   aura:'#a78bfa', vi:'Body săn chắc',           en:'Toned Body'},
   {goal:[40,35,30,22,15,10,3,0], mult:2.5, aura:'#fb923c', vi:'Sáu múi lấp ló',          en:'Six-Pack Loading'},
   {goal:[70,60,55,48,40,40,32,20], mult:3,   aura:'#fde047', vi:'Thần gym công sở',        en:'Office Gym God'},
+  // Hạng 7–9: sức mạnh siêu nhân. Đời đầu tới hạng 7 khoảng 2,5 giờ; hạng 8–9 dành cho các đời sau (sim: đời 2 tới hạng 8 khoảng 1h15, đời 3 tới hạng 9 khoảng 2 giờ).
+  {goal:[85,75,70,64,55,55,45,32], mult:3.5, aura:'#f472b6', vi:'Siêu nhân văn phòng',     en:'Office Superhuman'},
+  {goal:[100,92,88,80,70,70,60,44], mult:4, aura:'#60a5fa', vi:'Người hùng thành phố',    en:'City Hero'},
+  {goal:[120,112,106,98,88,86,76,58], mult:5, aura:'#f43f5e', vi:'Hộ vệ Trái Đất',      en:'Guardian of Earth'},
 ];
 const T = {
   vi:{perSec:'calo/giây', perClick:'mỗi lần bấm', lv:'Cấp', buyEach:'Mua mỗi lần', max:'Tối đa', tabEx:'💪\nBài tập', tabAsc:'⭐\nLên đời', tabQuest:'📋\nNhiệm vụ', tabAch:'🏆\nThành tựu',
@@ -365,7 +369,7 @@ const T = {
       ch:{tap:['Chỉ dùng tay', 'Không có calo/giây, kể cả lúc vắng mặt. Chỉ cú bấm mới ra calo.', 'Vĩnh viễn: +25% calo mỗi lần bấm'], fee:['Phòng gym tăng giá', 'Mọi bài tập đắt gấp 3.', 'Vĩnh viễn: bài tập rẻ hơn 10%'],
           party:['Mùa tiệc cưới', 'Bắt đầu ở ít nhất 85 kg, và mỗi tối đi tiệc +0,1 kg.', 'Vĩnh viễn: ngày tập đủ giảm 0,4 kg thay vì 0,3 kg'], boss:['Sếp soi', 'Mọi calo kiếm được chỉ còn một phần tư.', 'Vĩnh viễn: +15% calo']},
       chGoal:'🎯 Mục tiêu: đạt hạng {n}', chGo:'Bắt đầu', chOn:'Đang làm', chQuit:'Bỏ thử thách', qCh:'Bắt đầu thử thách "{x}"? Như lên đời: calo và cấp bài tập về 0, bạn nhận {n} Sao.', qQuit:'Bỏ thử thách? Luật khó hết tác dụng và không có thưởng.', chWin:'🏅 Hoàn thành thử thách!',
-      unlock:{5:'🏅 Mở khoá: Thử thách (tab Lên đời)', 1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 84,5 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
+      unlock:{6:'⚡ Sức mạnh siêu nhân thức tỉnh! Phản diện Trái Đất đang chờ sau giải Quốc gia', 5:'🏅 Mở khoá: Thử thách (tab Lên đời)', 1:'🍱 Mở khoá: bữa tối ở nhà', 2:'😮‍💨 Mở khoá: mệt mỏi và lịch tuần. Tập nhiều sẽ mệt, hãy xếp ngày nghỉ! Hạng 4 cần cân nặng ≤ 84,5 kg: tập đủ mỗi ngày giảm 0,3 kg'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
       homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp! Lên hạng 2 sẽ mở bữa tối.',
       guide:'Hướng dẫn', gOk:'Đã hiểu', skip:'Chạm để bỏ qua', nextUp:'Bấm để tới bài tập cần mua tiếp', lock:'🔒 Mở khi đạt hạng {n}', ptTag:'Bấm tôi!', crTag:'Bắt chuyện?', ckTag:'Ăn bánh?', crYes:'Crush cười với bạn!', crRush:'Bấm x7 trong 10 giây!', crNo:'Crush ngó lơ...', ckName:'Bánh sinh nhật đồng nghiệp', ptFrenzy:'PT: Bấm x5!', ptFrenzy2:'trong 8 giây, bấm nhanh lên!', ptSta:'PT: Thêm sức!', ptLuck:'PT: Thưởng calo!',
@@ -376,7 +380,7 @@ const T = {
          home:['🏠 Buổi tối ở nhà', ['Gọi 🐶 bạn tập: ra ngẫu nhiên, trùng con cũ thì con đó lên cấp. Mỗi lần gọi, giá tăng gấp 2,5.', 'Calo gọi bạn tập là calo không dùng mua bài tập: gọi khi bài tập đã đắt.', 'Đi ngủ để sang ngày mới.']],
          meal:['🍱 Chọn bữa tối', ['Miễn phí, mỗi tối chọn một món hoặc bỏ bữa. Cân nặng và mệt mỏi đổi ngay, các chỉ số khác có tác dụng vào ngày mai.', '🥗 Healthy: giảm cân, thêm chút thể lực hoặc bớt mệt.', '🍳 Protein: thêm 10–35% calo ngày mai, cân gần như không đổi.', '🧋 Ăn vặt: nhiều thể lực và sức bấm nhất, nhưng tăng cân.', 'Mẹo: tới hạng 3 cân nặng chưa chặn gì, cứ ăn vặt để tập được nhiều. Muốn lên hạng 4 thì phải giảm cân.']],
          fat:['😮‍💨 Mệt mỏi và ngày nghỉ', ['Tập càng nhiều càng mệt. Mỏi (40): thể lực −25%. Kiệt sức (70): −50%. Quá tải (100): bắt buộc nghỉ.', 'Ngày nghỉ (không bấm lần nào) giảm 60 mệt mỏi.', 'Nghỉ lúc đang mỏi: mai bấm +25%. Nghỉ lúc còn sung sức là lười: +0,3 kg.', 'Mục tiêu tuần: đủ số buổi tập (mỗi buổi dùng ít nhất nửa thể lực) thì tuần sau +10% calo.', 'Chủ nhật: thách đấu miễn phí, thưởng x2.']],
-         kg:['⚖️ Cân nặng', ['Hạng 4 cần ≤ {k4} kg, hạng 5 ≤ {k5} kg, hạng 6 ≤ {k6} kg.', 'Một ngày tập hết thể lực: −0,3 kg. Ngày nghỉ: +0,1 kg (lười thì +0,3 kg).', 'Trong khoảng 68–72 kg: +20% calo. Trên 90 kg: thể lực −20%.', 'Cứ 30 ngày có một lần cân kiểm tra: mỗi 2 kg giảm được = 1 ⭐.']],
+         kg:['⚖️ Cân nặng', ['Hạng 4 cần ≤ {k4} kg, hạng 5 ≤ {k5} kg, hạng 6 ≤ {k6} kg, hạng 7–9 ≤ {k7} / {k8} / {k9} kg.', 'Một ngày tập hết thể lực: −0,3 kg. Ngày nghỉ: +0,1 kg (lười thì +0,3 kg).', 'Trong khoảng 68–72 kg: +20% calo. Trên 90 kg: thể lực −20%.', 'Cứ 30 ngày có một lần cân kiểm tra: mỗi 2 kg giảm được = 1 ⭐.']],
          duel:['⚔️ Thi đấu', ['Mỗi trận tốn {ds} ⚡ (Chủ nhật miễn phí). Đạt đủ calo trong {d} giây là thắng, calo mỗi giây cũng được tính.', 'Thắng: +{w}% calo vĩnh viễn và một khoản calo lớn. Thua: mất {ds} thể lực.', 'Tab có chấm đỏ nghĩa là bạn đủ sức thắng.', 'Đánh đổi: {ds} thể lực là {ds} cú bấm, nên chỉ đấu khi chắc thắng.']],
          asc:['⭐ Lên đời', ['Mất: calo, cấp bài tập, hạng hiện tại.', 'Giữ: Sao, bạn tập, trận thắng, thành tựu, cân nặng và tính năng đã mở.', 'Mỗi ⭐ +10% calo vĩnh viễn. Đời này kiếm càng nhiều calo, càng nhận nhiều Sao.', 'Mẹo: lên đời khi Sao nhận được ít nhất bằng số Sao đang có, hoặc khi tiến độ đã chậm hẳn.', 'Dùng Sao học ⭐ kỹ năng ở cuối tab Lên đời. Học không làm mất +10% của Sao, nên cứ học.']],
          rep:['🎯 Rep hoàn hảo', ['Khoảng 30 cú bấm một lần, viền quanh nhân vật nhấp nháy báo trước 2 giây, rồi một vòng trắng co dần. Dừng tay, đợi vòng chuyển vàng rồi mới bấm.', 'Đúng lúc: PERFECT, cú đó x5. PERFECT liên tiếp thì x6, x7… tới x10.', 'Bấm sớm hay trễ: hụt, mất chuỗi PERFECT. Mỗi cú vẫn chỉ tốn 1 ⚡.', 'Đánh đổi: dừng tay chờ vòng thì chậm hơn một chút, nhưng cùng một thanh thể lực ra nhiều calo hơn.']],
@@ -412,7 +416,7 @@ const T = {
       ch:{tap:['Hands only', 'No calories per second, not even while away. Only taps earn calories.', 'Forever: +25% calories per tap'], fee:['Gym price hike', 'Every workout costs 3 times as much.', 'Forever: workouts cost 10% less'],
           party:['Wedding season', 'Start at 85 kg or more, and a party every night adds 0.1 kg.', 'Forever: a full training day burns 0.4 kg instead of 0.3 kg'], boss:['Boss is watching', 'You earn only a quarter of your calories.', 'Forever: +15% calories']},
       chGoal:'🎯 Goal: reach rank {n}', chGo:'Start', chOn:'In progress', chQuit:'Quit challenge', qCh:'Start the "{x}" challenge? Like ascending: calories and workout levels reset to 0 and you get {n} Stars.', qQuit:'Quit the challenge? The rule stops and there is no reward.', chWin:'🏅 Challenge complete!',
-      unlock:{5:'🏅 Unlocked: Challenges (Ascend tab)', 1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 84,5 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
+      unlock:{6:'⚡ Superpowers awakened! Earth villains await after the Nationals', 5:'🏅 Unlocked: Challenges (Ascend tab)', 1:'🍱 Unlocked: dinner at home', 2:'😮‍💨 Unlocked: fatigue and the weekly calendar. Training tires you, so plan rest days! Rank 4 needs weight ≤ 84,5 kg: a full training day burns 0.3 kg'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
       homeSay0:'Home at last. Get some sleep and train again tomorrow! Reach rank 2 to unlock dinner.',
       guide:'How to play', gOk:'Got it', skip:'Tap to skip', nextUp:'Tap to jump to the next workout to buy', lock:'🔒 Unlocks at rank {n}', ptTag:'Tap me!', crTag:'Say hi?', ckTag:'Eat cake?', crYes:'Your crush smiled at you!', crRush:'Taps x7 for 10 seconds!', crNo:'Your crush ignored you...', ckName:"Coworker's birthday cake", ptFrenzy:'Coach: Taps x5!', ptFrenzy2:'for 8 seconds, tap fast!', ptSta:'Coach: Second wind!', ptLuck:'Coach: Calorie bonus!',
@@ -423,7 +427,7 @@ const T = {
          home:['🏠 Evening at home', ['Summon 🐶 buddies: you get a random one, and a duplicate levels up. Each summon costs 2.5x more.', 'Calories spent on buddies are not spent on workouts: summon once workouts get pricey.', 'Go to sleep to start the next day.']],
          meal:['🍱 Pick a dinner', ['Free: pick one meal each night, or skip it. Weight and fatigue change right away; the other effects apply tomorrow.', '🥗 Healthy: lose weight, plus a bit of stamina or less fatigue.', '🍳 Protein: 10–35% more calories tomorrow, weight barely moves.', '🧋 Junk food: the most stamina and tap power, but you gain weight.', 'Tip: up to rank 3 weight does not block anything, so junk food lets you train more. Rank 4 needs you to slim down.']],
          fat:['😮‍💨 Fatigue and rest days', ['Training tires you. Tired (40): stamina −25%. Exhausted (70): −50%. Overloaded (100): you must rest.', 'A rest day (no taps at all) removes 60 fatigue.', 'Rest while tired: taps +25% tomorrow. Rest while fresh counts as lazy: +0.3 kg.', 'Weekly goal: train enough days (each using at least half your stamina) and next week gives +10% calories.', 'Sunday: free fights, double prize.']],
-         kg:['⚖️ Weight', ['Rank 4 needs ≤ {k4} kg, rank 5 ≤ {k5} kg, rank 6 ≤ {k6} kg.', 'A day using all your stamina: −0.3 kg. A rest day: +0.1 kg (+0.3 kg if lazy).', 'Between 68 and 72 kg: +20% calories. Over 90 kg: stamina −20%.', 'Every 30 days there is a weigh-in: each 2 kg lost = 1 ⭐.']],
+         kg:['⚖️ Weight', ['Rank 4 needs ≤ {k4} kg, rank 5 ≤ {k5} kg, rank 6 ≤ {k6} kg, ranks 7–9 ≤ {k7} / {k8} / {k9} kg.', 'A day using all your stamina: −0.3 kg. A rest day: +0.1 kg (+0.3 kg if lazy).', 'Between 68 and 72 kg: +20% calories. Over 90 kg: stamina −20%.', 'Every 30 days there is a weigh-in: each 2 kg lost = 1 ⭐.']],
          duel:['⚔️ Rivals', ['Each fight costs {ds} ⚡ (free on Sunday). Reach the calorie goal within {d} seconds to win; calories per second count too.', 'Win: +{w}% calories forever plus a big calorie prize. Lose: the {ds} stamina is gone.', 'A red dot on the tab means you are strong enough to win.', 'Trade-off: {ds} stamina is {ds} taps, so only fight when you are sure.']],
          asc:['⭐ Ascend', ['You lose: calories, workout levels, current rank.', 'You keep: Stars, buddies, rivals beaten, achievements, weight and unlocked features.', 'Each ⭐ gives +10% calories forever. The more calories this life, the more Stars.', 'Tip: ascend when the Stars you would get at least match the Stars you have, or when progress has clearly slowed.', 'Spend Stars on ⭐ skills at the bottom of the Ascend tab. Learning keeps the +10% per Star, so go for it.']],
          rep:['🎯 Perfect rep', ['About every 30 taps, the outline around your character flashes for 2 seconds as a warning, then a white ring shrinks. Stop tapping, wait for it to turn gold, then tap.', 'On time: PERFECT, that tap is x5. PERFECTs in a row give x6, x7… up to x10.', 'Too early or too late: a miss, and the PERFECT streak resets. Each tap still costs only 1 ⚡.', 'Trade-off: waiting for the ring is a bit slower, but the same stamina bar earns more calories.']],
@@ -440,14 +444,18 @@ const T = {
 const KEY = 'gymgod-save', R = 1.17, $ = id => document.getElementById(id);
 const MS = [25, 50, 100], boost = lv => 2 ** MS.filter(x => lv >= x).length;   // mốc cấp nhân đôi hiệu quả bài tập
 // Đối thủ: 4 giải x 5 người, đấu theo thứ tự. Thắng = đạt đủ calo trong 15 giây. Mỗi trận thắng +3% calo vĩnh viễn.
-const LEAGUES = [{vi:'Phòng ban', en:'The Department'}, {vi:'Công ty', en:'The Company'}, {vi:'Phòng gym', en:'The Gym'}, {vi:'Giải quốc gia', en:'Nationals'}];
+const LEAGUES = [{vi:'Phòng ban', en:'The Department'}, {vi:'Công ty', en:'The Company'}, {vi:'Phòng gym', en:'The Gym'}, {vi:'Giải quốc gia', en:'Nationals'},
+  {vi:'Thế giới ngầm', en:'The Underworld'}, {vi:'Trùm Trái Đất', en:'Earth Overlords'}]   // giải 5–6: phản diện trên Trái Đất; ngoài Trái Đất để lần mở rộng sau;
 const RIVALS = [
   ['🧑‍💼','Anh Tom kế toán','Tom from Accounting'], ['👩‍💼','Chị Lily lễ tân','Lily the Receptionist'], ['🧑‍🎓','Ben thực tập sinh','Ben the Intern'], ['👮','Chú Hank bảo vệ','Hank the Guard'], ['👨‍💼','Trưởng phòng Mike','Mike the Team Lead'],
   ['🧔','Sếp phó Doug','Deputy Boss Doug'], ['👩‍🍳','Cô Rosa căng tin','Rosa from the Canteen'], ['🧑‍💻','Anh Kevin IT','Kevin from IT'], ['👩‍🏫','Chị Tracy nhân sự','Tracy from HR'], ['🤵','Giám đốc Frank','Director Frank'],
   ['🙋‍♂️','Cody tân binh','Cody the Rookie'], ['🏃‍♀️','HLV Tara','Coach Tara'], ['🏋️‍♂️','Logan Tạ Đôi','Dumbbell Logan'], ['🧘‍♀️','Vicky Yoga','Yoga Vicky'], ['💪','Chủ phòng gym Sam','Sam the Gym Owner'],
   ['🤼','Đô vật Tony','Tony the Wrestler'], ['🤸‍♀️','Nữ hoàng xà đơn Mia','Pull-up Queen Mia'], ['🏋️','Lực sĩ Quinn','Strongman Quinn'], ['🥇','Nhà vô địch Nate','Champion Nate'], ['👑','Huyền thoại Blake','Blake the Legend'],
+  ['🦹‍♂️','Hàm Thép, tay bảo kê','Iron Jaw the Enforcer'], ['🐍','Bà trùm Hổ Mang','The Cobra Queen'], ['🧪','Tiến sĩ Độc Dược','Dr. Toxin'], ['🦾','Gã Máy Xúc','Bulldozer the Cyborg'], ['🎭','Ông trùm Mặt Nạ Bạc','The Silver Mask Kingpin'],
+  ['🌪️','Tướng Bão Tố','General Tempest'], ['❄️','Nữ hoàng Băng Giá','The Frost Empress'], ['🌋','Titan Dung Nham','The Magma Titan'], ['🤖','Siêu máy tính Omega','Omega the Machine Mind'], ['👹','Hắc Vương Lõi Đất','The Core King'],
 ];
-const DUEL = 15, WIN_BONUS = .03, target = i => 300 * 2.4 ** i, prize = i => target(i) * 3;
+// Mục tiêu đối thủ i (từ 0): x2,4 mỗi người tới đối thủ 20; phản diện (21–30) chỉ x1,25 mỗi người, nếu không thì không ai đánh nổi (sim).
+const DUEL = 15, WIN_BONUS = .03, target = i => 300 * 2.4 ** Math.min(i, 19) * 1.25 ** Math.max(0, i - 19), prize = i => target(i) * 3;
 const rivalPic = i => `<img src="assets/rival/rival-${String(i + 1).padStart(2, '0')}.webp" alt="" draggable="false" onerror="this.replaceWith('${RIVALS[i][0]}')">`;
 // Khách ghé phòng tập: PT luôn có quà; crush đi ngang, bắt chuyện thì may rủi; bánh sinh nhật đổi calo lấy cân nặng. Không lưu: tải lại trang thì đếm lại.
 // day: tối đa số khách mỗi ngày (lưu trong s.vis; không có giới hạn thì quà thể lực sinh thêm thời gian tập, sinh thêm khách, ngày không hết). gap: khách đến sau gap–2×gap giây ở phòng tập. PT: bấm x tap trong life giây / +sta thể lực / calo = cps giây calo/giây + taps cú bấm.
@@ -516,8 +524,8 @@ const qProg = q => q.k === 'duel' && s.wins >= RIVALS.length ? q.n : Math.min(q.
 const qReward = () => Math.max(500, 300 * (pps() + 3 * clickPower()));
 const bump = (k, n = 1) => { s.q.p[k] = (s.q.p[k] || 0) + n; };
 // Thành tựu: [loại, mốc]; mỗi cái đạt được +1% calo vĩnh viễn.
-const ACH = [['click',100],['click',1000],['click',10000],['total',1e4],['total',1e6],['total',1e8],['total',1e10],['rank',2],['rank',4],['rank',6],
-  ['win',1],['win',5],['win',10],['win',20],['summon',1],['summon',10],['all',8],['asc',1],['asc',5]].map(([t, n]) => ({t, n, id: t + n}));
+const ACH = [['click',100],['click',1000],['click',10000],['total',1e4],['total',1e6],['total',1e8],['total',1e10],['rank',2],['rank',4],['rank',6],['rank',9],
+  ['win',1],['win',5],['win',10],['win',20],['win',30],['summon',1],['summon',10],['all',8],['asc',1],['asc',5]].map(([t, n]) => ({t, n, id: t + n}));
 const AV = {click: () => s.clicks, total: () => s.total, rank: () => s.best + 1, win: () => s.wins, summon: () => s.summons, all: () => Object.keys(s.pets).length, asc: () => s.ascends};
 const achText = a => tr('a' + a.t).replace('{n}', a.n < 1e6 ? a.n.toLocaleString(s.lang) : fmt(a.n));
 // Emoji trong chữ giao diện được đổi thành icon ảnh (assets/ui); thiếu ảnh thì trình duyệt hiện lại emoji qua alt.
@@ -578,7 +586,7 @@ const save = () => write(KEY), backup = () => write(BAK);
 // ============ Công thức ============
 const points = () => EX.reduce((a, e) => a + s.lv[e.k], 0);
 // Hạng được lưu trong s.rk: lên hạng khi đủ mục tiêu nhóm cơ VÀ cân nặng không quá KG[hạng]; đã lên rồi thì không tụt.
-const KG = [999, 999, 999, 84.5, 82, 78], FAT = [30, 26, 22, 18, 14, 10], WK = [4, 4, 5, 5, 6, 6];   // cân tối đa / mệt mỏi mỗi ngày tập đủ / số buổi mục tiêu tuần, theo hạng
+const KG = [999, 999, 999, 84.5, 82, 78, 76, 74, 72], FAT = [30, 26, 22, 18, 14, 10, 8, 6, 5], WK = [4, 4, 5, 5, 6, 6, 6, 6, 6];   // cân tối đa / mệt mỏi mỗi ngày tập đủ / số buổi mục tiêu tuần, theo hạng
 const MEALS = [   // mỗi tối bày 3 món, mỗi nhóm một món (xem menu()); miễn phí, chọn một món; sta/cal/tap áp dụng cho ngày hôm sau, fat trừ mệt mỏi ngay
   {k:'h',  f:'healthy', i:'🥗', kg:-.1, sta:1.1,            vi:'Cơm gà luộc',     en:'Chicken & rice'},
   {k:'h2', f:'healthy', i:'🐟', kg:-.2, sta:1.05,           vi:'Salad cá hồi',    en:'Salmon salad'},
@@ -602,7 +610,7 @@ const unl = () => Math.max(s.rk, s.best);   // mở tính năng theo hạng cao 
 const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(65, x)) * 100) / 100; };
 const dow = () => (s.day - 1) % 7;   // 0 = Thứ Hai … 6 = Chủ nhật
 const fatLv = () => s.fat >= 100 ? 3 : s.fat >= 70 ? 2 : s.fat >= 40 ? 1 : 0;
-const staMax = () => Math.floor((300 + 120 * rankOf() + 5 * s.lv.cardio) * [1, .75, .5, .5][fatLv()] * (s.kg > 90 ? .8 : 1) * (fx().sta || 1) * (1 + .1 * sk('lung')));
+const staMax = () => Math.floor((300 + 120 * Math.min(rankOf(), 5) + 5 * s.lv.cardio) * [1, .75, .5, .5][fatLv()] * (s.kg > 90 ? .8 : 1) * (fx().sta || 1) * (1 + .1 * sk('lung')));
 const kg = (e, lv) => `${e.w[0] + e.w[1] * lv} ${e.w[s.lang === 'en' ? 3 : 2]}`;   // "60 kg"
 const mult = () => RANKS[rankOf()].mult * (1 + .1 * s.stars) * (1 + WIN_BONUS * s.wins) * (1 + .01 * Object.keys(s.ach).length) * (s.wkBonus ? 1.1 : 1) * (s.kg >= 68 && s.kg <= 72 ? 1.2 : 1) * (fx().cal || 1) * (s.buff.cal || 1) * (1 + .15 * chd('boss')) * (chOn('boss') ? CHX.boss : 1);
 const basePps = () => EX.reduce((a, e) => a + (e.pps || 0) * s.lv[e.k] * boost(s.lv[e.k]), 0);
@@ -679,9 +687,10 @@ function guy(t) {
   ${t < .3 ? `<path d="M286 78q12 18 0 26q-12-8 0-26z" fill="#7dd3fc" ${S} stroke-width="3.5"/>` : ''}`;
 }
 const CHARS = [['', '👨'], ['c2-', '👩']];   // [tiền tố file ảnh, biểu tượng nút đổi]; thêm nhân vật = thêm một dòng + ảnh c3-rank1..6
-const pics = CHARS.map(c => RANKS.map((_, i) => { const im = new Image(); im.onload = () => { im.ok = true; drawArt(); }; im.src = `assets/char/${c[0]}rank${i + 1}.webp`; return im; }));
+const pics = CHARS.map(c => RANKS.map((_, i) => { const im = new Image(); im.onload = () => { im.ok = true; drawArt(); };   // ảnh hạng nào chưa có thì drawArt dùng ảnh hạng thấp hơn gần nhất
+  im.src = `assets/char/${c[0]}rank${i + 1}.webp`; return im; }));
 function drawArt() {
-  const im = pics[s.char][shown];
+  const im = pics[s.char].slice(0, shown + 1).findLast(p => p.ok) || pics[s.char][shown];   // chưa có ảnh hạng này (hạng mới chưa vẽ): dùng ảnh hạng thấp hơn gần nhất
   $('who').textContent = CHARS[s.char][1];
   $('pic').hidden = !im.ok; $('guy').style.display = im.ok ? 'none' : '';
   if (im.ok) $('pic').src = im.src; else $('guy').innerHTML = guy(shown / (RANKS.length - 1));
@@ -1125,7 +1134,7 @@ function ask(text, yes) {   // hộp xác nhận trong game (confirm() bị ch�
 // Hướng dẫn: nút ❓ mở toàn bộ; coach() tự hiện một mục lần đầu người chơi gặp nó (đánh dấu trong s.tips).
 const GUIDE = [['day', 0], ['gym', 0], ['sta', 0], ['pt', 0], ['home', 0], ['meal', 1], ['fat', 2], ['kg', 2], ['duel', 0], ['rep', 0], ['ev', 0], ['asc', 0], ['ch', 5]];   // [mục, unl() cần để mở]
 function guide(keys) {
-  const V = {k4: KG[3], k5: KG[4], k6: KG[5], d: DUEL, w: WIN_BONUS * 100, ds: duelSta()}, num = l => l.replace(/\{(\w+)\}/g, (_, v) => V[v].toLocaleString(s.lang));
+  const V = {k4: KG[3], k5: KG[4], k6: KG[5], k7: KG[6], k8: KG[7], k9: KG[8], d: DUEL, w: WIN_BONUS * 100, ds: duelSta()}, num = l => l.replace(/\{(\w+)\}/g, (_, v) => V[v].toLocaleString(s.lang));
   $('gBody').innerHTML = keys.map(k => { const [t, lines] = tr('g')[k], need = GUIDE.find(g => g[0] === k)[1];
     return `<section><h3>${rich(t)}</h3>` + (need > unl() ? `<p>${rich(tr('lock').replace('{n}', need + 1))}</p>` : `<ul>${lines.map(l => `<li>${rich(num(l))}</li>`).join('')}</ul>`) + '</section>'; }).join('');
   $('guide').hidden = false; $('gBody').scrollTop = 0;

@@ -76,4 +76,4 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - Không gán `duel = {...}` để thử: vòng tick sẽ cho thắng thật (cộng trận thắng và thưởng vào bản lưu).
 - Bấm nhân vật cần cú bấm thật (`ev.isTrusted`, tối đa 20 lần/giây); `$('hero').click()` bị bỏ qua. Các nút khác bấm bằng `.click()` được.
 - Thử cả khung máy tính và điện thoại (375×812) khi đổi bố cục.
-- Mọi ảnh đều có phương án dự phòng (emoji hoặc nền màu), nên thiếu ảnh game vẫn chạy; nhưng hiện tại không còn ảnh nào thiếu, thấy 404 là có lỗi đường dẫn.
+- Mọi ảnh đều có phương án dự phòng (emoji hoặc nền màu), nên thiếu ảnh game vẫn chạy; hiện tại không còn ảnh nào thiếu, thấy 404 là có lỗi đường dẫn.

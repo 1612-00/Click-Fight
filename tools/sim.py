@@ -8,10 +8,11 @@ EX = [(15, 1, 0), (100, 0, 1), (1100, 0, 8), (12000, 0, 47), (40000, 12, 0), (13
 MS = [25, 50, 100]
 CPS = 4
 IDLE = 30   # giây mỗi ngày không bấm: văn phòng, mua bài tập, ở nhà
-G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [22, 18, 14, 8, 3, 0, 0, 0], [40, 35, 30, 22, 15, 10, 3, 0], [70, 60, 55, 48, 40, 40, 32, 20]],
-         mults=[1, 1.25, 1.5, 2, 2.5, 3], R=1.17,
-         kg=[999, 999, 999, 84.5, 82, 78], fat=[30, 26, 22, 18, 14, 10], wk=[4, 4, 5, 5, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,
-         duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=20, duel_sta=40,
+G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [22, 18, 14, 8, 3, 0, 0, 0], [40, 35, 30, 22, 15, 10, 3, 0], [70, 60, 55, 48, 40, 40, 32, 20],
+               [85, 75, 70, 64, 55, 55, 45, 32], [100, 92, 88, 80, 70, 70, 60, 44], [120, 112, 106, 98, 88, 86, 76, 58]],   # hạng 7–9
+         mults=[1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
+         kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], fat=[30, 26, 22, 18, 14, 10, 8, 6, 5], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # thể lực +sta_rank mỗi hạng, chỉ tới hạng 6
+         duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
          kg0=85, night=0, hands=0, fee=1,   # hands: thử thách Chỉ dùng tay; fee: hệ số giá bài tập (Phòng gym tăng giá)   # cân lúc bắt đầu (lên đời giữ cân nặng), cân cộng thêm mỗi tối
@@ -29,7 +30,9 @@ VIS = 'fscfsRCLKK'
 
 def run(g, rest_at=40, meal='h', limit=400):
     lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = g['kg0']; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
-    out = {}; rests = 0; ptc = 0.0; ptn = 0; gm = {}; earned = [0.0] * 6; tapped = [0.0] * 6   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
+    out = {}; rests = 0; ptc = 0.0; ptn = 0; gm = {}; earned = [0.0] * len(g['goals']); tapped = [0.0] * len(g['goals'])   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
+    top = len(g['goals']) - 1   # hạng cao nhất (chỉ số)
+    foe = lambda i: g['t0'] * g['tg'] ** min(i, 19) * g['tg2'] ** max(0, i - 19)   # mục tiêu đối thủ i: từ đối thủ 21 (phản diện) chỉ tăng tg2 lần mỗi người
     boost = lambda l: 2 ** sum(l >= m for m in MS)
 
     def rates():
@@ -42,8 +45,8 @@ def run(g, rest_at=40, meal='h', limit=400):
     def shop():
         nonlocal cal, summons, rk
         while True:
-            while rk < 5 and all(l >= x for l, x in zip(lv, g['goals'][rk + 1])) and kg <= g['kg'][rk + 1]: rk += 1
-            if rk == 5: return
+            while rk < top and all(l >= x for l, x in zip(lv, g['goals'][rk + 1])) and kg <= g['kg'][rk + 1]: rk += 1
+            if rk == top: return
             if all(l >= x for l, x in zip(lv, g['goals'][rk + 1])): gm.setdefault(rk + 1, (day, t))
             miss = [i for i in range(8) if lv[i] < g['goals'][rk + 1][i]]
             if not miss:   # chỉ còn kẹt cân nặng: mua thứ rẻ nhất để tăng thu nhập
@@ -54,9 +57,9 @@ def run(g, rest_at=40, meal='h', limit=400):
             if cal < c: return
             cal -= c; lv[i] += 1
 
-    while day <= limit and rk < 5:
+    while day <= limit and rk < top:
         flv = 3 if fat >= 100 else 2 if fat >= 70 else 1 if fat >= 40 else 0
-        cap = int((g['sta0'] + g['sta_rank'] * rk + g['sta_cardio'] * lv[7]) * [1, .75, .5, .5][flv] * (.8 if kg > 90 else 1) * ({'h': 1.1, 'j': 1.5}.get(today, 1)))
+        cap = int((g['sta0'] + g['sta_rank'] * min(rk, 5) + g['sta_cardio'] * lv[7]) * [1, .75, .5, .5][flv] * (.8 if kg > 90 else 1) * ({'h': 1.1, 'j': 1.5}.get(today, 1)))
         r0 = rk; used = 0; pv = 0; sunday = (day - 1) % 7 == 6
         pps, click = rates(); cal += pps * IDLE; t += IDLE; earned[rk] += pps * IDLE
         if fat >= 100 or fat >= rest_at:
@@ -65,9 +68,9 @@ def run(g, rest_at=40, meal='h', limit=400):
             sta = cap
             while sta >= 1:
                 pps, click = rates()
-                if wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= g['t0'] * g['tg'] ** wins:
+                if wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= foe(wins):
                     if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
-                    cal += g['t0'] * g['tg'] ** wins * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
+                    cal += foe(wins) * g['prize'] * (2 if sunday else 1) + g['duel'] * (pps + CPS * click); t += g['duel']; wins += 1
                 else:
                     n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
                     ptc += n / CPS

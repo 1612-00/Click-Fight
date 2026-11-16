@@ -130,6 +130,8 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | E8 | Ở hạng 4, tăng cân lại: `s.kg = 95; syncRank(); ui()` | Vẫn ở hạng 4, không bị tụt hạng. | |
 | E9 | Đạt hạng 6 (dùng bảng cấp ở phần Chuẩn bị, cân ≤ 78). | Hạng 6 "Thần gym công sở · x3". Thanh hạng ghi "Hạng cao nhất", thanh tiến độ đầy. | |
 | E10 | Lên từng hạng 1 → 6, đổi nhân vật bằng nút mặt người trên cùng. | Mỗi hạng một hình khác nhau cho cả nhân vật nam và nữ, nhân vật không bị nhảy vị trí hay đổi cỡ giữa các hạng. | |
+| E11 | Lên hạng 7 (`?test`). | "LỘT XÁC!" kèm "Sức mạnh siêu nhân thức tỉnh!". Tên "Siêu nhân văn phòng", vầng sáng hồng. Chưa có ảnh hạng 7 thì nhân vật vẫn là ảnh hạng 6 (không phải hình vẽ đơn giản). Thể lực tối đa không tăng thêm so với hạng 6 (trừ phần Cardio). | |
+| E12 | Lên hạng 8, 9. | Tên "Người hùng thành phố" (vầng xanh), "Hộ vệ Trái Đất" (vầng đỏ). Hạng 9 là hạng cao nhất, thanh hạng ghi "Hạng cao nhất". Cân tối đa 74 / 72 kg chặn đúng. | |
 
 ## F. Cân nặng
 
@@ -209,7 +211,8 @@ Bảng đối chiếu cho H6:
 | J5 | Làm đầy thanh xanh trước khi hết giờ. | Thông báo "THẮNG!" · "+3% · +900". Calo +900, "Đối thủ đã thắng" tăng 1, calo/giây và calo/bấm tăng 3% (trận đầu tiên tăng 4% vì kèm thành tựu "Thắng 1 đối thủ"). Đối thủ vừa thắng không đấu lại được; đối thủ kế tiếp mở ra (cần 720). Nhạc về bài phòng tập. | |
 | J6 | Chế độ thường, vào đấu rồi không bấm gì (khi calo/giây còn thấp). | Hết 15 giây: "Thua rồi!" · "Tập thêm rồi quay lại", có tiếng thua. Không mất gì ngoài 40 thể lực. Đấu lại được nếu còn thể lực. | |
 | J7 | Đang đấu thì hết giờ hoặc thắng, kiểm tra tab Thi đấu. | Khi một trận đang diễn ra, mọi nút "Thách đấu" đều mờ. | |
-| J8 | Thắng đủ 20 đối thủ (chế độ test). | "Đối thủ đã thắng 20 / 20". Không còn nút đấu nào bấm được. Nhiệm vụ "Thách đấu 1 lần" tự tính là xong. | |
+| J8 | Thắng đủ 30 đối thủ (chế độ test). | "Đối thủ đã thắng 30 / 30". Không còn nút đấu nào bấm được. Nhiệm vụ "Thách đấu 1 lần" tự tính là xong. | |
+| J10 | Thắng 20 đối thủ đầu, mở tab Thi đấu. | Có giải 5 "Thế giới ngầm" và giải 6 "Trùm Trái Đất", mỗi giải 5 phản diện. Phản diện 21 cần khoảng 6,3 nghìn tỷ calo, phản diện 30 khoảng 47 nghìn tỷ. Chưa có ảnh thì ô ảnh hiện emoji (🦹‍♂️ 🐍 🧪 …), có ảnh thì hiện ảnh. | |
 | J9 | Khi ước chừng đủ sức thắng đối thủ kế tiếp. | Tab Thi đấu có chấm đỏ. | |
 
 ## K. Bạn tập
