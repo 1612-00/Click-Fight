@@ -43,7 +43,7 @@ Không tạo nhạc bằng code: làm được nhưng nghe như máy chơi game 
 
 ## Quyết định đã chốt
 
-1. **Âm lượng**: khung cài đặt ⚙️, nhạc và hiệu ứng mỗi loại 0–10 nấc, mặc định 3 và 5 (thay cho nút loa 3 trạng thái trước đây).
+1. **Âm lượng**: khung cài đặt ⚙️, nhạc và hiệu ứng mỗi loại 0–10 nấc, mặc định 5 và 7 (thay cho nút loa 3 trạng thái trước đây).
 2. **Nhạc theo hạng**: `gym` hạng 1–3, `gym2` hạng 4–6, `gym3` hạng 7–9 (thiếu `gym3` thì dùng `gym2`). Đoạn thưởng đi theo nấc Âm thanh, thiếu file thì dùng tiếng bíp.
 3. **Màn chờ ngắn** (đi đến phòng tập, về nhà, 2 giây): không có nhạc riêng, chỉ làm mờ chuyển bài.
 

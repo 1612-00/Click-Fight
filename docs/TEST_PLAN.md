@@ -265,8 +265,8 @@ Bảng đối chiếu cho H6:
 | M4 | Ở mỗi màn, nghe đủ lâu để bài lặp lại ít nhất 2 lần. | Chỗ nối khi lặp không có khoảng lặng hay tiếng "khựng" rõ rệt. | |
 | M5 | Bấm "Đi ngủ". | Đoạn nhạc ru ngủ rồi sáng dần phát một lần trong chuỗi màn chờ, không lặp. Về văn phòng thì nhạc văn phòng trở lại. | |
 | M6 | So độ to giữa 5 bài, và giữa nhạc với tiếng bấm/tiếng mua. | Các bài to gần bằng nhau. Tiếng bấm, tiếng mua, tiếng lên hạng vẫn nghe rõ trên nền nhạc. | |
-| M7 | Ván mới, bấm ⚙️. Thử − và +, bấm thẳng vào một ô, bấm lại đúng ô cuối đang sáng. | Mặc định Nhạc 3 ô sáng, Âm thanh 5 ô. − / + đổi một nấc, không xuống dưới 0, không quá 10. Bấm ô thứ 7: sáng 7 ô; bấm lại ô đó: còn 6. Nhạc to nhỏ ngay khi chỉnh; chỉnh Âm thanh thì nghe một tiếng bấm thử ở mức mới. Nhạc 0: nhạc dừng, tiếng bấm còn. Âm thanh 0: không còn tiếng hiệu ứng, không rung. Bấm ✕, bấm ra ngoài khung hoặc Esc đều đóng. | |
-| M8 | Đặt Nhạc 0, Âm thanh 8, tải lại trang. Rồi dán bản lưu cũ có `mute: 2` (hoặc `mute: 1`) vào và tải lại. | Vẫn Nhạc 0, Âm thanh 8. Bản lưu cũ `mute: 2` thành 0 / 0; `mute: 1` thành 0 / 5; không có `mute` thành 3 / 5. | |
+| M7 | Ván mới, bấm ⚙️. Thử − và +, bấm thẳng vào một ô, bấm lại đúng ô cuối đang sáng. | Mặc định Nhạc 5 ô sáng, Âm thanh 7 ô. − / + đổi một nấc, không xuống dưới 0, không quá 10. Bấm ô thứ 7: sáng 7 ô; bấm lại ô đó: còn 6. Nhạc to nhỏ ngay khi chỉnh; chỉnh Âm thanh thì nghe một tiếng bấm thử ở mức mới. Nhạc 0: nhạc dừng, tiếng bấm còn. Âm thanh 0: không còn tiếng hiệu ứng, không rung. Bấm ✕, bấm ra ngoài khung hoặc Esc đều đóng. | |
+| M8 | Đặt Nhạc 0, Âm thanh 8, tải lại trang. Rồi dán bản lưu cũ có `mute: 2` (hoặc `mute: 1`) vào và tải lại. | Vẫn Nhạc 0, Âm thanh 8. Bản lưu cũ `mute: 2` thành 0 / 0; `mute: 1` thành 0 / 7; không có `mute` thành 5 / 7. | |
 | M9 | Đang có nhạc, chuyển sang tab trình duyệt khác rồi quay lại. | Nhạc dừng khi rời tab và phát lại khi quay về. | |
 | M10 | Trên điện thoại thật (đặc biệt iPhone/Safari): mở game, chạm một lần. | Nhạc phát được sau cú chạm đầu tiên. Bật chế độ im lặng của máy thì không có tiếng. | |
 | M11 | Bấm nhân vật liên tục 20 giây thật nhanh, có PERFECT chen vào. | Tiếng bấm là tiếng "thịch" trầm, mỗi cú hơi khác nhau. Không rè, không vỡ tiếng khi bấm dồn. Cú chí mạng có thêm tiếng "chát" sáng. | |
@@ -280,6 +280,11 @@ Bảng đối chiếu cho H6:
 | M19 | Vào phòng tập ở hạng 1–3, rồi 4–6, rồi 7–9 (dùng `?test` để lên nhanh). | Hạng 1–3: bài điện tử cũ. Hạng 4–6: bài funk có kèn. Hạng 7–9: bài kiểu phim siêu anh hùng. Đúng lúc lên hạng 4 hoặc 7 trong phòng tập: bài đổi ngay, mờ dần sang bài mới. Lên đời về hạng 1: về bài cũ. | |
 | M20 | Lên hạng; thắng một trận; thua một trận; lên đời. | Lên hạng và lên đời: đoạn kèn đồng (~5,7 giây). Thắng: đoạn nhạc thắng (~5 giây). Thua: trombone "wah wah" (~4 giây). Trong lúc đó nhạc nền nhỏ hẳn lại, hết đoạn thì lên lại. Đoạn thưởng to nhỏ theo nấc Âm thanh, Âm thanh 0 thì im. | |
 | M21 | Chặn file `rankup.mp3` (DevTools → Network → Block request URL), tải lại, lên hạng. | Không lỗi; nghe tiếng bíp lên hạng như trước. | |
+| M22 | Ở phòng tập chờ khách: PT, Crush, bánh (dùng `?test` cho khách đến nhanh). | PT hiện: tiếng còi rồi giọng "Hey/Hup/Yeah". Crush đi ngang: giọng "Hi~/Hmm?/cười nhẹ". Bánh: kèn tiệc. Mỗi lần nghe một biến thể ngẫu nhiên. Khách bỏ đi: im lặng. | |
+| M23 | Bấm Crush nhiều lần. | Đồng ý: tiếng xu + cười vui hoặc "Ooh!". Ngó lơ: "Hmph!" hoặc "Mm-mm" (không còn tiếng bíp buồn). | |
+| M24 | Khi vòng PERFECT bắt đầu co. Thử nhắm mắt, bấm theo tiếng tích. | Có tiếng "vút" nhẹ lúc vòng bắt đầu co, tiếng "tích" đúng lúc vòng chuyển vàng; bấm ngay khi nghe tích thì trúng PERFECT. Bấm sớm (vòng biến mất) thì không còn tiếng tích. | |
+| M25 | Đạt chuỗi PERFECT x3, x4, x5… liên tục, với nhân vật nam rồi nữ. | Từ x3: tiếng gắng sức của nhân vật (giọng nam với nhân vật nam, nữ với nhân vật nữ), không quá một lần mỗi 4 giây. | |
+| M26 | Âm thanh 0 trong ⚙️, chờ khách. | Không còn tiếng khách, giọng hay tiếng vòng. | |
 
 ## N. Giao diện, ngôn ngữ, bố cục
 

@@ -278,7 +278,7 @@ SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ng
 
 Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả CrazyGames phần lớn nói tiếng Anh), đổi sang tiếng Việt trong khung cài đặt ⚙️. Lựa chọn được lưu; bản lưu cũ giữ ngôn ngữ đang dùng.
 
-Âm lượng: khung cài đặt ⚙️ có hai thanh 0–10 nấc, nhạc nền mặc định 3, hiệu ứng mặc định 5. Nấc v nhân âm lượng với (v/5)²: nấc 5 là mức gốc, nấc 3 nhỏ hơn khoảng 9 dB (nhạc gốc bị chê hơi to). Bản lưu cũ có nút loa 3 trạng thái: "tắt nhạc" thành nhạc 0, "tắt hết" thành cả hai 0, còn lại dùng mặc định.
+Âm lượng: khung cài đặt ⚙️ có hai thanh 0–10 nấc, nhạc nền mặc định 5, hiệu ứng mặc định 7 (chốt sau khi chủ dự án nghe thử). Nấc v nhân âm lượng với (v/5)²: nấc 5 là mức gốc, nấc 7 to hơn khoảng 6 dB, nấc 3 nhỏ hơn khoảng 9 dB. Bản lưu cũ có nút loa 3 trạng thái: "tắt nhạc" thành nhạc 0, "tắt hết" thành cả hai 0, còn lại dùng mặc định.
 
 ## Mục tiêu cân bằng
 

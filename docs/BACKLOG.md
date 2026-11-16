@@ -16,6 +16,7 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Nhạc nền: mức âm lượng (`LOUD` = 0,05) đã được chủ dự án nghe và chốt; chưa thử trên điện thoại thật (iOS chặn tiếng khắt khe nhất); chưa thử nhạc tắt khi có quảng cáo thật.
 - Hiệu ứng âm thanh đợt 1 (bộ nén, tiếng bấm 2 lớp, combo PERFECT tăng cao độ, ba tầng thưởng, nhạc nhỏ lại khi lên hạng, lọc nhạc khi mở bảng, nhạc nhanh 5 giây cuối trận, rung): đã kiểm tra chạy không lỗi bằng code, **chưa nghe bằng tai** để chốt độ to từng tiếng (TEST_PLAN M11–M17); chưa thử rung trên điện thoại thật; nhạc nhanh cuối trận chưa thử trong trận thật.
 - Nhạc đợt 2 (`gym2`, `gym3`, `rankup`, `win`, `lose`): đã kiểm tra tải, cân âm lượng và phát không lỗi bằng code; **chưa nghe bằng tai** độ to đoạn thưởng (hằng `STING` = 0,08) và chỗ nối khi lặp của `gym2`/`gym3` (TEST_PLAN M4, M19–M20).
+- Âm thanh khách ghé (còi và giọng PT, giọng Crush, kèn bánh, tiếng gắng sức khi PERFECT, vút/tích của vòng): đã vào game, kiểm tra tải đủ 22 file và phát không lỗi bằng code; **chưa nghe bằng tai** độ to (hằng `VOXL` = 0,06) và mật độ khi chơi lâu (TEST_PLAN M22–M26).
 - `tools/sim.py` chưa mô phỏng ngày tập một phần (mỗi ngày hoặc tập đủ hoặc nghỉ hẳn), nên ngưỡng `REST` = 20% không ảnh hưởng kết quả mô phỏng.
 - Bố cục điện thoại sau các thay đổi mở tính năng theo hạng.
 - Rep hoàn hảo: canh nhịp trên điện thoại thật (độ trễ cảm ứng), khoảng ±110 ms có quá khó hay quá dễ không; người chơi thật bắt được bao nhiêu phần trăm (sim giả định 50%).

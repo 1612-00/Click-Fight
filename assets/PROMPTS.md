@@ -986,3 +986,120 @@ Thua là chuyện thường gặp (người chơi thách đấu lại nhiều l�
 ### Sau khi có file
 
 Thả vào `assets/music/` đúng tên, báo lại để nối vào game: chọn bài phòng tập theo hạng, đoạn thưởng phát thay cho tiếng bíp `sfx.up` / `sfx.lose` (thiếu file thì vẫn dùng tiếng bíp như hiện tại), đi theo nấc **Âm thanh** chứ không theo nấc Nhạc.
+
+
+# Phần 5: Hiệu ứng âm thanh và giọng bập bẹ (khách ghé phòng tập)
+
+Mục tiêu: khách ghé (PT, Crush, bánh sinh nhật) có tiếng riêng **lúc xuất hiện** để người chơi để ý dù đang nhìn nhân vật, và có giọng kêu ngắn cho có hồn. Tiếng "vút" và "tích" của vòng PERFECT sẽ làm bằng code (cần khớp thời gian tới từng mili giây), không cần file.
+
+## Công cụ
+
+Dùng công cụ tạo **hiệu ứng âm thanh** từ chữ (ví dụ ElevenLabs Sound Effects, Stable Audio), không dùng công cụ tạo nhạc (Suno, Udio làm tiếng ngắn rất kém). Nếu công cụ có ô độ dài, đặt đúng số giây ghi ở từng khối. Nếu có thanh "bám sát prompt" (prompt influence), kéo lên cao. Trước khi dùng, kiểm tra gói đang dùng có cho **dùng thương mại** không.
+
+Nguồn khác nếu AI làm chưa ưng: thư viện âm thanh CC0 (miễn phí, không cần ghi công). Tiếng còi và kèn tiệc tìm thư viện thường được bản thật hơn AI.
+
+## Nguyên tắc để giọng nghe thật, không "chất AI"
+
+- **Không có câu nói thật.** Chỉ tiếng kêu, tiếng cười, "hey", "hup", "hmph": game song ngữ, và một câu thật nghe lần thứ 50 sẽ rất phiền.
+- **Ngắn**: giọng 0,3–0,8 giây. Dài hơn là bắt đầu lộ giọng máy.
+- **Thu khô, sát micro**: không vang, không nhạc nền, không tiếng ồn phòng. Game tự trộn với nhạc.
+- **Mỗi loại 2–3 biến thể** khác nhau rõ (khác cao độ, khác cảm xúc), game sẽ phát ngẫu nhiên.
+- **Khi chọn bản, bỏ những bản có**: tiếng méo kim loại ở cuối, hai giọng chồng nhau, giọng "đọc" như máy đọc, có nhạc hoặc tiếng vang phía sau. Ưu tiên bản nghe như diễn viên lồng tiếng hoạt hình thu một câu ngẫu hứng.
+
+## Tên file và quy cách
+
+| File | Phát khi | Độ dài | Ghi chú |
+|---|---|---|---|
+| `pt-whistle` | PT xuất hiện | 0,4–0,6 giây | Một tiếng còi, phát cùng giọng PT |
+| `pt-1`, `pt-2`, `pt-3` | PT xuất hiện | 0,3–0,7 giây | Giọng huấn luyện viên |
+| `crush-1`, `crush-2`, `crush-3` | Crush đi ngang | 0,4–0,8 giây | Giọng chào nhẹ |
+| `crush-yes-1`, `crush-yes-2` | Crush đồng ý | 0,5–1 giây | Cười khúc khích vui |
+| `crush-no-1`, `crush-no-2` | Crush ngó lơ | 0,4–0,8 giây | "Hừm" tinh nghịch, không gắt |
+| `cake-1`, `cake-2` | Bánh sinh nhật xuất hiện | 0,5–1 giây | Kèn tiệc thổi |
+| *(không bắt buộc)* `hero-m-1..3`, `hero-f-1..3` | Bấm trúng PERFECT từ chuỗi x3 | 0,2–0,4 giây | Tiếng gắng sức của nhân vật nam / nữ |
+
+Thả file vào `assets/original/sfx/` (WAV hoặc MP3 đều được), đúng tên, báo lại để đổi sang MP3 vào `assets/sfx/` và nối vào game. Cả bộ chỉ khoảng 150–250 KB.
+
+Âm lượng không cần cân tay: game tự cân theo độ to thật của từng file, giống nhạc nền.
+
+## pt-whistle — còi huấn luyện viên (0,5 giây)
+
+```
+A single short sharp blast on a referee's pea whistle, like a gym coach calling attention. One blast only, about half a second, natural breathy attack with the pea rattling. Dry close-mic recording, no reverb, no background noise, no music.
+```
+
+## pt-1, pt-2, pt-3 — giọng PT (mỗi khối tạo riêng)
+
+```
+pt-1: A cheerful muscular male fitness coach, around 30, shouts a short energetic "Hey!" to get someone's attention, big friendly smile in his voice. One word only, under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+pt-2: A cheerful muscular male fitness coach, around 30, gives a short punchy motivating grunt "Hup!" like clapping his hands to start a workout. One syllable only, under half a second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+pt-3: A cheerful muscular male fitness coach, around 30, lets out a short excited "Yeah!" with a little laugh, hyping someone up. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+## crush-1, crush-2, crush-3 — Crush đi ngang (mỗi khối tạo riêng)
+
+```
+crush-1: A sweet young woman, around 25, says a soft shy "Hi~" with a light rising tone, as if waving at someone she likes across the gym. One word only, under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+crush-2: A sweet young woman, around 25, makes a short curious playful "Hmm?" humming sound, smiling. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+crush-3: A sweet young woman, around 25, gives a tiny soft giggle, shy and cute, just two or three short notes of laughter. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+## crush-yes-1, crush-yes-2 — Crush đồng ý
+
+```
+crush-yes-1: A sweet young woman, around 25, laughs happily and brightly, a short delighted giggle, like someone just made her smile. About one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+crush-yes-2: A sweet young woman, around 25, says a short pleased "Ooh!" with a smile, pleasantly surprised and impressed. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+## crush-no-1, crush-no-2 — Crush ngó lơ
+
+```
+crush-no-1: A young woman, around 25, makes a short playful "Hmph!" and turns away, teasing rather than angry, a hint of a smile. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+```
+crush-no-2: A young woman, around 25, gives a short unimpressed "Mm-mm" with closed lips, playfully saying no. Under one second. Dry close-mic voice recording, no reverb, no music, no background noise.
+```
+
+## cake-1, cake-2 — kèn tiệc sinh nhật
+
+```
+cake-1: A single paper party horn blower being blown once, the curled paper unrolling with a buzzy kazoo-like "prrrt" toot. Short and funny, under one second. Dry close-mic recording, no reverb, no music, no people.
+```
+
+```
+cake-2: Two quick toots on a paper party horn blower, cheerful and silly, like a small office birthday surprise. About one second. Dry close-mic recording, no reverb, no music, no people.
+```
+
+## hero-m / hero-f — tiếng gắng sức khi PERFECT (không bắt buộc)
+
+Chỉ phát khi chuỗi PERFECT từ x3 trở lên, nên không bị lặp dày. Nếu nghe thử thấy phiền, bỏ hẳn: tiếng "tích" tăng cao độ đã đủ.
+
+```
+hero-m-1: A young office man straining while lifting a dumbbell, a short effort grunt "hngh!", determined, slightly comedic. Under half a second. Dry close-mic voice recording, no reverb, no music.
+```
+
+```
+hero-m-2: A young office man pushing hard through one more rep, a short sharp exhale "hah!", proud. Under half a second. Dry close-mic voice recording, no reverb, no music.
+```
+
+```
+hero-m-3: A young office man finishing a heavy lift, a short satisfied "hup!", energetic. Under half a second. Dry close-mic voice recording, no reverb, no music.
+```
+
+Bản nữ (`hero-f-1..3`): dùng lại ba khối trên, đổi `A young office man` thành `A young office woman`.

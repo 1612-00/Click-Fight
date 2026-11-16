@@ -591,7 +591,7 @@ let duel = null;   // {i, score, end} khi đang đấu
 // PERFECT nhân x calo cho cú đó, mỗi PERFECT liên tiếp +1, tối đa max. Không hiện khi đang đấu, đang bấm x5/x7 của khách, và trước from cú bấm đầu tiên của người mới.
 // Bấm liên tục (4 lần/giây) thì cú kế tiếp tới sau ~250 ms, luôn hụt: muốn PERFECT phải dừng tay một nhịp.
 const REP = {every: 30, warn: 2, ms: 1100, at: .6, win: .1, x: 5, max: 10, from: 20, s0: 1.8, s1: .4};   // s0, s1: cỡ vòng lúc đầu / lúc cuối so với đích
-let rep = null, repIn = REP.every, repT = 0, combo = 0;   // rep: vòng đang co (đang chấm điểm); repT: hẹn giờ của lúc báo trước
+let rep = null, repIn = REP.every, repT = 0, combo = 0, grunt = 0;   // grunt: lúc phát tiếng gắng sức gần nhất   // rep: vòng đang co (đang chấm điểm); repT: hẹn giờ của lúc báo trước
 // Sự kiện văn phòng (từ ngày 2): mỗi ngày một tình huống, 2 lựa chọn. Tác dụng: kg / fat (cộng ngay), sta (tỉ lệ thể lực tối đa, cộng ngay), cal (giây thu nhập như phần thưởng nhiệm vụ),
 // buf / tap (hệ số calo / sức bấm đến hết ngày, lưu trong s.buff), star. Lựa chọn may rủi: {p, ok, no}. need: unl() cần (mệt mỏi chỉ hiện từ hạng 3).
 const EV = [
@@ -655,7 +655,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'gym', vm:3, vs:5, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'gym', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);   // gym: mỗi lần mở game bắt đầu ở văn phòng, bấm nút mới sang phòng tập
@@ -1109,23 +1109,25 @@ const sfx = {
 };
 
 // ============ Nhạc nền (assets/music/<màn>.mp3, tải khi cần) ============
-const LOUD = .05, STING = .08;   // độ to (RMS) mong muốn sau khi cân: nhạc nền khoảng -26 dB, nghe rõ nhưng không át tiếng bấm; đoạn nhạc thưởng to hơn để nổi lên
+const LOUD = .05, STING = .08, VOXL = .06;   // độ to (RMS) mong muốn sau khi cân: nhạc nền khoảng -26 dB, nghe rõ nhưng không át tiếng bấm; đoạn nhạc thưởng to hơn để nổi lên; giọng và tiếng khách ở giữa
+const VOX = {pt: 3, crush: 3, 'crush-yes': 2, 'crush-no': 2, cake: 2, 'hero-m': 3, 'hero-f': 3};   // assets/sfx/<loại>-<n>.mp3: số biến thể, phát ngẫu nhiên
 const mBuf = {}, sBuf = {};
-function loadBuf(name, loud) {   // tải và giải mã assets/music/<name>.mp3, cân âm lượng theo độ to thật của file
-  return fetch(`assets/music/${name}.mp3`).then(r => r.ok ? r.arrayBuffer() : Promise.reject()).then(b => ac.decodeAudioData(b)).then(buf => {
+function loadBuf(path, loud) {   // tải và giải mã assets/<path>.mp3, cân âm lượng theo độ to thật của file
+  return fetch(`assets/${path}.mp3`).then(r => r.ok ? r.arrayBuffer() : Promise.reject()).then(b => ac.decodeAudioData(b)).then(buf => {
     const d = buf.getChannelData(0); let sum = 0, n = 0;
     for (let i = 0; i < d.length; i += 16) { sum += d[i] * d[i]; n++; }
     buf.vol = Math.min(2.5, loud / Math.max(.001, Math.sqrt(sum / n)));
     return buf;
   });
 }
-function sting(name, fb) {   // đoạn nhạc thưởng (rankup, win, lose) theo nấc Âm thanh; chưa tải xong hoặc thiếu file thì phát tiếng bíp fb
+function sting(name, fb = () => {}, big = true) {   // phát file đã tải sẵn theo nấc Âm thanh; chưa tải xong hoặc thiếu file thì phát tiếng bíp fb. big: đoạn nhạc thưởng (nhạc nền nhỏ lại, rung)
   const buf = sBuf[name];
   if (!buf) return fb();
   if (!s.vs || adOn || CG?.game.settings.muteAudio) return;
-  try { const src = ac.createBufferSource(), g = ac.createGain(); src.buffer = buf; g.gain.value = buf.vol; src.connect(g).connect(ac.sfx); src.start(); duck(buf.duration); } catch {}
-  if (name !== 'lose') buzz(40);
+  try { const src = ac.createBufferSource(), g = ac.createGain(); src.buffer = buf; g.gain.value = buf.vol; src.connect(g).connect(ac.sfx); src.start(); if (big) duck(buf.duration); } catch {}
+  if (big && name !== 'lose') buzz(40);
 }
+const vox = (k, fb) => sting(`${k}-${1 + Math.floor(Math.random() * VOX[k])}`, fb, false);   // một biến thể ngẫu nhiên của giọng/tiếng khách
 let mNode = null, mName = '', mWant = '', heard = false;   // heard: người chơi đã chạm màn hình lần nào chưa
 const musicOn = () => s.vm > 0 && !adOn && !CG?.game.settings.muteAudio && !document.hidden;
 function music(name) {
@@ -1138,7 +1140,7 @@ function music(name) {
     audio();
     if (mNode) { mNode.g.gain.setTargetAtTime(0, ac.currentTime, .15); mNode.src.stop(ac.currentTime + .8); mNode = null; }   // làm mờ bài cũ
     if (!play) return;
-    mBuf[play] ??= loadBuf(play, LOUD);
+    mBuf[play] ??= loadBuf('music/' + play, LOUD);
     mBuf[play].then(buf => {
       if (mName !== play || mNode) return;   // đã đổi bài trong lúc tải
       const src = ac.createBufferSource(), g = ac.createGain(), t = ac.currentTime;
@@ -1151,7 +1153,13 @@ function music(name) {
 const tune = () => music(mWant === 'sleep' && !$('wait').hidden ? 'sleep' : arena ? 'duel' : s.scene === 'gym' ? ['gym', 'gym2', 'gym3'][Math.min(2, Math.floor(shown / 3))] : s.scene);   // mỗi màn một bài, phòng tập đổi bài theo hạng (1–3, 4–6, 7–9); thi đấu và chuỗi đi ngủ có bài riêng
 // Trình duyệt chỉ cho phát tiếng sau cú chạm đầu tiên của người chơi.
 addEventListener('pointerdown', () => {
-  if (!heard) try { audio(); for (const k of ['rankup', 'win', 'lose']) loadBuf(k, STING).then(b => sBuf[k] = b, () => {}); } catch {}   // đoạn thưởng nhỏ (~100 KB): tải sẵn ngay cú chạm đầu
+  if (!heard) try {   // tải sẵn ngay cú chạm đầu: đoạn thưởng (~300 KB) và tiếng khách, giọng (~240 KB)
+    audio();
+    const get = (k, path, loud) => loadBuf(path, loud).then(b => sBuf[k] = b, () => {});
+    for (const k of ['rankup', 'win', 'lose']) get(k, 'music/' + k, STING);
+    get('pt-whistle', 'sfx/pt-whistle', VOXL);
+    for (const [k, n] of Object.entries(VOX)) for (let i = 1; i <= n; i++) get(`${k}-${i}`, `sfx/${k}-${i}`, VOXL);
+  } catch {}
   heard = true; ac?.resume(); tune();
 });
 addEventListener('visibilitychange', tune);
@@ -1193,6 +1201,8 @@ function repGo(el) {   // vòng co dần quanh nhân vật; JS tính thời đi�
   const an = el.firstChild.animate([{transform: sc(0), borderColor: '#fff'}, {offset: a, transform: sc(a), borderColor: '#fff'}, {offset: a + .001, transform: sc(a + .001), borderColor: '#ffc83d'},
     {offset: b, transform: sc(b), borderColor: '#ffc83d'}, {offset: b + .001, transform: sc(b + .001), borderColor: '#fff'}, {transform: sc(1), borderColor: '#fff'}], REP.ms);
   rep = {t0: performance.now(), el};
+  noise(2500, .25, .05, 0, 500);   // vút: vòng bắt đầu co
+  setTimeout(() => { if (rep?.el === el) beep(1760, .06, 'triangle', .07); }, a * REP.ms);   // tích: đúng lúc vòng chuyển vàng (bấm theo tai được)
   an.onfinish = () => { el.remove(); if (rep?.el === el) { combo = 0; rep = null; } };   // hết giờ không bấm: hụt; vòng luôn tự xoá, kể cả vòng đã bị thay
 }
 const repHide = () => { clearTimeout(repT); $('rep')?.remove(); rep = null; };
@@ -1209,7 +1219,7 @@ $('hero').onclick = ev => {
   let rx = 1, rt = '';   // Rep hoàn hảo: cú bấm ngay sau khi vòng hiện được chấm điểm
   if (rep) {
     const f = (t - rep.t0) / REP.ms; repHide();
-    if (Math.abs(f - REP.at) <= REP.win) { combo++; rx = Math.min(REP.x + combo - 1, REP.max); rt = `PERFECT x${rx}`; s.tips.rep = 1; sfx.perfect(combo); }
+    if (Math.abs(f - REP.at) <= REP.win) { combo++; rx = Math.min(REP.x + combo - 1, REP.max); rt = `PERFECT x${rx}`; s.tips.rep = 1; sfx.perfect(combo); if (combo >= 3 && t - grunt > 4000) { grunt = t; vox(s.char ? 'hero-f' : 'hero-m'); } }
     else { combo = 0; rt = tr('repMiss'); }
   } else if (!duel && Date.now() >= frenzy && s.clicks >= REP.from && !$('rep') && --repIn <= 0) repShow();
   const crit = Math.random() < .05 * sk('crit'), c = clickPower() * (crit ? 10 : 1) * rx, r = $('hero').getBoundingClientRect(), p = document.createElement('span');   // kỹ năng Bấm chí mạng: x10
@@ -1249,6 +1259,7 @@ function ptShow() {
   const v = s.tips.pt || ptSeen ? VIS.find(x => (r -= x.w) < 0) || VIS[0] : VIS[0];   // chưa từng bấm khách nào: khách đầu tiên mỗi lần mở game là PT (an toàn cho người mới), sau đó ngẫu nhiên
   ptSeen = true; s.vis++;
   const b = document.createElement('button');
+  if (v.k === 'pt') { sting('pt-whistle', () => beep(2400, .3, 'sine', .05), false); setTimeout(() => vox('pt'), 380); } else vox(v.k === 'cr' ? 'crush' : 'cake', sfx.ding);   // tiếng khách lúc xuất hiện
   b.id = 'pt'; b.className = v.k + (v.k === 'cr' ? ' walk' : ''); b.innerHTML = `<i><img src="assets/icon/icon-vis-${v.f}.webp" alt="" draggable="false" onerror="this.outerHTML='${v.i}'"></i><b>${tr(v.k + 'Tag')}</b>`;
   if (v.k !== 'cr') b.style.left = 8 + Math.random() * 60 + '%';
   b.style.top = 26 + Math.random() * 34 + '%';
@@ -1266,8 +1277,8 @@ function ptShow() {
       if (Math.random() < PT.crOk) {
         if (Math.random() < .5) { rush(PT.crTap, PT.crMs); toast('💃 ' + tr('crYes'), tr('crRush')); }
         else { const c = bonus() * PT.crCal; earn(c); toast('💃 ' + tr('crYes'), `+${fmt(c)} 🔥`); }
-        sfx.coin();
-      } else { const n = Math.floor(s.sta * PT.crLose); s.sta -= n; toast('💔 ' + tr('crNo'), `−${n} ⚡`); sfx.lose(); }
+        sfx.coin(); vox('crush-yes');
+      } else { const n = Math.floor(s.sta * PT.crLose); s.sta -= n; toast('💔 ' + tr('crNo'), `−${n} ⚡`); vox('crush-no', sfx.lose); }
     } else { const c = bonus() * PT.ckCal; earn(c); setKg(s.kg + PT.ckKg); toast('🎂 ' + tr('ckName'), `+${fmt(c)} 🔥 · +${PT.ckKg} kg`); sfx.eat(); }
     ui(); save(); coach('pt');
   };
