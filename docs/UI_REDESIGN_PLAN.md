@@ -31,14 +31,14 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 - Giữ hành động bấm nhân vật là trọng tâm; giảm các khung chỉ số cạnh tranh với nhân vật.
 - Giữ nguyên luật, số liệu và cách mua trong đợt giao diện đầu tiên.
 
-### 3. Phân cấp nút và trạng thái tương tác — mốc tiếp theo
+### 3. Phân cấp nút và trạng thái tương tác — hoàn thành
 
 - Kiểm kê nút hành động ở HUD, văn phòng/nhà, các bảng, cài đặt và đấu trường; phân nhóm: hành động chính, phụ, mua, điều hướng và nguy hiểm.
 - Chốt trạng thái thường, đang chọn, hover, nhấn, focus bàn phím, bị khóa và vừa hoàn tất; không dùng màu làm dấu hiệu duy nhất.
-- Rà hiệu ứng nhấn/rung/pulse để hành động chính dễ nhận ra nhưng không nhấp nháy liên tục hoặc cạnh tranh với nhân vật.
+- Bỏ nhịp phóng to lặp lại ở nút đi tập/ngủ; giữ nhắc mua lần đầu nhẹ hơn, không đổi rung hay phản hồi của luật chơi.
 - Giữ nguyên sự kiện click, giá, điều kiện khóa và tiến trình; kiểm tra chuột, cảm ứng và bàn phím.
 
-### 4. Phân loại thông báo và hộp thoại
+### 4. Phân loại thông báo và hộp thoại — mốc tiếp theo
 
 - Lập danh sách trạng thái hiện có: mua thành công/thiếu calo, lên hạng, hoàn thành nhiệm vụ, khách ghé, vắng mặt, sự kiện văn phòng, xác nhận và kết quả đấu.
 - Giữ hộp chặn cho quyết định có hậu quả; thông tin ngắn chuyển thành phản hồi tại chỗ hoặc toast không chặn nếu không làm mất thông tin.
@@ -71,4 +71,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Chủ dự án đã duyệt mẫu sổ tập và đã hoàn thành đợt áp dụng nền giấy cho các tab, văn phòng/nhà, cài đặt và hướng dẫn; đấu trường vẫn giữ nền tối. Đã kiểm tra cục bộ tại 1024×768 và 375×812, cả hai ngôn ngữ, trạng thái cuộn và focus bàn phím; không tràn ngang. **Việc tiếp theo là giai đoạn 3:** rà phân cấp và trạng thái tương tác của nút, chưa đổi logic hoặc luồng chơi. Sau đó mới lần lượt xử lý thông báo, HUD/hướng dẫn, chuyển động và QA CrazyGames.
+Chủ dự án đã duyệt mẫu sổ tập và đã hoàn thành đợt áp dụng nền giấy cho các tab, văn phòng/nhà, cài đặt và hướng dẫn; đấu trường vẫn giữ nền tối. Đã rà phân cấp và trạng thái nút: hành động chính ổn định hơn, trạng thái nhấn/hover/focus/khóa phân biệt rõ, giữ nguyên logic và luồng chơi. Kiểm tra cục bộ ở 1024×768 và 375×812 xác nhận focus, nút khóa và không tràn ngang. **Mốc tiếp theo là giai đoạn 4:** phân loại thông báo và hộp thoại; chưa chuyển thông báo sang toast hay bỏ popup khi chưa duyệt mẫu.

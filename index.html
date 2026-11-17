@@ -55,8 +55,6 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #ostats .stat{padding:6px 12px;background:#000b;font-size:.9rem;white-space:nowrap}
 #nav{position:relative;z-index:2;align-self:center;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
 #nav .big{padding:12px 22px;font-size:1.2rem}
-#go:not(:disabled),#sleep{animation:pulseG 1.2s ease-in-out infinite}
-@keyframes pulseG{50%{transform:scale(1.08);box-shadow:0 4px 0 #0f6b35,0 0 18px #6ee89a}}
 #nav .big:active:not(:disabled),#modal .big:active:not(:disabled){box-shadow:0 1px 0 #0f6b35}
 #rest{background:linear-gradient(#8fa3c8,#5b6f96);box-shadow:0 4px 0 #2f3d5c}
 .frame:not(.office) #go,.frame:not(.office) #rest,.frame:not(.home) #sleep,.office .panel{display:none}
@@ -79,7 +77,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #staBar{background:linear-gradient(90deg,#3ddc84,#b6ff8a)}
 @media(min-width:901px){#vit{font-size:1.05rem;gap:10px;margin-top:10px}#vit .pill{padding:6px 16px}#vit .pill .bar{width:110px;height:10px}#boost{font-size:1.05rem;padding:6px 16px}}   /* máy tính: chỉ số to hơn cho dễ nhìn */
 #goHome{cursor:pointer;color:var(--gold);border-color:var(--gold)}
-#goHome.pulse{animation:pulse .8s ease-in-out infinite}
+#goHome.pulse{box-shadow:0 0 0 2px #f2bd5470}
 .frame:not(.gym) #goHome{display:none}
 #homeBox{position:relative;z-index:2;align-self:center;width:min(94%,520px);margin-top:10px}
 .frame:not(.home) #homeBox{display:none}
@@ -131,8 +129,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .buy small{color:inherit;opacity:.7;font-size:.75rem}
 .buy:active:not(:disabled),.big:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #b85c00}
 .buy:disabled{background:linear-gradient(90deg,#5a8fd6 var(--p),#3d5f8f var(--p))!important}
-.buy.pulse{animation:pulse .8s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 4px 0 #b85c00,0 0 18px var(--gold)}}
+.buy.pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:none;box-shadow:0 2px 0 #a86e24,0 0 10px #f2bd5470}}
 .lv:empty{display:none}
 .card em,.ms{display:inline-block;white-space:nowrap;margin-right:8px}
 .ms{font-style:normal;color:var(--gold);font-size:.75rem}
@@ -303,13 +301,11 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .bar{border:1px solid #ffffff36;box-shadow:inset 0 1px 3px #0007}
 .bar i{box-shadow:none}
 .round{border:1px solid #ffffff40;background:#182f46eF;box-shadow:0 2px 6px #0003;transition:background .12s,border-color .12s}
-.round:hover:not(:disabled),.chip:hover:not(:disabled),.meal:hover:not(:disabled){filter:brightness(1.08)}
 .round:active:not(:disabled),.chip:active:not(:disabled),.meal:active:not(:disabled){transform:scale(.97)}
 .money .n{font-weight:800;-webkit-text-stroke:0;text-shadow:0 2px 8px #071426aa}
 .money .r{background:#102238eF;border:1px solid #f2bd5480;box-shadow:0 2px 6px #0004;font-weight:700}
 .pill{background:#142b41ed;border:1px solid #ffffff3d;box-shadow:0 2px 6px #0003;text-shadow:0 1px 2px #0008}
 #goHome{border-color:var(--gold);color:var(--gold)}
-@keyframes pulseG{50%{transform:none;box-shadow:0 3px 0 #0f6b35,0 0 10px #6ee89a66}}
 #say,#hsay{background:#fff2cf;border:1px solid #f2bd54;color:#18263a;box-shadow:0 4px 12px #0004;text-shadow:none}
 #oday{font-weight:750;letter-spacing:.02em;text-shadow:0 2px 8px #102347}
 #wk i{background:#14283deb;border:1px solid #ffffff40;box-shadow:none;font-weight:700}
@@ -318,7 +314,7 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .tip{border:1px solid #ffffff40;background:#14283deb;box-shadow:0 3px 10px #0004;font-weight:650;text-shadow:0 1px 2px #0009}
 .panel{background:var(--panel);border:1px solid #ffffff38;box-shadow:0 12px 32px #0006}
 .tabs button{border:0;border-bottom:2px solid transparent;background:#0d1e30a8;font-weight:650;text-shadow:none;transition:background .12s,color .12s}
-.tabs button:hover{background:#263c50}
+.tabs button:hover:not(.on){background:#263c50}
 .tabs .on{background:#24394d;color:#ffe0a0;text-shadow:none;box-shadow:inset 0 2px 0 var(--gold)}
 .tools{background:#1b3045;border-bottom:1px solid #ffffff1a;text-shadow:none}
 .chip{box-shadow:none}
@@ -469,6 +465,32 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
   #guide #gBody{grid-template-columns:minmax(0,1fr);min-width:0}
   #guide #gBody>section{min-width:0}
 }
+/* ---------- interaction states ---------- */
+.round,.chip,.meal,.tabs button,.link,#boost,#goHome{transition:transform .12s,filter .12s,background-color .12s,color .12s,border-color .12s,box-shadow .12s}
+.tabs button{min-height:44px}
+.chip{min-height:36px}
+#boost,#goHome{min-height:44px}
+.buy.pulse{animation-duration:1.8s}
+#go:not(:disabled),#sleep{animation:none;box-shadow:0 2px 0 #24744f}
+#goHome.pulse{animation:none}
+@media(hover:hover){
+  .round:hover:not(:disabled),.chip:hover:not(:disabled),.meal:hover:not(:disabled),#boost:hover:not(:disabled),#goHome:hover:not(:disabled){filter:brightness(1.08)}
+  .tabs button:hover:not(.on){background:#263c50}
+  .tabs .on:hover{background:#2d465b}
+  .link:hover{color:var(--gold)}
+  #vAsc .link:hover{color:#a46b2d}
+}
+.tabs button:active{transform:translateY(1px)}
+.link:active{transform:translateY(1px)}
+#boost:active:not(:disabled),#goHome:active:not(:disabled){transform:translateY(1px)}
+.big:not(.no):active:not(:disabled){box-shadow:0 1px 0 #24744f}
+#modal .big:not(.no):active:not(:disabled){box-shadow:0 1px 0 #24744f}
+#nav #go:active:not(:disabled),#nav #sleep:active:not(:disabled){box-shadow:0 1px 0 #24744f}
+#nav #rest:active:not(:disabled){box-shadow:0 1px 0 #354864}
+#modal .no:active:not(:disabled),#arena #aBtns .no:active:not(:disabled){box-shadow:0 1px 0 #9c907c}
+#arena #aBtns .no:active:not(:disabled){box-shadow:0 1px 0 #172536}
+#boost:disabled{background:#182f46;color:#929ca7;border-color:#526071;cursor:not-allowed}
+#vEx button:focus-visible,.view button:focus-visible,#guide button:focus-visible,#setBox button:focus-visible,#modal button:focus-visible{outline-color:#26343a;outline-offset:2px}
 </style>
 </head>
 <body>

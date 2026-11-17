@@ -308,6 +308,7 @@ Bảng đối chiếu cho H6:
 | N16 | 1024×768 và điện thoại 375×812; xem tab Thi đấu, Nhiệm vụ, Thành tựu, Lên đời ở phòng tập và tab Bạn tập ở nhà bằng cả hai ngôn ngữ. | Mỗi bảng có tiêu đề chương đúng ngôn ngữ, mặt giấy và hàng phân cách nhất quán với Sổ tập; nút đánh, gọi bạn tập, nhận nhiệm vụ, mua kỹ năng và thử thách vẫn giữ trạng thái đúng. Danh sách cuộn bên trong, không tràn ngang. | |
 | N17 | 1024×768 và điện thoại 375×812, xem màn văn phòng và nhà; chọn một bữa ăn rồi kiểm tra nút chuyển màn. | Lịch tuần, thống kê và thẻ bữa tối dùng bề mặt sáng dễ đọc trên nền cảnh; bữa chọn được phân biệt rõ. Nút đi tập/nghỉ/ngủ còn thấy và dùng được, không có tràn ngang hay chữ cắt. | |
 | N18 | Mở ⚙️, ❓ và hộp xác nhận; dùng Tab để đi qua nút; sau đó vào trận đấu tới thoại và kết quả. | Cài đặt, hướng dẫn và xác nhận dùng cùng tông giấy, nút đóng/huỷ rõ. Focus bàn phím dễ thấy trên nền sáng. Trận đấu vẫn giữ nền tối và sắc thái điện ảnh; thoại, đếm ngược, kết quả và nút tiếp tục/quay lại đọc rõ. Thử cả 375×812. | |
+| N19 | 1024×768 và 375×812; kiểm tra hover, nhấn, focus và nút bị khóa ở màn văn phòng/phòng tập. Chọn x10 rồi khôi phục x1, không mua bài hay nhận thưởng. | Tab đang chọn vẫn nổi bật khi rê chuột; hover không dính trên thiết bị cảm ứng. Focus bàn phím có viền rõ (tối trên bảng giấy, sáng trên nền tối). Nút chính lún nhẹ khi nhấn; nút bị khóa không sáng như nút dùng được. Tab/nút hành động cao ít nhất 44 px, chip chọn ít nhất 36 px; không tràn ngang. | |
 ## O. Vắng mặt
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
