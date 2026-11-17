@@ -29,7 +29,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #boost{padding:3px 10px;border-radius:999px;border:2px solid var(--gold);background:#000a;color:var(--gold);font:inherit;font-weight:800;font-size:.9rem;cursor:pointer}
 #boost:disabled{border-color:var(--line);color:#fff;cursor:default}
 .money{position:relative;z-index:2;text-align:center;margin-top:6px;line-height:1}
-.money .n{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:800;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink),0 0 24px #ffb02e88}
+.money .n{font-size:clamp(2rem,6vw,3rem);font-weight:800;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink),0 0 24px #ffb02e88}
 .money .r{display:inline-block;margin-top:6px;padding:3px 12px;border-radius:99px;background:#0007;color:var(--gold);font-size:.9rem}
 .hero{position:relative;flex:1;min-height:0;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;cursor:pointer;border:0;background:none;padding:0;width:100%}
 .hero>*{grid-area:1/1}
@@ -45,7 +45,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 @keyframes bob{50%{transform:translateY(-6px)}}
 .pop{position:absolute;z-index:3;pointer-events:none;font-weight:800;font-size:1.9rem;color:#fff;-webkit-text-stroke:6px var(--ink);paint-order:stroke fill;rotate:var(--r);animation:pop .8s ease-out forwards}
 @keyframes pop{from{transform:translate(-50%,-50%) scale(.6)}20%{transform:translate(-50%,-80%) scale(1.15)}to{transform:translate(-50%,-190%) scale(1);opacity:0}}
-.tip{position:relative;z-index:2;align-self:center;margin-bottom:10px;padding:2px 14px;border-radius:99px;background:#000a;font-size:.9rem}
+.tip{position:relative;z-index:2;align-self:center;margin-bottom:10px;padding:2px 14px;max-width:calc(100% - 24px);border-radius:99px;background:#000a;font-size:.9rem;text-align:center}
 .tip.warn{padding:8px 22px;background:#e5484d;color:#fff;font-size:1.15rem;font-weight:800;border:3px solid #fff;box-shadow:0 0 0 0 #ff4d5e;animation:warn 1s ease-in-out infinite}
 @keyframes warn{50%{transform:scale(1.1);background:#ff7b88;box-shadow:0 0 22px 6px #ff4d5e}}
 #office{position:relative;z-index:2;align-self:center;width:min(92%,460px);margin-top:12px}
@@ -69,7 +69,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
   #nav .big{padding:9px 18px;font-size:1.05rem}
   .frame.home .money,.frame.home .tip{display:none}   /* ở nhà trên điện thoại: nhường chỗ cho nhân vật; giá gọi bạn tập vẫn hiện trên nút */
   #ostats .stat{padding:5px 8px;font-size:.78rem}
-  .hud{gap:5px;padding:10px 8px 0}.round{min-width:38px;height:40px;border-radius:12px}.rank{gap:8px;padding-right:8px}.rank b{white-space:normal;font-size:.9rem}   /* 4 nút tròn: tên hạng dài xuống dòng thay vì bị cắt */
+  .hud{gap:5px;padding:10px 8px 0}.round{min-width:44px;height:44px;border-radius:12px}.rank{gap:6px;padding:4px 6px}.rank b{white-space:normal;font-size:.84rem}.rank small{font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* tên hạng được xuống dòng; mục tiêu gọn trên một dòng */
 }
 .pill{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:#000a;border:2px solid var(--line);font-weight:800;white-space:nowrap}
 .pill .bar{width:70px;margin:0}
@@ -491,6 +491,19 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 #arena #aBtns .no:active:not(:disabled){box-shadow:0 1px 0 #172536}
 #boost:disabled{background:#182f46;color:#929ca7;border-color:#526071;cursor:not-allowed}
 #vEx button:focus-visible,.view button:focus-visible,#guide button:focus-visible,#setBox button:focus-visible,#modal button:focus-visible{outline-color:#26343a;outline-offset:2px}
+#toast{width:min(90%,460px);padding:8px 14px;border:1px solid var(--gold);border-left-width:4px;border-radius:9px;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;text-shadow:none;box-shadow:0 6px 18px #0007}
+#toast small{font-size:.9rem;color:#dccfb7}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  .rays,#art,.hero.hint::after,.tip.warn,#rep.warn,#pt i,.buy.pulse,#aNext,#wait{animation:none!important}
+  #rep.warn{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+  #pt,#pt.walk{animation:ptLifeReduced 8s linear forwards!important}
+  .pop{animation:popFade .8s ease-out forwards!important}
+  #arena.vs #aVs{opacity:1;animation:none}
+  #arena.vs #aMe,#arena.vs #aFoe,#arena.vs #aTag{animation:none}
+  @keyframes ptLifeReduced{0%{opacity:0}5%{opacity:1}85%{opacity:1}100%{opacity:0}}
+  @keyframes popFade{to{opacity:0}}
+}
 </style>
 </head>
 <body>
@@ -525,7 +538,7 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
     <div id="nav"><button class="big" id="go"></button><button class="big" id="rest"></button><button class="big" id="sleep"></button></div>
     <div class="tip" id="tip"></div>
     <div id="flash"></div>
-    <div id="toast"></div>
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   </section>
 
   <aside class="panel">
@@ -777,6 +790,17 @@ const T = {
 
 // ============ Trạng thái + lưu ============
 const KEY = 'gymgod-save', R = 1.17, $ = id => document.getElementById(id);
+const REDUCE_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
+function motion(el, frames, options) {
+  if (!REDUCE_MOTION.matches) return el.animate(frames, options);
+  if (el.id === 'flash') return;
+  const quiet = frames.map(({offset, ...frame}) => {
+    delete frame.transform; delete frame.filter;
+    return offset === undefined ? frame : {offset, ...frame};
+  });
+  if (!quiet.some(frame => Object.keys(frame).some(k => k !== 'offset'))) return;
+  return el.animate(quiet, options);
+}
 const MS = [25, 50, 100], boost = lv => 2 ** MS.filter(x => lv >= x).length;   // mốc cấp nhân đôi hiệu quả bài tập
 // Đối thủ: 4 giải x 5 người, đấu theo thứ tự. Thắng = đạt đủ calo trong 15 giây. Mỗi trận thắng +3% calo vĩnh viễn.
 const LEAGUES = [{vi:'Phòng ban', en:'The Department'}, {vi:'Công ty', en:'The Company'}, {vi:'Phòng gym', en:'The Gym'}, {vi:'Giải quốc gia', en:'Nationals'},
@@ -1232,12 +1256,12 @@ function toastLater(big, small, ms = 2200) {   // thông báo xếp hàng sau th
 function toast(big, small, ms = 2200) {
   toastEnd = Date.now() + ms;
   $('toast').innerHTML = rich(big) + (small ? `<small>${rich(small)}</small>` : '');
-  $('toast').animate([{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
+  motion($('toast'), [{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
 }
 function celebrate() {   // lên hạng: loé sáng, rung, đổi hình
-  $('flash').animate([{opacity:.9}, {opacity:0}], 600);
-  $('frame').animate([{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
-  $('art').animate([{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
+  motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
+  motion($('frame'), [{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
+  motion($('art'), [{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
   sting('rankup', sfx.up);
   const u = shown > s.best && T[s.lang].unlock[shown];   // lần đầu đạt hạng này: báo tính năng mới
   toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
@@ -1411,7 +1435,7 @@ function repGo(el) {   // vòng co dần quanh nhân vật; JS tính thời đi�
   if (duel || Date.now() < frenzy) return repHide();   // trong lúc báo trước đã vào trận đấu / bấm x5, x7: bỏ vòng này, không nhân chồng
   const sc = f => `scale(${REP.s0 + (REP.s1 - REP.s0) * f})`, a = REP.at - REP.win, b = REP.at + REP.win;
   el.className = ''; el.innerHTML = '<i></i>' + (s.tips.rep ? '' : `<b>${tr('repTip')}</b>`);
-  const an = el.firstChild.animate([{transform: sc(0), borderColor: '#fff'}, {offset: a, transform: sc(a), borderColor: '#fff'}, {offset: a + .001, transform: sc(a + .001), borderColor: '#ffc83d'},
+  const an = motion(el.firstChild, [{transform: sc(0), borderColor: '#fff'}, {offset: a, transform: sc(a), borderColor: '#fff'}, {offset: a + .001, transform: sc(a + .001), borderColor: '#ffc83d'},
     {offset: b, transform: sc(b), borderColor: '#ffc83d'}, {offset: b + .001, transform: sc(b + .001), borderColor: '#fff'}, {transform: sc(1), borderColor: '#fff'}], REP.ms);
   rep = {t0: performance.now(), el};
   noise(2500, .25, .05, 0, 500);   // vút: vòng bắt đầu co
@@ -1423,7 +1447,7 @@ $('hero').onclick = ev => {
   // chống auto click: bỏ cú bấm do script tạo ra và giới hạn 20 lần/giây (người thật bấm nhanh nhất ~14 lần/giây)
   const t = performance.now(); if (!ready || s.scene !== 'gym' || !ev.isTrusted || t - lastClick < 50) return; lastClick = t;
   if (!duel) {   // mỗi cú bấm tốn 1 thể lực (trong trận đấu thì đã trả trước)
-    if (s.sta < 1) { $('goHome').animate([{transform:'scale(1.3)'}, {transform:'none'}], 200); return; }
+    if (s.sta < 1) { motion($('goHome'), [{transform:'scale(1.3)'}, {transform:'none'}], 200); return; }
     s.sta--; s.used++;
     if (s.sta < s.cap * .2 && s.sta + 1 >= s.cap * .2) sfx.low();
     if (s.sta < 1) coach('sta', 'gym', 'day');   // người mới vào thẳng phòng tập, không bị khung nào chặn; luật một ngày dạy ở lần nghỉ tự nhiên đầu tiên này
@@ -1437,7 +1461,7 @@ $('hero').onclick = ev => {
   } else if (!duel && Date.now() >= frenzy && s.clicks >= REP.from && !$('rep') && --repIn <= 0) repShow();
   const crit = Math.random() < .05 * sk('crit'), c = clickPower() * (crit ? 10 : 1) * rx, r = $('hero').getBoundingClientRect(), p = document.createElement('span');   // kỹ năng Bấm chí mạng: x10
   earn(c); s.clicks++; bump('click'); sfx.click(); if (crit) sfx.crit();
-  $('art').animate([{transform:'scale(.94)'}, {transform:'scale(1)'}], 120);
+  motion($('art'), [{transform:'scale(.94)'}, {transform:'scale(1)'}], 120);
   p.className = crit ? 'pop crit' : 'pop'; p.textContent = '+' + fmt(c) + (crit ? '!' : '');
   p.style.setProperty('--r', Math.random() * 24 - 12 + 'deg');
   p.style.left = (ev.detail ? ev.clientX - r.left : r.width / 2) + Math.random() * 30 - 15 + 'px'; p.style.top = (ev.detail ? ev.clientY - r.top : r.height / 2) + 'px';
@@ -1528,7 +1552,8 @@ function next() {
   $('aWho').textContent = me ? tr('you') : RIVALS[A.i][s.lang === 'vi' ? 1 : 2]; $('aWho').classList.toggle('me', me);
   $('aMe').classList.toggle('dim', !me); $('aMe').classList.toggle('on', me); $('aFoe').classList.toggle('dim', me); $('aFoe').classList.toggle('on', !me);
   let n = 0; $('aTxt').textContent = '';
-  A.tw = setInterval(() => { $('aTxt').textContent = A.full.slice(0, ++n); if (n >= A.full.length) { clearInterval(A.tw); A.tw = 0; } }, 25);   // chữ chạy ~40 ký tự/giây
+  if (REDUCE_MOTION.matches) $('aTxt').textContent = A.full;
+  else A.tw = setInterval(() => { $('aTxt').textContent = A.full.slice(0, ++n); if (n >= A.full.length) { clearInterval(A.tw); A.tw = 0; } }, 25);   // chữ chạy ~40 ký tự/giây
   beep(me ? 520 : 300, .05, 'triangle', .04);
 }
 function countdown() {
@@ -1536,7 +1561,7 @@ function countdown() {
   for (const id of ['aMe', 'aFoe']) $(id).classList.remove('dim', 'on');
   ['3', '2', '1', tr('aFight')].forEach((x, j) => setTimeout(() => {
     if (arena !== A) return;
-    $('aCount').textContent = x; $('aCount').animate([{transform: 'scale(2)', opacity: 0}, {transform: 'scale(1)', opacity: 1, offset: .3}, {opacity: 1}], 600);
+    $('aCount').textContent = x; motion($('aCount'), [{transform: 'scale(2)', opacity: 0}, {transform: 'scale(1)', opacity: 1, offset: .3}, {opacity: 1}], 600);
     beep(j < 3 ? 440 : 880, .12, 'square', .05);
     if (j === 3) setTimeout(() => { if (arena === A) { $('aCount').textContent = ''; fight(); } }, 500);
   }, j * 600));
@@ -1555,8 +1580,8 @@ function meHit(now, crit) {   // đòn của bạn: thanh xanh nhảy lên, đ�
   const goal = target(duel.i), d = Math.min(duel.score - duel.shown, goal * HIT.cap);
   if (now < duel.next || d <= 0) return;
   duel.shown += d; duel.next = now + HIT.cd; duel.auto = now + HIT.auto;
-  $('aMe').animate([{transform: 'none'}, {transform: 'translateX(18%) scale(1.06)'}, {transform: 'none'}], 220);
-  $('aFoe').animate([{transform: 'none', filter: 'none'}, {transform: 'translateX(8%) rotate(6deg)', filter: 'brightness(2.2)'}, {transform: 'none', filter: 'none'}], 240);
+  motion($('aMe'), [{transform: 'none'}, {transform: 'translateX(18%) scale(1.06)'}, {transform: 'none'}], 220);
+  motion($('aFoe'), [{transform: 'none', filter: 'none'}, {transform: 'translateX(8%) rotate(6deg)', filter: 'brightness(2.2)'}, {transform: 'none', filter: 'none'}], 240);
   sfx.punch();
   const r = $('arena').getBoundingClientRect(), f = $('aFoe').getBoundingClientRect(), q = document.createElement('span');
   q.className = 'pop dmg' + (crit ? ' crit' : ''); q.textContent = '−' + fmt(d) + (crit ? '!' : '');
@@ -1568,9 +1593,9 @@ function meHit(now, crit) {   // đòn của bạn: thanh xanh nhảy lên, đ�
 }
 function foeHit(now, final) {   // đòn của đối thủ: thanh đỏ nhảy tới tỉ lệ thời gian, nhân vật chớp, màn rung
   duel.foe = final ? 1 : Math.min(1, (now - duel.t0) / (DUEL * 1000)); duel.hit = now + 800 + Math.random() * 600; sfx.hit();
-  $('aFoe').animate([{transform: 'none'}, {transform: 'translateX(-30%) scale(1.15)'}, {transform: 'none'}], 260);
-  $('aMe').animate([{transform: 'none', filter: 'none'}, {transform: 'translateX(-14px) rotate(-5deg)', filter: 'brightness(2) saturate(0)'}, {transform: 'none', filter: 'none'}], 260);
-  $('arena').animate([{transform: 'translate(4px,-3px)'}, {transform: 'translate(-4px,3px)'}, {transform: 'none'}], 200);
+  motion($('aFoe'), [{transform: 'none'}, {transform: 'translateX(-30%) scale(1.15)'}, {transform: 'none'}], 260);
+  motion($('aMe'), [{transform: 'none', filter: 'none'}, {transform: 'translateX(-14px) rotate(-5deg)', filter: 'brightness(2) saturate(0)'}, {transform: 'none', filter: 'none'}], 260);
+  motion($('arena'), [{transform: 'translate(4px,-3px)'}, {transform: 'translate(-4px,3px)'}, {transform: 'none'}], 200);
   duelDraw(now);
 }
 function duelDraw(now) {
@@ -1585,7 +1610,7 @@ function duelEnd(won) {   // hết trận: phát thưởng, đối thủ nói c�
   if (won) {
     const pz = prize(i) * (dow() === 6 ? 2 : 1);   // Chủ nhật thưởng gấp đôi
     s.wins++; earn(pz); save(); sting('win', sfx.up);
-    $('flash').animate([{opacity:.9}, {opacity:0}], 600);
+    motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
     toast(tr('win'), `+${WIN_BONUS * 100}% · +${fmt(pz)} 🔥`);
   } else { sting('lose', sfx.lose); toast(tr('lose'), tr('loseTip')); }
   talk([['foe', tr('rv')[i][won ? 3 : 4]]], () => {
@@ -1598,7 +1623,7 @@ function stopDuel() {   // rời đấu trường (về phòng tập, chuyển m
   if (arena) clearInterval(arena.tw);
   duel = arena = null; $('arena').hidden = true; $('duel').hidden = true; tune();
 }
-$('aBack').onclick = () => { stopDuel(); $('flash').animate([{opacity:.6}, {opacity:0}], 300); ui(); };
+$('aBack').onclick = () => { stopDuel(); motion($('flash'), [{opacity:.6}, {opacity:0}], 300); ui(); };
 $('aAgain').onclick = () => { const i = arena.i; stopDuel(); startDuel(i); ui(); };
 $('arena').onclick = ev => {
   if (!arena || ev.target.closest('button')) return;
@@ -1673,7 +1698,7 @@ $('help').onclick = () => guide(GUIDE.map(g => g[0]));
 document.querySelector('.rank').onclick = () => {   // bấm thanh hạng: mở tab Bài tập và cuộn tới bài cần mua tiếp
   if (s.scene === 'office' || duel) return;
   tab('Ex'); const c = document.querySelector('#list .card.next'); if (!c) return;
-  c.scrollIntoView({behavior: 'smooth', block: 'center'}); c.animate([{transform: 'scale(1)'}, {transform: 'scale(1.04)'}, {transform: 'scale(1)'}], 500);
+  c.scrollIntoView({behavior: REDUCE_MOTION.matches ? 'auto' : 'smooth', block: 'center'}); motion(c, [{transform: 'scale(1)'}, {transform: 'scale(1.04)'}, {transform: 'scale(1)'}], 500);
 };
 const closeGuide = () => { $('guide').hidden = true; };
 $('gOk').onclick = $('gX').onclick = closeGuide;
@@ -1686,7 +1711,7 @@ function ascend(ch) {   // lên đời (ch = null) hoặc bắt đầu thử th�
   if (ch === 'party') setKg(Math.max(s.kg, CHX.kg0));
   s.kg1 = s.kg;
   syncRank(true); ui(); save(); tab('Ex'); sting('rankup', sfx.up);
-  $('flash').animate([{opacity:.9}, {opacity:0}], 800); toast('⭐ ' + s.stars, ch ? tr('ch')[ch][0] : '+' + s.stars * 10 + '%');
+  motion($('flash'), [{opacity:.9}, {opacity:0}], 800); toast('⭐ ' + s.stars, ch ? tr('ch')[ch][0] : '+' + s.stars * 10 + '%');
   CG?.game.happytime(); showAd('midgame', () => {});
 }
 $('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => ascend(null));
@@ -1708,7 +1733,7 @@ function drawMeals() {
 }
 function go(scene) {
   s.scene = scene; stopDuel(); ptHide(); repHide(); combo = 0; drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
-  $('flash').animate([{opacity:.9}, {opacity:0}], 500); ui(); save(); tune();
+  motion($('flash'), [{opacity:.9}, {opacity:0}], 500); ui(); save(); tune();
   coach(...{gym: ['gym'], home: ['home', 'meal', 'fat', 'kg'], office: s.ev ? ['ev'] : []}[scene] || []);
 }
 function evPick(o) {

@@ -25,7 +25,6 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 ## Lỗi và hạn chế đã biết
 
 - Màn nhà trên điện thoại: nhân vật hiện nhưng nhỏ (khoảng 80px); số calo lớn bị ẩn ở màn này để lấy chỗ.
-- Thanh hạng trên điện thoại xuống 3 dòng khi có cả mục tiêu nhóm cơ lẫn cân nặng.
 - Người tập đều chạm sàn 65 kg quanh ngày 60 và mất thưởng +20% của vùng 68–72 kg.
 - `tools/sim.py` giả định tối nào cũng ăn một món cố định; chưa mô phỏng thực đơn xoay vòng, cũng chưa mô phỏng lối "ăn vặt tới hạng 3 rồi siết cân".
 - Số thập phân hiển thị dấu chấm (`84.8 kg`) cả ở tiếng Việt.
@@ -40,4 +39,4 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Nhân vật thứ 3 và 4 (chú bảo vệ, thực tập sinh): đã quyết định bỏ qua, ảnh chưa có.
 - Thêm cách giảm cân hoặc nội dung cuối game sau hạng 6 (đã có kỹ năng Sao và 4 thử thách; xem người chơi thật có làm hết không).
 - Sim chưa mô phỏng kỹ năng Sao và nhiều đời liên tiếp; độ dài thử thách mới đo bằng cách nhân hệ số x4,5 cho đời 2.
-- Phân loại thông báo/hộp thoại, rà HUD và hướng dẫn; sau đó QA giao diện trên CrazyGames và quay lại video theo [UI_REDESIGN_PLAN.md](./UI_REDESIGN_PLAN.md).
+- Cần QA bản upload trên CrazyGames và quay video xem trước theo [UI_REDESIGN_PLAN.md](./UI_REDESIGN_PLAN.md); chủ dự án cần tạo tài khoản và tải game lên trước.

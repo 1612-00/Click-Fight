@@ -38,30 +38,30 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 - Bỏ nhịp phóng to lặp lại ở nút đi tập/ngủ; giữ nhắc mua lần đầu nhẹ hơn, không đổi rung hay phản hồi của luật chơi.
 - Giữ nguyên sự kiện click, giá, điều kiện khóa và tiến trình; kiểm tra chuột, cảm ứng và bàn phím.
 
-### 4. Phân loại thông báo và hộp thoại — mốc tiếp theo
+### 4. Phân loại thông báo và hộp thoại — hoàn thành
 
 - Lập danh sách trạng thái hiện có: mua thành công/thiếu calo, lên hạng, hoàn thành nhiệm vụ, khách ghé, vắng mặt, sự kiện văn phòng, xác nhận và kết quả đấu.
 - Giữ hộp chặn cho quyết định có hậu quả; thông tin ngắn chuyển thành phản hồi tại chỗ hoặc toast không chặn nếu không làm mất thông tin.
-- Dựng một mẫu phản hồi không chặn trước; chưa đổi luồng hay bỏ popup cho đến khi chủ dự án duyệt mẫu.
+- Làm toast hiện có gọn như thông báo trong màn và đọc được bằng trình đọc màn hình; không đổi luồng vì kết quả nhẹ đã dùng toast, còn hộp xác nhận gắn với lựa chọn có hậu quả.
 
-### 5. HUD và hướng dẫn người mới
+### 5. HUD và hướng dẫn người mới — hoàn thành
 
 - Rà thanh hạng, calo, thể lực, mệt mỏi, cân nặng và nút hành động theo thứ tự ưu tiên; giảm cạnh tranh thị giác với nhân vật.
-- Tinh gọn lời nhắc lần đầu, dấu chấm tab và hướng dẫn; bảo đảm không che nhân vật/nút, không lặp lại khi đã xem.
-- Kiểm tra tên hạng dài và số lớn ở cả hai ngôn ngữ, nhất là màn điện thoại.
+- Giới hạn chiều rộng lời nhắc trong màn chơi; giữ nút HUD 44 px và gọn dòng mục tiêu trên điện thoại.
+- Kiểm tra tên hạng dài, mục tiêu và hướng dẫn cuộn được ở cả tiếng Việt/Anh, kể cả màn dọc.
 
-### 6. Chuyển cảnh và cảm giác thao tác
+### 6. Chuyển cảnh và cảm giác thao tác — hoàn thành
 
 - Rà phản hồi khi bấm nhân vật, mua bài, mở tab, lên hạng, gọi bạn tập và kết thúc trận; chỉ thêm/chỉnh chuyển động nhẹ khi giúp người chơi hiểu kết quả.
-- Tránh hiệu ứng trang trí lặp vô hạn; kiểm tra hiệu năng điện thoại và tôn trọng `prefers-reduced-motion` nếu thêm chuyển động mới.
+- Tôn trọng `prefers-reduced-motion`: bỏ chuyển động trang trí, giữ các tín hiệu đổi màu và thời gian game độc lập với hoạt ảnh.
 - Không đổi thời điểm, độ mạnh hoặc phần thưởng của hành động trong game.
 
-### 7. Kiểm tra và hoàn thiện
+### 7. Kiểm tra và hoàn thiện — cục bộ hoàn thành; CrazyGames chờ upload
 
-- Kiểm tra tại 1024×768, 768×1024 và 375×812; xem cả tiếng Việt lẫn tiếng Anh, màn ít và nhiều nội dung.
+- Kiểm tra HUD và hướng dẫn tại 1024×768, 768×1024 và 375×812 bằng tiếng Việt/Anh, gồm tên hạng dài và hướng dẫn nhiều mục.
 - Không để chữ/nút bị cắt, chồng lấp hoặc tràn ngang; vùng chạm chính tối thiểu khoảng 44 px.
-- Kiểm tra tương phản, focus bằng bàn phím, trạng thái khóa và phương án dự phòng khi thiếu ảnh.
-- Chạy các bài test UI liên quan trong [TEST_PLAN.md](./TEST_PLAN.md); kiểm tra bản upload bằng QA CrazyGames và quay lại video theo [CRAZYGAMES.md](./CRAZYGAMES.md).
+- Kiểm tra reduced motion, toast không chặn, huỷ xác nhận, focus bàn phím và trạng thái khóa trong trình duyệt cục bộ.
+- QA trên cổng game và quay lại video theo [CRAZYGAMES.md](./CRAZYGAMES.md) sau khi có tài khoản và bản upload.
 
 ## Phạm vi không đổi
 
@@ -71,4 +71,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Chủ dự án đã duyệt mẫu sổ tập và đã hoàn thành đợt áp dụng nền giấy cho các tab, văn phòng/nhà, cài đặt và hướng dẫn; đấu trường vẫn giữ nền tối. Đã rà phân cấp và trạng thái nút: hành động chính ổn định hơn, trạng thái nhấn/hover/focus/khóa phân biệt rõ, giữ nguyên logic và luồng chơi. Kiểm tra cục bộ ở 1024×768 và 375×812 xác nhận focus, nút khóa và không tràn ngang. **Mốc tiếp theo là giai đoạn 4:** phân loại thông báo và hộp thoại; chưa chuyển thông báo sang toast hay bỏ popup khi chưa duyệt mẫu.
+Chủ dự án đã duyệt mẫu sổ tập; các giai đoạn 1–6 hoàn thành mà không đổi luật chơi hay tiến trình. Toast gọn và có ngữ nghĩa trạng thái; HUD điện thoại giữ mục tiêu trên một dòng, hướng dẫn cuộn trong khung, chuyển động tôn trọng `prefers-reduced-motion`. QA trình duyệt cô lập ở 1024×768, 768×1024 và 375×812, cả hai ngôn ngữ, xác nhận không tràn ngang và nút HUD 44 px. **QA cục bộ hoàn thành; chỉ còn QA CrazyGames và video sau khi chủ dự án upload bản game.**
