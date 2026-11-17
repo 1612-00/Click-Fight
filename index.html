@@ -389,6 +389,86 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
   #vEx .tile{width:40px;height:40px;border-radius:7px}
   #vEx .buy{min-width:64px;min-height:38px;padding:3px 6px}
 }
+/* ---------- approved ledger styling: remaining screens ---------- */
+.view-head{display:flex;align-items:center;gap:9px;padding:9px 12px 8px;border-bottom:1px solid #d5c9b2;background:#e8dfcd;color:#27343b}
+.view-head b{color:#34434a;font-size:.75rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.view-head .workout-rule{flex:1;border-top:1px solid #cfc2aa}
+#vDuel,#vPet,#vQuest,#vAch,#vAsc{background:#eee7d8;color:#27343b}
+#vDuel .list,#vQuest .list,#vAch .list{gap:2px;padding:8px 10px;background:#eee7d8}
+#vPet .list{gap:2px;padding:8px 10px;background:#eee7d8}
+#vPet .tools{background:#e8dfcd;color:#424d50;border-bottom:1px solid #d5c9b2;text-shadow:none}
+.view:not(#vEx) .card{padding:7px 4px;border:0;border-bottom:1px solid #d6cebf;border-radius:2px;background:transparent;box-shadow:none;transition:background .12s}
+.view:not(#vEx) .card:hover{border-color:#d6cebf;background:#e6dece}
+.view:not(#vEx) .card b{color:#26343a;font-weight:750}
+.view:not(#vEx) .card small{color:#5d6b70;font-weight:500}
+.view:not(#vEx) .card em{color:#267351;font-weight:750;text-shadow:none}
+.view:not(#vEx) .card.hid{opacity:.62}
+.view:not(#vEx) .card.hid .tile{background:#c9c4b8!important;box-shadow:none}
+.view:not(#vEx) .buy:not(:disabled){background:#d99a43;color:#282d2c;box-shadow:0 2px 0 #a96f30}
+.view:not(#vEx) .buy:disabled{background:linear-gradient(90deg,#d0c4ae var(--p),#e2dacb var(--p))!important;color:#77766f;box-shadow:none}
+.view:not(#vEx) button:focus-visible{outline-color:#26343a}
+#vDuel .tile,#vPet .tile,#vQuest .tile,#vAsc .tile{border:1px solid #ffffffb3;border-radius:8px;box-shadow:none;background:#d7cebd!important}
+#vDuel .league,#vQuest .league,#vAch .league,#vAsc .league{margin:8px 0 2px;padding:7px 10px;border-left:3px solid #c28745;background:#e5dcc9;color:#765637;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-shadow:none;text-transform:uppercase}
+#vDuel .card em{white-space:normal;color:#267351}
+#vDuel .fight{background:#b94f4d;color:#fff;box-shadow:0 2px 0 #833b3a}
+#vDuel .fight:active:not(:disabled){box-shadow:0 1px 0 #833b3a}
+#vDuel .fight:disabled{background:#ddd4c3!important;color:#77766f;box-shadow:none}
+#vPet .card.hid .tile{filter:none;background:#d5cdbc!important}
+#vPet .card.hid .tile img{filter:brightness(0);opacity:.35}
+#vPet .rar{border:1px solid var(--c);background:#f7f0e2;color:#705b3d;box-shadow:none}
+#vPet .rar small{color:#736957}
+#vQuest .card .bar{background:#d6cebf;border:1px solid #c8bda9;box-shadow:none}
+#vQuest .card .bar i{background:linear-gradient(90deg,#579c75,#91bd78);box-shadow:none}
+#vAch #achs,#vAch #stats{gap:0}
+#vAch #achs .tile{border:1px solid #dfb34c;box-shadow:none}
+#vAch .rar{background:#f7f0e2;color:#795c37}
+#vAsc .asc{gap:8px;padding:12px;background:#eee7d8;color:#27343b}
+#vAsc .asc>p,#vAsc #skills>p,#vAsc #chs>p{color:#5d6b70}
+#vAsc .stat{background:#e5dcc9;border:1px solid #cfc2aa;color:#424d50;box-shadow:none}
+#vAsc .stat b{color:#795c37}
+#vAsc .link{color:#795c37}
+#vAsc .card .need{color:#795c37}
+#vAsc .buy:disabled{background:#ddd4c3!important;color:#77766f}
+#vAsc .big:disabled{background:#ddd4c3;color:#77766f;box-shadow:none}
+
+#office #oday{padding:3px 10px;border:1px solid #f2bd5480;border-radius:8px;background:#102238df;color:#f2bd54;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;text-shadow:none}
+#wk i{background:#e8dfcd;border:1px solid #cfc2aa;color:#665d50;box-shadow:none}
+#wk i.now{background:#d99a43;border-color:#ad7130;color:#282d2c;text-shadow:none;box-shadow:none}
+#wkTxt{border-color:#d5c9b2;background:#e8dfcd;color:#795c37;text-shadow:none}
+#ostats .stat{background:#eee7d8;border:1px solid #d5c9b2;color:#27343b;box-shadow:none}
+#ostats .stat span{color:#5d6b70}
+#ostats .stat b{color:#795c37}
+#meals .meal{border:1px solid #d0c3ad;border-radius:8px;background:#eee7d8;color:#27343b;box-shadow:0 2px 0 #b6a48a}
+#meals .meal.on{border:2px solid #c8893a;background:#fff3d4;color:#27343b;box-shadow:0 2px 0 #a86e24}
+#meals .meal em{color:#267351}
+#meals .meal:disabled{background:#e4dccd;color:#77766f;box-shadow:none}
+
+#modal,#guide,#setBox{background:#091522d9;backdrop-filter:blur(2px)}
+#modal>div,#guide>div,#setBox>div{border:1px solid #c8b99e;border-radius:8px;background:#eee7d8;color:#27343b;box-shadow:0 10px 28px #0008}
+#modal p,#guide #gBody,#guide #gBody p,#setBox .srow{color:#424d50}
+#guide h2,#setBox h2{color:#27343b}
+#guide #gBody h3{margin-top:12px;padding-bottom:3px;border-bottom:1px solid #d5c9b2;color:#795c37}
+#guide #gX,#setBox #sX{border-color:#b9ad98;background:#e8dfcd;color:#4f5a5d;box-shadow:none}
+#guide #gOk,#modal .big:not(.no){background:#3aab78;color:#fff;box-shadow:0 2px 0 #24744f}
+#modal .no{background:#d9d0bf;color:#424d50;box-shadow:0 2px 0 #b3a58f}
+#setBox .srow:not(:last-child){padding-bottom:10px;border-bottom:1px solid #d5c9b2}
+#setBox .srow .round{border-color:#b9ad98;background:#e8dfcd;color:#4f5a5d;box-shadow:none}
+#setBox .seg i{border:1px solid #b9ad98;background:#d9d0bf}
+#setBox .seg i.on{border-color:#ad7130;background:#d99a43}
+#setBox .srow b{color:#795c37}
+#setBox .chip{border:1px solid #b9ad98;background:transparent;color:#4f5a5d}
+#setBox .chip.on{border-color:#ad7130;background:#d99a43;color:#252d32}
+#arena #aBox{border:1px solid #f2bd54;border-left-width:5px;border-radius:8px;background:#eee7d8;color:#27343b;box-shadow:0 8px 20px #0008;text-shadow:none}
+#arena #aWho{border:1px solid #ffffff99;box-shadow:0 2px 5px #10213e88}
+#arena #aBtns .no{background:#27384a;color:#fff;box-shadow:0 2px 0 #172536}
+@media(max-width:900px){
+  .view-head{padding:6px 9px}
+  #vDuel .list,#vPet .list,#vQuest .list,#vAch .list{padding:5px 7px;gap:1px}
+  #vAsc .asc{padding:8px;gap:6px}
+  #vAsc .stat{padding:6px 10px;font-size:.82rem}
+  #guide #gBody{grid-template-columns:minmax(0,1fr);min-width:0}
+  #guide #gBody>section{min-width:0}
+}
 </style>
 </head>
 <body>
@@ -433,14 +513,25 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
       <div class="tools"><span id="buyEach"></span><button class="chip" data-m="1">x1</button><button class="chip" data-m="10">x10</button><button class="chip" data-m="max" id="chipMax"></button></div>
       <div class="list" id="list"></div>
     </div>
-    <div class="view" id="vDuel" hidden><div class="list" id="rivals"></div></div>
+      <div class="view" id="vDuel" hidden>
+        <div class="view-head"><span class="workout-mark" aria-hidden="true">02</span><b id="rivalPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
+        <div class="list" id="rivals"></div>
+      </div>
     <div class="view" id="vPet" hidden>
+        <div class="view-head"><span class="workout-mark" aria-hidden="true">03</span><b id="petPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
       <div class="tools"><span id="petSum"></span><button class="buy" id="summon"><span></span><br><small></small></button></div>
       <div class="list" id="pets"></div>
     </div>
-    <div class="view" id="vQuest" hidden><div class="list" id="quests"></div></div>
-    <div class="view" id="vAch" hidden><div class="list"><div class="league" id="hAch"></div><div id="achs"></div><div class="league" id="hStats"></div><div id="stats"></div></div></div>
+      <div class="view" id="vQuest" hidden>
+        <div class="view-head"><span class="workout-mark" aria-hidden="true">04</span><b id="questPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
+        <div class="list" id="quests"></div>
+      </div>
+      <div class="view" id="vAch" hidden>
+        <div class="view-head"><span class="workout-mark" aria-hidden="true">05</span><b id="awardPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
+        <div class="list"><div class="league" id="hAch"></div><div id="achs"></div><div class="league" id="hStats"></div><div id="stats"></div></div>
+      </div>
     <div class="view" id="vAsc" hidden>
+        <div class="view-head"><span class="workout-mark" aria-hidden="true">06</span><b id="ascendPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
       <div class="asc">
         <p id="ascDesc"></p>
         <div class="stat"><span id="lStars"></span><b id="vStars"></b></div>
@@ -501,7 +592,7 @@ const RANKS = [
   {goal:[120,112,106,98,88,86,76,58], mult:5, aura:'#f43f5e', vi:'Hộ vệ Trái Đất',      en:'Guardian of Earth'},
 ];
 const T = {
-  vi:{perSec:'calo/giây', perClick:'mỗi lần bấm', lv:'Cấp', buyEach:'Mua mỗi lần', workoutPlan:'Sổ tập', max:'Tối đa', tabEx:'💪\nBài tập', tabAsc:'⭐\nLên đời', tabQuest:'📋\nNhiệm vụ', tabAch:'🏆\nThành tựu',
+  vi:{perSec:'calo/giây', perClick:'mỗi lần bấm', lv:'Cấp', buyEach:'Mua mỗi lần', workoutPlan:'Sổ tập', rivalPlan:'Sổ đấu', petPlan:'Hội bạn tập', questPlan:'Việc hôm nay', awardPlan:'Bảng thành tích', ascendPlan:'Nhật ký lên đời', max:'Tối đa', tabEx:'💪\nBài tập', tabAsc:'⭐\nLên đời', tabQuest:'📋\nNhiệm vụ', tabAch:'🏆\nThành tựu',
       hQuest:'Nhiệm vụ hôm nay (làm mới mỗi ngày trong game)', qDone:'Xong nhiệm vụ!', qclick:'Bấm {n} lần', qbuy:'Mua {n} cấp bài tập', qduel:'Thách đấu {n} lần', qsummon:'Gọi bạn tập {n} lần', qplay:'Chơi 2 phút',
       hAch:'Thành tựu (mỗi cái +1% calo vĩnh viễn)', aclick:'Bấm {n} lần', atotal:'Kiếm tổng cộng {n} calo', arank:'Đạt hạng {n}', awin:'Thắng {n} đối thủ', asummon:'Gọi bạn tập {n} lần', aall:'Sở hữu đủ {n} bạn tập', aasc:'Lên đời {n} lần',
       hStats:'Thống kê', stPlay:'Thời gian chơi', stClicks:'Số lần bấm', stTotal:'Tổng calo đã kiếm', stAsc:'Số lần lên đời', stWins:'Đối thủ đã thắng', stSummons:'Số lần gọi bạn tập', stAch:'Thành tựu', stMult:'Hệ số calo hiện tại',
@@ -581,7 +672,7 @@ const T = {
       dow:['Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy','Chủ nhật'], dw:['T2','T3','T4','T5','T6','T7','CN'],
       say:['Ngày làm việc đã kết thúc. Đến phòng tập rèn luyện tiếp nào!', 'Chăm chỉ mỗi ngày, cơ bắp sẽ không phụ bạn.', 'Ngồi cả ngày rồi, đứng dậy vận động thôi!', 'Hôm nay mệt, nhưng bỏ tập thì mai còn mệt hơn.',
            'Deadline xong rồi, giờ đến lượt tạ.', 'Mỗi giọt mồ hôi hôm nay là một múi bụng ngày mai.', 'Sếp về rồi. Phòng tập đang chờ bạn!', 'Không ai tập một buổi mà thành thần gym. Đi tiếp thôi!']},
-  en:{perSec:'cal/sec', perClick:'per click', lv:'Lv', buyEach:'Buy amount', workoutPlan:'Training log', max:'Max', tabEx:'💪\nWorkouts', tabAsc:'⭐\nAscend', tabQuest:'📋\nQuests', tabAch:'🏆\nAwards',
+  en:{perSec:'cal/sec', perClick:'per click', lv:'Lv', buyEach:'Buy amount', workoutPlan:'Training log', rivalPlan:'Rival board', petPlan:'Training crew', questPlan:'Daily checklist', awardPlan:'Hall of records', ascendPlan:'Ascension log', max:'Max', tabEx:'💪\nWorkouts', tabAsc:'⭐\nAscend', tabQuest:'📋\nQuests', tabAch:'🏆\nAwards',
       hQuest:"Today's quests (refresh every game day)", qDone:'Quest complete!', qclick:'Tap {n} times', qbuy:'Buy {n} workout levels', qduel:'Start {n} rival fight', qsummon:'Summon {n} buddy', qplay:'Play for 2 minutes',
       hAch:'Achievements (+1% calories forever each)', aclick:'Tap {n} times', atotal:'Earn {n} calories in total', arank:'Reach rank {n}', awin:'Beat {n} rivals', asummon:'Summon buddies {n} times', aall:'Own all {n} buddies', aasc:'Ascend {n} times',
       hStats:'Stats', stPlay:'Time played', stClicks:'Taps', stTotal:'Total calories earned', stAsc:'Ascensions', stWins:'Rivals beaten', stSummons:'Buddy summons', stAch:'Achievements', stMult:'Current calorie multiplier',
@@ -931,7 +1022,7 @@ function drawArt() {
 function buildTexts() {
   nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
   document.documentElement.lang = s.lang;
-  for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','workoutPlan','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
+  for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','workoutPlan','rivalPlan','petPlan','questPlan','awardPlan','ascendPlan','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
   $('chipMax').textContent = tr('max'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gTitle').textContent = tr('guide'); $('gOk').textContent = tr('gOk'); $('wSkip').textContent = tr('skip'); document.querySelector('.rank').title = tr('nextUp');
   $('list').innerHTML = EX.map((e, i) => `<div class="card">
     <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>

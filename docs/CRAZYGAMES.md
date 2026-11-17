@@ -42,9 +42,9 @@ Works with mouse and touch. No keyboard needed.
 
 1. At the office, press "Go to the gym".
 2. Tap the character to earn calories. Each tap costs 1 stamina, and stamina refills every morning. When a visitor pops up, tap them before they leave, or let them go if the risk isn't worth it.
-3. Buy workouts. Reach every muscle target to rank up; tap the rank bar to jump to the next workout to buy.
+3. Buy workouts in the Training Log. Reach every muscle target to rank up; tap the rank bar to jump to the next workout to buy.
 4. Out of stamina? Go home, pick a dinner and sleep to start the next day.
-5. Beat rivals for permanent bonuses. When progress slows, ascend for Stars.
+5. Use the Rivals, Buddies, Quests and Awards tabs to manage the rest of your progress. Beat rivals for permanent bonuses; when progress slows, ascend for Stars.
 
 Tap the ? button in the game for the full guide.
 

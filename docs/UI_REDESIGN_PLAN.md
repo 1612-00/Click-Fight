@@ -59,4 +59,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Đã chốt hướng “sổ tập / bảng thiết bị phòng gym”. Mẫu đầu tiên ở tab Bài tập đã dựng: tiêu đề song ngữ, mặt giấy ấm, hàng bài phẳng và nhấn riêng bài kế tiếp. Đã kiểm tra ở 1024×768 và 375×812, đổi được ngôn ngữ và chế độ mua, không tràn ngang; danh sách trên điện thoại cuộn bên trong bảng. Mẫu vẫn chờ chủ dự án duyệt trước khi áp dụng ngôn ngữ thị giác này sang màn khác.
+Chủ dự án đã duyệt mẫu đầu tiên ở tab Bài tập. Đã áp dụng ngôn ngữ thị giác sổ tập cho các bảng thi đấu, bạn tập, nhiệm vụ, thành tích và lên đời; đồng thời làm lại bề mặt lịch/thống kê văn phòng, bữa tối, hộp thoại và cài đặt. Đấu trường vẫn giữ nền tối và nhịp điện ảnh, chỉ đồng bộ cách trình bày thoại/nút. Đã kiểm tra tại 1024×768 và 375×812, cả hai ngôn ngữ, trạng thái cuộn và focus bàn phím; không tràn ngang. Còn cần kiểm tra trên QA CrazyGames và quay lại video theo giai đoạn 5.
