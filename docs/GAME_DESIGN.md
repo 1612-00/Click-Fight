@@ -17,7 +17,7 @@ Nguyên tắc thiết kế:
 
 1. **Văn phòng**: mở game luôn ở đây (trừ ván mới: vào thẳng phòng tập để bấm được ngay). Chỉ có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
 2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" có hộp xác nhận, trừ khi đã hết thể lực (lúc đó không thể là bấm nhầm). Thẻ bài tập rẻ nhất còn thiếu mục tiêu hạng kế được viền vàng; bấm thanh hạng thì mở tab Bài tập và cuộn tới thẻ đó.
-3. **Nhà**: chọn một bữa tối, xem/gọi bạn tập, bấm "Đi ngủ" sang ngày mới.
+3. **Nhà**: chọn một bữa tối, xem/gọi bạn tập; tab Nhiệm vụ cũng mở được để nhận thưởng trước khi bấm "Đi ngủ" sang ngày mới.
 
 **Màn chờ** giữa các màn: đi tập / về nhà 2 giây, chuỗi đi ngủ 8,5 giây (Khò khò → Buổi sáng → Đi đến công ty → Đang làm việc). Ba ngày đầu chạy đủ để kể chuyện; từ ngày 4 còn 40% (0,8 giây và 3,4 giây), vì lặp 40–50 lần thì 12,5 giây mỗi ngày là khoảng 8% thời gian chơi. Chạm vào màn chờ để bỏ qua (sau 0,4 giây đầu, để cú bấm vừa rồi không vô tình bỏ qua luôn).
 
@@ -158,7 +158,7 @@ Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0,
 
 ## Bạn tập
 
-Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì lên cấp. Tab Bạn tập chỉ hiện ở nhà.
+Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì lên cấp. Tab Bạn tập chỉ hiện ở nhà; tab Nhiệm vụ cũng hiện tại nhà để có thể nhận thưởng nhiệm vụ gọi bạn tập trước khi sang ngày mới.
 
 | Độ hiếm | Tỉ lệ mỗi con | Bạn tập | Mỗi cấp |
 |---|---|---|---|

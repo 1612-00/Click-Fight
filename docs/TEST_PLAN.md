@@ -238,6 +238,7 @@ Bảng đối chiếu cho H6:
 | L1 | Vào tab Nhiệm vụ. | 3 nhiệm vụ trong 5 loại: Bấm 200 lần, Mua 20 cấp bài tập, Thách đấu 1 lần, Gọi bạn tập 1 lần, Chơi 2 phút. Mỗi cái có icon, thanh tiến độ và nút thưởng (ít nhất 500 calo). | |
 | L2 | Làm xong một nhiệm vụ. | Nút thưởng sáng lên, tab Nhiệm vụ có chấm đỏ. Bấm nhận: calo tăng đúng số ghi trên nút, thông báo "Xong nhiệm vụ!", nút thành ✓, thẻ mờ đi. Bấm lại không nhận lần hai. | |
 | L3 | Sang ngày mới. | 3 nhiệm vụ đổi (xoay vòng theo ngày), tiến độ về 0. | |
+| L12 | Ở ngày có nhiệm vụ "Gọi bạn tập" (ngày 1 hoặc 6), đủ calo để gọi; về nhà, gọi một bạn rồi mở tab Nhiệm vụ trước khi ngủ. | Tab Nhiệm vụ dùng được ở nhà; tiến độ thành 1/1, tab có chấm báo nhận thưởng. Nhận thưởng được một lần, sau đó ngủ sang ngày mới thì nhiệm vụ/tiến độ reset như thường lệ. | ✓ cục bộ |
 | L4 | Vào tab Thành tựu. | 19 thành tựu; cái chưa đạt mờ. Đạt một cái (ví dụ bấm 100 lần): thẻ sáng lên, "Thành tựu n / 19" tăng, calo tăng 1%. Phần Thống kê phía dưới hiện đủ 8 dòng và cập nhật theo thời gian. | |
 | L5 | Tab Lên đời khi tổng calo kiếm trong đời này dưới 1 triệu. | "Sao nhận nếu lên đời: 0". Nút ghi "Chưa đủ calo để nhận Sao", mờ. | |
 | L6 | Kiếm 8 triệu calo trong đời này (chế độ test, hoặc `s.run = 8e6; ui()`). Bấm "Lên đời" → Đồng ý. | Trước khi bấm: "Sao nhận nếu lên đời: 2", tab có chấm đỏ. Hộp hỏi "Lên đời? Calo và cấp bài tập về 0, bạn nhận 2 Sao." Sau khi đồng ý: calo 0, mọi bài tập cấp 0, về hạng 1, Sao +2, "Thưởng hiện tại +20%". **Giữ nguyên**: ngày, cân nặng, mệt mỏi, bạn tập, số trận thắng, thành tựu. | |
