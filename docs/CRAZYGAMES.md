@@ -81,7 +81,7 @@ Video: 1920×1080 và 1080×1620, 17,1 giây, khoảng 10 MB, H.264, không ti�
 
 ## Làm lại video
 
-Khi giao diện đổi, quay lại bằng hai bước (server xem thử `game` phải đang chạy):
+Khi giao diện đổi (kể cả bảng màu), quay lại bằng hai bước để video khớp bản game hiện hành (server xem thử `game` phải đang chạy):
 
 1. Playwright MCP: `browser_run_code_unsafe` với `filename` = `tools/video/record.js`. Mỗi cảnh chạy trong một ngữ cảnh trình duyệt mới nên không đụng bản lưu thật.
 2. `python tools/video/build.py`: ghép ảnh bìa (1 giây) với 5 đoạn gameplay (lột xác lên hạng 2, thắng một trận đấu, ăn tối rồi đi ngủ, sáng hôm sau, thần gym hạng 6), ghi đè hai file video ở trên.

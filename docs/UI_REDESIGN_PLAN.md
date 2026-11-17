@@ -4,7 +4,7 @@
 
 Giảm cảm giác “dashboard web” nhưng vẫn giữ ưu điểm của clicker: người chơi nhìn thấy ngay nhân vật, chỉ số, bài tập và thao tác chính. Hướng đã chọn: **sổ tập / bảng thiết bị phòng gym** — gợi đúng chủ đề, không biến UI thành giả da, bảng gỗ hay đồ skeuomorphic.
 
-Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../assets/PROMPTS.md), thay vì tạo một phong cách hình ảnh cạnh tranh với nhân vật và nền.
+Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../assets/PROMPTS.md), thay vì tạo một phong cách hình ảnh cạnh tranh với nhân vật và nền. Bảng màu đã duyệt: **giấy kem ấm, xanh sage/olive và điểm nhấn hổ phách**; giữ đấu trường tối để tạo tương phản.
 
 ## Nguyên tắc
 
@@ -71,4 +71,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Chủ dự án đã duyệt mẫu sổ tập; các giai đoạn 1–6 hoàn thành mà không đổi luật chơi hay tiến trình. Toast gọn và có ngữ nghĩa trạng thái; HUD điện thoại giữ mục tiêu trên một dòng, hướng dẫn cuộn trong khung, chuyển động tôn trọng `prefers-reduced-motion`. QA trình duyệt cô lập ở 1024×768, 768×1024 và 375×812, cả hai ngôn ngữ, xác nhận không tràn ngang và nút HUD 44 px. **QA cục bộ hoàn thành; chỉ còn QA CrazyGames và video sau khi chủ dự án upload bản game.**
+Chủ dự án đã duyệt mẫu sổ tập và bảng màu giấy kem/sage; các giai đoạn 1–6 hoàn thành mà không đổi luật chơi hay tiến trình. Toast gọn và có ngữ nghĩa trạng thái; HUD điện thoại giữ mục tiêu trên một dòng, hướng dẫn cuộn trong khung, chuyển động tôn trọng `prefers-reduced-motion`. QA trình duyệt cô lập ở 1024×768, 768×1024 và 375×812, cả hai ngôn ngữ, xác nhận không tràn ngang và nút HUD 44 px. **QA cục bộ hoàn thành; chỉ còn QA CrazyGames và video sau khi chủ dự án upload bản game.**
