@@ -1,7 +1,7 @@
 """Mô phỏng nhịp chơi theo ngày trong game: python tools/sim.py
 In ra ngày và tổng thời gian chơi khi đạt từng hạng, với ba kiểu nghỉ: không bao giờ nghỉ / nghỉ khi Mỏi (>=40) / nghỉ khi Kiệt sức (>=70).
 Người chơi bấm CPS lần/giây cho tới khi hết thể lực, mua thứ còn thiếu mục tiêu (rẻ nhất trước), thách đấu khi thắng được, tối ăn cơm gà.
-Các số trong G phải khớp với index.html (EX, RANKS, R, MS, KG, FAT, WK, staMax, target, prize, summonCost, MEALS)."""
+Các số trong G phải khớp với index.html (EX, RANKS, R, MS, KG, KG_LOSS, FAT, WK, staMax, target, prize, summonCost, MEALS)."""
 import sys
 sys.stdout.reconfigure(encoding="utf-8")
 EX = [(15, 1, 0), (100, 0, 1), (1100, 0, 8), (12000, 0, 47), (40000, 12, 0), (130000, 0, 260), (1400000, 0, 1400), (20000000, 0, 7800)]  # giá, +bấm, +giây
@@ -11,7 +11,8 @@ IDLE = 30   # giây mỗi ngày không bấm: văn phòng, mua bài tập, ở n
 G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [22, 18, 14, 8, 3, 0, 0, 0], [40, 35, 30, 22, 15, 10, 3, 0], [70, 60, 55, 48, 40, 40, 32, 20],
                [85, 75, 70, 64, 55, 55, 45, 32], [100, 92, 88, 80, 70, 70, 60, 44], [120, 112, 106, 98, 88, 86, 76, 58]],   # hạng 7–9
          mults=[1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
-         kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], fat=[40, 40, 40, 40, 40, 40, 40, 40, 40], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # mệt mỏi tăng cùng mức ở mọi hạng; thể lực +sta_rank mỗi hạng, chỉ tới hạng 6
+         kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], kg_loss=[.3, .3, .3, .4, .5, .6, .7, .8, .9],
+         fat=[40, 40, 40, 40, 40, 40, 40, 40, 40], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # kg_loss: cân giảm khi dùng đủ thể lực; mệt mỏi cộng đều, thể lực +sta_rank mỗi hạng tới hạng 6
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
@@ -89,7 +90,7 @@ def run(g, rest_at=40, meal='h', limit=400):
                         cal += x; earned[rk] += x
                 shop()
             frac = min(1, used / max(1, cap)); rec_next = False
-            kg -= .3 * frac; fat = min(100, max(0, fat + (g['fat'][r0] * frac if r0 >= 2 else 0) - 5))
+            kg -= g['kg_loss'][rk] * frac; fat = min(100, max(0, fat + (g['fat'][r0] * frac if r0 >= 2 else 0) - 5))
         frac = min(1, used / max(1, cap)); week.append(1 if frac >= .5 else 0)
         if len(week) >= 7: wkb = r0 >= 2 and sum(week) >= g['wk'][r0]; week = []
         nxt = None

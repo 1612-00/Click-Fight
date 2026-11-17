@@ -18,7 +18,6 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Nhạc đợt 2 (`gym2`, `gym3`, `rankup`, `win`, `lose`): đã kiểm tra tải, cân âm lượng và phát không lỗi bằng code; **chưa nghe bằng tai** độ to đoạn thưởng (hằng `STING` = 0,08) và chỗ nối khi lặp của `gym2`/`gym3` (TEST_PLAN M4, M19–M20).
 - Âm thanh khách ghé (còi và giọng PT, giọng Crush, kèn bánh, tiếng gắng sức khi PERFECT, vút/tích của vòng): đã vào game, kiểm tra tải đủ 22 file và phát không lỗi bằng code; **chưa nghe bằng tai** độ to (hằng `VOXL` = 0,06) và mật độ khi chơi lâu (TEST_PLAN M22–M26).
 - `tools/sim.py` chưa mô phỏng ngày tập một phần (mỗi ngày hoặc tập đủ hoặc nghỉ hẳn), nên ngưỡng `REST` = 20% không ảnh hưởng kết quả mô phỏng.
-- Bố cục điện thoại sau các thay đổi mở tính năng theo hạng.
 - Rep hoàn hảo: canh nhịp trên điện thoại thật (độ trễ cảm ứng), khoảng ±110 ms có quá khó hay quá dễ không; người chơi thật bắt được bao nhiêu phần trăm (sim giả định 50%).
 - Khách ghé phòng tập: bấm thật trên điện thoại (khách có che nhân vật hay nút không), người chơi thật bấm được bao nhiêu phần trăm và có bỏ qua bánh không (sim giả định bấm hết).
 

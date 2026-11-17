@@ -15,9 +15,9 @@ Nguyên tắc thiết kế:
 
 ## Vòng lặp một ngày (2–3 phút)
 
-1. **Văn phòng**: mở game luôn ở đây (trừ ván mới: vào thẳng phòng tập để bấm được ngay). Chỉ có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
+1. **Văn phòng**: mọi ván mới mở ở đây; Bắp tự giới thiệu và chỉ nút "Đến phòng tập". Màn có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
 2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" có hộp xác nhận, trừ khi đã hết thể lực (lúc đó không thể là bấm nhầm). Thẻ bài tập rẻ nhất còn thiếu mục tiêu hạng kế được viền vàng; bấm thanh hạng thì mở tab Bài tập và cuộn tới thẻ đó.
-3. **Nhà**: chọn một bữa tối, xem/gọi bạn tập; tab Nhiệm vụ cũng mở được để nhận thưởng trước khi bấm "Đi ngủ" sang ngày mới.
+3. **Nhà**: từ hạng 1 đi ngủ; từ hạng 2 có thể chọn hoặc bỏ bữa tối. Không hiện bảng bài tập ở nhà. Tab Nhiệm vụ mở từ hạng 4, Bạn tập mở từ hạng 5; sau đó bấm "Đi ngủ" sang ngày mới.
 
 **Màn chờ** giữa các màn: đi tập / về nhà 2 giây, chuỗi đi ngủ 8,5 giây (Khò khò → Buổi sáng → Đi đến công ty → Đang làm việc). Ba ngày đầu chạy đủ để kể chuyện; từ ngày 4 còn 40% (0,8 giây và 3,4 giây), vì lặp 40–50 lần thì 12,5 giây mỗi ngày là khoảng 8% thời gian chơi. Chạm vào màn chờ để bỏ qua (sau 0,4 giây đầu, để cú bấm vừa rồi không vô tình bỏ qua luôn).
 
@@ -29,14 +29,15 @@ Tính theo hạng cao nhất từng đạt (`unl()`), nên lên đời không b�
 
 | Hạng | Mở |
 |---|---|
-| 1 | Thể lực, bài tập, thách đấu, nhiệm vụ, bạn tập |
-| 2 | Bữa tối ở nhà |
-| 3 | Mệt mỏi, lịch tuần và mục tiêu tuần |
-| 4 | Cân nặng bắt đầu chặn lên hạng |
-| 6 | Thử thách (tab Lên đời) |
+| 1 | Vòng cơ bản: bấm, bài tập, thể lực, về nhà và ngủ |
+| 2 | Bữa tối, khách ghé phòng tập, Rep hoàn hảo và nước tăng lực (trên CrazyGames) |
+| 3 | Mệt mỏi, lịch tuần, mục tiêu tuần và sự kiện văn phòng |
+| 4 | Cân nặng bắt đầu chặn lên hạng; mở Thi đấu và Nhiệm vụ |
+| 5 | Mở Bạn tập và Thành tựu |
+| 6 | Mở Thử thách (tab Lên đời); tab Lên đời cũng có thể xuất hiện từ hạng 4 khi đủ Sao để lên đời |
 | 7 | Thông báo sức mạnh siêu nhân thức tỉnh (phản diện mở theo số trận thắng, không theo hạng) |
 
-Lần đầu đạt hạng 2 và 3, thông báo lên hạng nói rõ tính năng vừa mở.
+Các tab tính năng chưa mở được ẩn, không hiện danh sách khoá. Khách, Rep và nước tăng lực (nếu có CrazyGames SDK) chỉ mở từ hạng 2; sự kiện văn phòng bắt đầu từ hạng 3. Mở khoá vẫn tính theo hạng cao nhất từng đạt nên lên đời không khoá lại.
 
 ## Bài tập
 
@@ -73,15 +74,15 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 
 Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 8–9 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
 
-**Hạng 7–9 (sức mạnh siêu nhân)** dành cho các đời sau: giá bài tập tăng x1,17 mỗi cấp còn thu nhập tăng chậm hơn, nên đời đầu chạm "bức tường" sau hạng 7 và cách vượt là lên đời. Sim (người quen):
+**Hạng 7–9 (sức mạnh siêu nhân)** dành cho các đời sau: giá bài tập tăng x1,17 mỗi cấp còn thu nhập tăng chậm hơn, nên đời đầu chạm "bức tường" sau hạng 7 và cách vượt là lên đời. Sim (người nghỉ khi Mỏi):
 
 | | Đời 1 | Đời 2 (hệ số calo khoảng x4,5, giữ 78 kg) | Đời 3 (khoảng x11, 74 kg) |
 |---|---|---|---|
-| Hạng 7 | 2h22 | 30 phút | 13 phút |
-| Hạng 8 | 5h27 | 1h17 | 33 phút |
-| Hạng 9 | 24 giờ | 5 giờ | 1h50 |
+| Hạng 7 | 2h22 | 32 phút | 16 phút |
+| Hạng 8 | 5h49 | 1h12 | 36 phút |
+| Hạng 9 | 25h26 | 5h29 | 2h03 |
 
-Đã thử bộ mục tiêu cao hơn (hạng 9 cần cấp 150): đời 2 tới hạng 9 mất 13 giờ, bỏ. Cân tối đa 76 / 74 / 72 kg kéo người chơi về vùng lý tưởng 68–72 kg.
+Đã thử bộ mục tiêu cao hơn (hạng 9 cần cấp 150): đời 2 tới hạng 9 mất 13 giờ, bỏ. Cân tối đa 76 / 74 / 72 kg kéo người chơi về vùng lý tưởng 68–72 kg. Với mức giảm cân theo hạng, người nghỉ khi Mỏi đạt hạng 6 ở ngày 25 (1h16, 76,8 kg), nhanh hơn mốc cũ ngày 32; cân không còn là nút thắt tiến trình trong mô phỏng.
 
 Có 2 nhân vật (nam, nữ), mỗi nhân vật 9 hình theo hạng. Chưa có ảnh hạng nào thì game dùng ảnh hạng thấp hơn gần nhất. Prompt ảnh hạng 7–9 và phản diện: `assets/PROMPTS.md` nhóm 14.
 
@@ -114,7 +115,7 @@ Lý do: tạo nhịp tập ba ngày rồi cần nghỉ, thay vì để người 
 ## Cân nặng
 
 - Bắt đầu 85 kg, giới hạn 65–120 kg.
-- **Tập là cách giảm cân chính**: hết thanh thể lực −0,3 kg (một phần thì theo tỉ lệ). Thông báo đầu ngày ghi phần tập/nghỉ, phần ăn uống và sự kiện trong ngày (đã cộng ngay lúc chọn), và tổng thay đổi so với sáng hôm trước (trường `kg1` = cân đầu ngày). Nếu qua đêm lên hạng, thông báo lên hạng hiện trước, báo cân xếp hàng sau.
+- **Tập là cách giảm cân chính**: dùng hết thanh thể lực giảm theo hạng; tập một phần thì giảm theo tỉ lệ. Hạng 1–3 giảm 0,3 kg; hạng 4–9 lần lượt giảm 0,4–0,9 kg mỗi ngày tập đủ. Thử thách Mùa tiệc cưới cộng thêm 0,1 kg giảm cho mỗi ngày tập đủ. Thông báo đầu ngày ghi phần tập/nghỉ, phần ăn uống và sự kiện trong ngày (đã cộng ngay lúc chọn), và tổng thay đổi so với sáng hôm trước (trường `kg1` = cân đầu ngày). Nếu qua đêm lên hạng, thông báo lên hạng hiện trước, báo cân xếp hàng sau.
 - Vùng lý tưởng 68–72 kg: calo +20%. Trên 90 kg: thể lực tối đa −20%.
 - Cân kiểm tra mỗi 30 ngày: 1 Sao cho mỗi 2 kg giảm so với lần trước.
 
@@ -144,6 +145,8 @@ Vai trò từng nhóm: lành mạnh để siết cân; đạm tăng thu nhập m
 
 ## Thách đấu
 
+Mở từ hạng 4; trước đó ẩn tab và không hiện chỉ số số trận thắng.
+
 30 đối thủ theo thứ tự, 6 giải: Phòng ban, Công ty, Phòng gym, Giải quốc gia, rồi **phản diện trên Trái Đất**: Thế giới ngầm (Hàm Thép, Bà trùm Hổ Mang, Tiến sĩ Độc Dược, Gã Máy Xúc, Ông trùm Mặt Nạ Bạc) và Trùm Trái Đất (Tướng Bão Tố, Nữ hoàng Băng Giá, Titan Dung Nham, Siêu máy tính Omega, Hắc Vương Lõi Đất). Ngoài Trái Đất để dành cho lần mở rộng sau.
 
 Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0, i − 19) calo trong 15 giây (phản diện chỉ khó hơn x1,25 mỗi người: giữ x2,4 thì không ai đánh nổi; sim: đời 3 tới hạng 9 đã hạ 6 phản diện, 4 trùm còn lại là mục tiêu dài hạn); thưởng = mục tiêu × 3. Mỗi trận thắng +3% calo vĩnh viễn.
@@ -158,7 +161,7 @@ Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0,
 
 ## Bạn tập
 
-Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì lên cấp. Tab Bạn tập chỉ hiện ở nhà; tab Nhiệm vụ cũng hiện tại nhà để có thể nhận thưởng nhiệm vụ gọi bạn tập trước khi sang ngày mới.
+Mở từ hạng 5. Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì lên cấp. Tab Bạn tập chỉ hiện ở nhà.
 
 | Độ hiếm | Tỉ lệ mỗi con | Bạn tập | Mỗi cấp |
 |---|---|---|---|
@@ -170,8 +173,8 @@ Gọi ngẫu nhiên, giá 5.000 × 2,5^số lần đã gọi. Gọi trùng thì 
 
 ## Nhiệm vụ, thành tựu, lên đời
 
-- **Nhiệm vụ ngày**: 3 trong 5 loại (bấm 200, mua 20 cấp, đấu 1, gọi 1, chơi 120 giây), làm mới theo ngày trong game. Thưởng = 300 giây thu nhập, tối thiểu 500.
-- **Thành tựu**: 21 cái (thêm đạt hạng 9, thắng 30 đối thủ), mỗi cái +1% calo vĩnh viễn.
+- **Nhiệm vụ ngày** (mở hạng 4): mỗi ngày chọn 3 loại khả dụng trong nhóm bấm 200, mua 20 cấp, đấu 1, gọi bạn tập 1, chơi 120 giây. Nhiệm vụ gọi bạn tập chỉ vào nhóm khả dụng từ hạng 5, khi tab Bạn tập đã mở. Làm mới theo ngày trong game. Thưởng = 300 giây thu nhập, tối thiểu 500.
+- **Thành tựu** (mở hạng 5): 21 cái (thêm đạt hạng 9, thắng 30 đối thủ), mỗi cái +1% calo vĩnh viễn.
 - **Lên đời**: nhận Sao = ⌊∛(calo kiếm được trong đời này / 1 triệu)⌋, mỗi Sao +10% calo. Chỉ xoá calo, cấp bài tập và hạng; ngày, cân nặng, mệt mỏi, bạn tập, trận thắng, kỹ năng, thử thách đã xong giữ nguyên. Lên đời thường khi đang làm thử thách thì bỏ thử thách.
 
 ## Kỹ năng Sao (cuối tab Lên đời)
@@ -202,14 +205,14 @@ Bắt đầu thử thách = lên đời (vẫn nhận Sao) với một luật kh
 |---|---|---|---|---|
 | 👆 Chỉ dùng tay | Không có calo/giây (cả lúc vắng mặt); cú bấm vẫn ăn 25% calo/giây gốc | Hạng 6 | +25% calo/bấm | 31 phút |
 | 🏷️ Phòng gym tăng giá | Bài tập đắt x3 | Hạng 6 | Bài tập rẻ hơn 10% | 43 phút |
-| 🎉 Mùa tiệc cưới | Bắt đầu ở ít nhất 85 kg, mỗi tối +0,1 kg | Hạng 5 | Ngày tập đủ giảm 0,4 kg thay vì 0,3 | 55 phút |
+| 🎉 Mùa tiệc cưới | Bắt đầu ở ít nhất 85 kg, mỗi tối +0,1 kg | Hạng 5 | Ngày tập đủ giảm thêm 0,1 kg | 55 phút |
 | 👔 Sếp soi | Calo x0,25 | Hạng 6 | +15% calo | 1 giờ |
 
 Cân bằng: sau đời đầu (hệ số calo khoảng x4,5 nhờ Sao, trận thắng, thành tựu; giữ cân 78 kg) một đời thường tới hạng 6 chỉ 17 phút, nên mỗi thử thách nhắm 30–60 phút. Đo bằng `run(G, …)` trong `tools/sim.py` với `mults` x4,5, `kg0`, `night`, `hands`, `fee`. Đã loại: cắt thể lực (Tăng ca) gần như không làm chậm vì về sau calo/giây chiếm phần lớn; Sếp soi x0,5 và đích hạng 5 chỉ 10 phút; Tiệc cưới 88 kg +0,2/tối mất 5 giờ.
 
 ## Khách ghé phòng tập
 
-Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ để người chơi nhìn màn hình thay vì treo máy. Có ba loại khách, hai loại sau là **lựa chọn**: bấm hay bỏ qua.
+Mở từ hạng 2. Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ để người chơi nhìn màn hình thay vì treo máy. Có ba loại khách, hai loại sau là **lựa chọn**: bấm hay bỏ qua.
 
 - Chỉ hiện ở phòng tập, ngoài trận đấu, khi không có màn chờ, hộp xác nhận hay hướng dẫn. Lần đầu sau khoảng 30 giây ở phòng tập, sau đó mỗi 60–120 giây ở phòng tập. **Tối đa 3 khách mỗi ngày** (lưu trong `s.vis`, sang ngày mới về 0). Chế độ thử: nhanh gấp 10, vẫn tối đa 3.
 - Lý do giới hạn: quà thể lực kéo dài buổi tập, buổi tập dài lại có thêm khách. Khi chơi thật vòng này yếu (trung bình 0,8–2,6 khách/ngày, ngày tập dài thêm 4–12%), nhưng khách đến dày (chế độ thử) thì ngày gần như không bao giờ hết: thể lực 1.000 thì trung bình 82 phút/ngày, khoảng 540 khách. Giới hạn 3 khách chặn vòng này mà gần như không đổi gì khi chơi thật. Giảm quà thể lực xuống 15% không đủ (chế độ thử vẫn dài gấp đôi).
@@ -227,7 +230,7 @@ Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ
 
 ## Rep hoàn hảo
 
-Cho cú bấm một chút kỹ năng (giống nạp đạn chủ động của Gears of War, thanh lực đánh golf). Hằng số `REP` trong `index.html`.
+Mở từ hạng 2, cho cú bấm một chút kỹ năng (giống nạp đạn chủ động của Gears of War, thanh lực đánh golf). Hằng số `REP` trong `index.html`.
 
 - Sau khoảng 30 cú bấm (ngẫu nhiên 25–35), **báo trước 2 giây**: viền đích vàng nhấp nháy kèm chữ "Sắp có Rep hoàn hảo, chuẩn bị!" (vẫn bấm bình thường, không chấm điểm). Sau đó một vòng trắng co dần quanh nhân vật trong 1,1 giây; viền đứt nét là đích. Vòng chuyển vàng trong khoảng 50–70% thời gian (±110 ms quanh lúc chạm đích).
 - **Cú bấm ngay sau khi vòng hiện** được chấm: rơi vào lúc vàng là PERFECT, cú đó x5; PERFECT liên tiếp x6, x7… tối đa x10. Sớm hay trễ là hụt, mất chuỗi. Không bấm thì vòng tự biến mất, cũng mất chuỗi.
@@ -238,7 +241,7 @@ Cho cú bấm một chút kỹ năng (giống nạp đạn chủ động của G
 
 ## Sự kiện văn phòng
 
-Màn văn phòng trước đây chỉ có câu nói và nút. Giờ mỗi ngày (từ ngày 2) có một tình huống với hai lựa chọn, như Reigns: chữ trong khung vàng, hai nút ghi rõ tác dụng. Danh sách `EV` trong `index.html`.
+Mở từ hạng 3. Mỗi ngày từ ngày 2 có một tình huống với hai lựa chọn: chữ trong khung vàng, hai nút ghi rõ tác dụng. Danh sách `EV` trong `index.html`.
 
 - Chọn sự kiện lúc sang ngày, ngẫu nhiên, không lặp lại sự kiện hôm qua; lưu ở `s.ev` (tải lại trang không đổi được). Không chọn mà đi tập hay về nhà thì bỏ qua sự kiện đó.
 - Tác dụng: cân nặng, mệt mỏi, thể lực (theo % thể lực tối đa) cộng ngay; calo = số giây thu nhập như phần thưởng nhiệm vụ; "hôm nay" (calo hoặc sức bấm) kéo dài tới khi đi ngủ, lưu ở `s.buff`; Sao.
@@ -263,10 +266,11 @@ Tác dụng nhỏ so với bữa tối và nghỉ ngơi, nên sim chưa mô ph�
 
 ## Hướng dẫn
 
-- **Nút ❓** trên cùng mở toàn bộ hướng dẫn, 13 mục: một ngày, bấm hay để calo tự chạy, hết thể lực, khách ghé phòng tập, rep hoàn hảo, sự kiện văn phòng, buổi tối ở nhà, bữa tối, mệt mỏi, cân nặng, thi đấu, lên đời (kèm kỹ năng Sao), thử thách. Mục chưa mở hiện "🔒 Mở khi đạt hạng N" thay cho nội dung.
-- **Gợi ý lần đầu**: mỗi mục tự hiện một lần khi người chơi gặp nó. Ván mới không có khung nào chặn: chỉ có bàn tay 👆 chỉ vào nhân vật cho tới cú bấm thứ 5. Lần hết thể lực đầu tiên (chỗ nghỉ tự nhiên) hiện cùng lúc hết thể lực, bấm hay để calo tự chạy, một ngày. Sau đó: mở game ở văn phòng (một ngày), vào phòng tập, về nhà (nhà, bữa tối, mệt mỏi, cân nặng, mục nào đã mở thì hiện), lần đầu mở tab Thi đấu, tab Lên đời (thêm mục thử thách khi đã đạt hạng 6), lần đầu bấm vào khách, lần đầu gặp sự kiện văn phòng. Rep hoàn hảo không bật khung hướng dẫn (đang bấm dở), chỉ có dòng chữ trên vòng. Đã hiện thì lưu vào `s.tips`.
-- Bản lưu có từ trước khi có hướng dẫn: coi như đã xem 4 mục cơ bản, chỉ còn gợi ý các tính năng.
-- Mục đích chính là nói rõ các **đánh đổi**: bấm (tốn thể lực) và calo/giây; ăn vặt (tập nhiều, tăng cân) và healthy; nghỉ lúc mỏi (thưởng) và nghỉ lúc sung sức (lười); 40 thể lực cho một trận đấu; lên đời mất gì, giữ gì.
+- Khung thoại của hướng dẫn dùng cùng kiểu bảng tên và hộp thoại dưới màn hình như lúc gặp đối thủ ở đấu trường; ảnh chó con Bắp đứng cạnh khung. Khi bắt đầu ván mới, màn chơi hiện nhẹ trước, rồi Bắp xuất hiện và mở đầu câu chuyện; chuyển động tôn trọng cài đặt giảm chuyển động.
+- Lần đầu mở ván mới, người chơi bắt đầu ở văn phòng. Bắp dẫn chuyện qua năm bước: giới thiệu game và hành trình, sau đó chỉ nút vào phòng tập, cách chạm để kiếm calo và dùng calo mua bài tập. Khi hoàn tất, nút "Đến phòng tập" được focus; các mẹo về tập và hồi thể lực xuất hiện đúng lúc. Chỉ nút "Tiếp tục"/"Đã hiểu" mới chuyển bước hoặc đóng ở bước cuối; bấm nền và Esc không bỏ qua hướng dẫn. Nút nhấp nhẹ để người chơi nhận ra cách tiếp tục.
+- Lần đầu đủ calo mua bài Tay ở phòng tập, nút mua Tay nháy nhẹ hai nhịp đúng một lần trong ván lưu; các nút bài tập khác không nháy. Cờ nhắc được lưu để không lặp lại sau khi tải trang.
+- **Gợi ý lần đầu** chỉ hiện khi gặp tính năng đã mở; mỗi câu chỉ hiện một lần và được lưu vào `s.tips`. Mẹo khác mở theo hạng và ngữ cảnh. Bấm ❓ để xem lại những mục đã mở.
+- Không giải thích con số hay chiến lược nâng cao trước khi cần; ưu tiên hành động kế tiếp. Cửa sổ chat đóng được bằng nút, nền hoặc phím Esc.
 
 ## Chống auto-click
 
@@ -282,20 +286,23 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi:
+Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi và giảm cân theo hạng:
 
 | Hạng | Không chủ động nghỉ (vẫn bắt buộc nghỉ ở 100) | Tự nghỉ khi Mỏi (mệt ≥40) |
 |---|---|---|
 | 2 | ngày 2, 2m20 | ngày 2, 2m20 |
 | 3 | ngày 3, 5m49 | ngày 3, 5m49 |
 | 4 | ngày 4, 9m16 | ngày 4, 9m16 |
-| 5 | ngày 12, 28m07 | ngày 14, 36m51 |
-| 6 | ngày 34, 1h17 | ngày 32, 1h37 |
+| 5 | ngày 9, 21m59 | ngày 10, 27m31 |
+| 6 | ngày 33, 1h17 | ngày 25, 1h16 |
+| 7 | ngày 53, 2h12 | ngày 42, 2h22 |
+| 8 | ngày 125, 5h47 | ngày 92, 5h49 |
+| 9 | — | ngày 362, 25h26 |
 
 Các ước tính cũ về tác động riêng của khách ghé và Rep hoàn hảo bên dưới được đo trước khi tăng mệt mỏi; cần chạy lại nếu cân bằng lại hai tính năng đó. Sim hiện giả định khách xoay vòng đúng tỉ lệ và người chơi bấm mọi khách, kể cả bánh.
 
 - Một ngày dài ít nhất 2 phút chơi ở mọi hạng.
-- Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 1 giờ (trước là 1,5 giờ, đoạn dễ bỏ cuộc nhất); hạng 6 sau khoảng 1,5 giờ.
+- Hạng 2 trong khoảng 2 phút, hạng 4 dưới 10 phút; hạng 5 → 6 khoảng 50 phút nếu nghỉ khi Mỏi; hạng 6 tổng khoảng 1h15.
 - Cú bấm chiếm 40–55% calo từ hạng 2 trở đi.
-- Người nghỉ hợp lý lên hạng sớm ngày hơn người không nghỉ.
+- Nghỉ khi Mỏi giúp lên hạng 6+ sớm hơn; ở hạng 5, nghỉ quá thường xuyên có thể chậm hơn không nghỉ.
 - Người tập đều không bị cân nặng chặn quá 1–3 ngày.

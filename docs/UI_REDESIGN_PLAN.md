@@ -44,11 +44,13 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 - Giữ hộp chặn cho quyết định có hậu quả; thông tin ngắn chuyển thành phản hồi tại chỗ hoặc toast không chặn nếu không làm mất thông tin.
 - Làm toast hiện có gọn như thông báo trong màn và đọc được bằng trình đọc màn hình; không đổi luồng vì kết quả nhẹ đã dùng toast, còn hộp xác nhận gắn với lựa chọn có hậu quả.
 
-### 5. HUD và hướng dẫn người mới — hoàn thành
+### 5. HUD và hướng dẫn người mới — cập nhật onboarding
 
 - Rà thanh hạng, calo, thể lực, mệt mỏi, cân nặng và nút hành động theo thứ tự ưu tiên; giảm cạnh tranh thị giác với nhân vật.
 - Giới hạn chiều rộng lời nhắc trong màn chơi; giữ nút HUD 44 px và gọn dòng mục tiêu trên điện thoại.
-- Kiểm tra tên hạng dài, mục tiêu và hướng dẫn cuộn được ở cả tiếng Việt/Anh, kể cả màn dọc.
+- Hạng 1 chỉ giữ thao tác cốt lõi; bữa tối/khách/Rep mở ở hạng 2, mệt mỏi/sự kiện ở hạng 3, đấu/nhiệm vụ ở hạng 4, bạn tập/thành tựu ở hạng 5, thử thách ở hạng 6.
+- Lần đầu dùng hộp thoại dưới màn hình cùng kiểu bảng tên như đấu trường, chó con dẫn chuyện; mỗi bước kể chuyện trực tiếp với người chơi và chờ bấm tiếp tục. Hướng dẫn tính năng xuất hiện đúng lúc, không liệt kê mục bị khoá.
+- Kiểm tra tên hạng dài, mục tiêu và chat ở cả tiếng Việt/Anh, kể cả màn dọc.
 
 ### 6. Chuyển cảnh và cảm giác thao tác — hoàn thành
 
@@ -56,10 +58,10 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 - Tôn trọng `prefers-reduced-motion`: bỏ chuyển động trang trí, giữ các tín hiệu đổi màu và thời gian game độc lập với hoạt ảnh.
 - Không đổi thời điểm, độ mạnh hoặc phần thưởng của hành động trong game.
 
-### 7. Kiểm tra và hoàn thiện — cục bộ hoàn thành; CrazyGames chờ upload
+### 7. Kiểm tra và hoàn thiện — onboarding cục bộ hoàn thành; CrazyGames chờ upload
 
-- Kiểm tra HUD và hướng dẫn tại 1024×768, 768×1024 và 375×812 bằng tiếng Việt/Anh, gồm tên hạng dài và hướng dẫn nhiều mục.
-- Không để chữ/nút bị cắt, chồng lấp hoặc tràn ngang; vùng chạm chính tối thiểu khoảng 44 px.
+- Kiểm tra chat và HUD onboarding tại 1024×768, 768×1024 và 375×812 bằng tiếng Việt/Anh; xác nhận không tràn ngang, các bước chat ngắn và điều hướng bàn phím hoạt động.
+- Nút đóng chat đạt 44×44 px; nút tiếp tục cao ít nhất 44 px.
 - Kiểm tra reduced motion, toast không chặn, huỷ xác nhận, focus bàn phím và trạng thái khóa trong trình duyệt cục bộ.
 - QA trên cổng game và quay lại video theo [CRAZYGAMES.md](./CRAZYGAMES.md) sau khi có tài khoản và bản upload.
 
@@ -71,4 +73,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Chủ dự án đã duyệt mẫu sổ tập và bảng màu giấy kem/sage; các giai đoạn 1–6 hoàn thành mà không đổi luật chơi hay tiến trình. Toast gọn và có ngữ nghĩa trạng thái; HUD điện thoại giữ mục tiêu trên một dòng, hướng dẫn cuộn trong khung, chuyển động tôn trọng `prefers-reduced-motion`. QA trình duyệt cô lập ở 1024×768, 768×1024 và 375×812, cả hai ngôn ngữ, xác nhận không tràn ngang và nút HUD 44 px. **QA cục bộ hoàn thành; chỉ còn QA CrazyGames và video sau khi chủ dự án upload bản game.**
+Chủ dự án đã duyệt mẫu sổ tập và bảng màu giấy kem/sage; các giai đoạn 1–6 hoàn thành mà không đổi luật chơi hay tiến trình. Toast gọn và có ngữ nghĩa trạng thái; HUD điện thoại giữ mục tiêu trên một dòng, hướng dẫn cuộn trong khung, chuyển động tôn trọng `prefers-reduced-motion`. QA hộp thoại kiểu đấu trường, lời dẫn và mở khóa cục bộ tại 1024×768, 768×1024 và 375×812, tiếng Việt/Anh, gồm các mốc hạng 1–6, focus bàn phím và nút chat 44 px. **Chỉ còn QA CrazyGames và video sau khi chủ dự án upload bản game.**
