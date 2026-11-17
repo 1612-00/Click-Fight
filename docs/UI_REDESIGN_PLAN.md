@@ -59,4 +59,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Đã chốt hướng “sổ tập / bảng thiết bị phòng gym”. Bước tiếp theo là dựng và xem mẫu phòng tập; chưa có chi tiết màu sắc hay bố cục nào được xem là chốt cuối.
+Đã chốt hướng “sổ tập / bảng thiết bị phòng gym”. Mẫu đầu tiên ở tab Bài tập đã dựng: tiêu đề song ngữ, mặt giấy ấm, hàng bài phẳng và nhấn riêng bài kế tiếp. Đã kiểm tra ở 1024×768 và 375×812, đổi được ngôn ngữ và chế độ mua, không tràn ngang; danh sách trên điện thoại cuộn bên trong bảng. Mẫu vẫn chờ chủ dự án duyệt trước khi áp dụng ngôn ngữ thị giác này sang màn khác.

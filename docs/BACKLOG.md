@@ -40,4 +40,4 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Nhân vật thứ 3 và 4 (chú bảo vệ, thực tập sinh): đã quyết định bỏ qua, ảnh chưa có.
 - Thêm cách giảm cân hoặc nội dung cuối game sau hạng 6 (đã có kỹ năng Sao và 4 thử thách; xem người chơi thật có làm hết không).
 - Sim chưa mô phỏng kỹ năng Sao và nhiều đời liên tiếp; độ dài thử thách mới đo bằng cách nhân hệ số x4,5 cho đời 2.
-- Nâng cấp giao diện theo hướng sổ tập/bảng thiết bị phòng gym; kế hoạch ở [UI_REDESIGN_PLAN.md](./UI_REDESIGN_PLAN.md).
+- Duyệt mẫu giao diện sổ tập ở tab Bài tập rồi tiếp tục nâng cấp các màn khác; kế hoạch và trạng thái ở [UI_REDESIGN_PLAN.md](./UI_REDESIGN_PLAN.md).

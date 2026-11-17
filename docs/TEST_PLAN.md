@@ -293,7 +293,7 @@ Bảng đối chiếu cho H6:
 | N1 | Bấm ⚙️ → "English". | Toàn bộ chữ đổi sang tiếng Anh: tên hạng, tab, bài tập, đối thủ (Tom from Accounting…), món ăn, nhiệm vụ, thành tựu, câu nói, màn chờ. Không còn chữ tiếng Việt sót lại. Nút "English" sáng, tiêu đề khung thành "Settings". Số liệu không đổi. | |
 | N2 | Chọn lại "Tiếng Việt", tải lại trang. | Ngôn ngữ được nhớ sau khi tải lại. | |
 | N3 | Bấm nút nhân vật (mặt người). | Đổi giữa nhân vật nam và nữ ở đúng hạng hiện tại; lựa chọn được nhớ sau khi tải lại. | |
-| N4 | Cửa sổ máy tính rộng hơn 900px. | Nhân vật bên trái, bảng bên phải rộng khoảng 430px. Màu chủ đạo xanh dương, nút mua vàng cam, nút hành động xanh lá. Không có thanh cuộn ngang. | |
+| N4 | Cửa sổ máy tính rộng hơn 900px. | Nhân vật bên trái, bảng bên phải rộng khoảng 430px. Nền và HUD xanh đậm; bảng bài tập dùng nền giấy ấm, nút mua màu hổ phách, chỉ báo tích cực màu xanh lá. Không có thanh cuộn ngang. | |
 | N5 | Tablet dọc 768×1024 và điện thoại 375×812, lần lượt ở văn phòng, phòng tập, nhà, màn đấu. | Bố cục xếp chồng: nhân vật ở trên, bảng ở dưới rộng hết màn hình. Không có chữ bị cắt, nút nào cũng bấm được, không cuộn ngang. Ở nhà thấy đủ 3 món ăn và nút "Đi ngủ"; trên điện thoại màn nhà ẩn số calo lớn và nhân vật nhỏ (khoảng 80px). Màn đấu trên điện thoại ẩn số calo và các ô chỉ số, thấy đủ cả hai nhân vật. Bảng thông số ở văn phòng mỗi ô một dòng. | |
 | N6 | Nhìn mọi chỗ có icon: calo, thể lực, mệt mỏi, cân nặng, ngày, sao, cúp, các tab, nhiệm vụ, giá mua. | Đều là icon ảnh cùng phong cách, không có ô vuông trống hay ảnh vỡ. | |
 | N7 | Khi số calo lớn (nghìn, triệu, tỷ). | Tiếng Việt: "1,5 N", "4,2 Tr", "1,2 T". Tiếng Anh: "1.5K", "4.2M", "1.2B". Số không tràn khỏi nút hay thẻ. | |
@@ -302,8 +302,9 @@ Bảng đối chiếu cho H6:
 | N10 | Lần đầu về nhà sau khi đạt hạng 3 (chưa từng xem). | Một khung hiện cùng lúc ba mục: bữa tối, mệt mỏi, cân nặng. Mục cân nặng ghi đúng ngưỡng 84,5 / 82 / 78 kg. | |
 | N11 | Bấm nút ❓ ở hạng 1, rồi ở hạng 3, cả hai ngôn ngữ. | Hiện đủ 9 mục. Ở hạng 1: bữa tối ghi "🔒 Mở khi đạt hạng 2", mệt mỏi và cân nặng ghi "hạng 3". Khung không cao quá màn hình (thử cả 1440×900, 1366×650, 375×812), nội dung cuộn bên trong, nút "Đã hiểu" luôn thấy. Máy tính 2 cột, điện thoại 1 cột. Đóng được bằng "Đã hiểu", nút ✕, bấm ra ngoài khung, phím Esc; bấm vào trong khung thì không đóng. Bấm ❓ không làm đổi bản lưu. | |
 | N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 3 nút tròn (❓, nhân vật, ⚙️). Khung cài đặt vừa màn hình, không cuộn ngang. Tên hạng dài xuống dòng, không bị cắt. | |
-| N14 | Điện thoại 375×812, phòng tập, xem tab Bài tập, Đối thủ, Thú cưng, Thành tựu, Lên đời. | Thẻ gọn (ô ảnh 44 px, chữ nhỏ hơn bản máy tính), thấy khoảng 4 thẻ trong bảng, chữ vẫn đọc được, nút mua vẫn dễ bấm. Dòng mục tiêu (🎯 kg) nằm cùng dòng với chỉ số khi đủ chỗ. Máy tính không đổi. | |
+| N14 | Điện thoại 375×812, phòng tập, xem tab Bài tập, Đối thủ, Thú cưng, Thành tựu, Lên đời. | Thẻ gọn (ô ảnh 40–44 px, chữ nhỏ hơn bản máy tính), thấy ít nhất 2 thẻ đầy đủ; danh sách cuộn được, chữ vẫn đọc được, nút mua vẫn dễ bấm. Dòng mục tiêu (🎯 kg) nằm cùng dòng với chỉ số khi đủ chỗ. Máy tính không đổi. | |
 | N13 | Ván mới (cửa sổ ẩn danh), kể cả trên máy cài tiếng Việt. | Game hiện **tiếng Anh**, trong ⚙️ nút "English" sáng. Chọn "Tiếng Việt" rồi tải lại: vẫn tiếng Việt. Bản lưu có từ trước vẫn giữ ngôn ngữ đang dùng. | |
+| N15 | 1024×768 và điện thoại 375×812, mở tab Bài tập; đổi qua lại tiếng Việt/Anh và bấm x10, rồi x1. | Tiêu đề sổ tập hiện đúng bản dịch ("Sổ tập" / "Training log"), bài kế tiếp được nhấn rõ, các chế độ mua vẫn chọn được và x1 được khôi phục. Không tràn ngang; trên điện thoại danh sách cuộn riêng trong bảng. | |
 ## O. Vắng mặt
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
