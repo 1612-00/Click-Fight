@@ -31,25 +31,37 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 - Giữ hành động bấm nhân vật là trọng tâm; giảm các khung chỉ số cạnh tranh với nhân vật.
 - Giữ nguyên luật, số liệu và cách mua trong đợt giao diện đầu tiên.
 
-### 3. Rà nút, thông báo và popup
+### 3. Phân cấp nút và trạng thái tương tác — mốc tiếp theo
 
-- Kiểm kê từng loại thông báo, hộp xác nhận và popup đang có.
-- Giữ hộp xác nhận cho thao tác phá hủy hoặc có hậu quả đáng kể; chuyển thông tin nhẹ sang nhãn trong màn hoặc thông báo ngắn không chặn chơi khi phù hợp.
-- Thiết kế rõ trạng thái thường, hover/focus, nhấn, bị khóa và hành động vừa hoàn thành.
-- Không đổi ý nghĩa hoặc bỏ thao tác hiện có nếu chưa duyệt riêng.
+- Kiểm kê nút hành động ở HUD, văn phòng/nhà, các bảng, cài đặt và đấu trường; phân nhóm: hành động chính, phụ, mua, điều hướng và nguy hiểm.
+- Chốt trạng thái thường, đang chọn, hover, nhấn, focus bàn phím, bị khóa và vừa hoàn tất; không dùng màu làm dấu hiệu duy nhất.
+- Rà hiệu ứng nhấn/rung/pulse để hành động chính dễ nhận ra nhưng không nhấp nháy liên tục hoặc cạnh tranh với nhân vật.
+- Giữ nguyên sự kiện click, giá, điều kiện khóa và tiến trình; kiểm tra chuột, cảm ứng và bàn phím.
 
-### 4. Mở rộng hệ thống
+### 4. Phân loại thông báo và hộp thoại
 
-- Áp dụng ngôn ngữ thị giác đã duyệt cho văn phòng, nhà, tab thi đấu, thành tựu, nhiệm vụ, lên đời và cài đặt.
-- Bảo đảm popup hướng dẫn và đấu trường vẫn có sắc thái riêng nhưng cùng hệ thống chữ, màu và điều khiển.
-- Chỉ bổ sung asset khi mẫu CSS không giải quyết được nhu cầu; cập nhật prompt, nguồn gốc và bản build asset theo quy ước hiện tại.
+- Lập danh sách trạng thái hiện có: mua thành công/thiếu calo, lên hạng, hoàn thành nhiệm vụ, khách ghé, vắng mặt, sự kiện văn phòng, xác nhận và kết quả đấu.
+- Giữ hộp chặn cho quyết định có hậu quả; thông tin ngắn chuyển thành phản hồi tại chỗ hoặc toast không chặn nếu không làm mất thông tin.
+- Dựng một mẫu phản hồi không chặn trước; chưa đổi luồng hay bỏ popup cho đến khi chủ dự án duyệt mẫu.
 
-### 5. Kiểm tra và hoàn thiện
+### 5. HUD và hướng dẫn người mới
+
+- Rà thanh hạng, calo, thể lực, mệt mỏi, cân nặng và nút hành động theo thứ tự ưu tiên; giảm cạnh tranh thị giác với nhân vật.
+- Tinh gọn lời nhắc lần đầu, dấu chấm tab và hướng dẫn; bảo đảm không che nhân vật/nút, không lặp lại khi đã xem.
+- Kiểm tra tên hạng dài và số lớn ở cả hai ngôn ngữ, nhất là màn điện thoại.
+
+### 6. Chuyển cảnh và cảm giác thao tác
+
+- Rà phản hồi khi bấm nhân vật, mua bài, mở tab, lên hạng, gọi bạn tập và kết thúc trận; chỉ thêm/chỉnh chuyển động nhẹ khi giúp người chơi hiểu kết quả.
+- Tránh hiệu ứng trang trí lặp vô hạn; kiểm tra hiệu năng điện thoại và tôn trọng `prefers-reduced-motion` nếu thêm chuyển động mới.
+- Không đổi thời điểm, độ mạnh hoặc phần thưởng của hành động trong game.
+
+### 7. Kiểm tra và hoàn thiện
 
 - Kiểm tra tại 1024×768, 768×1024 và 375×812; xem cả tiếng Việt lẫn tiếng Anh, màn ít và nhiều nội dung.
 - Không để chữ/nút bị cắt, chồng lấp hoặc tràn ngang; vùng chạm chính tối thiểu khoảng 44 px.
 - Kiểm tra tương phản, focus bằng bàn phím, trạng thái khóa và phương án dự phòng khi thiếu ảnh.
-- Chạy các bài test UI liên quan trong [TEST_PLAN.md](./TEST_PLAN.md); khi đổi giao diện, cập nhật mô tả và quay lại video theo [CRAZYGAMES.md](./CRAZYGAMES.md).
+- Chạy các bài test UI liên quan trong [TEST_PLAN.md](./TEST_PLAN.md); kiểm tra bản upload bằng QA CrazyGames và quay lại video theo [CRAZYGAMES.md](./CRAZYGAMES.md).
 
 ## Phạm vi không đổi
 
@@ -59,4 +71,4 @@ Giao diện cần bổ trợ phong cách anime hiện có trong [PROMPTS.md](../
 
 ## Trạng thái
 
-Chủ dự án đã duyệt mẫu đầu tiên ở tab Bài tập. Đã áp dụng ngôn ngữ thị giác sổ tập cho các bảng thi đấu, bạn tập, nhiệm vụ, thành tích và lên đời; đồng thời làm lại bề mặt lịch/thống kê văn phòng, bữa tối, hộp thoại và cài đặt. Đấu trường vẫn giữ nền tối và nhịp điện ảnh, chỉ đồng bộ cách trình bày thoại/nút. Đã kiểm tra tại 1024×768 và 375×812, cả hai ngôn ngữ, trạng thái cuộn và focus bàn phím; không tràn ngang. Còn cần kiểm tra trên QA CrazyGames và quay lại video theo giai đoạn 5.
+Chủ dự án đã duyệt mẫu sổ tập và đã hoàn thành đợt áp dụng nền giấy cho các tab, văn phòng/nhà, cài đặt và hướng dẫn; đấu trường vẫn giữ nền tối. Đã kiểm tra cục bộ tại 1024×768 và 375×812, cả hai ngôn ngữ, trạng thái cuộn và focus bàn phím; không tràn ngang. **Việc tiếp theo là giai đoạn 3:** rà phân cấp và trạng thái tương tác của nút, chưa đổi logic hoặc luồng chơi. Sau đó mới lần lượt xử lý thông báo, HUD/hướng dẫn, chuyển động và QA CrazyGames.
