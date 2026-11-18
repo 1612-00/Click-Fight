@@ -12,7 +12,7 @@
 html,body{height:100%}
 body{margin:0;font-family:"Baloo 2","Nunito","Segoe UI",system-ui,sans-serif;font-weight:600;background:var(--bg);color:var(--txt);display:grid;place-items:center;user-select:none;-webkit-user-select:none;overflow:hidden}
 button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.frame{position:relative;width:100%;height:100dvh;display:grid;grid-template-columns:1fr minmax(384px,456px);overflow:hidden;background:linear-gradient(180deg,#eee8dc,#d9d1c1);animation:gameEnter .45s ease-out both}
+.frame{position:relative;width:100%;height:100%;height:100dvh;display:grid;grid-template-columns:1fr minmax(384px,456px);overflow:hidden;background:linear-gradient(180deg,#eee8dc,#d9d1c1);animation:gameEnter .45s ease-out both}
 @keyframes gameEnter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.frame{grid-template-columns:1fr;grid-template-rows:54% 46%;}}
 .frame.homeNoPanel{grid-template-columns:1fr}
@@ -64,6 +64,7 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #odayBar{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%}
 #oday{font-size:.9rem;font-weight:850;color:#765a31;letter-spacing:.04em;text-transform:uppercase;text-align:center}
 #wk{display:flex;gap:3px;align-items:center;justify-content:center;flex-wrap:wrap}
+#wk[hidden]{display:none}
 #wk i{font-style:normal;width:23px;height:23px;border-radius:6px;display:grid;place-items:center;background:#eae3d5;border:1px solid #c9bea9;font-size:.68rem;font-weight:800;color:#526058;line-height:1}
 #wk i.now{background:#e7be70;border-color:#b48536;color:#2b2d24;transform:scale(1.08);box-shadow:0 0 8px rgba(201,145,62,0.45)}
 #wk i.dot-train{background:#d5e8d3;border-color:#8dbb86;color:#205224}
@@ -120,7 +121,6 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .hud,.money,#vit,#office,#homeBox,#nav,.tip{flex:none}
 @media(max-width:900px){
   .frame.home{grid-template-rows:68% 32%}.home #bg{bottom:32%}
-  .frame.gym{grid-template-rows:60% 40%}.gym #bg{bottom:40%}
   .frame.homeNoPanel{grid-template-rows:1fr}.frame.homeNoPanel #bg{bottom:0}
   #vit{font-size:.75rem;gap:4px;margin-top:6px}.pill{padding:2px 8px}.pill .bar{width:48px}
   .meal{padding:6px 4px;font-size:.72rem}.meal span{font-size:1.5rem}.meal img{width:36px;height:36px}
@@ -656,6 +656,93 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 #vEx button:focus-visible,.view button:focus-visible,#guide button:focus-visible,#setBox button:focus-visible,#modal button:focus-visible{outline-color:#26343a;outline-offset:2px}
 #toast{width:min(90%,460px);padding:10px 16px;border:1px solid var(--gold);border-left-width:4px;border-radius:12px;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;text-shadow:none;box-shadow:0 8px 24px #27302633;background:#f5f0e6f9}
 #toast small{display:block;margin-top:6px;font-size:.88rem;font-weight:600;color:#505e58;line-height:1.4}
+/* ---------- sân khấu và sổ tập trong khung mobile ---------- */
+@media(max-width:900px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .frame{height:min(100%,100dvh)}
+  .frame.gym{--workout-height:clamp(198px,48%,420px);grid-template-rows:minmax(0,1fr) var(--workout-height)}
+  .gym #bg{bottom:var(--workout-height)}
+  :is(.office,.gym) .stage{--stage-gutter:clamp(8px,2.5vw,16px)}
+  :is(.office,.gym) .hud{padding:calc(6px + var(--safe-area-inset-top,0px)) max(var(--stage-gutter),var(--safe-area-inset-right,0px)) 0 max(var(--stage-gutter),var(--safe-area-inset-left,0px));gap:5px}
+  :is(.office,.gym) .hud .round{width:44px;padding:0;line-height:1}
+  :is(.office,.gym) .badge{width:36px;height:36px;border-radius:9px;font-size:1.1rem}
+  :is(.office,.gym) .rank b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:clamp(.76rem,3.1vw,.92rem)}
+  :is(.office,.gym) .rank .bar{height:5px;margin-top:3px}
+
+  /* Ảnh và SVG dùng cùng một khung tuyệt đối. Kích thước ảnh không được đẩy cột grid sang bên. */
+  .hero{-webkit-appearance:none;appearance:none;grid-template:minmax(0,1fr) / minmax(0,1fr)}
+  #art{position:absolute;inset:4px 0;margin:auto;width:min(92%,460px);height:auto;max-height:460px;display:block;pointer-events:none}
+  #art>img,#art>svg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center}
+  #art.pic::before{position:absolute;bottom:1px;left:50%;width:min(23%,90px);height:4%;transform:translateX(-50%)}
+  .hero.hint::after{font-size:clamp(1.8rem,7vw,2.6rem);translate:36px 20%}
+  .gym #art{max-height:360px}
+
+  .office #office{width:min(calc(100% - 2 * var(--stage-gutter)),520px);max-height:55%;gap:5px;margin-top:6px;align-items:stretch;overflow:auto;overscroll-behavior-y:contain}
+  .office #office>*{flex-shrink:0}
+  .office .desk-top-row{gap:5px}
+  .office #deskCal{justify-content:center;padding:6px 5px;border-radius:10px}
+  .office :is(.spiral-rings,.tape-strip,.badge-slot,.badge-header){display:none}
+  .office #oday{font-size:clamp(.72rem,2.9vw,.86rem);letter-spacing:.02em}
+  .office #wkTxt:empty{display:none}
+  .office #deskClock{width:60px;border-radius:10px}
+  .office .clock-digits{font-size:1rem}
+  .office .clock-sub{margin-top:2px;font-size:.53rem}
+  .office #postIt{padding:6px 8px;border-radius:6px;transform:none}
+  .office #postIt:not(.is-ev):not(.is-over) #postItHeader{display:none}
+  .office #postItHeader{font-size:.63rem;margin-bottom:2px}
+  .office #say{font-size:clamp(.78rem,3.2vw,.95rem);line-height:1.25;padding:0}
+  .office #evBox{margin:6px 0 0;gap:4px}
+  .office #evBox .big{min-width:0;min-height:44px;font-size:.76rem;padding:6px}
+  .office #idBadge{padding:4px;border-radius:9px}
+  .office #ostats{grid-template-columns:repeat(auto-fit,minmax(66px,1fr));gap:4px}
+  .office #ostats .stat{min-width:0;padding:3px 2px;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+  .office #ostats .stat span{font-size:clamp(.62rem,2.45vw,.74rem)}
+  .office #ostats .stat b{font-size:clamp(.68rem,2.7vw,.86rem)}
+  .office #nav{width:min(calc(100% - 2 * var(--stage-gutter)),520px);margin-bottom:max(8px,var(--safe-area-inset-bottom,0px));gap:6px}
+  .office #nav #go,.office #nav #rest{min-width:0;padding:6px 5px;font-size:clamp(.76rem,3.1vw,1rem)}
+
+  .gym #nav{display:none}
+  .gym .money{display:flex;align-items:center;justify-content:center;gap:6px;margin:5px var(--stage-gutter) 0}
+  .gym .money .n{flex:none;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:clamp(1.35rem,5.6vw,2.25rem)}
+  .gym .money .r{min-width:0;margin:0;padding:3px 5px;font-size:clamp(.69rem,2.7vw,.85rem);line-height:1.15}
+  .gym #vit{align-items:center;gap:4px;margin-top:4px;padding:0 var(--stage-gutter);font-size:clamp(.7rem,2.65vw,.8rem)}
+  .gym #vit .pill{padding:3px 7px;gap:4px;min-height:24px}
+  .gym #vit .bar{width:clamp(22px,8vw,48px);height:6px}
+  .gym #vit #chPill{max-width:100%;white-space:normal}
+  .gym #vit #boost,.gym #vit #goHome{min-height:44px;padding:4px 8px;font-size:inherit}
+  .gym .tip,.gym .tip.warn{margin:3px 0 5px;padding:2px 9px;font-size:clamp(.69rem,2.65vw,.84rem);line-height:1.22}
+  .gym .tip.warn{animation:none;border-width:1px}
+  .gym .panel{margin:0 max(6px,var(--safe-area-inset-right,0px)) max(6px,var(--safe-area-inset-bottom,0px)) max(6px,var(--safe-area-inset-left,0px));border-radius:13px}
+  .gym .tabs{padding:3px 5px 0;grid-auto-columns:minmax(0,1fr)}
+  .gym .tabs button{font-size:clamp(.59rem,2.45vw,.78rem);line-height:1.12;overflow-wrap:anywhere}
+  .gym #vEx .workout-head{display:none}
+  .gym #vEx .tools{padding:4px 7px;gap:5px;font-size:clamp(.69rem,2.7vw,.86rem)}
+  .gym #vEx .chip{padding:0 9px}
+  .gym #vEx .list{padding:3px 6px;grid-template-columns:minmax(0,1fr);overscroll-behavior-y:contain}
+  .gym #vEx .card{grid-template-columns:clamp(34px,10vw,46px) minmax(0,1fr) auto;gap:6px;padding-block:4px}
+  .gym #vEx .tile{width:100%;height:auto;aspect-ratio:1}
+  .gym #vEx .buy{min-height:44px}
+  .gym #vEx .card :is(em,.ms){margin-right:4px}
+}
+@media(max-width:480px){
+  .gym #vit #chPill{max-width:35%}
+  .gym #chGoal{display:none}
+  .gym #vit #boost{max-width:32%;white-space:normal;line-height:1.12}
+  .gym #vEx .card .d:not(:empty){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden}
+}
+@media(max-width:480px) and (max-height:560px){
+  .frame.gym{--workout-height:clamp(202px,43%,240px)}
+}
+@media(min-width:600px) and (max-width:900px) and (max-height:480px) and (orientation:landscape){
+  .frame.gym{grid-template: minmax(0,1fr) / minmax(0,1fr) minmax(250px,43%)}
+  .gym #bg{bottom:0}
+  .gym .panel{margin-top:max(6px,var(--safe-area-inset-top,0px))}
+  .frame.office .stage{display:grid;grid-template: 'hud hud' auto 'hero desk' minmax(0,1fr) 'hero nav' auto / minmax(0,1fr) minmax(270px,47%);gap:6px}
+  .office .hud{grid-area:hud}
+  .office #hero{grid-area:hero;min-width:0;min-height:0}
+  .office #office{grid-area:desk;width:calc(100% - 2 * var(--stage-gutter));max-height:100%;margin:0;justify-self:center}
+  .office #nav{grid-area:nav;justify-self:center}
+}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;transition-delay:0ms!important}
   #frame{animation:none!important}
@@ -690,7 +777,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
       <div class="pill"><img class="ico" src="assets/ui/ui-sta.webp" alt="⚡" draggable="false"> <b id="staTxt"></b><div class="bar"><i id="staBar"></i></div></div>
       <div class="pill"><img class="ico" src="assets/ui/ui-fat.webp" alt="😮‍💨" draggable="false"> <b id="fatTxt"></b></div>
       <div class="pill"><img class="ico" src="assets/ui/ui-kg.webp" alt="⚖️" draggable="false"> <b id="kgTxt"></b></div>
-      <div class="pill" id="chPill" hidden></div>
+      <div class="pill" id="chPill" hidden><span id="chName"></span><span id="chGoal"></span></div>
       <div class="pill" id="dayPill"><img class="ico" src="assets/ui/ui-day.webp" alt="📅" draggable="false"> <b id="dayTxt"></b></div>
       <button id="boost" hidden></button>
       <button class="pill" id="goHome"></button>
@@ -1272,8 +1359,12 @@ const pics = CHARS.map(() => []);
 function loadCharacter(char, rank) {
   if (pics[char][rank]) return pics[char][rank];
   const im = pics[char][rank] = new Image();
+  im.alt = ''; im.draggable = false;
   const redraw = () => { if (s.char === char && rank <= shown) drawCharacter(); };
-  im.onload = () => { im.ok = true; redraw(); };
+  im.onload = async () => {
+    try { await im.decode?.(); } catch {}   // trình duyệt vẫn có thể vẽ ảnh đã tải dù decode() không khả dụng
+    im.ok = true; redraw();
+  };
   im.onerror = () => { im.failed = true; redraw(); };
   im.src = `assets/char/${CHARS[char][0]}rank${rank + 1}.webp`;
   return im;
@@ -1283,13 +1374,20 @@ function drawCharacter() {
   while (r >= 0 && loadCharacter(s.char, r).failed) r--;
   if (RANKS[shown + 1]) loadCharacter(s.char, shown + 1);
   const im = pics[s.char].slice(0, shown + 1).findLast(p => p?.ok);
+  let current = $('pic');
   $('who').textContent = CHARS[s.char][1];
-  $('pic').hidden = !im; $('guy').style.display = im ? 'none' : '';
   if (im) {
-    if ($('pic').src !== im.src) $('pic').src = im.src;
-    if (arena) { $('aMe').src = im.src; $('aMe').hidden = false; }
-  } else $('guy').innerHTML = guy(shown / (RANKS.length - 1));
-  $('art').classList.toggle('pic', !!im);
+    if (im !== current) {   // dùng chính ảnh đã tải để không hiện khung trống giữa hai nhân vật
+      im.id = 'pic'; im.hidden = false;
+      current.replaceWith(im); current = im;
+      if (arena) { $('aMe').src = im.src; $('aMe').hidden = false; }
+    }
+  } else if (r < 0 || current.hidden) {
+    current.hidden = true;   // hết ảnh dự phòng của nhân vật đã chọn thì dùng SVG
+    $('guy').innerHTML = guy(shown / (RANKS.length - 1));
+  }
+  $('guy').style.display = current.hidden ? '' : 'none';
+  $('art').classList.toggle('pic', !current.hidden);
 }
 function drawArt() {
   drawCharacter();
@@ -1468,7 +1566,8 @@ function drawHud(full, cps, tap) {
     $('chPill').hidden = !s.ch;
     if (s.ch) {
       const c = CH.find(x => x.k === s.ch);
-      put($('chPill'), `${c.i} ${tr('ch')[c.k][0]} · ${tr('chGoal').replace('{n}', c.goal + 1)}`);
+      put($('chName'), `${c.i} ${tr('ch')[c.k][0]}`);
+      put($('chGoal'), '· ' + tr('chGoal').replace('{n}', c.goal + 1));
     }
     if (s.scene === 'home') for (const b of $('meals').children) {
       b.classList.toggle('on', s.next === MEALS[b.dataset.m].k); b.disabled = !!s.next;

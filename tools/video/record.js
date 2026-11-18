@@ -1,61 +1,171 @@
-// Quay gameplay cho video xem trước CrazyGames. Chạy bằng Playwright MCP: browser_run_code_unsafe với filename = tools/video/record.js
-// (cần server xem thử `game` đang chạy, và ffmpeg của Playwright: xem tools/video/build.py). Sau đó: python tools/video/build.py
-// Mỗi cảnh một ngữ cảnh trình duyệt mới, bộ nhớ trống: không đụng bản lưu thật. Mốc bắt đầu/kết thúc (ms) ghi vào tên file.
-async (page) => {
-  const RAW = 'D:/Game/gym-god/tools/video/raw';   // build.py đọc ở đây
-  const URL = 'http://127.0.0.1:8766/';
-  const browser = page.context().browser();
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-  // trạng thái dựng sẵn cho từng cảnh: tiếng Anh, đã xem hết hướng dẫn, đủ thành tựu (để không có thông báo thành tựu chen vào)
-  const SET = `window.__set = o => {
-    const lv = Object.assign(fresh().lv, o.lv || {}); delete o.lv;
-    s = Object.assign(fresh(), {lang: 'en', mute: 2, clicks: 500, tips: Object.fromEntries(GUIDE.map(g => [g[0], 1])), ach: Object.fromEntries(ACH.map(a => [a.id, 1]))}, o);
-    s.lv = lv; s.cap = s.sta = staMax(); shown = -1; syncRank(true); buildTexts(); drawArt(); go(s.scene); s.cap = s.sta = staMax(); ui();
-  }`;
-  const box = async (p, sel) => { const b = await p.locator(sel).first().boundingBox(); return {x: b.x + b.width / 2, y: b.y + b.height / 2, w: b.width, h: b.height}; };
-  async function taps(p, n, gap = 125) {   // cú bấm thật (isTrusted), khoảng 7 lần/giây, rải quanh thân nhân vật
-    const c = await box(p, '#art');
-    for (let i = 0; i < n; i++) {
-      await p.mouse.click(c.x + (Math.random() - .5) * c.w * .35, c.y + (Math.random() - .45) * c.h * .4);
-      await wait(gap + Math.random() * 30);
-    }
-  }
-  const scenes = {
-    a: {   // nhân viên yếu ớt bấm tập, mua Ngực, LỘT XÁC lên hạng 2
-      setup: `__set({rk: 0, best: 0, day: 2, lv: {tay: 5, vai: 4, nguc: 1}, scene: 'gym', seen: 3}); s.cal = bulk(EX[2], 1) - 11 * clickPower() - 1.5 * pps();`,
-      run: async p => { await taps(p, 13); const b = await box(p, '#list .buy[data-i="2"]'); await p.mouse.click(b.x, b.y); await wait(150); await taps(p, 18); },
-    },
-    b: {   // thách đấu Hank the Guard và thắng
-      setup: `__set({best: 2, day: 9, wins: 3, kg: 83.6, fat: 20, lv: {tay: 14, vai: 12, nguc: 7, bung: 5}, scene: 'gym', seen: 5});`,
-      run: async p => {
-        let b = await box(p, '#tabDuel'); await p.mouse.click(b.x, b.y); await wait(350);
-        await p.locator('#rivals .fight[data-r="3"]').scrollIntoViewIfNeeded(); b = await box(p, '#rivals .fight[data-r="3"]'); await p.mouse.click(b.x, b.y); await wait(200);
-        for (let k = 0; k < 8 && await p.evaluate('!!duel'); k++) await taps(p, 5);
-        await wait(1100);
-      },
-    },
-    c: {   // chọn bữa tối, đi ngủ, sáng hôm sau ở văn phòng
-      setup: `__set({best: 2, day: 9, wins: 4, kg: 84.2, fat: 45, lv: {tay: 14, vai: 12, nguc: 7, bung: 5}, scene: 'home', seen: 5});`,
-      run: async p => { await wait(500); const b = await box(p, '#meals .meal:nth-child(2)'); await p.mouse.click(b.x, b.y); await wait(1000); const z = await box(p, '#sleep'); await p.mouse.click(z.x, z.y); await wait(4300); },
-    },
-    d: {   // thần gym hạng 6 bấm ra số lớn
-      setup: `__set({best: 5, day: 41, wins: 14, stars: 6, kg: 76.5, lv: {tay: 80, vai: 70, nguc: 62, bung: 55, mat: 45, chan: 45, lung: 36, cardio: 24}, scene: 'gym', seen: 8}); s.cal = 2.4e9;`,
-      run: async p => { await taps(p, 30, 105); },
-    },
-  };
-  const out = [];
-  for (const o of [{name: 'land', w: 1280, h: 720}, {name: 'port', w: 720, h: 1080}]) for (const [name, sc] of Object.entries(scenes)) {
-    const ctx = await browser.newContext({viewport: {width: o.w, height: o.h}, recordVideo: {dir: RAW + '/tmp', size: {width: o.w, height: o.h}}});
-    const t0 = Date.now(), p = await ctx.newPage();
-    await p.goto(URL); await p.waitForFunction('ready');
-    await p.evaluate(SET); await p.evaluate(sc.setup);
-    await wait(1300);   // chờ hiệu ứng loé sáng của go() tắt
-    const start = Date.now() - t0; await sc.run(p); const end = Date.now() - t0;
-    const open = await p.evaluate('document.querySelectorAll("#modal:not([hidden]),#guide:not([hidden])").length');
-    await ctx.close();
-    const file = `${RAW}/${o.name}_${name}_${start}_${end}.webm`;
-    await p.video().saveAs(file); await p.video().delete();
-    out.push({file, open});
-  }
-  return out;
+// Quay các cảnh Gym God trong Chromium riêng cho từng cảnh.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { createRequire } = require('node:module');
+
+process.env.PLAYWRIGHT_BROWSERS_PATH ??= '0';
+const { chromium } = createRequire(path.join(__dirname, '../qa/package.json'))('playwright');
+
+const project = path.resolve(__dirname, '../..');
+const raw = path.join(__dirname, 'raw');
+const origin = 'http://127.0.0.1:8766';
+
+function setup(options) {
+  closeGuide();
+  s = Object.assign(fresh(), {
+    lang: 'en',
+    clicks: 500,
+    vm: 0,
+    vs: 0,
+    tips: Object.fromEntries([...GUIDE.map(([key]) => [key, 1]), ['firstBuy', 1]]),
+    ach: Object.fromEntries(ACH.map(({ id }) => [id, 1])),
+  }, options);
+  s.lv = { ...fresh().lv, ...options.lv };
+  shown = s.rk;
+  syncRank(true);
+  s.cap = s.sta = staMax();
+  go(s.scene);
 }
+
+async function tapHero(page, count, gap) {
+  const hero = await page.locator('#art').boundingBox();
+  const offsets = [-.07, .06, 0, .09, -.04, .03];
+  for (let i = 0; i < count; i++) {
+    await page.mouse.click(hero.x + hero.width * (.5 + offsets[i % offsets.length]),
+      hero.y + hero.height * (.54 + offsets[(i + 2) % offsets.length]));
+    await page.waitForTimeout(gap);
+  }
+}
+
+const scenes = {
+  workout: {
+    setup: { scene: 'office', day: 1, seen: 3, lv: { tay: 4, vai: 4, nguc: 2 } },
+    async play(page, mark) {
+      const start = mark();
+      await page.waitForTimeout(560);
+      await page.locator('#go').click();
+      await page.waitForFunction(() => s.scene === 'gym' && !moving);
+      await page.waitForTimeout(180);
+      await tapHero(page, 12, 135);
+      const arms = page.locator('#list .buy[data-i="0"]');
+      const rankUp = mark();
+      await arms.click();
+      await page.waitForFunction(() => s.rk === 1 && $('pic').src.endsWith('/rank2.webp'));
+      await page.waitForTimeout(600);
+      await tapHero(page, 10, 130);
+      await page.waitForTimeout(950);
+      return { start, rankUp, end: mark() };
+    },
+  },
+  arena: {
+    setup: { scene: 'gym', day: 8, kg: 84.5, seen: 5, met: { 0: 1 },
+      lv: { tay: 22, vai: 18, nguc: 14, bung: 8, mat: 3 } },
+    async play(page, mark) {
+      await page.locator('#tabDuel').click();
+      const versus = mark();
+      await page.locator('#rivals .buy[data-r="0"]').click();
+      await page.waitForFunction(() => arena?.step === 'talk');
+      // Bỏ phần hội thoại nằm giữa hai đoạn dựng. Đếm ngược và giao đấu vẫn chạy bình thường.
+      await page.evaluate(() => next());
+      await page.waitForFunction(() => $('aCount').textContent === '1');
+      const fight = mark();
+      await page.waitForFunction(() => arena?.step === 'fight');
+      const area = await page.locator('#arena').boundingBox();
+      for (let i = 0; i < 36 && !await page.evaluate(() => s.wins > 0); i++) {
+        await page.mouse.click(area.x + area.width * .49, area.y + area.height * .53);
+        await page.waitForTimeout(105);
+      }
+      assert.equal(await page.evaluate(() => s.wins), 1, 'Đoạn quay đấu trường phải kết thúc bằng trận thắng.');
+      const win = mark();
+      await page.waitForTimeout(250);
+      await page.evaluate(() => next());
+      await page.locator('#aBack').click();
+      await page.waitForTimeout(1100);
+      return { versus, fight, win, end: mark() };
+    },
+  },
+  champion: {
+    setup: { scene: 'gym', day: 30, seen: 8, wins: 14, stars: 6, kg: 77, cal: 120000000,
+      lv: { tay: 70, vai: 60, nguc: 55, bung: 48, mat: 40, chan: 40, lung: 32, cardio: 20 } },
+    async play(page, mark) {
+      const start = mark();
+      await page.waitForTimeout(540);
+      await tapHero(page, 24, 115);
+      await page.waitForTimeout(1100);
+      return { start, end: mark() };
+    },
+  },
+};
+
+async function record(browser, batch, name, width, height, sceneName) {
+  const context = await browser.newContext({
+    viewport: { width, height },
+    recordVideo: { dir: path.join(batch, 'captures'), size: { width, height } },
+  });
+  const missing = [];
+  const errors = [];
+  try {
+    await context.route('**/*', async route => {
+      const url = new URL(route.request().url());
+      if (url.hostname === 'sdk.crazygames.com') {
+        return route.fulfill({ contentType: 'application/javascript', body: '' });
+      }
+      if (url.origin !== origin) return route.abort();
+      const name = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
+      const file = path.join(project, name);
+      if ((name !== 'index.html' && !/^assets\/[a-z]+\/[a-z0-9-]+\.(webp|mp3)$/.test(name)) || !fs.existsSync(file)) {
+        missing.push(name);
+        return route.fulfill({ status: 404 });
+      }
+      return route.fulfill({ path: file });
+    });
+
+    const start = performance.now();
+    const mark = () => Number(((performance.now() - start) / 1000).toFixed(3));
+    const page = await context.newPage();
+    page.setDefaultTimeout(10000);
+    page.on('pageerror', error => errors.push(error.message));
+    const video = page.video();
+    await page.goto(origin);
+    await page.waitForFunction(() => typeof ready !== 'undefined' && ready);
+    const scene = scenes[sceneName];
+    await page.evaluate(setup, scene.setup);
+    await page.waitForFunction(() => !$('pic').hidden && $('pic').src.endsWith('rank' + (s.rk + 1) + '.webp'));
+    await page.waitForTimeout(450);
+    const marks = await scene.play(page, mark);
+    await context.close();
+    assert.deepEqual(missing, []);
+    assert.deepEqual(errors, []);
+    const file = path.join(batch, name + '-' + sceneName + '.webm');
+    await video.saveAs(file);
+    await video.delete();
+    console.log(name, sceneName, marks);
+    return { file: path.relative(raw, file), ...marks };
+  } finally {
+    await context.close();
+  }
+}
+
+async function main() {
+  fs.mkdirSync(raw, { recursive: true });
+  const batch = fs.mkdtempSync(path.join(raw, 'trailer-'));
+  const browser = await chromium.launch();
+  try {
+    const manifest = {};
+    for (const [name, width, height] of [['land', 1280, 720], ['port', 720, 1080]]) {
+      const takes = manifest[name] = {};
+      for (const scene of Object.keys(scenes)) {
+        takes[scene] = await record(browser, batch, name, width, height, scene);
+      }
+    }
+    fs.writeFileSync(path.join(raw, 'trailer-marks.json'), JSON.stringify(manifest, null, 2));
+  } finally {
+    await browser.close();
+  }
+}
+
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

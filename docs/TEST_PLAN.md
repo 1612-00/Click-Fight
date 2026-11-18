@@ -4,6 +4,29 @@ Mỗi dòng là một bài test: làm theo cột **Bước**, so với cột **K
 
 Con số trong file này lấy từ `docs/GAME_DESIGN.md`. Nếu đổi luật hay con số thì sửa cả hai.
 
+## Kiểm tra tự động
+
+Cài Playwright cho công cụ QA một lần với Node.js và npm. Lệnh kiểm tra ZIP còn cần Python để giải nén.
+
+```powershell
+npm --prefix tools/qa ci
+npm --prefix tools/qa run install:browser
+```
+
+Sau đó chạy từ thư mục gốc dự án:
+
+```powershell
+npm --prefix tools/qa test
+python tools/dist.py
+npm --prefix tools/qa run test:zip
+```
+
+Bộ test kiểm tra cú pháp JavaScript trước khi chạy Chromium giả lập cảm ứng 375×812. Mỗi ca dùng bộ nhớ riêng. Bộ test đi hết ngày đầu bằng thao tác thật, tải lại trước và sau khi lưu buổi sáng, khôi phục khi bản chính hỏng (A12), kiểm tra yêu cầu ảnh lúc khởi động và sau khi mở Thi đấu (N24), rồi đo các thay đổi DOM khi ẩn tab đó. Chế độ `test:zip` giải nén chính `dist/gym-god.zip` vào thư mục tạm và báo lỗi nếu HTML trong gói lệch mã nguồn.
+
+Các ca này chạy với SDK CrazyGames vắng mặt. Kiểm tra quảng cáo, tài khoản và thiết bị thật theo nhóm P và phần chơi thử bên dưới.
+
+Khi sửa giao diện iPhone hoặc cách tải ảnh, chạy thêm `npm --prefix tools/qa run install:webkit` một lần và `npm --prefix tools/qa run test:webkit`. Có thể dùng `npm --prefix tools/qa run test:zip -- --webkit` để kiểm tra gói phát hành bằng WebKit. Module quảng cáo trong ca bố cục được giả lập chỉ để hiện nút.
+
 ## Lần chạy gần nhất
 
 Ngày 2026-11-15, chạy bằng script trên trình duyệt (cửa sổ 1024×768, tablet 768×1024, điện thoại 375×812 giả lập).
@@ -336,6 +359,8 @@ Bảng đối chiếu cho H6:
 | N22 | Bật giả lập `prefers-reduced-motion`; xem REP, toast, khách ghé, chữ thoại và hiệu ứng VS ở cả máy tính lẫn điện thoại. | Tắt chuyển động trang trí; vòng REP vẫn đổi trắng/vàng và được chấm đúng thời điểm; toast, pop và khách vẫn tự hết hạn; thoại hiện đủ ngay. Nhịp đếm ngược/trận đấu và kết quả không đổi. | ✓ cục bộ |
 | N23 | 1024×768, 768×1024 và 375×812; xem văn phòng, phòng tập, nhà, các tab, cài đặt/hướng dẫn và đấu trường. | Các màn thường dùng nền giấy ấm, xanh sage/olive và điểm nhấn hổ phách; không còn các mảng xanh navy tối hay glow nặng. Đấu trường vẫn tối và giàu tương phản. Chữ và trạng thái nút đọc rõ, không ảnh hưởng luật chơi hay lưu. | ✓ cục bộ |
 | N24 | Mở game từ bộ nhớ đệm trống, xem Network. Sau đó đổi nhân vật, lên hạng, mở tab Thi đấu và cuộn danh sách. | Ban đầu chỉ tải ảnh nhân vật đang dùng ở hạng hiện tại và hạng kế. Ảnh đối thủ bắt đầu tải khi mở Thi đấu. Cuộn danh sách vẫn thấy ảnh; khi ảnh bị thiếu vẫn có hình dự phòng. | |
+| N25 | Mở văn phòng và phòng tập ở 320×510, 375×610 (khung chơi iPhone X), 430×755, 768×1024 và 812×350. Thử hạng cao có mệt mỏi, thử thách và nút nước tăng lực. | Nhân vật ở giữa và có đủ chỗ. Thông số văn phòng vừa khung, lịch tuần chỉ hiện từ hạng 3. Ở 375×610 thấy ít nhất hai thẻ bài tập đầy đủ. Khi xoay ngang, sổ tập nằm bên cạnh sân khấu. | |
+| N26 | Ở phòng tập 375×610, làm chậm tải ảnh nữ. Đổi nữ, quay lại nam ngay, rồi đổi lại nữ. Làm thiếu ảnh nữ hạng hiện tại và tải lại. | Trong lúc tải giữ ảnh đang hiển thị. Ảnh tải muộn không ghi đè lựa chọn mới. Ảnh nữ hạng thấp hơn hoặc SVG dự phòng ở giữa sau khi tải lại. | |
 
 ## O. Vắng mặt
 
@@ -367,6 +392,8 @@ Bản chạy trên máy dùng quảng cáo giả của SDK. Phần này cần th
 ## Kiểm tra nhịp chơi (chơi thật, không dùng lệnh)
 
 Chơi một ván mới ở chế độ thường, bấm đồng hồ, không dùng Console.
+
+Với người mới chơi trên điện thoại thật, bắt đầu bấm giờ khi thấy lời dẫn đầu tiên. Ghi thiết bị, trình duyệt, ngôn ngữ, thời điểm chạm tập lần đầu, mua Tay lần đầu và sang ngày 2. Trong 15 phút đầu, ghi chỗ người chơi dừng để hỏi hoặc bỏ qua, và xem họ có nhận ra vòng Rep hoàn hảo khi nó xuất hiện không.
 
 | Mã | Mốc | Mong muốn | Thực tế |
 |---|---|---|---|

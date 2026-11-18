@@ -47,13 +47,15 @@ Tap the ? button in the game to hear Biscuit's short tips for unlocked features.
 
 ## Gói upload
 
-**Không upload cả thư mục dự án** (khoảng 340 MB: `.git`, ảnh gốc PNG, video bìa). CrazyGames sẽ báo lỗi tải file, và game nặng hơn 20 MB không được lên trang chủ điện thoại (hơn 50 MB thì bị từ chối). Game thật chỉ cần `index.html` và ảnh/nhạc đã build, khoảng 6 MB.
+Gói upload chỉ cần `index.html` và ảnh/nhạc đã build. Lệnh đóng gói in ra dung lượng thực tế của gói. Xem [giới hạn tải của CrazyGames](https://docs.crazygames.com/requirements/technical/#file-size-count-limits) để đối chiếu khi nộp.
 
 ```bash
 python tools/dist.py
 ```
 
 Lệnh này tạo `dist/gym-god.zip` (upload file này) và thư mục `dist/gym-god/` cùng nội dung. Muốn chơi thử đúng gói đó: mở server `dist` (preview), cổng 8767; bộ nhớ riêng nên không đụng bản lưu ở cổng 8766. Chạy lại lệnh mỗi lần sửa game hoặc thêm ảnh.
+
+Trước khi upload, chạy `npm --prefix tools/qa run test:zip` để kiểm tra chính gói ZIP. Xem [cài Chromium và chạy bộ test](TEST_PLAN.md#kiểm-tra-tự-động).
 
 ## File đi kèm
 
@@ -65,6 +67,10 @@ Lệnh này tạo `dist/gym-god.zip` (upload file này) và thư mục `dist/gym
 | `assets/original/store/video-landscape.mp4` | Video ngang | 1080p 16:9, 15–20 giây, ≤ 50 MB, không tiếng |
 | `assets/original/store/video-portrait.mp4` | Video dọc | 1080p 2:3, như trên |
 
+Clip mạng xã hội nằm ở `assets/original/store/video-social.mp4`. Bản này dọc 9:16, có âm thanh và chữ tiếng Anh.
+Nếu cần đăng video ngang ở kênh khác, dùng `assets/original/store/video-landscape-with-sound.mp4` với nhạc và âm báo của game.
+Hai bản có lời dẫn tiếng Anh dành cho mạng xã hội là `assets/original/store/video-social-voiceover.mp4` (dọc) và `assets/original/store/video-landscape-voiceover.mp4` (ngang).
+
 Ba ảnh bìa trên được thu phóng (lanczos) từ ảnh gốc `cover-wide.png` (1672×941), `cover-tall.png` (1024×1536), `cover-square.png` (1254×1254); ảnh gốc đổi thì tạo lại:
 
 ```bash
@@ -74,17 +80,15 @@ ffmpeg -y -i cover-tall.png -vf "scale=800:1200:force_original_aspect_ratio=incr
 ffmpeg -y -i cover-square.png -vf "scale=800:800:force_original_aspect_ratio=increase:flags=lanczos,crop=800:800" cover-800x800.png
 ```
 
-Video: 1920×1080 và 1080×1620, 17,1 giây, khoảng 10 MB, H.264, không tiếng.
-
 ## Làm lại video
 
-Khi giao diện đổi (kể cả bảng màu), quay lại bằng hai bước để video khớp bản game hiện hành (server xem thử `game` phải đang chạy):
+Chạy các lệnh sau từ thư mục gốc để quay lại theo giao diện hiện tại. Bước quay dùng Chromium đã cài theo [kế hoạch kiểm thử](TEST_PLAN.md#kiểm-tra-tự-động). Bước dựng cần `ffmpeg`, `ffprobe` và font Segoe UI Bold trên Windows.
 
-1. Playwright MCP: `browser_run_code_unsafe` với `filename` = `tools/video/record.js`. Mỗi cảnh chạy trong một ngữ cảnh trình duyệt mới nên không đụng bản lưu thật.
-2. `python tools/video/build.py`: ghép ảnh bìa (1 giây) với 5 đoạn gameplay (lột xác lên hạng 2, thắng một trận đấu, ăn tối rồi đi ngủ, sáng hôm sau, thần gym hạng 6), ghi đè hai file video ở trên.
+```powershell
+node tools/video/record.js
+python tools/video/build.py
+```
 
-Playwright cần ffmpeg ở `%LOCALAPPDATA%\ms-playwright\ffmpeg-1013\ffmpeg-win64.exe`; trên máy này đã chép ffmpeg của hệ thống vào đó.
-
-Video tuân theo luật CrazyGames: khung đầu là ảnh bìa, không tua nhanh, không màn hình đen (cảnh qua đêm giờ là căn nhà tối dần có khung truyện, không còn màn hình đen; quay lại video thì giữ cảnh này), không con trỏ chuột, không chữ quảng cáo.
+Mỗi cảnh được quay ở một phiên trình duyệt riêng. Hai trailer CrazyGames mở bằng ảnh bìa, sau đó chiếu cảnh tan ca, mua bài Tay, lên hạng, thắng trận và nhân vật hạng 6 ở tốc độ gốc. Clip mạng xã hội mở bằng cảnh hạng cao và dùng nhạc cùng âm báo lên hạng, thắng trận của game.
 
 Nguồn: [CrazyGames: Game covers](https://docs.crazygames.com/requirements/game-covers/), [Requirements](https://docs.crazygames.com/requirements/intro/).

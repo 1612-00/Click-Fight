@@ -1,0 +1,15 @@
+{
+  "name": "gym-god-qa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:browser": "node smoke.cjs --install-browser",
+    "install:webkit": "node smoke.cjs --install-webkit",
+    "test": "node smoke.cjs",
+    "test:webkit": "node smoke.cjs --webkit",
+    "test:zip": "node smoke.cjs --zip"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}

@@ -3,3 +3,4 @@ __pycache__/
 tools/video/raw/
 .playwright-mcp/
 dist/
+tools/qa/node_modules/
