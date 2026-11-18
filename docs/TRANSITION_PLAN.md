@@ -1,6 +1,6 @@
 # Kế hoạch: chuyển cảnh liền mạch
 
-Trạng thái: **bước 1–2 đã vào game** (`door()` trong `index.html`), dùng ảnh `bg-door-gym`, `bg-door-home`; `bg-door-office` đã có, sẽ dùng ở bước 3 (sáng hôm sau tới văn phòng). Còn lại: bước 3–5.
+Trạng thái: **bước 1–4 đã vào game** (`door()`, `sleepNight()` trong `index.html`, ảnh cửa `bg-door-gym/home/office`). Còn lại: bước 5 (thử trên điện thoại thật, quay lại video CrazyGames). Cân nặng chưa có hiệu ứng đếm số (thông báo ngày mới vẫn báo thay đổi).
 
 ## Vấn đề hiện tại
 
@@ -59,7 +59,7 @@ Kéo dài thêm chỉ khi có chuyện đáng xem (lên hạng qua đêm, cân k
 
 ### 3. Chạm để tua nhanh
 
-- Chạm trong lúc chuyển cảnh: mọi hoạt ảnh còn lại chạy x4 (đặt `playbackRate` của các Animation), không nhảy cóc.
+- Chạm trong lúc chuyển cảnh: mọi hoạt ảnh còn lại chạy x6 (đặt `playbackRate` của các Animation), không nhảy cóc.
 - Vẫn giữ khoá 400 ms đầu để cú bấm vừa rồi không vô tình tua.
 - Trong lúc chuyển cảnh: chặn bấm nhân vật, mua bài, mở tab (như hiện nay `#wait` đang chặn), nhưng bằng `pointer-events` trên khung thay vì lớp phủ.
 
@@ -77,7 +77,7 @@ Kéo dài thêm chỉ khi có chuyện đáng xem (lên hạng qua đêm, cân k
 | Bước | Nội dung | Ảnh mới? |
 |---|---|---|
 | 1 | Cửa đóng/mở có biển nơi đến, cho đi tập / về nhà / về văn phòng; dùng ảnh cửa nếu có, không thì cửa CSS; bỏ `#flash` khi đổi màn | Nên có: 3 ảnh cửa (PROMPTS Nhóm 16) |
-| 2 | Chạm để tua x4, cờ `moving` thay cho `#wait` ở các chỗ kiểm tra | Không |
+| 2 | Chạm để tua x6, cờ `moving` thay cho `#wait` ở các chỗ kiểm tra | Không |
 | 3 | Đêm trôi qua: lớp đêm/bình minh, thể lực đầy dần, cân đếm số, khung truyện nhỏ dùng ảnh `scene-*` | Không |
 | 4 | Âm thanh: cửa lùa, chốt cửa, tắt đèn, chim sáng (`noise`/`beep`); nếu tiếng tổng hợp chưa đạt thì thêm file vào `assets/sfx/` qua `vox()` | Không (tuỳ chọn file âm thanh) |
 | 5 | Reduced motion, điện thoại 375×812, máy tính; cập nhật GAME_DESIGN (mục Màn chờ), TEST_PLAN nhóm B, MUSIC_PLAN (độ dài `sleep.mp3`), CRAZYGAMES (quay lại video) | Không |

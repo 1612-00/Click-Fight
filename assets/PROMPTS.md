@@ -863,6 +863,37 @@ Same art style and layout rules as the first image. SCENE: the front door of a c
 Same art style and layout rules as the first image. SCENE: the glass entrance doors of a modern office floor in the early morning: two tall clear glass leaves with thin silver aluminum frames, long vertical steel pull handles near the center seam, a blurred bright open-plan office with desks and plants behind the glass, soft pale morning sunlight.
 ```
 
+## Nhóm 17: Biểu cảm của Bắp (cuộc trò chuyện mới, đính kèm `original/pet/pet-dog.png`, 3 ảnh)
+
+Bắp là chú chó dẫn chuyện (hiện dùng ảnh `pet-dog`). Ba biểu cảm này dùng trong hộp quyết định và thẻ mở tính năng (xem `docs/DIALOG_PLAN.md`). Thiếu ảnh thì game dùng `pet-dog`. Lưu vào `assets/original/pet/` đúng tên (bắt đầu bằng `pet` để `build.py` nén), rồi chạy `python assets/build.py`.
+
+### pet-bap-worry.png (lo lắng: xoá tiến trình, bỏ thử thách) — dán nguyên khối này trước
+
+```
+Create a 2D game character image. Square canvas 1024x1024, real transparent background (alpha channel). Do not draw a checkerboard pattern.
+
+CHARACTER (keep identical in every image of this chat): the exact same puppy as the attached image: shiba-colored chibi puppy with a big head, big sparkling eyes, small body, small red sweatband, tiny running shoes. Same art style: clean modern anime mobile game art, crisp dark outline of even thickness, soft cel shading with two tones, bright saturated colors.
+
+RULES (apply to every image of this chat):
+- One single puppy, full body, centered, filling about 80% of the canvas, three-quarter view.
+- The pose and face must read clearly when shrunk to 100 pixels.
+- No background, no frame, no ground shadow, no text, no numbers, no logo, no speech bubble.
+
+POSE: worried and nervous: ears folded back, eyebrows raised, a single sweat drop on the forehead, both front paws held up near its mouth, standing on its hind legs, slightly leaning back.
+```
+
+### 2 biểu cảm còn lại — dán từng khối, lưu đúng tên file
+
+`pet-bap-cheer.png` (hào hứng: lên đời, mở tính năng, hoàn thành thử thách)
+```
+Same character and rules as the first image. POSE: cheering with excitement: jumping up with both front paws raised high, mouth wide open in a big happy smile, eyes closed in joy, tail wagging, a few small sparkles around it.
+```
+
+`pet-bap-wave.png` (chào: menu tạm dừng, thẻ calo lúc vắng mặt)
+```
+Same character and rules as the first image. POSE: friendly greeting: standing on its hind legs, waving one front paw, the other paw holding a small towel over its shoulder, gentle smile with tongue slightly out.
+```
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

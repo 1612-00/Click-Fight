@@ -58,6 +58,7 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | A7 | Ngủ sang ngày mới. Làm hỏng bản chính: `store().setItem(KEY, '{hong')`, rồi tải lại trang. | Game tải bản dự phòng: đúng ngày vừa sang, đúng hạng, trận thắng, calo của sáng hôm đó. Không bị về ván mới. | |
 | A8 | Xoá bản chính: `store().removeItem(KEY)`, tải lại trang. | Như A7: tải bản dự phòng, không về ván mới. Sau 5 giây bản chính được ghi lại. | |
 | A9 | Bấm "Xoá toàn bộ tiến trình" → Đồng ý, rồi chạy `JSON.parse(store().getItem(OLD)).day` | Game về ván mới, nhưng lệnh trả về ngày của ván cũ: trạng thái trước khi xoá vẫn còn để cứu nếu bấm nhầm. | |
+| A12 | Ở màn nhà, bấm Đi ngủ và tải lại trang trước khi ngày đổi. Làm lại, lần này tải lại sau khi thể lực đầy nhưng trước lúc cửa văn phòng mở. Lặp lại lần hai với bản lưu chính bị hỏng. | Trước khi ngày đổi: vẫn ở nhà, đúng ngày cũ. Sau khi ngày đổi: ở văn phòng, đúng một ngày mới, thể lực đã hồi; bản dự phòng cũng mở ở văn phòng. Nếu qua ngưỡng cân nặng trong đêm, hạng mới vẫn được giữ. | |
 
 ## S. Hướng dẫn và mở tính năng
 
@@ -84,15 +85,15 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | B1 | Ở văn phòng, bấm "Đến phòng tập". | Hai cánh cửa kính khung thép khép lại từ hai bên, tiếng cửa lùa rồi "cạch"; biển "🏋️ PHÒNG TẬP" hiện trên cửa; cửa mở ra, cả lượt khoảng 1 giây. Không còn màn chờ tối hay chớp trắng. Trong lúc đó không bấm được gì. Sau đó vào phòng tập: nền phòng gym, có số calo lớn, các ô thể lực/cân nặng, bảng bài tập bên phải. | |
 | B2 | Ở phòng tập, bấm "Về nhà" rồi bấm "Huỷ". | Hộp hỏi "Tập đủ rồi, về nhà thôi?" với nút Huỷ và Đồng ý. Bấm Huỷ: hộp đóng, vẫn ở phòng tập. | |
 | B3 | Bấm "Về nhà" rồi "Đồng ý". | Cửa gỗ có biển "🏠 NHÀ" đóng rồi mở (khoảng 1 giây), rồi vào nhà: nền căn hộ buổi tối, nút "Đi ngủ", bảng bên phải chỉ có tab Bạn tập. | |
-| B4 | Ở nhà, bấm "Đi ngủ". | Bốn màn chờ nối tiếp, mỗi màn một hình: "Khò khò..." 2 giây → "Buổi sáng..." 1,5 giây → "Đi đến công ty..." 2 giây → "Đang làm việc..." 3 giây. Sau đó về văn phòng, số ngày tăng 1, thứ đổi theo. Thông báo "Ngày N" kèm dòng cân nặng. Thể lực đầy lại. | |
+| B4 | Ở nhà, bấm "Đi ngủ". | Tiếng công tắc, căn nhà tối dần (thanh chỉ số, HUD vẫn sáng; lời nhắc, bữa tối và nút Đi ngủ ẩn đi), "Zzz" bay lên; thanh ⚡ đầy dần, ô ngày đổi sang ngày mới; ba khung truyện Khò khò → Buổi sáng → Đi đến công ty hiện lần lượt; tiếng chim, trời cam rồi sáng; cửa văn phòng có biển "🏢 VĂN PHÒNG" đóng rồi mở. Tới văn phòng: số ngày tăng 1, thông báo "Ngày N" kèm dòng cân nặng. Mỗi khung truyện đứng khoảng 1 giây, cả lượt khoảng 6,5–7 giây; sau hơn 1 giây hiện dòng "Chạm để tua nhanh" ở dưới. Không còn màn chờ tối. | |
 | B5 | Ở văn phòng, bấm "Về nhà nghỉ" rồi "Huỷ". | Hộp hỏi "Về nhà nghỉ luôn? Hôm nay sẽ không tập." Bấm Huỷ: vẫn ở văn phòng. | |
 | B6 | Bấm "Về nhà nghỉ" rồi "Đồng ý" (mệt mỏi dưới 40 hoặc chưa mở mệt mỏi). | Cửa nhà đóng rồi mở, vào nhà, thông báo "Tiếc quá, lại một ngày không luyện tập!". | |
 | B7 | Ở nhà nhìn bảng bên phải; ở phòng tập nhìn bảng bên phải. | Ở nhà chỉ có tab Bạn tập. Ở phòng tập có Bài tập, Thi đấu, Nhiệm vụ, Thành tựu, Lên đời và **không có** tab Bạn tập. | |
 | B8 | Ở văn phòng, bấm vào nhân vật nhiều lần. | Không có gì xảy ra: calo không tăng, thể lực không giảm. | |
 | B9 | Ở phòng tập, bấm tới hết thể lực rồi bấm "Về nhà". | **Không** có hộp hỏi, vào thẳng cửa về nhà. | |
-| B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Cửa đi tập vẫn khoảng 1 giây như ngày 1; chuỗi đi ngủ khoảng 3,4 giây, đủ 4 hình (ngày 1–3: 8,5 giây như B4). | |
+| B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Cửa đi tập vẫn khoảng 1 giây như ngày 1; qua đêm vẫn khoảng 6,5–7 giây như ngày 1 (không còn rút ngắn theo ngày). | |
 | B12 | Bấm "Đến phòng tập", chạm vào cửa khi nó đang khép. Lần sau chạm ngay khi bấm nút. Bật giảm chuyển động của hệ điều hành rồi thử lại. | Chạm giữa chừng: cửa đóng/mở nhanh hơn hẳn nhưng vẫn đủ các bước, vào phòng tập bình thường. Chạm ngay (dưới 0,25 giây): không tua. Giảm chuyển động: cửa hiện và mờ tại chỗ, không trượt. Hướng dẫn tập (lần đầu) chỉ hiện sau khi cửa mở xong. | |
-| B11 | Bấm "Đi ngủ", chạm vào màn chờ sau khoảng 1 giây. Lần sau chạm ngay khi màn chờ vừa hiện. | Màn chờ có dòng "Chạm để bỏ qua". Chạm sau 1 giây: bỏ qua phần còn lại, sang ngày mới ngay (ngày +1, thông báo ngày mới). Chạm ngay lập tức (dưới 0,4 giây): không có tác dụng. | |
+| B11 | Bấm "Đi ngủ", chạm vào căn nhà tối sau khoảng 0,5 giây. Lần sau chạm ngay khi vừa bấm. | Chạm sau 0,5 giây: đêm, bình minh và cửa văn phòng chạy nhanh x6 (cả lượt khoảng 1,5 giây) nhưng đủ các bước, sang ngày mới bình thường. Chạm ngay (dưới 0,25 giây): không tua. Trong lúc đêm không bấm được tab hay nút nào. | |
 | B12 | Ở phòng tập, nhìn bảng Bài tập; bấm vào thanh hạng trên cùng. | Đúng một thẻ có viền vàng phát sáng: bài rẻ nhất còn thiếu mục tiêu hạng kế (ván mới: Tay; Tay đủ 5 thì sang Vai). Bấm thanh hạng: mở tab Bài tập, cuộn tới thẻ đó, thẻ nảy nhẹ. Ở văn phòng bấm thanh hạng không làm gì. Hạng cao nhất hoặc chỉ còn thiếu cân nặng: không thẻ nào viền vàng. | |
 | B13 | Ngày 1 và lúc mở game ở văn phòng khi chưa có sự kiện. Đi ngủ sang ngày 2. | Ngày 1: câu nói thường, không có nút sự kiện. Sáng ngày 2: khung câu nói viền vàng "📌 …", hai nút lựa chọn ghi tác dụng; lần đầu hiện mục hướng dẫn "📌 Sự kiện văn phòng". | |
 | B14 | Bấm một lựa chọn (vd "Sếp rủ làm vài ly" → "Đi cho sếp vui"). | Thông báo tên lựa chọn và tác dụng. Cân +0,3 kg, calo cộng đúng số ghi trên nút. Hai nút biến mất, khung về câu nói thường. Tải lại trang: không hiện lại sự kiện. | |
@@ -255,7 +256,7 @@ Bảng đối chiếu cho H6:
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| L1 | Ở hạng 4, đặt ngày 6 (`s.day = 6; ui()`) rồi vào tab Nhiệm vụ. Lặp lại ở hạng 5. | Hạng 4 chỉ chọn trong 4 loại khả dụng, không có "Gọi bạn tập"; hạng 5 mở đủ 5 loại và ngày 6 có "Gọi bạn tập". Mỗi thẻ có icon, thanh tiến độ và nút thưởng (ít nhất 500 calo). | |
+| L1 | Ở hạng 4, đặt ngày 6 (`s.day = 6; refresh()`) rồi vào tab Nhiệm vụ. Lặp lại ở hạng 5. | Hạng 4 chỉ chọn trong 4 loại khả dụng, không có "Gọi bạn tập"; hạng 5 mở đủ 5 loại và ngày 6 có "Gọi bạn tập". Mỗi thẻ có icon, thanh tiến độ và nút thưởng (ít nhất 500 calo). | |
 | L2 | Làm xong một nhiệm vụ. | Nút thưởng sáng lên, tab Nhiệm vụ có chấm đỏ. Bấm nhận: calo tăng đúng số ghi trên nút, thông báo "Xong nhiệm vụ!", nút thành ✓, thẻ mờ đi. Bấm lại không nhận lần hai. | |
 | L3 | Sang ngày mới. | 3 nhiệm vụ đổi (xoay vòng theo ngày), tiến độ về 0. | |
 | L12 | Ở hạng 5, đặt ngày 6, đủ calo để gọi; về nhà, gọi một bạn rồi mở tab Nhiệm vụ trước khi ngủ. | Tab Nhiệm vụ dùng được ở nhà; tiến độ thành 1/1, tab có chấm báo nhận thưởng. Nhận thưởng được một lần, sau đó ngủ sang ngày mới thì nhiệm vụ/tiến độ reset như thường lệ. | |
@@ -284,7 +285,7 @@ Bảng đối chiếu cho H6:
 | M2 | Bấm bất kỳ đâu trong game. | Nhạc văn phòng (chậm, nhẹ) bắt đầu, lên dần trong khoảng nửa giây. | |
 | M3 | Đi văn phòng → phòng tập → nhà. | Mỗi màn một bài: phòng tập sôi động, nhà ấm nhẹ. Bài cũ mờ dần rồi bài mới lên, không cắt đột ngột, không có hai bài chồng nhau lâu hơn 1 giây. | |
 | M4 | Ở mỗi màn, nghe đủ lâu để bài lặp lại ít nhất 2 lần. | Chỗ nối khi lặp không có khoảng lặng hay tiếng "khựng" rõ rệt. | |
-| M5 | Bấm "Đi ngủ". | Đoạn nhạc ru ngủ rồi sáng dần phát một lần trong chuỗi màn chờ, không lặp. Về văn phòng thì nhạc văn phòng trở lại. | |
+| M5 | Bấm "Đi ngủ". | Đoạn nhạc ru ngủ phát khi trời tối, không lặp; bị cắt khi cửa văn phòng đóng. Về văn phòng thì nhạc văn phòng trở lại. | |
 | M6 | So độ to giữa 5 bài, và giữa nhạc với tiếng bấm/tiếng mua. | Các bài to gần bằng nhau. Tiếng bấm, tiếng mua, tiếng lên hạng vẫn nghe rõ trên nền nhạc. | |
 | M7 | Ván mới, bấm ⚙️. Thử − và +, bấm thẳng vào một ô, bấm lại đúng ô cuối đang sáng. | Mặc định Nhạc 5 ô sáng, Âm thanh 7 ô. − / + đổi một nấc, không xuống dưới 0, không quá 10. Bấm ô thứ 7: sáng 7 ô; bấm lại ô đó: còn 6. Nhạc to nhỏ ngay khi chỉnh; chỉnh Âm thanh thì nghe một tiếng bấm thử ở mức mới. Nhạc 0: nhạc dừng, tiếng bấm còn. Âm thanh 0: không còn tiếng hiệu ứng, không rung. Bấm ✕, bấm ra ngoài khung hoặc Esc đều đóng. | |
 | M8 | Đặt Nhạc 0, Âm thanh 8, tải lại trang. Rồi dán bản lưu cũ có `mute: 2` (hoặc `mute: 1`) vào và tải lại. | Vẫn Nhạc 0, Âm thanh 8. Bản lưu cũ `mute: 2` thành 0 / 0; `mute: 1` thành 0 / 7; không có `mute` thành 5 / 7. | |
@@ -334,6 +335,8 @@ Bảng đối chiếu cho H6:
 | N21 | 1024×768, 768×1024 và 375×812; lần lượt dùng Việt/Anh, kiểm tra HUD với các tên hạng dài và mục tiêu cân nặng; mở hướng dẫn đủ mục. | Tên hạng không bị cắt (điện thoại tối đa 2 dòng), mục tiêu chiếm 1 dòng có ellipsis khi thiếu chỗ; ba nút tròn đều 44 px, không tràn ngang. Hướng dẫn nhiều mục cuộn bên trong, nút Đã hiểu luôn thấy. | ✓ cục bộ |
 | N22 | Bật giả lập `prefers-reduced-motion`; xem REP, toast, khách ghé, chữ thoại và hiệu ứng VS ở cả máy tính lẫn điện thoại. | Tắt chuyển động trang trí; vòng REP vẫn đổi trắng/vàng và được chấm đúng thời điểm; toast, pop và khách vẫn tự hết hạn; thoại hiện đủ ngay. Nhịp đếm ngược/trận đấu và kết quả không đổi. | ✓ cục bộ |
 | N23 | 1024×768, 768×1024 và 375×812; xem văn phòng, phòng tập, nhà, các tab, cài đặt/hướng dẫn và đấu trường. | Các màn thường dùng nền giấy ấm, xanh sage/olive và điểm nhấn hổ phách; không còn các mảng xanh navy tối hay glow nặng. Đấu trường vẫn tối và giàu tương phản. Chữ và trạng thái nút đọc rõ, không ảnh hưởng luật chơi hay lưu. | ✓ cục bộ |
+| N24 | Mở game từ bộ nhớ đệm trống, xem Network. Sau đó đổi nhân vật, lên hạng, mở tab Thi đấu và cuộn danh sách. | Ban đầu chỉ tải ảnh nhân vật đang dùng ở hạng hiện tại và hạng kế. Ảnh đối thủ bắt đầu tải khi mở Thi đấu. Cuộn danh sách vẫn thấy ảnh; khi ảnh bị thiếu vẫn có hình dự phòng. | |
+
 ## O. Vắng mặt
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |

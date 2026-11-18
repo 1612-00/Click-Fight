@@ -266,16 +266,9 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .stat b{color:var(--gold)}
 .big{font-size:1.2rem;padding:12px;background:linear-gradient(#6ee89a,#1fae5b);color:#fff;box-shadow:0 4px 0 #0f6b35}
 .link{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px}
-#wait{position:absolute;inset:0;z-index:8;background:#26352ee8;display:grid;place-items:center;font-weight:800;font-size:1.4rem;color:#f8f4e9;animation:fadeIn .25s}
-#wait[hidden]{display:none}
-#wait p{margin:0;text-align:center}
-#wait small{display:block;margin-top:14px;font-size:.85rem;font-weight:600;color:#d5ddcf}
-#wait img{display:block;width:min(46vmin,260px);height:min(46vmin,260px);object-fit:contain;margin:0 auto 10px}
 .ico{width:1.2em;height:1.2em;vertical-align:-.22em;object-fit:contain}
 .tabs .ico{width:24px;height:24px;vertical-align:middle}
 .tile .ico{width:100%;height:100%}
-#wait i{font-style:normal;display:inline-block;overflow:hidden;vertical-align:bottom;width:0;animation:dots 1.2s steps(4,end) infinite}
-@keyframes dots{to{width:1.2em}}
 /* ---------- cửa chuyển cảnh: hai cánh khép lại, đổi màn lúc cửa kín, rồi mở ra (door()) ---------- */
 #door{position:absolute;inset:0;z-index:8;overflow:hidden;cursor:pointer}
 #door[hidden]{display:none}
@@ -290,8 +283,30 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #door .dr::after{left:22px}
 #door.img i::after{display:none}
 #door.door-gym i{background:linear-gradient(#ffe7b855,#ffe7b800 60%),linear-gradient(90deg,#4d5a55 0 6%,#cfdcd5 6% 94%,#4d5a55 94%) top/100% 76% no-repeat,linear-gradient(#4d5a55 0 2%,#3b4642 2%)}
+#door.door-office i{background:linear-gradient(#fff9,#fff0 40%),linear-gradient(90deg,#9aa7aa 0 4%,#dfe9ec 4% 96%,#9aa7aa 96%)}
 #door.door-home i{background:linear-gradient(90deg,#00000014,#0000 40%),linear-gradient(#a8703f,#9a6537);box-shadow:inset 0 0 0 clamp(14px,4vmin,30px) #b98250,inset 0 0 0 calc(clamp(14px,4vmin,30px) + 3px) #7c4f2a}
 #door.door-home i::after{width:22px;height:22px;top:50%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f3d38a,#a7772e)}
+/* ---------- qua đêm tại nhà (sleepNight()): trời tối phủ sân khấu (dưới HUD và thanh chỉ số), Zzz, ba khung truyện, bình minh ---------- */
+#night{position:absolute;inset:0;z-index:1;cursor:pointer;overflow:hidden}
+#night[hidden]{display:none}
+#nightSky{position:absolute;inset:0;background:#0b1430;opacity:0}
+#zzz{position:absolute;left:52%;top:28%;font-weight:850;font-size:clamp(1.4rem,5vmin,2.4rem);color:#dfe7ff;text-shadow:0 2px 8px #0008}
+#zzz span{display:inline-block;opacity:0;animation:zzz 1.6s ease-out infinite}
+#zzz span:nth-child(2){animation-delay:.45s;font-size:.8em}
+#zzz span:nth-child(3){animation-delay:.9s;font-size:.65em}
+@keyframes zzz{30%{opacity:1}to{opacity:0;transform:translate(26px,-48px)}}
+#nightSkip{position:absolute;left:0;right:0;bottom:4%;text-align:center;color:#dfe7ffcc;font-weight:700;font-size:.85rem;opacity:0;animation:skipIn .6s 1.2s both}
+@keyframes skipIn{to{opacity:1}}
+#nightCards{position:absolute;left:0;right:0;bottom:14%;display:flex;justify-content:center;gap:10px;padding:0 12px}
+#nightCards figure{margin:0;width:min(28%,150px);padding:6px 6px 4px;background:#f6efdf;border-radius:6px;box-shadow:0 6px 16px #0008;opacity:0;text-align:center;color:#3a3326;font-weight:800;font-size:.8rem;line-height:1.2}
+#nightCards figure:nth-child(1){rotate:-4deg}
+#nightCards figure:nth-child(2){rotate:2deg}
+#nightCards figure:nth-child(3){rotate:-2deg}
+#nightCards img{display:block;width:100%;aspect-ratio:1;object-fit:contain;background:#26352e;border-radius:4px;margin-bottom:4px}
+.frame.sleeping #staBar{transition:width 1s ease}   /* thể lực đầy dần trong đêm */
+.frame.sleeping .stage>:not(#night),.frame.sleeping .panel{pointer-events:none}
+.frame.sleeping .panel{opacity:.45;transition:opacity .4s}
+.frame.sleeping #homeBox,.frame.sleeping #nav,.frame.sleeping .tip{opacity:0;transition:opacity .3s}   /* đang ngủ: ẩn lời nhắc, bữa tối và nút Đi ngủ (chúng nằm trên lớp đêm) */
 #doorSign{position:absolute;left:50%;top:22%;transform:translateX(-50%);padding:8px 22px;border-radius:8px;background:#f6efdf;border:2px solid #c9913e;color:#3a3326;font-weight:850;font-size:clamp(1.05rem,3.4vmin,1.6rem);letter-spacing:.08em;white-space:nowrap;box-shadow:0 6px 16px #0006;opacity:0}
 @keyframes fadeIn{from{opacity:0}}
 /* ---------- đấu trường: màn riêng che cả khung (VS → thoại → đếm ngược → đấu → kết quả) ---------- */
@@ -646,7 +661,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
   #frame{animation:none!important}
   #guide.intro-sequence,#guide.intro-sequence #gChat,#guide.intro-sequence #gPet,#guide.intro-sequence #gBody{animation:none!important;opacity:1;transform:none}
   #guide #gOk,#guide #gOk::after{animation:none!important;opacity:1;transform:none}
-  .rays,#art,.hero.hint::after,.tip.warn,#rep.warn,#pt i,.buy.pulse,.buy.first-buy-cue,#aNext,#wait{animation:none!important}
+  .rays,#art,.hero.hint::after,.tip.warn,#rep.warn,#pt i,.buy.pulse,.buy.first-buy-cue,#aNext,#zzz span{animation:none!important}
   #rep.warn{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
   #pt,#pt.walk{animation:ptLifeReduced 8s linear forwards!important}
   .pop{animation:popFade .8s ease-out forwards!important}
@@ -714,6 +729,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     </button>
     <div id="nav"><button class="big" id="go"></button><button class="big" id="rest"></button><button class="big" id="sleep"></button></div>
     <div class="tip" id="tip"></div>
+    <div id="night" hidden><i id="nightSky"></i><div id="zzz" aria-hidden="true"><span>Z</span><span>z</span><span>z</span></div><div id="nightCards"></div><small id="nightSkip"></small></div>
     <div id="flash"></div>
     <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   </section>
@@ -768,7 +784,6 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     <div id="aBtns" hidden><button class="big" id="aAgain"></button><button class="big no" id="aBack"></button></div>
   </div>
   <div id="door" hidden><i class="dl"></i><i class="dr"></i><b id="doorSign"></b></div>
-  <div id="wait" hidden><p><img id="waitPic" alt="" draggable="false" onerror="this.hidden=true"><span></span><i>...</i><small id="wSkip"></small></p></div>
   <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
   <div id="guide" hidden><div role="dialog" aria-modal="true" aria-labelledby="gName" aria-describedby="gBody">
     <div id="gPet" aria-hidden="true"><img src="assets/pet/pet-dog.webp" alt="" draggable="false"></div>
@@ -817,7 +832,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!', idle:'💤 Treo máy quá 5 phút nên calo tạm dừng. Chạm để tiếp tục!',
       ascDesc:'Đổi calo và bài tập lấy Sao; mỗi Sao tăng 10% calo vĩnh viễn.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
-      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', tWork:'Đang làm việc', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Cài đặt', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
+      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', dOffice:'🏢 VĂN PHÒNG', skip:'Chạm để tua nhanh', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Cài đặt', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
       repTip:'Đợi vòng vàng rồi bấm!', repWarn:'Sắp có Rep hoàn hảo, chuẩn bị!', repMiss:'Hụt', evOk:'Thành công', evNo:'Không may', evToday:'hôm nay', evElse:'còn lại', evNone:'không có gì',
       ev:{boss:['Sếp rủ làm vài ly sau giờ làm.', 'Đi cho sếp vui', 'Xin về đi tập'], lift:['Thang máy hỏng, văn phòng ở tầng 12.', 'Leo bộ 12 tầng', 'Đứng chờ, nghỉ một chút'],
           ot:['Việc gấp, sếp nhờ ở lại thêm một tiếng.', 'Ở lại tăng ca', 'Từ chối khéo'], boba:['Đồng nghiệp mời trà sữa full topping.', 'Uống luôn', 'Rủ đi bộ mua nước ép'],
@@ -869,7 +884,7 @@ const T = {
       unlock:{6:'⚡ Mở: sức mạnh siêu nhân và phản diện Trái Đất.', 5:'🏅 Mở: thử thách.', 4:'🐶 Mở: Bạn tập và Thành tựu.', 3:'⚔️ Mở: Thi đấu và Nhiệm vụ.', 2:'😮‍💨 Mở: mệt mỏi, lịch tuần và sự kiện.', 1:'🍱 Mở: bữa tối, khách ghé và Rep hoàn hảo.'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
       homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp! Lên hạng 2 sẽ mở bữa tối.',
-      guide:'Hướng dẫn', gName:'Bắp · người dẫn chuyện', gNext:'Tiếp tục', gOk:'Đã hiểu', skip:'Chạm để bỏ qua', nextUp:'Bấm để tới bài tập cần mua tiếp', lock:'🔒 Mở khi đạt hạng {n}', ptTag:'Bấm tôi!', crTag:'Bắt chuyện?', ckTag:'Ăn bánh?', crYes:'Crush cười với bạn!', crRush:'Bấm x7 trong 10 giây!', crNo:'Crush ngó lơ...', ckName:'Bánh sinh nhật đồng nghiệp', ptFrenzy:'PT: Bấm x5!', ptFrenzy2:'trong 8 giây, bấm nhanh lên!', ptSta:'PT: Thêm sức!', ptLuck:'PT: Thưởng calo!',
+      guide:'Hướng dẫn', gName:'Bắp · người dẫn chuyện', gNext:'Tiếp tục', gOk:'Đã hiểu', nextUp:'Bấm để tới bài tập cần mua tiếp', lock:'🔒 Mở khi đạt hạng {n}', ptTag:'Bấm tôi!', crTag:'Bắt chuyện?', ckTag:'Ăn bánh?', crYes:'Crush cười với bạn!', crRush:'Bấm x7 trong 10 giây!', crNo:'Crush ngó lơ...', ckName:'Bánh sinh nhật đồng nghiệp', ptFrenzy:'PT: Bấm x5!', ptFrenzy2:'trong 8 giây, bấm nhanh lên!', ptSta:'PT: Thêm sức!', ptLuck:'PT: Thưởng calo!',
       g:{start:['Bắt đầu hành trình', ['Chào cậu! Mình là Bắp. Đây là Gym God: cậu sẽ giúp một nhân viên văn phòng yếu ớt tập luyện và lột xác qua từng hạng.', 'Mỗi ngày, cậu tập ở phòng gym, dùng calo nâng cấp bài tập, rồi về nhà ngủ để hồi sức. Chơi vài phút là đủ bắt đầu!', 'Mình sẽ đồng hành với cậu. Tính năng mới mở dần khi cậu lên hạng—không cần học hết mọi thứ ngay đâu.', 'Bắt đầu bằng nút “Đến phòng tập” bên dưới. Ở đó, chạm nhân vật để tập; mỗi cú chạm dùng một ít thể lực.', 'Dùng calo mua bài tập để kiếm nhiều hơn theo thời gian. Hết thể lực thì về nhà ngủ; sáng mai thể lực sẽ hồi đầy.']],
          intro:['Làm quen', ['Chào cậu! Mình là Bắp, sẽ đồng hành cùng cậu từ bàn giấy đến phòng gym. Mỗi ngày chỉ cần vài phút tập luyện thôi!', 'Bắt đầu nhé: bấm “Đến phòng tập” bên dưới. Khi tới nơi, chạm nhân vật để kiếm 🔥 calo; mỗi cú chạm tốn một chút ⚡ thể lực.', 'Dùng calo mua bài tập để kiếm nhiều hơn theo thời gian. Khi hết thể lực, về nhà ngủ để hồi sức—mình sẽ chỉ thêm tính năng khi cậu mở khóa.']],
          pt:['Khách ghé', ['Này, có khách ghé phòng tập kìa! Chạm họ trước khi rời đi để nhận món quà nhỏ cho buổi tập.']],
@@ -902,7 +917,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!', idle:'💤 Idle for 5 minutes, so calories are paused. Tap to continue!',
       ascDesc:'Trade calories and workouts for Stars; each Star boosts calories by 10% forever.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
-      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', dGym:'🏋️ GYM', dHome:'🏠 HOME', tWork:'Working', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Settings', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
+      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', dGym:'🏋️ GYM', dHome:'🏠 HOME', dOffice:'🏢 OFFICE', skip:'Tap to skip', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Settings', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
       repTip:'Wait for gold, then tap!', repWarn:'Perfect rep coming, get ready!', repMiss:'Miss', evOk:'It worked', evNo:'No luck', evToday:'today', evElse:'otherwise', evNone:'nothing',
       ev:{boss:['The boss invites you for drinks after work.', 'Go, keep the boss happy', 'Head to the gym instead'], lift:['The elevator is broken and the office is on floor 12.', 'Take all 12 floors of stairs', 'Wait and take a breather'],
           ot:['Something urgent: the boss asks you to stay one more hour.', 'Work overtime', 'Politely say no'], boba:['A coworker offers you a fully loaded bubble tea.', 'Drink it', 'Walk out for a fresh juice instead'],
@@ -953,7 +968,7 @@ const T = {
       unlock:{6:'⚡ Unlocked: superpowers and Earth villains.', 5:'🏅 Unlocked: challenges.', 4:'🐶 Unlocked: buddies and achievements.', 3:'⚔️ Unlocked: rivals and quests.', 2:'😮‍💨 Unlocked: fatigue, weekly goals and events.', 1:'🍱 Unlocked: dinner, visitors and perfect reps.'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
       homeSay0:'Home at last. Get some sleep and train again tomorrow! Reach rank 2 to unlock dinner.',
-      guide:'How to play', gName:'Biscuit · narrator', gNext:'Next', gOk:'Got it', skip:'Tap to skip', nextUp:'Tap to jump to the next workout to buy', lock:'🔒 Unlocks at rank {n}', ptTag:'Tap me!', crTag:'Say hi?', ckTag:'Eat cake?', crYes:'Your crush smiled at you!', crRush:'Taps x7 for 10 seconds!', crNo:'Your crush ignored you...', ckName:"Coworker's birthday cake", ptFrenzy:'Coach: Taps x5!', ptFrenzy2:'for 8 seconds, tap fast!', ptSta:'Coach: Second wind!', ptLuck:'Coach: Calorie bonus!',
+      guide:'How to play', gName:'Biscuit · narrator', gNext:'Next', gOk:'Got it', nextUp:'Tap to jump to the next workout to buy', lock:'🔒 Unlocks at rank {n}', ptTag:'Tap me!', crTag:'Say hi?', ckTag:'Eat cake?', crYes:'Your crush smiled at you!', crRush:'Taps x7 for 10 seconds!', crNo:'Your crush ignored you...', ckName:"Coworker's birthday cake", ptFrenzy:'Coach: Taps x5!', ptFrenzy2:'for 8 seconds, tap fast!', ptSta:'Coach: Second wind!', ptLuck:'Coach: Calorie bonus!',
       g:{start:['Your journey begins', ['Hi! I’m Biscuit. This is Gym God: you’ll help an exhausted office worker train and rise through the ranks.', 'Each day, train at the gym, spend calories to upgrade workouts, then head home and sleep to recover. A few minutes is all you need to get started!', 'I’ll be with you along the way. New features unlock as you rank up—you don’t need to learn everything right now.', 'Start by pressing “Go to the gym” below. Once there, tap your character to train; each tap uses a little stamina.', 'Spend calories on workouts to earn more over time. When stamina runs out, go home and sleep; it’ll refill by morning.']],
          intro:['Getting started', ['Hi! I’m Biscuit, and I’ll guide you from your office desk to the gym. A few minutes of training each day is all it takes to get started!', 'Let’s go: press “Go to the gym” below. Once there, tap your character to earn 🔥 calories; each tap uses a little ⚡ stamina.', 'Spend calories on workouts to earn more over time. When your stamina runs out, go home and sleep to recover—I’ll show you new features as you unlock them.']],
          pt:['Visitors', ['Look who dropped by the gym! Tap a visitor before they leave, and they might have a little gift for your workout.']],
@@ -1006,7 +1021,7 @@ const RIVALS = [
 ];
 // Mục tiêu đối thủ i (từ 0): x2,4 mỗi người tới đối thủ 20; phản diện (21–30) chỉ x1,25 mỗi người, nếu không thì không ai đánh nổi (sim).
 const DUEL = 15, WIN_BONUS = .03, target = i => 300 * 2.4 ** Math.min(i, 19) * 1.25 ** Math.max(0, i - 19), prize = i => target(i) * 3;
-const rivalPic = i => `<img src="assets/rival/rival-${String(i + 1).padStart(2, '0')}.webp" alt="" draggable="false" onerror="this.replaceWith('${RIVALS[i][0]}')">`;
+const rivalPic = (i, lazy = false) => `<img ${lazy ? 'loading="lazy" ' : ''}src="assets/rival/rival-${String(i + 1).padStart(2, '0')}.webp" alt="" draggable="false" onerror="this.replaceWith('${RIVALS[i][0]}')">`;
 // Khách ghé phòng tập: PT luôn có quà; crush đi ngang, bắt chuyện thì may rủi; bánh sinh nhật đổi calo lấy cân nặng. Không lưu: tải lại trang thì đếm lại.
 // day: tối đa số khách mỗi ngày (lưu trong s.vis; không có giới hạn thì quà thể lực sinh thêm thời gian tập, sinh thêm khách, ngày không hết). gap: khách đến sau gap–2×gap giây ở phòng tập. PT: bấm x tap trong life giây / +sta thể lực / calo = cps giây calo/giây + taps cú bấm.
 // Crush: crOk cơ hội được bấm x crTap trong crMs giây hoặc calo x crCal; còn lại mất crLose thể lực đang có. Bánh: calo x ckCal, +ckKg kg.
@@ -1079,7 +1094,7 @@ const todayQuests = () => {
   return [0, 1, 2].map(j => available[(dayIdx() + j) % available.length]);
 };
 const qProg = q => q.k === 'duel' && s.wins >= RIVALS.length ? q.n : Math.min(q.n, s.q.p[q.k] || 0);
-const qReward = () => Math.max(500, 300 * (pps() + 3 * clickPower()));
+const qReward = (cps = pps(), tap = clickPower()) => Math.max(500, 300 * (cps + 3 * tap));
 const bump = (k, n = 1) => { s.q.p[k] = (s.q.p[k] || 0) + n; };
 // Thành tựu: [loại, mốc]; mỗi cái đạt được +1% calo vĩnh viễn.
 const ACH = [['click',100],['click',1000],['click',10000],['total',1e4],['total',1e6],['total',1e8],['total',1e10],['rank',2],['rank',4],['rank',6],['rank',9],
@@ -1091,7 +1106,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:-1, p:{}, got:{}}, seen:1, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);
@@ -1202,6 +1217,7 @@ const earn = x => { s.cal += x; s.run += x; s.total += x; };
 
 // ============ Hiển thị ============
 let nf, shown = 0;
+const setText = (el, value) => { const text = String(value); if (el.textContent !== text) el.textContent = text; };
 const tr = k => T[s.lang][k];
 const fmt = n => n < 1000 ? (Math.floor(n * 10) / 10).toLocaleString(s.lang) : nf.format(n);
 
@@ -1252,14 +1268,31 @@ function guy(t) {
   ${t < .3 ? `<path d="M286 78q12 18 0 26q-12-8 0-26z" fill="#7dd3fc" ${S} stroke-width="3.5"/>` : ''}`;
 }
 const CHARS = [['', '👨'], ['c2-', '👩']];   // [tiền tố file ảnh, biểu tượng nút đổi]; thêm nhân vật = thêm một dòng + ảnh c3-rank1..6
-const pics = CHARS.map(c => RANKS.map((_, i) => { const im = new Image(); im.onload = () => { im.ok = true; drawArt(); };   // ảnh hạng nào chưa có thì drawArt dùng ảnh hạng thấp hơn gần nhất
-  im.src = `assets/char/${c[0]}rank${i + 1}.webp`; return im; }));
-function drawArt() {
-  const im = pics[s.char].slice(0, shown + 1).findLast(p => p.ok) || pics[s.char][shown];   // chưa có ảnh hạng này (hạng mới chưa vẽ): dùng ảnh hạng thấp hơn gần nhất
+const pics = CHARS.map(() => []);
+function loadCharacter(char, rank) {
+  if (pics[char][rank]) return pics[char][rank];
+  const im = pics[char][rank] = new Image();
+  const redraw = () => { if (s.char === char && rank <= shown) drawCharacter(); };
+  im.onload = () => { im.ok = true; redraw(); };
+  im.onerror = () => { im.failed = true; redraw(); };
+  im.src = `assets/char/${CHARS[char][0]}rank${rank + 1}.webp`;
+  return im;
+}
+function drawCharacter() {
+  let r = shown;
+  while (r >= 0 && loadCharacter(s.char, r).failed) r--;
+  if (RANKS[shown + 1]) loadCharacter(s.char, shown + 1);
+  const im = pics[s.char].slice(0, shown + 1).findLast(p => p?.ok);
   $('who').textContent = CHARS[s.char][1];
-  $('pic').hidden = !im.ok; $('guy').style.display = im.ok ? 'none' : '';
-  if (im.ok) $('pic').src = im.src; else $('guy').innerHTML = guy(shown / (RANKS.length - 1));
-  $('art').classList.toggle('pic', !!im.ok);
+  $('pic').hidden = !im; $('guy').style.display = im ? 'none' : '';
+  if (im) {
+    if ($('pic').src !== im.src) $('pic').src = im.src;
+    if (arena) { $('aMe').src = im.src; $('aMe').hidden = false; }
+  } else $('guy').innerHTML = guy(shown / (RANKS.length - 1));
+  $('art').classList.toggle('pic', !!im);
+}
+function drawArt() {
+  drawCharacter();
   // nền theo màn: văn phòng, phòng gym, nhà; thiếu ảnh thì hiện nền vẽ bằng CSS
   for (const k of ['office', 'gym', 'home']) $('frame').classList.toggle(k, s.scene === k);
   $('bg').style.backgroundImage = `linear-gradient(#403a2b18,#403a2b08 30%,#403a2b00 60%,#403a2b28),url(assets/bg/bg${{office: 1, gym: 2, home: 3}[s.scene]}.webp)`;
@@ -1270,7 +1303,7 @@ function buildTexts() {
   nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
   document.documentElement.lang = s.lang;
   for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','workoutPlan','rivalPlan','petPlan','questPlan','awardPlan','ascendPlan','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
-  $('chipMax').textContent = tr('max'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gName').textContent = tr('gName'); $('wSkip').textContent = tr('skip'); document.querySelector('.rank').title = tr('nextUp');
+  $('chipMax').textContent = tr('max'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gName').textContent = tr('gName'); document.querySelector('.rank').title = tr('nextUp');
   $('list').innerHTML = EX.map((e, i) => `<div class="card">
     <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>
     <div><b></b><span class="lv"></span><small class="d"></small><em></em><i class="ms"></i><i class="goal"></i></div>
@@ -1284,6 +1317,8 @@ function buildTexts() {
   // màn văn phòng: một câu nói ngẫu nhiên mỗi lần mở game + các thông số, chưa chơi được
   drawMeals();
   drawDay();
+  $('nightSkip').textContent = tr('skip');
+  $('nightCards').innerHTML = ['Sleep', 'Morning', 'Commute'].map(k => `<figure><img src="assets/scene/scene-${k.toLowerCase()}.webp" alt="" draggable="false"><figcaption>${tr('t' + k)}</figcaption></figure>`).join('');
   const okeys = ['oCal', 'oSta', 'oKg', 'oFat'];
   $('ostats').innerHTML = okeys.map((k, j) => `<div class="stat" id="statO${j}"><span>${rich(tr(k))}</span><b id="os${j}"></b></div>` + (j < okeys.length - 1 ? `<span class="sep" id="sepO${j}" aria-hidden="true">·</span>` : '')).join('');
   const pct = x => Math.round(x * 100) + '%';
@@ -1297,11 +1332,15 @@ function buildTexts() {
   $('chs').innerHTML = `<div class="league">${tr('chH')}</div><p id="chDesc"></p>` + CH.map((c, j) => { const [n, rule, rw] = tr('ch')[c.k];
     return `<div class="card"><div class="tile" style="background:#0005"><img src="assets/icon/icon-ch-${c.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${c.i}')"></div><div><b>${n}</b><small>${rich(rule)}</small><i class="goal">${rich(tr('chGoal').replace('{n}', c.goal + 1))}</i><em>${rich(rw)}</em></div><button class="buy" data-c="${j}" style="--p:100%"></button></div>`; }).join('') +
     `<button class="link" id="chQuit">${tr('chQuit')}</button>`;
-  $('rivals').innerHTML = RIVALS.map((r, i) => (i % 5 ? '' : '<div class="league"></div>') + `<div class="card">
-    <div class="tile" style="background:#0005">${rivalPic(i)}</div>
+  $('rivals').replaceChildren();
+  refresh();
+}
+
+function buildRivals(list) {
+  list.innerHTML = RIVALS.map((r, i) => (i % 5 ? '' : '<div class="league"></div>') + `<div class="card">
+    <div class="tile" style="background:#0005">${rivalPic(i, true)}</div>
     <div><b>${r[s.lang === 'vi' ? 1 : 2]}</b><small>${rich(`${tr('need')} 🔥 ${fmt(target(i))} / ${DUEL}s`)}</small><em>${rich(`+${WIN_BONUS * 100}% ${tr('forever')} · +${fmt(prize(i))} 🔥`)}</em></div>
     <button class="buy fight" data-r="${i}" style="--p:0%"></button></div>`).join('');
-  ui();
 }
 
 const evOf = () => EV.find(e => e.k === s.ev);
@@ -1337,64 +1376,173 @@ function drawDay() {   // phần chỉ đổi khi sang ngày/màn mới: câu n�
   $('rest').classList.toggle('pulse', isOver);
 }
 
-function ui() {
-  const r = rankOf(), p = points(), next = RANKS[r + 1], m = mult(), goal = next ? next.goal : [];
-  const lvOf = i => s.lv[EX[i].k], sum = a => a.reduce((x, y) => x + y, 0);
-  $('cal').textContent = fmt(s.cal);
-  $('rate').textContent = `+${fmt(pps())} ${tr('perSec')} · +${fmt(clickPower())} ${tr('perClick')}`;
-  $('rk').textContent = r + 1;
-  $('rname').textContent = RANKS[r][s.lang];
-  const gm = goal.filter((g, i) => g && lvOf(i) >= g).length, gn = goal.filter(g => g).length;
-  const over = next ? (kgShow() - KG[r + 1]).toFixed(1) : '';
-  $('rpts').textContent = !next ? tr('maxRank') : gm === gn && kgShow() > KG[r + 1] ? tr('needKg').replace('{n}', over)
-    : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (kgShow() <= KG[r + 1] ? '✓' : `(−${over})`));
-  $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, lvOf(i)))) / sum(goal) * 100 : 100) + '%';
-  while (s.seen < EX.length && (s.cal >= EX[s.seen].c / 2 || s.lv[EX[s.seen - 1].k] > 0)) s.seen++;   // bài tập ẩn "???" cho tới khi gần mua được
-  const newbie = p === 0;
-  const want = goal.map((g, i) => g > lvOf(i) ? EX[i].c * R ** lvOf(i) : Infinity), low = Math.min(...want), nextI = isFinite(low) ? want.indexOf(low) : -1;   // bài còn thiếu mục tiêu, rẻ nhất
-  [...$('list').children].forEach((c, i) => {
-    c.classList.toggle('next', i === nextI);
-    const e = EX[i], n = count(e), cost = bulk(e, n), b = c.querySelector('.buy'), g = goal[i] || 0, hid = i >= s.seen && !g, lv = s.lv[e.k], next = MS.find(x => x > lv), gl = c.querySelector('.goal');   // bài tập hạng kế cần thì luôn hiện
-    c.classList.toggle('hid', hid);
-    c.querySelector('b').textContent = hid ? '???' : e[s.lang][0];
-    c.querySelector('.d').textContent = hid ? '' : e[s.lang][1];
-    c.querySelector('.lv').textContent = hid ? '' : `${tr('lv')} ${lv}`;
-    c.querySelector('em').textContent = hid ? '' : `+${fmt((e.pps || e.click) * boost(lv) * m)} ${tr(e.pps ? 'perSec' : 'perClick')}`;
-    c.querySelector('.ms').textContent = hid || !next ? '' : `x2 ${tr('at')} ${next}`;
-    gl.textContent = g ? `🎯 ${kg(e, lv)} / ${kg(e, g)}${lv >= g ? ' ✓' : ''}` : ''; gl.classList.toggle('ok', lv >= g);
-    b.disabled = s.cal < cost;
-    b.style.setProperty('--p', Math.min(100, s.cal / cost * 100) + '%');   // nút đầy dần khi sắp đủ calo
-    put(b.firstChild, '🔥 ' + fmt(cost));
-    b.lastChild.textContent = 'x' + n;
-  });
-  if (s.scene === 'gym' && !duel && !s.tips.firstBuy && s.lv[EX[0].k] === 0 && s.cal >= EX[0].c) {
-    const b = $('list').querySelector('.buy[data-i="0"]');
-    if (b && !b.disabled) {
-      s.tips.firstBuy = 1; save();
-      b.classList.add('first-buy-cue');
-      setTimeout(() => b.classList.remove('first-buy-cue'), 1500);
+function updateProgress() {
+  const seen = s.seen, best = s.best;
+  while (s.seen < EX.length && (s.cal >= EX[s.seen].c / 2 || s.lv[EX[s.seen - 1].k] > 0)) s.seen++;
+  s.best = Math.max(s.best, rankOf());
+  if (s.q.day !== dayIdx()) s.q = {day: dayIdx(), p: {}, got: {}};
+  let changed = seen !== s.seen || best !== s.best;
+  for (const a of ACH) {
+    if (s.ach[a.id] || AV[a.t]() < a.n) continue;
+    s.ach[a.id] = 1;
+    toastLater('🏆 ' + achText(a), '+1%'); sfx.ding();
+    changed = true;
+  }
+  return changed;
+}
+
+function showFirstBuyHint() {
+  if (s.scene !== 'gym' || activeTab !== 'Ex' || arena || s.tips.firstBuy || s.lv[EX[0].k] || s.cal < EX[0].c) return;
+  const b = $('list').querySelector('.buy[data-i="0"]');
+  if (!b || b.disabled) return;
+  s.tips.firstBuy = 1; save();
+  b.classList.add('first-buy-cue');
+  setTimeout(() => b.classList.remove('first-buy-cue'), 1500);
+}
+
+function refresh(full = true) {
+  const changed = !asleep && updateProgress();
+  if (document.hidden) return;
+  ui(full || changed);
+  showFirstBuyHint();
+}
+
+function ui(full = true) {
+  const prevTab = activeTab;
+  if (!asleep) syncTabs();
+  full ||= prevTab !== activeTab;
+
+  const cps = pps(), tap = clickPower(), gain = starGain(), sc = summonCost();
+  const quests = unl() >= TAB_RANK.Quest ? todayQuests() : [];
+  drawHud(full, cps, tap);
+  $('tabDuel').classList.toggle('dot', !duel && s.wins < RIVALS.length && DUEL * (cps + 5 * tap) >= target(s.wins));
+  $('tabPet').classList.toggle('dot', s.cal >= sc);
+  $('tabAsc').classList.toggle('dot', gain >= 1);
+  $('tabQuest').classList.toggle('dot', quests.some(q => !s.q.got[q.k] && qProg(q) >= q.n));
+
+  if (asleep || s.scene === 'office') return;
+  switch (activeTab) {
+    case 'Ex': drawExercises(full); break;
+    case 'Duel': drawRivals(full, $('rivals')); break;
+    case 'Pet': drawPets(full, sc); break;
+    case 'Quest': drawQuests(quests, qReward(cps, tap), full); break;
+    case 'Ach': drawAchievements(full); break;
+    case 'Asc': drawAscension(full, gain); break;
+  }
+}
+
+function drawHud(full, cps, tap) {
+  const r = asleep ? shown : rankOf(), next = RANKS[r + 1];
+  setText($('cal'), fmt(s.cal));
+  setText($('rate'), `+${fmt(cps)} ${tr('perSec')} · +${fmt(tap)} ${tr('perClick')}`);
+  if (full) {
+    setText($('rk'), r + 1);
+    setText($('rname'), RANKS[r][s.lang]);
+    const goal = next?.goal || [], sum = a => a.reduce((x, y) => x + y, 0);
+    const gm = goal.filter((g, i) => g && s.lv[EX[i].k] >= g).length, gn = goal.filter(g => g).length;
+    const over = next ? (kgShow() - KG[r + 1]).toFixed(1) : '';
+    setText($('rpts'), !next ? tr('maxRank') : gm === gn && kgShow() > KG[r + 1] ? tr('needKg').replace('{n}', over)
+      : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (kgShow() <= KG[r + 1] ? '✓' : `(−${over})`)));
+    $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, s.lv[EX[i].k]))) / sum(goal) * 100 : 100) + '%';
+  }
+
+  const sm = Math.max(s.cap, s.sta), staTxt = `${Math.floor(s.sta)} / ${sm}`;
+  setText($('staTxt'), staTxt);
+  $('staBar').style.width = s.sta / sm * 100 + '%';
+  $('hero').classList.toggle('hint', s.scene === 'gym' && !duel && s.clicks < 5);
+  $('tip').classList.toggle('warn', s.scene === 'gym' && !duel && s.sta < 1);
+  setText($('tip'), tr(idle() && !duel ? 'idle' : s.scene === 'home' ? 'homeTip' : duel ? 'duelTip' : s.sta < 1 ? 'noSta' : !points() && s.cal >= EX[0].c ? 'tipBuy' : 'tip'));
+  $('goHome').classList.toggle('pulse', s.sta < 1);
+  $('boost').hidden = !CG || s.scene !== 'gym' || s.drink || !!duel || unl() < 1;
+  put($('boost'), tr('x2'));
+
+  const kgTxt = s.kg.toFixed(1) + ' kg', fatTxt = `${Math.round(s.fat)} · ${tr('fat' + fatLv())}`;
+  setText($('fatTxt'), fatTxt);
+  setText($('kgTxt'), kgTxt);
+  setText($('dayTxt'), `${tr('day')} ${s.day} · ${T[s.lang].dw[dow()]}`);
+  if (full) {
+    $('fatTxt').parentNode.hidden = unl() < 2;
+    $('kgTxt').parentNode.hidden = unl() < 3;
+    $('go').disabled = fatLv() === 3;
+    $('rest').classList.toggle('pulse', fatLv() === 3);
+    $('chPill').hidden = !s.ch;
+    if (s.ch) {
+      const c = CH.find(x => x.k === s.ch);
+      put($('chPill'), `${c.i} ${tr('ch')[c.k][0]} · ${tr('chGoal').replace('{n}', c.goal + 1)}`);
+    }
+    if (s.scene === 'home') for (const b of $('meals').children) {
+      b.classList.toggle('on', s.next === MEALS[b.dataset.m].k); b.disabled = !!s.next;
     }
   }
-  $('hero').classList.toggle('hint', s.scene === 'gym' && !duel && s.clicks < 5);
-  $('tip').classList.toggle('warn', s.scene === 'gym' && !duel && s.sta < 1);   // hết thể lực: nhấp nháy đỏ cho dễ thấy
-  $('tip').textContent = tr(idle() && !duel ? 'idle' : s.scene === 'home' ? 'homeTip' : duel ? 'duelTip' : s.sta < 1 ? 'noSta' : newbie && s.cal >= EX[0].c ? 'tipBuy' : 'tip');
-  document.querySelectorAll('#rivals .league').forEach((h, l) => {
-    h.textContent = `${tr('league')} ${l + 1}: ${LEAGUES[l][s.lang]} (${Math.max(0, Math.min(5, s.wins - l * 5))}/5)`;
-    h.classList.toggle('lock', s.wins < l * 5);
+  if (s.scene === 'office') {
+    [fmt(s.cal), staTxt, kgTxt, fatTxt].forEach((v, j) => setText($('os' + j), v));
+    if (full) for (const [j, min] of [[2, 3], [3, 2]]) {
+      $('statO' + j).hidden = unl() < min;
+      $('sepO' + (j - 1)).style.display = unl() < min ? 'none' : '';
+    }
+  }
+}
+
+function drawExercises(full) {
+  const goal = RANKS[rankOf() + 1]?.goal || [];
+  const cards = $('list').children;
+  const m = full ? mult() : 0;
+  let nextI = -1;
+  if (full) {
+    const want = goal.map((g, i) => g > s.lv[EX[i].k] ? EX[i].c * R ** s.lv[EX[i].k] : Infinity), low = Math.min(...want);
+    nextI = isFinite(low) ? want.indexOf(low) : -1;
+    document.querySelectorAll('.tools .chip').forEach(c => c.classList.toggle('on', c.dataset.m == mode));
+  }
+  EX.forEach((e, i) => {
+    const c = cards[i], b = c.lastElementChild, n = count(e), cost = bulk(e, n);
+    if (full) {
+      const g = goal[i] || 0, hid = i >= s.seen && !g, lv = s.lv[e.k], next = MS.find(x => x > lv), gl = c.querySelector('.goal');
+      c.classList.toggle('next', i === nextI);
+      c.classList.toggle('hid', hid);
+      setText(c.querySelector('b'), hid ? '???' : e[s.lang][0]);
+      setText(c.querySelector('.d'), hid ? '' : e[s.lang][1]);
+      setText(c.querySelector('.lv'), hid ? '' : `${tr('lv')} ${lv}`);
+      setText(c.querySelector('em'), hid ? '' : `+${fmt((e.pps || e.click) * boost(lv) * m)} ${tr(e.pps ? 'perSec' : 'perClick')}`);
+      setText(c.querySelector('.ms'), hid || !next ? '' : `x2 ${tr('at')} ${next}`);
+      setText(gl, g ? `🎯 ${kg(e, lv)} / ${kg(e, g)}${lv >= g ? ' ✓' : ''}` : '');
+      gl.classList.toggle('ok', lv >= g);
+    }
+    b.disabled = s.cal < cost;
+    b.style.setProperty('--p', Math.min(100, s.cal / cost * 100) + '%');
+    put(b.firstChild, '🔥 ' + fmt(cost));
+    setText(b.lastChild, 'x' + n);
   });
-  document.querySelectorAll('#rivals .card').forEach((c, i) => {
-    const b = c.querySelector('.buy');
-    c.classList.toggle('done', i < s.wins); c.classList.toggle('hid', i > s.wins);
-    b.textContent = i < s.wins ? '✓' : i > s.wins ? '🔒' : tr('fight') + (dow() === 6 ? '' : ' ⚡' + duelSta());
-    b.disabled = i !== s.wins || !!arena || (dow() !== 6 && s.sta < duelSta());
-  });
-  // chấm đỏ khi ước tính đủ sức thắng đối thủ kế tiếp (bấm 5 lần/giây)
-  const pct = x => Math.round(x * 100) + '%', sc = summonCost();
+}
+
+function drawRivals(full, list) {
+  if (!list.children.length) {
+    buildRivals(list);
+    full = true;
+  }
+  if (full) {
+    list.querySelectorAll('.league').forEach((h, l) => {
+      h.textContent = `${tr('league')} ${l + 1}: ${LEAGUES[l][s.lang]} (${Math.max(0, Math.min(5, s.wins - l * 5))}/5)`;
+      h.classList.toggle('lock', s.wins < l * 5);
+    });
+    list.querySelectorAll('.card').forEach((c, i) => {
+      const b = c.querySelector('.buy');
+      c.classList.toggle('done', i < s.wins); c.classList.toggle('hid', i > s.wins);
+      b.textContent = i < s.wins ? '✓' : i > s.wins ? '🔒' : tr('fight') + (dow() === 6 ? '' : ' ⚡' + duelSta());
+      b.disabled = i !== s.wins;
+    });
+  }
+  const b = list.querySelector(`.buy[data-r="${s.wins}"]`);
+  if (b) b.disabled = !!arena || (dow() !== 6 && s.sta < duelSta());
+}
+
+function drawPets(full, sc) {
+  const summon = $('summon');
+  summon.disabled = s.cal < sc;
+  summon.style.setProperty('--p', Math.min(100, s.cal / sc * 100) + '%');
+  if (!full) return;
+  const pct = x => Math.round(x * 100) + '%';
   $('petSum').textContent = `+${pct(petBonus('click'))} ${tr('perClick')} · +${pct(petBonus('pps'))} ${tr('perSec')}`;
-  $('summon').disabled = s.cal < sc;
-  $('summon').style.setProperty('--p', Math.min(100, s.cal / sc * 100) + '%');
-  $('summon').firstChild.textContent = tr('summon'); put($('summon').lastChild, '🔥 ' + fmt(sc));
-  $('tabPet').classList.toggle('dot', s.cal >= sc);
+  summon.firstChild.textContent = tr('summon'); put(summon.lastChild, '🔥 ' + fmt(sc));
   [...$('pets').children].forEach((c, i) => {
     const q = PETS[i], lv = s.pets[q.k] || 0;
     c.classList.toggle('hid', !lv);
@@ -1402,13 +1550,48 @@ function ui() {
     c.querySelector('.lv').textContent = lv ? `${tr('lv')} ${lv}` : '';
     c.querySelector('em').textContent = lv ? '= +' + pct((q.pps || q.click) * lv) : '';
   });
-  $('tabDuel').classList.toggle('dot', !duel && s.wins < RIVALS.length && DUEL * (pps() + 5 * clickPower()) >= target(s.wins));
-  document.querySelectorAll('.tools .chip').forEach(c => c.classList.toggle('on', c.dataset.m == mode));
-  const g = starGain();
-  put($('vStars'), '⭐ ' + s.stars); $('vBonus').textContent = '+' + s.stars * 10 + '%'; put($('vGain'), '⭐ ' + g);
-  $('tabAsc').classList.toggle('dot', g >= 1);
-  $('boost').hidden = !CG || s.scene !== 'gym' || s.drink || !!duel || unl() < 1; put($('boost'), tr('x2'));   // nước tăng lực: mở ở hạng 2, một lần mỗi ngày
-  $('ascBtn').disabled = g < 1; put($('ascBtn'), g < 1 ? tr('ascNeed') : tr('ascBtn'));
+}
+
+function drawQuests(quests, reward, full) {
+  const cards = $('quests').children;
+  quests.forEach((q, j) => {
+    const c = cards[j + 1], v = qProg(q), got = s.q.got[q.k], b = c.querySelector('.buy');
+    if (full) {
+      put(c.querySelector('.tile'), q.i);
+      c.querySelector('b').textContent = tr('q' + q.k).replace('{n}', q.n);
+      c.classList.toggle('done', !!got);
+    }
+    setText(c.querySelector('small'), q.k === 'play' ? `${Math.floor(v / 60)} / ${q.n / 60} min` : `${Math.floor(v)} / ${q.n}`);
+    c.querySelector('.bar i').style.width = v / q.n * 100 + '%';
+    b.disabled = v < q.n || !!got;
+    put(b, got ? '✓' : '🔥 ' + fmt(reward));
+  });
+}
+
+function drawAchievements(full) {
+  const cards = $('achs').children;
+  ACH.forEach((a, j) => {
+    if (!full && (!['total', 'click'].includes(a.t) || s.ach[a.id])) return;
+    const c = cards[j];
+    if (full) c.classList.toggle('hid', !s.ach[a.id]);
+    setText(c.querySelector('small'), `${fmt(Math.min(AV[a.t](), a.n))} / ${fmt(a.n)}`);
+  });
+  const hrs = s.play / 3600;
+  setText($('st0'), `${Math.floor(hrs)}h ${Math.floor(hrs % 1 * 60)}m`);
+  setText($('st2'), fmt(s.total));
+  if (full) {
+    for (const [j, v] of [[3, s.ascends], [4, `${s.wins} / ${RIVALS.length}`], [5, s.summons],
+      [6, `${Object.keys(s.ach).length} / ${ACH.length}`], [7, 'x' + (mult() * (1 + petBonus('pps'))).toFixed(2)]]) setText($('st' + j), v);
+  }
+}
+
+function drawAscension(full, gain) {
+  put($('vGain'), '⭐ ' + gain);
+  $('ascBtn').disabled = gain < 1;
+  put($('ascBtn'), gain < 1 ? tr('ascNeed') : tr('ascBtn'));
+  if (!full) return;
+  put($('vStars'), '⭐ ' + s.stars);
+  $('vBonus').textContent = '+' + s.stars * 10 + '%';
   // kỹ năng Sao + thử thách
   const free = s.stars - skSpent();
   put($('vFree'), '⭐ ' + free);
@@ -1431,62 +1614,6 @@ function ui() {
     put(b, chd(k) ? '✓' : s.ch === k ? tr('chOn') : chOk ? tr('chGo') : '🔒');
   });
   $('chQuit').hidden = !s.ch;
-  $('chPill').hidden = !s.ch;
-  if (s.ch) { const c = CH.find(x => x.k === s.ch); put($('chPill'), `${c.i} ${tr('ch')[c.k][0]} · ${tr('chGoal').replace('{n}', c.goal + 1)}`); }
-  // nhiệm vụ hằng ngày
-  if (s.q.day !== dayIdx()) s.q = {day: dayIdx(), p: {}, got: {}};
-  let claimable = false;
-  document.querySelectorAll('#quests .card').forEach((c, j) => {
-    const q = todayQuests()[j], v = qProg(q), ok = v >= q.n, got = s.q.got[q.k], b = c.querySelector('.buy');
-    put(c.querySelector('.tile'), q.i);
-    c.querySelector('b').textContent = tr('q' + q.k).replace('{n}', q.n);
-    c.querySelector('small').textContent = q.k === 'play' ? `${Math.floor(v / 60)} / ${q.n / 60} min` : `${Math.floor(v)} / ${q.n}`;
-    c.querySelector('.bar i').style.width = v / q.n * 100 + '%';
-    c.classList.toggle('done', !!got);
-    b.disabled = !ok || !!got; put(b, got ? '✓' : '🔥 ' + fmt(qReward()));
-    claimable ||= ok && !got;
-  });
-  $('tabQuest').classList.toggle('dot', claimable);
-  // thành tựu + thống kê
-  s.best = Math.max(s.best, r);
-  ACH.forEach((a, j) => {
-    const v = AV[a.t](), c = $('achs').children[j];
-    if (!s.ach[a.id] && v >= a.n) { s.ach[a.id] = 1; toastLater('🏆 ' + achText(a), '+1%'); sfx.ding(); }
-    c.classList.toggle('hid', !s.ach[a.id]);
-    c.querySelector('small').textContent = `${fmt(Math.min(v, a.n))} / ${fmt(a.n)}`;
-  });
-  const hrs = s.play / 3600;
-  // thể lực, mệt mỏi, cân nặng, ngày
-  const sm = Math.max(s.cap, s.sta), fatTxt = `${Math.round(s.fat)} · ${tr('fat' + fatLv())}`, staTxt = `${Math.floor(s.sta)} / ${sm}`;
-  $('staTxt').textContent = staTxt; $('staBar').style.width = s.sta / sm * 100 + '%';
-  $('fatTxt').textContent = fatTxt; $('kgTxt').textContent = s.kg.toFixed(1) + ' kg';
-  $('fatTxt').parentNode.hidden = unl() < 2;
-  $('kgTxt').parentNode.hidden = unl() < 3;
-  $('dayTxt').textContent = `${tr('day')} ${s.day} · ${T[s.lang].dw[dow()]}`;
-  $('goHome').classList.toggle('pulse', s.sta < 1);
-  $('go').disabled = fatLv() === 3;
-  $('rest').classList.toggle('pulse', fatLv() === 3);
-  if (s.scene === 'office') {
-    [fmt(s.cal), staTxt, s.kg.toFixed(1) + ' kg', fatTxt].forEach((v, j) => {
-      const el = $('os' + j); if (el) el.textContent = v;
-      const wrap = $('statO' + j);
-      if (wrap) {
-        if (j === 2) wrap.hidden = unl() < 3;
-        if (j === 3) wrap.hidden = unl() < 2;
-      }
-      const sep = $('sepO' + (j - 1));
-      if (sep) {
-        if (j === 2) sep.style.display = unl() < 3 ? 'none' : '';
-        if (j === 3) sep.style.display = unl() < 2 ? 'none' : '';
-      }
-    });
-  }
-  if (s.scene === 'home') [...$('meals').children].forEach(b => {
-    b.classList.toggle('on', s.next === MEALS[b.dataset.m].k); b.disabled = !!s.next;
-  });
-  syncTabs();
-  [`${Math.floor(hrs)}h ${Math.floor(hrs % 1 * 60)}m`, fmt(s.clicks), fmt(s.total), s.ascends, `${s.wins} / ${RIVALS.length}`, s.summons, `${Object.keys(s.ach).length} / ${ACH.length}`, 'x' + (m * (1 + petBonus('pps'))).toFixed(2)]
-    .forEach((v, j) => $('st' + j).textContent = v);
 }
 
 let toastEnd = 0;
@@ -1499,23 +1626,31 @@ function toast(big, small, ms = 2200) {
   $('toast').innerHTML = rich(big) + (small ? `<small>${rich(small)}</small>` : '');
   motion($('toast'), [{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
 }
-function celebrate() {   // lên hạng: loé sáng, rung, đổi hình
+function celebrate(u) {   // lên hạng: loé sáng, rung, đổi hình
   motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
   motion($('frame'), [{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
   motion($('art'), [{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
   sting('rankup', sfx.up);
-  const u = shown > s.best && T[s.lang].unlock[shown];   // lần đầu đạt hạng này: báo tính năng mới
   toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
 }
-function syncRank(quiet) {
+function updateRank() {
   while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && kgShow() <= KG[s.rk + 1]) s.rk++;
-  const c = CH.find(x => x.k === s.ch);
-  if (c && s.rk >= c.goal) {   // xong thử thách: luật hết tác dụng, thưởng vĩnh viễn
-    s.chd[c.k] = 1; s.ch = null; toastLater(tr('chWin'), `${c.i} ${tr('ch')[c.k][0]} · ${tr('ch')[c.k][2]}`); save();
-  }
+  const unlock = s.rk > s.best && T[s.lang].unlock[s.rk];
+  s.best = Math.max(s.best, s.rk);
+  const challenge = CH.find(x => x.k === s.ch && s.rk >= x.goal);
+  if (challenge) { s.chd[challenge.k] = 1; s.ch = null; }
+  return {unlock, challenge};
+}
+function showRankChange({unlock, challenge}, quiet) {
+  if (challenge) toastLater(tr('chWin'), `${challenge.i} ${tr('ch')[challenge.k][0]} · ${tr('ch')[challenge.k][2]}`);
   const r = rankOf(); if (r === shown) return;
-  const up = r > shown; shown = r; drawArt(); tune();   // đổi hạng: bài phòng tập có thể đổi theo
-  if (up && !quiet) celebrate();
+  const up = r > shown; shown = r; drawArt(); tune();
+  if (up && !quiet) celebrate(unlock);
+}
+function syncRank(quiet) {
+  const change = updateRank();
+  showRankChange(change, quiet);
+  if (change.challenge) save();
 }
 
 // ============ Âm thanh (tổng hợp bằng WebAudio, không cần file) ============
@@ -1578,6 +1713,8 @@ const sfx = {
   coin:  () => { beep(1047, .06, 'square', .04); beep(1568, .2, 'square', .035, .06); },
   ding:  () => { beep(1568, .5, 'triangle', .06); beep(2093, .6, 'triangle', .035, .07); },
   shut:  () => { noise(900, .3, .07, 0, 250); noise(160, .14, .16, .27); beep(85, .12, 'triangle', .09, .27); beep(1300, .03, 'square', .025, .3); buzz(15); },   // cửa lùa khép lại rồi chốt "cạch"
+  dark:  () => { beep(1700, .02, 'square', .03); noise(1500, .04, .06); },   // công tắc đèn
+  birds: () => [2600, 3100, 2750, 3300].forEach((f, i) => beep(f, .07, 'sine', .03, .1 + i * .13)),   // chim hót buổi sáng
   open:  () => { beep(1100, .03, 'square', .025); noise(350, .4, .07, .03, 1600); },   // mở chốt rồi cửa lùa ra
   day:   () => [392, 494, 587, 784].forEach((f, i) => beep(f, .3, 'triangle', .05, i * .1)),
   low:   () => { beep(95, .12, 'triangle', .12); beep(85, .15, 'triangle', .1, .2); },   // tim đập một lần khi thể lực xuống dưới 20%
@@ -1629,7 +1766,7 @@ function music(name) {
     }).catch(() => { delete mBuf[play]; if (mName === play) mName = ''; });   // thiếu file: im lặng, lần sau thử lại
   } catch {}
 }
-const tune = () => music(mWant === 'sleep' && !$('wait').hidden ? 'sleep' : arena ? 'duel' : s.scene === 'gym' ? ['gym', 'gym2', 'gym3'][Math.min(2, Math.floor(shown / 3))] : s.scene);   // mỗi màn một bài, phòng tập đổi bài theo hạng (1–3, 4–6, 7–9); thi đấu và chuỗi đi ngủ có bài riêng
+const tune = () => music(mWant === 'sleep' && asleep ? 'sleep' : arena ? 'duel' : s.scene === 'gym' ? ['gym', 'gym2', 'gym3'][Math.min(2, Math.floor(shown / 3))] : s.scene);   // mỗi màn một bài, phòng tập đổi bài theo hạng (1–3, 4–6, 7–9); thi đấu và chuỗi đi ngủ có bài riêng
 // Trình duyệt chỉ cho phát tiếng sau cú chạm đầu tiên của người chơi.
 addEventListener('pointerdown', () => {
   if (!heard) try {   // tải sẵn ngay cú chạm đầu: đoạn thưởng (~300 KB) và tiếng khách, giọng (~240 KB)
@@ -1652,7 +1789,7 @@ function buy(e) {
   bump('buy', n); sfx.buy();
   if (boost(s.lv[e.k]) > b0) toast(e[s.lang][0] + ' x' + boost(s.lv[e.k]) / b0 + '!');
   if (g && was < g && s.lv[e.k] >= g) toast('🎯 ' + e[s.lang][0], kg(e, g) + ' ✓');
-  syncRank(); ui(); save();
+  syncRank(); refresh(); save();
   return true;
 }
 let hold;   // giữ nút để mua liên tục
@@ -1714,7 +1851,7 @@ $('hero').onclick = ev => {
     q.className = 'pop ' + (rx > 1 ? 'perfect' : 'miss'); q.textContent = rt; q.style.left = r.width / 2 + 'px'; q.style.top = r.height * .35 + 'px'; q.style.setProperty('--r', '0deg');
     q.onanimationend = () => q.remove(); $('hero').append(q);
   }
-  ui();
+  refresh(false);
 };
 
 document.querySelector('.tools').onclick = ev => { const m = ev.target.dataset.m; if (m) { mode = m === 'max' ? m : +m; ui(); } };
@@ -1733,14 +1870,14 @@ function syncTabs() {
   }
   $('frame').classList.toggle('homeNoPanel', s.scene === 'home' && available.length === 0);
 }
-const tab = k => { const available = TABS.filter(tabUnlocked); activeTab = available.includes(k) ? k : available[0] || null; syncTabs(); };
+const tab = k => { const available = TABS.filter(tabUnlocked); activeTab = available.includes(k) ? k : available[0] || null; refresh(); };
 $('summon').onclick = () => {
   const c = summonCost(); if (s.cal < c) return;
   s.cal -= c; s.summons++; bump('summon'); sfx.ding();
   let r = Math.random() * 100, q = PETS.find(x => (r -= x.w) < 0) || PETS[0];
   s.pets[q.k] = (s.pets[q.k] || 0) + 1;
   toast(q.i + ' ' + q[s.lang], `${tr('lv')} ${s.pets[q.k]}`);
-  ui(); save();
+  refresh(); save();
 };
 for (const n of TABS) $('tab' + n).onclick = () => { tab(n); coach(...({Duel: ['duel'], Pet: ['pet'], Quest: ['quest'], Ach: ['ach'], Asc: ['asc', 'ch']}[n] || [])); };
 
@@ -1773,7 +1910,7 @@ function ptShow() {
         sfx.coin(); vox('crush-yes');
       } else { const n = Math.floor(s.sta * PT.crLose); s.sta -= n; toast('💔 ' + tr('crNo'), `−${n} ⚡`); vox('crush-no', sfx.lose); }
     } else { const c = bonus() * PT.ckCal; earn(c); setKg(s.kg + PT.ckKg); toast('🎂 ' + tr('ckName'), `+${fmt(c)} 🔥 · +${PT.ckKg} kg`); sfx.eat(); }
-    ui(); save(); coach('pt');
+    refresh(); save(); coach('pt');
   };
   $('hero').parentNode.append(b);
 }
@@ -1795,7 +1932,7 @@ function startDuel(i) {
   $('aLeague').textContent = `${tr('league')} ${lg + 1}: ${LEAGUES[lg][s.lang]}`; $('aName').textContent = RIVALS[i][s.lang === 'vi' ? 1 : 2];
   $('duel').hidden = $('aBox').hidden = $('aBtns').hidden = true; $('aCount').textContent = '';
   for (const id of ['aMe', 'aFoe']) $(id).classList.remove('dim', 'on');
-  tune(); sfx.hit(); beep(90, .35, 'sawtooth', .06);
+  refresh(); tune(); sfx.hit(); beep(90, .35, 'sawtooth', .06);
   setTimeout(() => { if (arena?.i !== i || arena.step !== 'vs') return; a.classList.remove('vs');
     talk(first ? [...L[0].map(x => ['foe', x]), ['me', L[1]]] : [['foe', L[2]]], countdown); }, 1300);   // lần đầu: hết thoại; gặp lại: một câu
 }
@@ -1865,9 +2002,10 @@ function duelEnd(won) {   // hết trận: phát thưởng, đối thủ nói c�
   const i = duel.i; duel = null; $('duel').hidden = true; $('arena').classList.remove('fight');
   if (won) {
     const pz = prize(i) * (dow() === 6 ? 2 : 1);   // Chủ nhật thưởng gấp đôi
-    s.wins++; earn(pz); save(); sting('win', sfx.up);
+    s.wins++; earn(pz); sting('win', sfx.up);
     motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
     toast(tr('win'), `+${WIN_BONUS * 100}% · +${fmt(pz)} 🔥`);
+    refresh(); save();
   } else { sting('lose', sfx.lose); toast(tr('lose'), tr('loseTip')); }
   talk([['foe', tr('rv')[i][won ? 3 : 4]]], () => {
     arena.step = 'end'; $('aBtns').hidden = false;
@@ -1880,7 +2018,7 @@ function stopDuel() {   // rời đấu trường (về phòng tập, chuyển m
   duel = arena = null; $('arena').hidden = true; $('duel').hidden = true; tune();
 }
 $('aBack').onclick = () => { stopDuel(); motion($('flash'), [{opacity:.6}, {opacity:0}], 300); ui(); };
-$('aAgain').onclick = () => { const i = arena.i; stopDuel(); startDuel(i); ui(); };
+$('aAgain').onclick = () => { const i = arena.i; stopDuel(); startDuel(i); };
 $('arena').onclick = ev => {
   if (!arena || ev.target.closest('button')) return;
   if (arena.step === 'talk') {   // chạm: hiện hết câu, chạm nữa: sang câu kế
@@ -1928,7 +2066,7 @@ $('setBox').onclick = ev => {
 $('quests').onclick = ev => {
   const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
   const q = todayQuests()[b.dataset.q], r = qReward();
-  s.q.got[q.k] = 1; earn(r); sfx.coin(); toast('📋 ' + tr('qDone'), '+' + fmt(r) + ' 🔥'); ui(); save();
+  s.q.got[q.k] = 1; earn(r); sfx.coin(); toast('📋 ' + tr('qDone'), '+' + fmt(r) + ' 🔥'); refresh(); save();
 };
 
 function ask(text, yes) {   // hộp xác nhận trong game (confirm() bị chặn trong iframe của cổng game)
@@ -1967,7 +2105,7 @@ function markGuideKey(k) {
 }
 function coach(...keys) {
   keys = keys.filter(k => !s.tips[k] && GUIDE.find(g => g[0] === k)?.[1] <= unl());
-  if (!keys.length || moving || !$('guide').hidden || !$('wait').hidden || !$('modal').hidden || arena) return;
+  if (!keys.length || moving || !$('guide').hidden || !$('modal').hidden || arena) return;
   if (!guide(keys, true)) return;
 }
 $('help').onclick = () => guide(GUIDE.filter(([k, need]) => !['start', 'intro'].includes(k) && need <= unl()).map(([k]) => k));
@@ -1992,7 +2130,7 @@ function ascend(ch) {   // lên đời (ch = null) hoặc bắt đầu thử th�
   const m = RANKS[sk('mem')].goal; EX.forEach((e, i) => { s.lv[e.k] = m[i]; });   // Ký ức cơ bắp: bắt đầu với đủ cấp của hạng 2 / 3
   if (ch === 'party') setKg(Math.max(s.kg, CHX.kg0));
   s.kg1 = s.kg;
-  syncRank(true); ui(); save(); tab('Ex'); sting('rankup', sfx.up);
+  syncRank(true); tab('Ex'); save(); sting('rankup', sfx.up);
   motion($('flash'), [{opacity:.9}, {opacity:0}], 800); toast('⭐ ' + s.stars, ch ? tr('ch')[ch][0] : '+' + s.stars * 10 + '%');
   CG?.game.happytime(); showAd('midgame', () => {});
 }
@@ -2000,22 +2138,22 @@ $('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => asc
 $('skills').onclick = ev => {
   const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
   const q = SK[b.dataset.s]; if (s.stars - skSpent() < skCost(q)) return;
-  s.sk[q.k] = sk(q.k) + 1; sfx.ding(); toast(q.i + ' ' + tr('sk')[q.k][0], `${tr('lv')} ${s.sk[q.k]}`); ui(); save();
+  s.sk[q.k] = sk(q.k) + 1; sfx.ding(); toast(q.i + ' ' + tr('sk')[q.k][0], `${tr('lv')} ${s.sk[q.k]}`); refresh(); save();
 };
 $('chs').onclick = ev => {
-  if (ev.target.id === 'chQuit') return ask(tr('qQuit'), () => { s.ch = null; ui(); save(); });
+  if (ev.target.id === 'chQuit') return ask(tr('qQuit'), () => { s.ch = null; refresh(); save(); });
   const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
   const c = CH[b.dataset.c];
   ask(tr('qCh').replace('{x}', tr('ch')[c.k][0]).replace('{n}', starGain()), () => ascend(c.k));
 };
-$('boost').onclick = () => showAd('rewarded', ok => { if (ok) { s.sta += Math.floor(staMax() * .5); s.drink = true; sfx.eat(); ui(); save(); } });
+$('boost').onclick = () => showAd('rewarded', ok => { if (ok) { s.sta += Math.floor(staMax() * .5); s.drink = true; sfx.eat(); refresh(); save(); } });
 // ============ Một ngày: văn phòng → phòng tập → nhà → ngủ → ngày mới ============
 function drawMeals() {
   $('meals').innerHTML = menu().map(j => MEALS[j]).map((m, n, _, j = MEALS.indexOf(m)) => `<button class="meal" data-m="${j}"><img src="assets/food/food-${m.k}.webp" alt="" draggable="false" onerror="this.outerHTML='<span>${m.i}</span>'"><b>${m[s.lang]}</b><em>${mealDesc(m)}</em><i style="font-style:normal">${m.kg ? (m.kg > 0 ? '+' : '') + m.kg + ' kg' : '±0 kg'}</i></button>`).join('');
 }
 function go(scene) {
   s.scene = scene; stopDuel(); ptHide(); repHide(); combo = 0; drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
-  ui(); save(); tune(); sceneTips();
+  save(); tune(); sceneTips();
 }
 function sceneTips() { coach(...{gym: ['gym'], home: ['home', 'meal', 'fat', 'kg'], office: s.ev ? ['ev'] : []}[s.scene] || []); }
 function evPick(o) {
@@ -2030,10 +2168,10 @@ function evPick(o) {
   if (f.buf) s.buff.cal = f.buf;
   if (f.tap) s.buff.tap = f.tap;
   if (f.star) s.stars += f.star;
-  s.ev = null; sfx.pick(); toast(tr('ev')[e.k][o === 'a' ? 1 : 2], luck + (d || tr('evNone')), 3000); drawDay(); ui(); save();
+  s.ev = null; sfx.pick(); toast(tr('ev')[e.k][o === 'a' ? 1 : 2], luck + (d || tr('evNone')), 3000); drawDay(); refresh(); save();
 }
 $('evA').onclick = () => evPick('a'); $('evB').onclick = () => evPick('b');
-function endDay() {
+function nextDay() {   // qua đêm: đổi mọi trạng thái sang ngày mới, trả về các dòng báo cáo cho thông báo sáng
   const frac = Math.min(1, s.used / Math.max(1, s.cap)), r = rankOf(), note = [], kg0 = s.kg, trained = frac >= REST, few = !trained && s.used > 0;
   if (!trained) {   // ngày nghỉ (kể cả tập quá ít): nghỉ khi đang mỏi thì được "Hồi phục", nghỉ khi còn sung sức là lười
     const lazy = s.fat < 40; s.rec = !lazy; setKg(s.kg + (lazy ? .3 : .1)); s.fat = Math.max(0, s.fat - 60);
@@ -2055,56 +2193,77 @@ function endDay() {
   note.unshift(`${tr(trained ? 'kgTrain' : few ? 'kgFew' : 'kgRest')}: ${sg(dk)} kg` + (Math.abs(other) >= .05 ? ` · ${tr('kgOther')}: ${sg(other)} kg` : '')
     + ` → ⚖️ ${s.kg.toFixed(1)} kg (${sg(s.kg - s.kg1)})` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
   s.kg1 = s.kg;
-  save(); backup(); go('office'); sfx.day(); syncRank(); toastLater(`${tr('day')} ${s.day}`, note.join(' · '), 4500); ui(); save();   // lên hạng qua đêm: chúc mừng trước, báo cân ngay sau
+  return note;
+}
+function commitMorning() {
+  const note = nextDay();
+  s.scene = 'office';
+  const rankChange = updateRank();
+  save(); backup();
+  return {note, rankChange};
+}
+function arrive({note, rankChange}) {
+  showRankChange(rankChange);
+  go('office'); sfx.day();
+  toastLater(`${tr('day')} ${s.day}`, note.join(' · '), 4500);
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
-let waitT, waitDone, waitAt = 0;
-function travel(steps, done) {   // màn chờ khi chuyển cảnh: lần lượt từng [chữ, ms]; che cả khung. Ba ngày đầu chạy đủ để kể chuyện, sau đó còn 40%; chạm để bỏ qua.
-  const [[key, ms], ...rest] = steps;
-  if (!waitDone) waitAt = Date.now();
-  waitDone = done;
-  $('waitPic').hidden = false; $('waitPic').src = `assets/scene/scene-${key.slice(1).toLowerCase()}.webp`;
-  $('wait').querySelector('span').textContent = tr(key); $('wait').hidden = false;
-  waitT = setTimeout(() => rest.length ? travel(rest, done) : endWait(), ms * (s.day > 3 ? .4 : 1));
-}
-function endWait() { clearTimeout(waitT); const d = waitDone; waitDone = null; $('wait').hidden = true; d?.(); }
-$('wait').onclick = () => { if (Date.now() - waitAt > 400) endWait(); };   // chờ 0,4 giây để cú bấm vừa rồi không vô tình bỏ qua luôn
-// Cửa chuyển cảnh: khép lại (300 ms) → biển nơi đến, đổi màn lúc cửa kín (mid) → mở ra (400 ms). Chạm để tua x4, không cắt ngang.
-// Có ảnh assets/bg/bg-door-<nơi>.webp thì dùng (game cắt đôi theo khe giữa), không thì cửa vẽ bằng CSS.
+function endDay() { arrive(commitMorning()); }   // qua đêm không hoạt ảnh (vắng hơn 24 giờ)
+// Hoạt ảnh chuyển cảnh dùng chung: play() chạy một đoạn và trả Promise; chạm để tua x6 phần còn lại, không cắt ngang.
+let moving = false, asleep = false, anims = [], rate = 1, moveAt = 0;
+const play = (el, frames, ms, easing = 'ease-in-out') => { const a = motion(el, frames, {duration: ms, easing, fill: 'forwards'}); if (!a) return Promise.resolve(); a.playbackRate = rate; anims.push(a); return a.finished.catch(() => {}); };
+const pause = ms => play($('nightSky'), [{}, {}], ms);   // chờ mà vẫn tua được
+const speedUp = () => { if (Date.now() - moveAt > 250) { rate = 6; anims.forEach(a => { a.playbackRate = 6; }); } };   // 0,25 giây đầu: bỏ qua cú bấm vừa rồi
+// Cửa chuyển cảnh: khép lại (300 ms) → biển nơi đến, đổi màn lúc cửa kín (mid) → mở ra (400 ms).
+// Có ảnh assets/bg/bg-door-<nơi>.webp thì dùng (game cắt đôi theo khe giữa), không thì cửa vẽ bằng CSS. chained: nối tiếp cảnh đêm, giữ tốc độ tua.
 const DOOR_PIC = {};
-for (const k of ['gym', 'home']) { const im = new Image(); im.onload = () => { DOOR_PIC[k] = im.src; }; im.src = `assets/bg/bg-door-${k}.webp`; }
-let moving = false, doorAnims = [], doorRate = 1;
-async function door(to, mid) {
+for (const k of ['gym', 'home', 'office']) { const im = new Image(); im.onload = () => { DOOR_PIC[k] = im.src; }; im.src = `assets/bg/bg-door-${k}.webp`; }
+async function door(to, mid, chained = false) {
   if (moving) return;
   const d = $('door'), [L, R] = d.children, S = $('doorSign'), rm = REDUCE_MOTION.matches;
-  const run = (el, frames, ms, easing = 'ease-in-out') => { const a = el.animate(frames, {duration: ms, easing, fill: 'forwards'}); a.playbackRate = doorRate; doorAnims.push(a); return a.finished.catch(() => {}); };
-  moving = true; doorRate = 1; doorAnims = []; waitAt = Date.now(); ptHide();
+  moving = true; anims = []; if (!chained) { rate = 1; moveAt = Date.now(); } ptHide();
   d.className = 'door-' + to + (DOOR_PIC[to] ? ' img' : ''); d.style.setProperty('--img', DOOR_PIC[to] ? `url(${DOOR_PIC[to]})` : 'none');
-  S.innerHTML = rich(tr({gym: 'dGym', home: 'dHome'}[to])); d.hidden = false;
+  S.innerHTML = rich(tr({gym: 'dGym', home: 'dHome', office: 'dOffice'}[to])); d.hidden = false;
   sfx.shut();
-  if (rm) await run(d, [{opacity: 0}, {opacity: 1}], 200);   // giảm chuyển động: chỉ làm mờ chéo
-  else await Promise.all([run(L, [{transform: 'translateX(-101%)'}, {transform: 'none'}], 300, 'cubic-bezier(.55,0,1,.6)'), run(R, [{transform: 'translateX(101%)'}, {transform: 'none'}], 300, 'cubic-bezier(.55,0,1,.6)')]);
-  await run(S, [{opacity: 0, transform: 'translate(-50%,6px)'}, {opacity: 1, transform: 'translate(-50%,0)'}], 200, 'ease-out');
+  if (rm) await play(d, [{opacity: 0}, {opacity: 1}], 200);   // giảm chuyển động: chỉ làm mờ chéo
+  else await Promise.all([play(L, [{transform: 'translateX(-101%)'}, {transform: 'none'}], 300, 'cubic-bezier(.55,0,1,.6)'), play(R, [{transform: 'translateX(101%)'}, {transform: 'none'}], 300, 'cubic-bezier(.55,0,1,.6)')]);
+  await play(S, [{opacity: 0, transform: 'translate(-50%,6px)'}, {opacity: 1, transform: 'translate(-50%,0)'}], 200, 'ease-out');
   mid();
   sfx.open();
-  if (rm) await run(d, [{opacity: 1}, {opacity: 0}], 200);
-  else await Promise.all([run(S, [{opacity: 1}, {opacity: 0}], 120), run(L, [{transform: 'none'}, {transform: 'translateX(-101%)'}], 400, 'cubic-bezier(.2,.6,.3,1)'), run(R, [{transform: 'none'}, {transform: 'translateX(101%)'}], 400, 'cubic-bezier(.2,.6,.3,1)')]);
-  d.hidden = true; doorAnims.forEach(a => a.cancel()); doorAnims = []; moving = false;
+  if (rm) await play(d, [{opacity: 1}, {opacity: 0}], 200);
+  else await Promise.all([play(S, [{opacity: 1}, {opacity: 0}], 120), play(L, [{transform: 'none'}, {transform: 'translateX(-101%)'}], 400, 'cubic-bezier(.2,.6,.3,1)'), play(R, [{transform: 'none'}, {transform: 'translateX(101%)'}], 400, 'cubic-bezier(.2,.6,.3,1)')]);
+  d.hidden = true; anims.forEach(a => a.cancel()); anims = []; moving = false;
   sceneTips();   // hướng dẫn của màn mới chờ cửa mở xong mới hiện
 }
-$('door').onclick = () => { if (Date.now() - waitAt > 250) { doorRate = 4; doorAnims.forEach(a => { a.playbackRate = 4; }); } };   // chạm: tua nhanh phần còn lại
+// Qua đêm ngay trong nhà (~2 giây): tắt đèn → đêm trôi (sang ngày mới, thể lực đầy dần, ba khung truyện) → bình minh → cửa văn phòng.
+async function sleepNight() {
+  if (!ready || moving || s.scene !== 'home') return;
+  const n = $('night'), sky = $('nightSky'), cards = [...$('nightCards').children];
+  moving = asleep = true; anims = []; rate = 1; moveAt = Date.now(); ptHide(); music('sleep');
+  n.hidden = false; $('frame').classList.add('sleeping'); sfx.dark();
+  await play(sky, [{opacity: 0}, {opacity: .82}], 700, 'ease-out');
+  const morning = commitMorning();   // lưu sáng ở văn phòng ngay khi ngày đổi, dù vẫn đang chiếu cảnh đêm ở nhà
+  ui();
+  for (const c of cards) { play(c, [{opacity: 0, transform: 'translateY(18px) scale(.9)'}, {opacity: 1, transform: 'none'}], 450, 'ease-out'); await pause(1100); }   // đủ lâu để xem từng khung; ai thấy lâu thì chạm để tua
+  await pause(morning.note.length > 1 ? 1500 : 600);   // có tổng kết tuần hoặc cân kiểm tra: dừng lâu hơn để đọc
+  sfx.birds();
+  await Promise.all([play(sky, [{opacity: .82, backgroundColor: '#0b1430'}, {opacity: .5, backgroundColor: '#f08a4b', offset: .55}, {opacity: 0, backgroundColor: '#ffd27a'}], 1100), play($('zzz'), [{opacity: 1}, {opacity: 0}], 400), play($('nightSkip'), [{opacity: 1}, {opacity: 0}], 300), ...cards.map(c => play(c, [{opacity: 1}, {opacity: 0}], 450))]);
+  const night = anims; asleep = moving = false;
+  await door('office', () => { night.forEach(a => a.cancel()); n.hidden = true; $('frame').classList.remove('sleeping'); arrive(morning); }, true);
+}
+$('night').onclick = $('door').onclick = speedUp;
 $('go').onclick = () => door('gym', () => { go('gym'); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } });
 $('rest').onclick = () => ask(tr('qRest'), () => door('home', () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); }));   // nghỉ khi còn sung sức = bỏ tập
 const goHome = () => door('home', () => go('home'));
 $('goHome').onclick = () => s.sta < 1 ? goHome() : ask(tr('qHome'), goHome);   // hết thể lực thì về luôn: không thể là bấm nhầm
-$('sleep').onclick = () => { music('sleep'); travel([['tSleep', 2000], ['tMorning', 1500], ['tCommute', 2000], ['tWork', 3000]], endDay); };
-for (const k of ['sleep', 'morning', 'commute', 'work']) new Image().src = `assets/scene/scene-${k}.webp`;   // tải trước để màn chờ không bị trễ ảnh
+$('sleep').onclick = sleepNight;
+for (const k of ['sleep', 'morning', 'commute']) new Image().src = `assets/scene/scene-${k}.webp`;   // tải trước cho khung truyện qua đêm
 new Image().src = 'assets/bg/bg3.webp';   // tải trước nền nhà để lần đầu về nhà không phải chờ ảnh
 if (TEST > 1) $('frame').insertAdjacentHTML('beforeend', '<div id="testTag">TEST x100</div>');
 $('meals').onclick = ev => {
   const b = ev.target.closest('.meal'); if (!b || b.disabled) return;
   const m = MEALS[b.dataset.m];
-  setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.eat(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); ui(); save();
+  setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.eat(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); refresh(); save();
 };
 $('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.pick(); save(); };
 $('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, vm: s.vm, vs: s.vs, char: s.char}); syncRank(true); go('office'); coach('start'); });
@@ -2143,12 +2302,12 @@ setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn 
   if (mNode) mNode.src.playbackRate.value = duel && duel.end - now < 5000 ? 1.08 : 1;   // 5 giây cuối trận: nhạc nhanh lên
   muffle(!$('modal').hidden || !$('guide').hidden);
   const live = Math.min(dt, 5); s.play += live; bump('play', live);   // không tính thời gian tab bị ẩn lâu
-  if (unl() >= 1 && s.scene === 'gym' && s.vis < PT.day + sk('fan') && !arena && !$('pt') && !document.hidden && !moving && $('wait').hidden && $('modal').hidden && $('guide').hidden && $('setBox').hidden && (ptIn -= live) <= 0) ptShow();
+  if (unl() >= 1 && s.scene === 'gym' && s.vis < PT.day + sk('fan') && !arena && !$('pt') && !document.hidden && !moving && $('modal').hidden && $('guide').hidden && $('setBox').hidden && (ptIn -= live) <= 0) ptShow();
   $('frame').classList.toggle('frenzy', now < frenzy);
-  s.t = now; ui();
+  s.t = now; refresh(false);
 }, 100);
 for (const e of ['pointerdown', 'keydown']) addEventListener(e, () => { s.act = Date.now(); }, true);   // lần chạm cuối, để dừng calo/giây khi treo máy
-addEventListener('visibilitychange', () => { s.act = Date.now(); });   // rời tab = bắt đầu vắng mặt, quay lại tab = như mở lại game
+addEventListener('visibilitychange', () => { s.act = Date.now(); if (!document.hidden) refresh(); });   // rời tab = bắt đầu vắng mặt, quay lại tab = như mở lại game
 setInterval(save, 5000);
 addEventListener('visibilitychange', save);
 addEventListener('pagehide', save);

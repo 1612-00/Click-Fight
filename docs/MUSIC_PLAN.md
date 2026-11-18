@@ -14,7 +14,7 @@ Mỗi màn có nhạc riêng để người chơi cảm được nhịp một ng
 | `gym.mp3` | Màn phòng tập | Nhịp nhanh, trống điện tử, tạo hứng bấm | Lặp 60–90 giây |
 | `home.mp3` | Màn nhà | Ấm, nhẹ, guitar hoặc piano buổi tối | Lặp 60–90 giây |
 | `duel.mp3` | Trong 15 giây thi đấu | Dồn dập, căng | Lặp 15–30 giây |
-| `sleep.mp3` | Chuỗi màn chờ khi đi ngủ (8,5 giây; từ ngày 4 còn 3,4 giây, chạm để bỏ qua) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
+| `sleep.mp3` | Cảnh qua đêm tại nhà (khoảng 5,7 giây trước khi cửa văn phòng đóng; chạm để tua) | Hộp nhạc ru ngủ rồi sáng dần | Một đoạn 9 giây, không lặp |
 | `gym2.mp3` | Phòng tập, hạng 4–6 | Ban nhạc funk thật, kèn đồng | Lặp 31 giây |
 | `gym3.mp3` | Phòng tập, hạng 7–9 | Nhạc phim siêu anh hùng thập niên 70 | Lặp 28 giây |
 | `rankup.mp3` | Lên hạng, lên đời | Kèn đồng hùng tráng | 5,7 giây |

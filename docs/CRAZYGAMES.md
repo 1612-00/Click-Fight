@@ -85,6 +85,6 @@ Khi giao diện đổi (kể cả bảng màu), quay lại bằng hai bước đ
 
 Playwright cần ffmpeg ở `%LOCALAPPDATA%\ms-playwright\ffmpeg-1013\ffmpeg-win64.exe`; trên máy này đã chép ffmpeg của hệ thống vào đó.
 
-Video tuân theo luật CrazyGames: khung đầu là ảnh bìa, không tua nhanh, không màn hình đen (các màn chờ tối của chuỗi đi ngủ đã bị cắt bỏ), không con trỏ chuột, không chữ quảng cáo.
+Video tuân theo luật CrazyGames: khung đầu là ảnh bìa, không tua nhanh, không màn hình đen (cảnh qua đêm giờ là căn nhà tối dần có khung truyện, không còn màn hình đen; quay lại video thì giữ cảnh này), không con trỏ chuột, không chữ quảng cáo.
 
 Nguồn: [CrazyGames: Game covers](https://docs.crazygames.com/requirements/game-covers/), [Requirements](https://docs.crazygames.com/requirements/intro/).
