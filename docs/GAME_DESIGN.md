@@ -21,7 +21,7 @@ Nguyên tắc thiết kế:
 
 **Màn chờ** giữa các màn: đi tập / về nhà 2 giây, chuỗi đi ngủ 8,5 giây (Khò khò → Buổi sáng → Đi đến công ty → Đang làm việc). Ba ngày đầu chạy đủ để kể chuyện; từ ngày 4 còn 40% (0,8 giây và 3,4 giây), vì lặp 40–50 lần thì 12,5 giây mỗi ngày là khoảng 8% thời gian chơi. Chạm vào màn chờ để bỏ qua (sau 0,4 giây đầu, để cú bấm vừa rồi không vô tình bỏ qua luôn).
 
-Calo/giây chạy ở mọi màn, không tốn thể lực. Tắt game vẫn cộng calo, tối đa 8 giờ. Vắng hơn 24 giờ thật tính là 1 ngày nghỉ.
+Calo/giây chạy ở mọi màn, không tốn thể lực. Tắt game vẫn cộng calo, tối đa 8 giờ. Đang xem game mà 5 phút không chạm hay bấm phím (hằng `IDLE`) thì calo/giây tạm dừng, dòng nhắc hiện "Treo máy… Chạm để tiếp tục!"; chạm lại thì chạy tiếp. Treo máy không ra calo vô hạn. Chuyển sang tab khác hoặc tắt game thì tính như vắng mặt (tối đa 8 giờ kể từ lúc rời đi). Mở lại game tính là quay lại. Vắng hơn 24 giờ thật tính là 1 ngày nghỉ.
 
 ## Mở tính năng theo hạng
 
@@ -62,9 +62,9 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 
 | Hạng | Tên | Hệ số calo | Cấp tối thiểu (Tay, Vai, Ngực, Bụng, Mắt, Chân, Lưng, Cardio) | Cân tối đa |
 |---|---|---|---|---|
-| 1 | Dân văn phòng suy nhược | x1 | — | — |
-| 2 | Tập tành cho vui | x1,25 | 5, 4, 2 | không chặn |
-| 3 | Gymer nghiệp dư | x1,5 | 12, 10, 5, 1 | không chặn |
+| 1 | Dân văn phòng suy nhược | x1,25 | — | — |
+| 2 | Tập tành cho vui | x1,5 | 5, 4, 2 | không chặn |
+| 3 | Gymer nghiệp dư | x1,75 | 12, 10, 5, 1 | không chặn |
 | 4 | Body săn chắc | x2 | 22, 18, 14, 8, 3 | 84,5 kg |
 | 5 | Sáu múi lấp ló | x2,5 | 40, 35, 30, 22, 15, 10, 3 | 82 kg |
 | 6 | Thần gym công sở | x3 | 70, 60, 55, 48, 40, 40, 32, 20 | 78 kg |
@@ -72,15 +72,15 @@ Lên hạng khi đủ cấp tối thiểu của **mọi** bài tập và cân n�
 | 8 | Người hùng thành phố | x4 | 100, 92, 88, 80, 70, 70, 60, 44 | 74 kg |
 | 9 | Hộ vệ Trái Đất | x5 | 120, 112, 106, 98, 88, 86, 76, 58 | 72 kg |
 
-Bốn hạng đầu cố ý dễ và nhanh (hạng 4 trong khoảng 8–9 phút) để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
+Bốn hạng đầu cố ý dễ và nhanh (hạng 4 khoảng 9–10 phút); hệ số calo hạng 1–3 cao hơn (x1,25 / x1,5 / x1,75) để bù việc khách ghé và Rep hoàn hảo chỉ mở từ hạng 2 để người mới quen vòng lặp; hạng 3 chỉ cần 4 bài tập đầu vì bài Mắt (40.000) quá đắt ở giai đoạn đó. Độ khó dồn về hạng 5–6 và các mốc sẽ thêm sau.
 
 **Hạng 7–9 (sức mạnh siêu nhân)** dành cho các đời sau: giá bài tập tăng x1,17 mỗi cấp còn thu nhập tăng chậm hơn, nên đời đầu chạm "bức tường" sau hạng 7 và cách vượt là lên đời. Sim (người nghỉ khi Mỏi):
 
 | | Đời 1 | Đời 2 (hệ số calo khoảng x4,5, giữ 78 kg) | Đời 3 (khoảng x11, 74 kg) |
 |---|---|---|---|
-| Hạng 7 | 2h22 | 32 phút | 16 phút |
-| Hạng 8 | 5h49 | 1h12 | 36 phút |
-| Hạng 9 | 25h26 | 5h29 | 2h03 |
+| Hạng 7 | 2h21 | 32 phút | 16 phút |
+| Hạng 8 | 5h48 | 1h12 | 36 phút |
+| Hạng 9 | 25h25 | 5h29 | 2h03 |
 
 Đã thử bộ mục tiêu cao hơn (hạng 9 cần cấp 150): đời 2 tới hạng 9 mất 13 giờ, bỏ. Cân tối đa 76 / 74 / 72 kg kéo người chơi về vùng lý tưởng 68–72 kg. Với mức giảm cân theo hạng, người nghỉ khi Mỏi đạt hạng 6 ở ngày 25 (1h16, 76,8 kg), nhanh hơn mốc cũ ngày 32; cân không còn là nút thắt tiến trình trong mô phỏng.
 
@@ -286,18 +286,18 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi và giảm cân theo hạng:
+Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi, giảm cân theo hạng và mở tính năng theo hạng (khách ghé, Rep hoàn hảo từ hạng 2; thi đấu từ hạng 4; bạn tập từ hạng 5) và tăng hệ số calo hạng 1–3:
 
 | Hạng | Không chủ động nghỉ (vẫn bắt buộc nghỉ ở 100) | Tự nghỉ khi Mỏi (mệt ≥40) |
 |---|---|---|
-| 2 | ngày 2, 2m20 | ngày 2, 2m20 |
-| 3 | ngày 3, 5m49 | ngày 3, 5m49 |
-| 4 | ngày 4, 9m16 | ngày 4, 9m16 |
-| 5 | ngày 9, 21m59 | ngày 10, 27m31 |
-| 6 | ngày 33, 1h17 | ngày 25, 1h16 |
-| 7 | ngày 53, 2h12 | ngày 42, 2h22 |
-| 8 | ngày 125, 5h47 | ngày 92, 5h49 |
-| 9 | — | ngày 362, 25h26 |
+| 2 | ngày 2, 1m45 | ngày 2, 1m45 |
+| 3 | ngày 3, 4m52 | ngày 3, 4m52 |
+| 4 | ngày 4, 9m38 | ngày 4, 9m38 |
+| 5 | ngày 9, 21m55 | ngày 10, 27m06 |
+| 6 | ngày 34, 1h17 | ngày 25, 1h16 |
+| 7 | ngày 54, 2h16 | ngày 42, 2h21 |
+| 8 | ngày 126, 5h49 | ngày 92, 5h48 |
+| 9 | — | ngày 362, 25h25 |
 
 Các ước tính cũ về tác động riêng của khách ghé và Rep hoàn hảo bên dưới được đo trước khi tăng mệt mỏi; cần chạy lại nếu cân bằng lại hai tính năng đó. Sim hiện giả định khách xoay vòng đúng tỉ lệ và người chơi bấm mọi khách, kể cả bánh.
 

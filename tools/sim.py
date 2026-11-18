@@ -10,7 +10,7 @@ CPS = 4
 IDLE = 30   # giây mỗi ngày không bấm: văn phòng, mua bài tập, ở nhà
 G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [22, 18, 14, 8, 3, 0, 0, 0], [40, 35, 30, 22, 15, 10, 3, 0], [70, 60, 55, 48, 40, 40, 32, 20],
                [85, 75, 70, 64, 55, 55, 45, 32], [100, 92, 88, 80, 70, 70, 60, 44], [120, 112, 106, 98, 88, 86, 76, 58]],   # hạng 7–9
-         mults=[1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
+         mults=[1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
          kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], kg_loss=[.3, .3, .3, .4, .5, .6, .7, .8, .9],
          fat=[40, 40, 40, 40, 40, 40, 40, 40, 40], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # kg_loss: cân giảm khi dùng đủ thể lực; mệt mỏi cộng đều, thể lực +sta_rank mỗi hạng tới hạng 6
          duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người
@@ -54,7 +54,7 @@ def run(g, rest_at=40, meal='h', limit=400):
                 miss = list(range(8))
             i = min(miss, key=lambda i: EX[i][0] * g['R'] ** lv[i]); c = EX[i][0] * g['R'] ** lv[i] * g['fee']
             sc = g['s0'] * g['sg'] ** summons
-            if sc <= c * 2 and cal >= sc: cal -= sc; summons += 1; continue
+            if rk >= 4 and sc <= c * 2 and cal >= sc: cal -= sc; summons += 1; continue
             if cal < c: return
             cal -= c; lv[i] += 1
 
@@ -69,15 +69,15 @@ def run(g, rest_at=40, meal='h', limit=400):
             sta = cap
             while sta >= 1:
                 pps, click = rates()
-                if wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= foe(wins):
+                if rk >= 3 and wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= foe(wins):
                     if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
                     cal += foe(wins) * g['prize'] * (2 if sunday else 1) + g['duel'] * pps; t += g['duel'] + 6; wins += 1   # cú bấm trong trận không ra calo; +6 giây VS, thoại, đếm ngược
                 else:
                     n = min(10, int(sta)); sta -= n; used += n; cal += n * click + pps * n / CPS; t += n / CPS; earned[rk] += n * click + pps * n / CPS; tapped[rk] += n * click
                     ptc += n / CPS
-                    rings = n / g['rep_every']; x = rings * rep_gain(g) * click   # Rep hoàn hảo: tính trung bình thay cho từng vòng
+                    rings = n / g['rep_every'] * (rk >= 1); x = rings * rep_gain(g) * click   # Rep hoàn hảo: tính trung bình thay cho từng vòng
                     cal += x; earned[rk] += x; tapped[rk] += x; t += rings * g['rep_wait'] * (g['rep_p'] > 0)   # không bắt vòng thì không phải dừng tay
-                    if ptc >= g['pt_gap'] * 1.5 and g['pt'] and pv < g['pt_day']:   # khách đến sau trung bình 1,5 x gap giây ở phòng tập
+                    if ptc >= g['pt_gap'] * 1.5 and g['pt'] and rk >= 1 and pv < g['pt_day']:   # khách đến sau trung bình 1,5 x gap giây ở phòng tập
                         ptc = 0; ptn += 1; pv += 1; k = VIS[ptn % len(VIS)]; x = 0; bonus = (pps * g['pt_cps'] + click * g['pt_taps']) * g['pt']
                         if k in 'fR':   # bấm nhân: PT x5 trong 8 giây, crush x7 trong 10 giây
                             mx, sec = (g['pt_tap'], g['pt_life']) if k == 'f' else (g['cr_tap'], g['cr_sec'])

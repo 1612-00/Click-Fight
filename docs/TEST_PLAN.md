@@ -68,10 +68,11 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | S3 | Dùng `s = Object.assign(fresh(), {rk:1,best:1}); shown=1; buildTexts(); go('home')`. | Hạng 2 mở bữa tối; lời dẫn không gợi ý chọn món ở hạng 1. Vào phòng tập có thể gặp khách và Rep hoàn hảo. Nước tăng lực chỉ hiện trên CrazyGames. Thi đấu, Nhiệm vụ, Bạn tập và Thành tựu vẫn ẩn. | ✓ cục bộ |
 | S4 | Lặp S3 với `rk` và `best` lần lượt bằng 2, 3, 4, 5. Ở hạng 3 đặt `s.ev=EV[0].k; drawDay()`. | Hạng 3 mở mệt mỏi/lịch tuần/sự kiện; hạng 4 mở Thi đấu/Nhiệm vụ và cân nặng (ở nhà chỉ có tab Nhiệm vụ); hạng 5 mở Bạn tập/Thành tựu (ở nhà có Bạn tập và Nhiệm vụ, không có Bài tập); hạng 6 mở Thử thách. | ✓ cục bộ |
 | S5 | Bấm ❓ ở hạng 1 rồi ở hạng 5; đổi ngôn ngữ và mở lại. | Chỉ hiện câu của tính năng đã mở, theo từng bước chat, chữ đúng ngôn ngữ; không liệt kê mục bị khoá. | ✓ cục bộ |
-| S6 | Mở hướng dẫn tại 375×812, 768×1024 và 1024×768 bằng cả hai ngôn ngữ; thử Tab/Shift+Tab, Enter, Esc và bấm nền. | Hộp thoại kiểu đấu trường, chó con, lời dẫn, chỉ báo bước và nút không bị cắt hay tràn ngang; nút Tiếp tục nhấp nhẹ. Tab/Shift+Tab giữ focus ở nút Tiếp tục; Esc và bấm nền không đóng hay chuyển bước; chỉ Tiếp tục/Đã hiểu mới tiến lên. | ✓ cục bộ |
+| S6 | Mở hướng dẫn tại 375×812, 768×1024 và 1024×768 bằng cả hai ngôn ngữ; thử Tab/Shift+Tab, Enter, Esc và bấm nền. | Hộp thoại kiểu đấu trường, chó con, lời dẫn, chỉ báo bước và nút không bị cắt hay tràn ngang; nút Tiếp tục nhấp nhẹ. Tab/Shift+Tab chuyển focus giữa Tiếp tục và ✕; Esc và bấm nền không đóng hay chuyển bước; chỉ Tiếp tục/Đã hiểu mới tiến lên. | ✓ cục bộ |
 | S7 | Ván mới, lần đầu về nhà ở 375×812 và 1440×900. | Nền nhà hiện ngay và phủ trọn khu vực chơi; ở hạng 1 không có bảng bài tập hay thẻ bữa tối, lời dẫn chỉ chỉ người chơi đi ngủ. | |
 | S8 | Tạo bản lưu hạng 1 ngày 1 chưa bấm/tập nhưng có `s.play = 60` và `s.tips.intro = 1` (bản lưu cũ), chưa có `s.tips.start`; tải lại trang. | Phần mở đầu năm bước vẫn hiện; thời gian tab mở và cờ intro cũ không bị hiểu nhầm là đã xem phần mở đầu mới. | |
-| S10 | Mở hướng dẫn, bấm nền và Esc ở giữa một mục; sau đó bấm Tiếp tục đến hết. | Bấm nền và Esc không làm mất hướng dẫn. Tiếp tục chuyển từng bước; chỉ bước cuối mới đóng và lưu trạng thái đã xem. | ✓ cục bộ |
+| S10 | Mở hướng dẫn, bấm nền và Esc ở giữa một mục; sau đó bấm Tiếp tục đến hết. | Bấm nền và Esc không làm mất hướng dẫn. Tiếp tục chuyển từng bước; bước cuối đóng và lưu trạng thái đã xem. | ✓ cục bộ |
+| S11 | Ở hạng 6, bấm ❓ rồi bấm ✕ ở bước 2. Với hướng dẫn tự hiện lần đầu (vd. tab Thi đấu), bấm ✕ giữa chừng. | ❓: khung đóng ngay, không cần bấm hết các bước. Tự hiện: khung đóng, mục đang xem được ghi là đã xem, mục chưa tới sẽ hiện lại lần sau. | |
 | S9 | Hạng 3, về nhà khi chưa xem mẹo nhà/bữa tối/mệt mỏi; qua một mẹo rồi đóng chat. Về nhà lần nữa. | Chỉ các mẹo đã xem được đánh dấu; mẹo chưa xem vẫn hiện ở lần gặp tiếp theo, không bị mất vì đóng sớm. | |
 | A10 | Trên CrazyGames, chơi khi chưa đăng nhập, rồi đăng nhập giữa chừng. | Trang tự tải lại. Nếu tài khoản chưa từng chơi game: tiến trình khách được chuyển sang tài khoản. Nếu tài khoản đã có tiến trình: hiện tiến trình của tài khoản, không bị bản khách ghi đè. | |
 | A11 | Trên CrazyGames, đăng nhập, chơi một ngày, rồi mở game trên máy hoặc trình duyệt khác cùng tài khoản. | Cùng tiến trình ở cả hai nơi (có thể trễ tới 30 giây sau lần lưu cuối). | |
@@ -137,7 +138,7 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
 | E1 | Chơi mới. Mua Tay 5, Vai 4, nhưng Ngực chỉ 1. | **Chưa** lên hạng. Thanh hạng ghi "2/3 nhóm cơ". | |
-| E2 | Mua Ngực lên 2. | Màn hình loé sáng và rung, tiếng lên hạng, nhân vật đổi hình. Thông báo "LỘT XÁC!" · "Tập tành cho vui · x1.25 · Mở khoá: bữa tối ở nhà" hiện khoảng 6 giây, **sau đó** mới tới thông báo thành tựu "Đạt hạng 2 · +1%" (không được đè lên nhau). Số hạng thành 2. Calo/giây và calo/bấm tăng khoảng 26% (25% của hạng + 1% của thành tựu). | |
+| E2 | Mua Ngực lên 2. | Màn hình loé sáng và rung, tiếng lên hạng, nhân vật đổi hình. Thông báo "LỘT XÁC!" · "Tập tành cho vui · x1.5 · Mở khoá: bữa tối ở nhà" hiện khoảng 6 giây, **sau đó** mới tới thông báo thành tựu "Đạt hạng 2 · +1%" (không được đè lên nhau). Số hạng thành 2. Calo/giây và calo/bấm tăng khoảng 26% (25% của hạng + 1% của thành tựu). | |
 | E3 | Sau E2, sang ngày mới. | Thể lực tối đa là 420 (thể lực tối đa chỉ tăng từ sáng hôm sau, không tăng ngay lúc lên hạng). | |
 | E4 | Trước hạng 2 về nhà; sau hạng 2 về nhà. | Trước hạng 2: chữ "Về đến nhà rồi. Ngủ một giấc để mai tập tiếp!", không có món ăn. Từ hạng 2: chữ "Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ." và 3 thẻ món ăn. | |
 | E5 | Đạt hạng 3 (Tay 12, Vai 10, Ngực 5, Bụng 1). | Thông báo lên hạng "Gymer nghiệp dư · x1.5" kèm "Mở khoá: mệt mỏi và lịch tuần… Hạng 4 cần cân nặng ≤ 84,5 kg"; hạng 3 giảm 0,3 kg/ngày tập đủ, hạng 4 tăng lên 0,4 kg. Xuất hiện ô Mệt mỏi cạnh thể lực; ở văn phòng xuất hiện 7 ô lịch tuần, dòng "Buổi tập tuần này: n / 5" và ô thông số Mệt mỏi. | |
@@ -340,6 +341,8 @@ Bảng đối chiếu cho H6:
 | O2 | `s.t = Date.now() - 20 * 3600e3; save(); location.reload()` | Calo cộng thêm chỉ bằng calo/giây × 28.800 (giới hạn 8 giờ), không phải 20 giờ. | |
 | O3 | Ghi lại ngày và cân nặng (mệt mỏi dưới 40), rồi: `s.t = Date.now() - 25 * 3600e3; save(); location.reload()` | Sau khi tải lại: ngày tăng **đúng 1** (dù vắng bao lâu), cân +0,3 kg như một ngày nghỉ, thể lực đầy, ở văn phòng. | |
 | O4 | Đóng tab dưới 1 phút rồi mở lại. | Không có thông báo vắng mặt. | |
+| O5 | Ở phòng tập, có calo/giây lớn hơn 0. Để tab mở, không chạm 5 phút (hoặc giả lập: `s.act = Date.now() - 301e3`). Ghi lại calo, chờ 3 giây. Sau đó chạm màn hình, chờ 3 giây. | Khi chưa chạm: calo đứng yên, dòng nhắc "💤 Treo máy quá 5 phút…". Sau khi chạm: dòng nhắc mất, calo/giây chạy lại. | |
+| O6 | Chuyển sang tab khác 10 phút rồi quay lại. | Calo/giây vẫn cộng đủ 10 phút (rời tab tính như vắng mặt, không bị dừng ở 5 phút); không có dòng nhắc treo máy. | |
 
 ## P. Quảng cáo và CrazyGames
 
