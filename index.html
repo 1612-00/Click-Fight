@@ -51,15 +51,69 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .tip{position:relative;z-index:2;align-self:center;margin-bottom:10px;padding:2px 14px;max-width:calc(100% - 24px);border-radius:99px;background:#000a;font-size:.9rem;text-align:center}
 .tip.warn{padding:8px 22px;background:#e5484d;color:#fff;font-size:1.15rem;font-weight:800;border:3px solid #fff;box-shadow:0 0 0 0 #ff4d5e;animation:warn 1s ease-in-out infinite}
 @keyframes warn{50%{transform:scale(1.1);background:#ff7b88;box-shadow:0 0 22px 6px #ff4d5e}}
-#office{position:relative;z-index:2;align-self:center;width:min(92%,460px);margin-top:12px}
+/* ---------- Bàn làm việc giờ tan ca (Office Desk Props) ---------- */
+#office{position:relative;z-index:2;align-self:center;width:min(94%,480px);margin-top:6px;display:flex;flex-direction:column;align-items:center;gap:8px}
 .frame:not(.office) #office,.office .money,.office .tip{display:none}
-#say,#hsay{margin:0 0 8px;padding:12px 16px;border-radius:16px;background:#fff;color:var(--ink);font-weight:800;font-size:1.1rem;line-height:1.25;text-align:center;box-shadow:0 4px 0 #0005}
-#ostats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-#ostats .stat{padding:6px 12px;background:#000b;font-size:.9rem;white-space:nowrap}
-#nav{position:relative;z-index:2;align-self:center;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
-#nav .big{padding:12px 22px;font-size:1.2rem}
-#nav .big:active:not(:disabled),#modal .big:active:not(:disabled){box-shadow:0 1px 0 #0f6b35}
-#rest{background:#e6dfd1;color:#465148;box-shadow:0 4px 0 #b5aa94}
+
+.desk-top-row{display:flex;gap:8px;align-items:stretch;justify-content:center;width:100%}
+
+/* 1. Lịch để bàn xoắn ốc */
+#deskCal{position:relative;flex:1;min-width:0;background:linear-gradient(180deg,#fffdf7,#f5ede0);border:1px solid #d5c8b2;border-radius:14px;padding:14px 8px 8px;box-shadow:0 4px 12px rgba(45,57,50,0.12),0 1px 3px rgba(0,0,0,0.06);display:flex;flex-direction:column;align-items:center}
+.spiral-rings{position:absolute;top:-6px;left:0;right:0;display:flex;justify-content:space-around;padding:0 16px;pointer-events:none}
+.spiral-rings i{width:7px;height:14px;border-radius:4px;background:linear-gradient(90deg,#555f5a,#cfd8d3 45%,#48524d);box-shadow:0 2px 4px rgba(0,0,0,0.3)}
+#odayBar{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%}
+#oday{font-size:.9rem;font-weight:850;color:#765a31;letter-spacing:.04em;text-transform:uppercase;text-align:center}
+#wk{display:flex;gap:3px;align-items:center;justify-content:center;flex-wrap:wrap}
+#wk i{font-style:normal;width:23px;height:23px;border-radius:6px;display:grid;place-items:center;background:#eae3d5;border:1px solid #c9bea9;font-size:.68rem;font-weight:800;color:#526058;line-height:1}
+#wk i.now{background:#e7be70;border-color:#b48536;color:#2b2d24;transform:scale(1.08);box-shadow:0 0 8px rgba(201,145,62,0.45)}
+#wk i.dot-train{background:#d5e8d3;border-color:#8dbb86;color:#205224}
+#wk i.dot-rest{background:#f5e5d7;border-color:#dbb192;color:#7b421a}
+#wkTxt{font-size:.74rem;color:#6b7971;font-weight:700;margin-top:2px;text-align:center}
+
+/* 2. Đồng hồ tan sở góc bàn */
+#deskClock{position:relative;width:82px;flex:none;background:#202824;border:2px solid #38453e;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 4px;box-shadow:0 4px 10px rgba(0,0,0,0.2),inset 0 2px 4px rgba(0,0,0,0.6)}
+.clock-digits{font-family:"Courier New",Courier,monospace,system-ui;font-size:1.3rem;font-weight:900;color:#78f395;text-shadow:0 0 10px rgba(120,243,149,0.7);line-height:1;letter-spacing:.02em}
+.clock-sub{font-size:.62rem;font-weight:850;color:#dfaa4c;letter-spacing:.12em;margin-top:4px;text-transform:uppercase}
+
+/* 3. Tờ giấy ghi chú Post-it */
+#postIt{position:relative;width:100%;background:#fefadc;border:1px solid #e5dca5;border-radius:2px 2px 14px 2px;padding:14px 14px 10px;transform:rotate(-0.8deg);box-shadow:3px 8px 18px rgba(45,57,50,0.13),0 2px 4px rgba(0,0,0,0.06);transition:transform .2s ease}
+#postIt:hover{transform:rotate(0deg)}
+.tape-strip{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:76px;height:20px;background:rgba(255,255,255,0.7);border-left:1px dashed rgba(0,0,0,0.15);border-right:1px dashed rgba(0,0,0,0.15);box-shadow:0 2px 4px rgba(0,0,0,0.08);backdrop-filter:blur(2px)}
+#postItHeader{display:flex;align-items:center;gap:5px;font-size:.74rem;font-weight:850;color:#856d39;letter-spacing:.09em;text-transform:uppercase;margin-bottom:4px}
+#say,#hsay{margin:0;padding:2px 0;background:none;border:0;color:var(--ink);font-weight:700;font-size:.95rem;line-height:1.35;text-align:left;box-shadow:none;width:100%}
+#say.caption{color:#40524a;font-style:italic;font-size:.95rem;font-weight:600}
+#say.ev{color:#2a362f;font-weight:750;font-size:.98rem;font-style:normal}
+#say.over{color:#8b1b26;font-weight:800;font-style:normal;font-size:.96rem}
+#postIt.is-ev{background:#fff3d9;border-color:#e4c787;box-shadow:3px 8px 20px rgba(201,145,62,0.22)}
+#postIt.is-over{background:#fde8e8;border-color:#e89e9e}
+#evBox{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:8px}
+#evBox[hidden]{display:none}
+#evBox .big{min-width:0;padding:8px 10px;font-size:.88rem;line-height:1.25;border-radius:10px;background:#fffaf0;border:1px solid #d5c5a0;box-shadow:0 2px 0 #bca980;color:#2d3a31;text-align:left}
+#evBox .big:hover{background:#fff;filter:brightness(1.04)}
+#evBox .big:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 #bca980}
+#evBox small{display:block;font-size:.72rem;font-weight:700;color:#6f552a;margin-top:3px}
+
+/* 4. Thẻ nhân viên theo dõi sức khỏe */
+#idBadge{position:relative;width:100%;background:linear-gradient(180deg,#f3ede1,#e9e1d2);border:1px solid #d2c5af;border-radius:14px;padding:12px 10px 8px;box-shadow:0 4px 12px rgba(45,57,50,0.1),inset 0 1px 0 #fff}
+.badge-slot{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:36px;height:8px;border-radius:4px;background:#5a6861;border:1px solid #3c4942;box-shadow:inset 0 1px 2px rgba(0,0,0,0.45)}
+.badge-header{font-size:.68rem;font-weight:850;color:#6d7f73;letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:6px}
+#ostats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;padding:0;background:none;border:0;box-shadow:none}
+#ostats .stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#faf6ee;border:1px solid #ded2bd;border-radius:8px;padding:5px 4px;font-size:.74rem;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+#ostats .stat span{color:#6b7970;font-size:.72rem;font-weight:750;display:flex;align-items:center;gap:3px}
+#ostats .stat b{color:#765a31;font-size:.88rem;font-weight:850;font-variant-numeric:tabular-nums}
+#ostats .stat .ico{width:1.15em;height:1.15em}
+#ostats .sep{display:none}
+
+/* 5. Khu vực Nút Chuẩn Bị Rời Công Ty */
+#nav{position:relative;z-index:2;align-self:center;display:flex;gap:12px;align-items:center;justify-content:center;width:min(94%,480px);margin-bottom:12px}
+#nav .big{font-weight:850;line-height:1.2;cursor:pointer;transition:transform .12s,filter .12s,box-shadow .12s}
+#nav #go{flex:1.4;background:linear-gradient(180deg,#5e916a,#3e6b4a);color:#fff;border-radius:16px;padding:13px 18px;font-size:1.18rem;box-shadow:0 4px 0 #284732,0 8px 18px rgba(40,71,50,0.32);border:2px dashed rgba(255,255,255,0.4);letter-spacing:.02em}
+#nav #go:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 5px 0 #284732,0 10px 22px rgba(40,71,50,0.36)}
+#nav #go:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 #284732}
+#nav #rest{flex:1;background:linear-gradient(180deg,#ece5d8,#ded4c3);color:#46534c;border:1px solid #c7baa4;border-radius:14px;padding:12px 14px;font-size:.95rem;box-shadow:0 3px 0 #b0a18a}
+#nav #rest:hover:not(:disabled){filter:brightness(1.05)}
+#nav #rest:active:not(:disabled){transform:translateY(1px);box-shadow:0 2px 0 #b0a18a}
+#nav #rest.pulse{border-color:var(--gold);color:#765a31;background:#fff8eb;box-shadow:0 0 0 3px #c9913e66}
 .frame:not(.office) #go,.frame:not(.office) #rest,.frame:not(.home) #sleep,.office .panel{display:none}
 #vit{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px;padding:0 10px;font-size:.85rem}
 .office #vit,.gym #dayPill{display:none}
@@ -72,7 +126,20 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
   .meal{padding:6px 4px;font-size:.72rem}.meal span{font-size:1.5rem}.meal img{width:36px;height:36px}
   #nav .big{padding:9px 18px;font-size:1.05rem}
   .frame.home .money,.frame.home .tip{display:none}   /* ở nhà trên điện thoại: nhường chỗ cho nhân vật; giá gọi bạn tập vẫn hiện trên nút */
-  #ostats .stat{padding:5px 8px;font-size:.78rem}
+  #office{gap:6px;margin-top:4px}
+  #deskCal{padding:12px 6px 6px}
+  #oday{font-size:.82rem}
+  #wk i{width:20px;height:20px;font-size:.62rem}
+  #deskClock{width:72px;padding:5px 2px}
+  .clock-digits{font-size:1.15rem}
+  #postIt{padding:12px 10px 8px}
+  #idBadge{padding:8px 6px 6px}
+  #ostats{gap:4px}
+  #ostats .stat{padding:4px 2px;font-size:.68rem}
+  #ostats .stat b{font-size:.8rem}
+  #nav{gap:8px;margin-bottom:8px}
+  #nav #go{padding:11px 12px;font-size:1.05rem}
+  #nav #rest{padding:10px 10px;font-size:.88rem}
   .hud{gap:5px;padding:10px 8px 0}.round{min-width:44px;height:44px;border-radius:12px}.rank{gap:6px;padding:4px 6px}.rank b{white-space:normal;font-size:.84rem}.rank small{font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* tên hạng được xuống dòng; mục tiêu gọn trên một dòng */
 }
 .pill{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:#000a;border:2px solid var(--line);font-weight:800;white-space:nowrap}
@@ -96,14 +163,57 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .meal:disabled{opacity:.5;cursor:not-allowed}
 .meal.on:disabled{opacity:1}
 .home .tabs button:not(#tabPet):not(#tabQuest):not(#tabEx),.gym .tabs #tabPet{display:none}
-#oday{margin:0 0 6px;text-align:center;font-weight:800;font-size:1.2rem;text-shadow:0 2px 0 var(--ink)}
-#wk{display:flex;gap:4px;justify-content:center;margin:0 0 4px}
-#wk i{font-style:normal;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#000b;border:2px solid var(--line);font-size:.8rem;font-weight:800}
-#wk i.now{border-color:var(--gold);color:var(--gold)}
-#wkTxt{text-align:center;font-size:.85rem;font-weight:800;color:var(--gold);margin-bottom:6px;text-shadow:0 1px 2px #000}
 .frame.office{grid-template-columns:1fr}
 .office .hero{cursor:default}
-@media(max-width:900px){#evBox .big{font-size:.82rem;padding:6px 4px}#evBox small{font-size:.68rem}.frame.office{grid-template-rows:1fr}.office #bg{bottom:0}}
+@media(max-width:900px){.frame.office{grid-template-rows:1fr}.office #bg{bottom:0}}
+@media(min-width:901px){
+  .frame.office .stage{
+    display:grid;
+    grid-template-columns:minmax(340px,1.15fr) minmax(360px,480px);
+    grid-template-rows:auto 1fr auto;
+    grid-template-areas:
+      "hud hud"
+      "hero desk"
+      "hero nav";
+    align-items:center;
+    justify-content:center;
+    gap:0 36px;
+    padding:0 32px 16px;
+    height:100%;
+    min-height:0;
+    max-width:1300px;
+    margin:0 auto;
+    box-sizing:border-box;
+  }
+  .office .hud{grid-area:hud;width:100%;padding:12px 0 0}
+  .office #hero{
+    grid-area:hero;
+    width:100%;
+    height:100%;
+    min-height:0;
+    display:grid;
+    place-items:center;
+    grid-template-rows:minmax(0,1fr);
+    align-self:stretch;
+    justify-self:stretch;
+  }
+  .office #hero>*{grid-area:1/1}
+  .office #art{
+    height:100%;
+    min-height:240px;
+    max-height:min(680px,calc(100dvh - 110px));
+    display:grid;
+    place-items:center;
+  }
+  .office #art>*{
+    grid-area:1/1;
+    height:100%;
+    max-width:100%;
+    object-fit:contain;
+  }
+  .office #office{grid-area:desk;width:100%;max-width:480px;margin:auto 0;align-self:center;justify-self:center}
+  .office #nav{grid-area:nav;width:100%;max-width:480px;margin:0 0 6px 0;align-self:start;justify-self:center}
+}
 #flash{position:absolute;inset:0;z-index:5;background:#fff;opacity:0;pointer-events:none}
 #toast{position:absolute;z-index:6;left:50%;top:38%;transform:translate(-50%,-50%);text-align:center;font-weight:800;font-size:1.5rem;line-height:1.15;padding:12px 22px;border-radius:18px;background:#000b;border:3px solid var(--aura);text-shadow:0 2px 0 var(--ink);opacity:0;pointer-events:none;max-width:90%}
 #toast small{display:block;font-size:1rem;color:var(--gold)}
@@ -326,11 +436,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 #boost:disabled{background:#e4dfd5;color:#77786f;border-color:#c9c2b5}
 #goHome{background:var(--sage);border-color:var(--sage-dark);color:#fff;box-shadow:0 2px 0 var(--sage-dark)}
 #goHome.pulse{box-shadow:0 0 0 2px #728a6d55}
-#say,#hsay{background:#f8f1df;border:1px solid #d7bd83;color:#2d3932;box-shadow:0 3px 9px #27302624;text-shadow:none}
-#oday{font-weight:750;letter-spacing:.02em;text-shadow:none}
-#wk i{background:#f0eadc;border:1px solid #cfc5b2;color:#566158;box-shadow:none;font-weight:700}
-#wk i.now{background:#e4bf79;border-color:#bb8a42;color:#393d2e;text-shadow:none;box-shadow:none}
-#wkTxt{width:max-content;max-width:96%;margin:2px auto 6px;padding:3px 10px;border:1px solid #d6c6a5;border-radius:8px;background:#f4efe3e8;color:#765a31;text-shadow:none}
+#hsay{background:#f8f1df;border:1px solid #d7bd83;color:#2d3932;box-shadow:0 3px 9px #27302624;text-shadow:none}
 .tip{border:1px solid #f6efdf;background:#f5f0e6ed;color:#334038;box-shadow:0 3px 9px #27302625;font-weight:650;text-shadow:none}
 .aura{opacity:.34}
 .rays{opacity:.12}
@@ -450,13 +556,6 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 #vAsc .buy:disabled{background:#ddd4c3!important;color:#77766f}
 #vAsc .big:disabled{background:#ddd4c3;color:#77766f;box-shadow:none}
 
-#office #oday{padding:3px 10px;border:1px solid #d6c6a5;border-radius:8px;background:#f4efe3e8;color:#765a31;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;text-shadow:none}
-#wk i{background:#f0eadc;border:1px solid #cfc5b2;color:#566158;box-shadow:none}
-#wk i.now{background:#e4bf79;border-color:#bb8a42;color:#393d2e;text-shadow:none;box-shadow:none}
-#wkTxt{border-color:#d6c6a5;background:#f4efe3e8;color:#765a31;text-shadow:none}
-#ostats .stat{background:#eee7d8;border:1px solid #d5c9b2;color:#27343b;box-shadow:none}
-#ostats .stat span{color:#5d6b70}
-#ostats .stat b{color:#795c37}
 #meals .meal{border:1px solid #d0c3ad;border-radius:8px;background:#eee7d8;color:#27343b;box-shadow:0 2px 0 #b6a48a}
 #meals .meal.on{border:2px solid #c8893a;background:#fff3d4;color:#27343b;box-shadow:0 2px 0 #a86e24}
 #meals .meal em{color:#267351}
@@ -522,8 +621,8 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 #arena #aBtns .no:active:not(:disabled){box-shadow:0 1px 0 #253028}
 #boost:disabled{background:#e4dfd5;color:#77786f;border-color:#c9c2b5;cursor:not-allowed}
 #vEx button:focus-visible,.view button:focus-visible,#guide button:focus-visible,#setBox button:focus-visible,#modal button:focus-visible{outline-color:#26343a;outline-offset:2px}
-#toast{width:min(90%,460px);padding:8px 14px;border:1px solid var(--gold);border-left-width:4px;border-radius:9px;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;text-shadow:none;box-shadow:0 6px 18px #0007}
-#toast small{font-size:.9rem;color:#68746b}
+#toast{width:min(90%,460px);padding:10px 16px;border:1px solid var(--gold);border-left-width:4px;border-radius:12px;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;text-shadow:none;box-shadow:0 8px 24px #27302633;background:#f5f0e6f9}
+#toast small{display:block;margin-top:6px;font-size:.88rem;font-weight:600;color:#505e58;line-height:1.4}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;transition-delay:0ms!important}
   #frame{animation:none!important}
@@ -563,7 +662,33 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
       <button id="boost" hidden></button>
       <button class="pill" id="goHome"></button>
     </div>
-    <div id="office"><p id="oday"></p><p id="say"></p><div id="evBox" hidden><button class="big" id="evA"></button><button class="big" id="evB"></button></div><div id="wk"></div><div id="wkTxt"></div><div id="ostats"></div></div>
+    <div id="office">
+      <div class="desk-top-row">
+        <div id="deskCal">
+          <div class="spiral-rings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <div id="odayBar">
+            <span id="oday"></span>
+            <div id="wk"></div>
+            <span id="wkTxt"></span>
+          </div>
+        </div>
+        <div id="deskClock" aria-hidden="true">
+          <span class="clock-digits">17:30</span>
+          <span class="clock-sub" id="clockOff">TAN CA</span>
+        </div>
+      </div>
+      <div id="postIt">
+        <div class="tape-strip" aria-hidden="true"></div>
+        <div id="postItHeader"><span class="postit-pin">📌</span> <span id="postItTitle">GHI CHÚ CUỐI NGÀY</span></div>
+        <p id="say" class="caption"></p>
+        <div id="evBox" hidden><button class="big" id="evA"></button><button class="big" id="evB"></button></div>
+      </div>
+      <div id="idBadge">
+        <div class="badge-slot" aria-hidden="true"></div>
+        <div class="badge-header"><span id="badgeCorp">GYM GOD CORP</span> · <span id="badgeSub">THEO DÕI SỨC KHỎE</span></div>
+        <div id="ostats"></div>
+      </div>
+    </div>
     <div id="homeBox"><p id="hsay"></p><div id="meals"></div></div>
     <button class="hero" id="hero">
       <div class="aura"></div><div class="rays"></div>
@@ -673,7 +798,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!',
       ascDesc:'Đổi calo và bài tập lấy Sao; mỗi Sao tăng 10% calo vĩnh viễn.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
-      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', tGym:'Đi đến phòng tập', tHome:'Đi về nhà', tWork:'Đang làm việc', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Cài đặt', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện',
+      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', tGym:'Đi đến phòng tập', tHome:'Đi về nhà', tWork:'Đang làm việc', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Cài đặt', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
       repTip:'Đợi vòng vàng rồi bấm!', repWarn:'Sắp có Rep hoàn hảo, chuẩn bị!', repMiss:'Hụt', evOk:'Thành công', evNo:'Không may', evToday:'hôm nay', evElse:'còn lại', evNone:'không có gì',
       ev:{boss:['Sếp rủ làm vài ly sau giờ làm.', 'Đi cho sếp vui', 'Xin về đi tập'], lift:['Thang máy hỏng, văn phòng ở tầng 12.', 'Leo bộ 12 tầng', 'Đứng chờ, nghỉ một chút'],
           ot:['Việc gấp, sếp nhờ ở lại thêm một tiếng.', 'Ở lại tăng ca', 'Từ chối khéo'], boba:['Đồng nghiệp mời trà sữa full topping.', 'Uống luôn', 'Rủ đi bộ mua nước ép'],
@@ -758,7 +883,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!',
       ascDesc:'Trade calories and workouts for Stars; each Star boosts calories by 10% forever.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
-      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', tGym:'Heading to the gym', tHome:'Heading home', tWork:'Working', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Settings', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events',
+      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', tGym:'Heading to the gym', tHome:'Heading home', tWork:'Working', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Settings', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
       repTip:'Wait for gold, then tap!', repWarn:'Perfect rep coming, get ready!', repMiss:'Miss', evOk:'It worked', evNo:'No luck', evToday:'today', evElse:'otherwise', evNone:'nothing',
       ev:{boss:['The boss invites you for drinks after work.', 'Go, keep the boss happy', 'Head to the gym instead'], lift:['The elevator is broken and the office is on floor 12.', 'Take all 12 floors of stairs', 'Wait and take a breather'],
           ot:['Something urgent: the boss asks you to stay one more hour.', 'Work overtime', 'Politely say no'], boba:['A coworker offers you a fully loaded bubble tea.', 'Drink it', 'Walk out for a fresh juice instead'],
@@ -1131,11 +1256,12 @@ function buildTexts() {
   $('achs').innerHTML = ACH.map(a => `<div class="card"><div class="tile" style="background:linear-gradient(#ffd35c,#ff9a1f)">${rich('🏆')}</div>
     <div><b>${achText(a)}</b><small></small></div><span class="rar" style="--c:var(--gold)">+1%</span></div>`).join('');
   $('stats').innerHTML = ['stPlay','stClicks','stTotal','stAsc','stWins','stSummons','stAch','stMult'].map((k, j) => `<div class="stat"><span>${tr(k)}</span><b id="st${j}"></b></div>`).join('');
-  for (const k of ['sTitle', 'sMus', 'sSnd', 'sLang']) $(k).textContent = tr(k === 'sTitle' ? 'set' : k);
+  for (const k of ['sTitle', 'sMus', 'sSnd', 'sLang', 'clockOff', 'badgeCorp', 'badgeSub']) if ($(k)) $(k).textContent = tr(k === 'sTitle' ? 'set' : k);
   // màn văn phòng: một câu nói ngẫu nhiên mỗi lần mở game + các thông số, chưa chơi được
   drawMeals();
   drawDay();
-  $('ostats').innerHTML = ['oCal','perSec','oKg','oSta','oFat','stWins'].map((k, j) => `<div class="stat"><span>${rich(tr(k))}</span><b id="os${j}"></b></div>`).join('');
+  const okeys = ['oCal', 'oSta', 'oKg', 'oFat'];
+  $('ostats').innerHTML = okeys.map((k, j) => `<div class="stat" id="statO${j}"><span>${rich(tr(k))}</span><b id="os${j}"></b></div>` + (j < okeys.length - 1 ? `<span class="sep" id="sepO${j}" aria-hidden="true">·</span>` : '')).join('');
   const pct = x => Math.round(x * 100) + '%';
   $('pets').innerHTML = PETS.map(q => `<div class="card">
     <div class="tile" style="background:#0005"><img src="assets/pet/pet-${q.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${q.i}')"></div>
@@ -1163,15 +1289,28 @@ function evDesc(f) {   // tác dụng một lựa chọn, dạng ngắn: "+0,3 k
 }
 function drawDay() {   // phần chỉ đổi khi sang ngày/màn mới: câu nói, sự kiện, lịch tuần
   const e = unl() >= 2 && fatLv() !== 3 ? evOf() : null;
-  $('say').textContent = fatLv() === 3 ? tr('over') : e ? '📌 ' + tr('ev')[e.k][0] : T[s.lang].say[sayIdx];
-  $('say').classList.toggle('ev', !!e); $('evBox').hidden = !e;
+  const isOver = fatLv() === 3;
+  if ($('postItTitle')) $('postItTitle').textContent = isOver ? tr('overTitle') : (e ? tr('evTitle') : tr('memoTitle'));
+  if ($('postIt')) { $('postIt').classList.toggle('is-ev', !!e); $('postIt').classList.toggle('is-over', isOver); }
+  $('say').textContent = isOver ? tr('over') : e ? '📌 ' + tr('ev')[e.k][0] : (sayIdx >= 0 && T[s.lang].say[sayIdx] ? `💬 "${T[s.lang].say[sayIdx]}"` : '');
+  $('say').className = isOver ? 'over' : e ? 'ev' : 'caption';
+  $('evBox').hidden = !e;
   if (e) ['a', 'b'].forEach((o, j) => { $('ev' + o.toUpperCase()).innerHTML = rich(tr('ev')[e.k][j + 1]) + `<small>${rich(evDesc(e[o]))}</small>`; });
   $('hsay').textContent = tr(unl() < 1 ? 'homeSay0' : 'homeSay');
   $('meals').hidden = unl() < 1;   // người mới: hạng 1 chưa có ăn uống
-  $('wk').hidden = $('fatTxt').parentNode.hidden = unl() < 2;
+  const showWk = unl() >= 2;
+  $('wk').hidden = !showWk;
+  if ($('fatTxt')?.parentNode) $('fatTxt').parentNode.hidden = !showWk;
   $('oday').textContent = `${tr('day')} ${s.day} · ${T[s.lang].dow[dow()]}`;
-  $('wk').innerHTML = T[s.lang].dw.map((d, j) => `<i class="${j === dow() ? 'now' : ''}">${j < s.week.length ? (s.week[j] ? '💪' : '💤') : d}</i>`).join('');
-  $('wkTxt').innerHTML = rich([unl() >= 2 && `${tr('wkGoal')}: ${s.week.reduce((a, b) => a + b, 0)} / ${WK[rankOf()]}`, s.wkBonus && '+10% 🔥', s.rec && tr('recOn'), dow() === 6 && tr('sun')].filter(Boolean).join(' · '));
+  $('wk').innerHTML = T[s.lang].dw.map((d, j) => {
+    const st = j < s.week.length ? (s.week[j] ? 'dot-train' : 'dot-rest') : '';
+    const icon = j < s.week.length ? (s.week[j] ? '💪' : '💤') : d;
+    return `<i class="${j === dow() ? 'now' : ''} ${st}" title="${d}">${icon}</i>`;
+  }).join('');
+  $('wkTxt').innerHTML = rich([showWk && `${tr('wkGoal')}: ${s.week.reduce((a, b) => a + b, 0)}/${WK[rankOf()]}`, s.wkBonus && '+10% 🔥', s.rec && tr('recOn'), dow() === 6 && tr('sun')].filter(Boolean).join(' · '));
+  $('wkTxt').hidden = !showWk;
+  $('go').disabled = isOver;
+  $('rest').classList.toggle('pulse', isOver);
 }
 
 function ui() {
@@ -1302,11 +1441,25 @@ function ui() {
   $('dayTxt').textContent = `${tr('day')} ${s.day} · ${T[s.lang].dw[dow()]}`;
   $('goHome').classList.toggle('pulse', s.sta < 1);
   $('go').disabled = fatLv() === 3;
-  if (s.scene === 'office') [fmt(s.cal), fmt(pps()), s.kg.toFixed(1) + ' kg', staTxt, fatTxt, `${s.wins} / ${RIVALS.length}`].forEach((v, j) => { $('os' + j).textContent = v; if (j === 2) $('os2').parentNode.hidden = unl() < 3; if (j === 4) $('os4').parentNode.hidden = unl() < 2; });
+  $('rest').classList.toggle('pulse', fatLv() === 3);
+  if (s.scene === 'office') {
+    [fmt(s.cal), staTxt, s.kg.toFixed(1) + ' kg', fatTxt].forEach((v, j) => {
+      const el = $('os' + j); if (el) el.textContent = v;
+      const wrap = $('statO' + j);
+      if (wrap) {
+        if (j === 2) wrap.hidden = unl() < 3;
+        if (j === 3) wrap.hidden = unl() < 2;
+      }
+      const sep = $('sepO' + (j - 1));
+      if (sep) {
+        if (j === 2) sep.style.display = unl() < 3 ? 'none' : '';
+        if (j === 3) sep.style.display = unl() < 2 ? 'none' : '';
+      }
+    });
+  }
   if (s.scene === 'home') [...$('meals').children].forEach(b => {
     b.classList.toggle('on', s.next === MEALS[b.dataset.m].k); b.disabled = !!s.next;
   });
-  $('ostats').lastElementChild.hidden = unl() < 3;
   syncTabs();
   [`${Math.floor(hrs)}h ${Math.floor(hrs % 1 * 60)}m`, fmt(s.clicks), fmt(s.total), s.ascends, `${s.wins} / ${RIVALS.length}`, s.summons, `${Object.keys(s.ach).length} / ${ACH.length}`, 'x' + (m * (1 + petBonus('pps'))).toFixed(2)]
     .forEach((v, j) => $('st' + j).textContent = v);
