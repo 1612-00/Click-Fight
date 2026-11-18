@@ -19,7 +19,9 @@ Nguyên tắc thiết kế:
 2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" có hộp xác nhận, trừ khi đã hết thể lực (lúc đó không thể là bấm nhầm). Thẻ bài tập rẻ nhất còn thiếu mục tiêu hạng kế được viền vàng; bấm thanh hạng thì mở tab Bài tập và cuộn tới thẻ đó.
 3. **Nhà**: từ hạng 1 đi ngủ; từ hạng 2 có thể chọn hoặc bỏ bữa tối. Không hiện bảng bài tập ở nhà. Tab Nhiệm vụ mở từ hạng 4, Bạn tập mở từ hạng 5; sau đó bấm "Đi ngủ" sang ngày mới.
 
-**Màn chờ** giữa các màn: đi tập / về nhà 2 giây, chuỗi đi ngủ 8,5 giây (Khò khò → Buổi sáng → Đi đến công ty → Đang làm việc). Ba ngày đầu chạy đủ để kể chuyện; từ ngày 4 còn 40% (0,8 giây và 3,4 giây), vì lặp 40–50 lần thì 12,5 giây mỗi ngày là khoảng 8% thời gian chơi. Chạm vào màn chờ để bỏ qua (sau 0,4 giây đầu, để cú bấm vừa rồi không vô tình bỏ qua luôn).
+**Cửa chuyển cảnh** khi đi tập / về nhà (`door()`): hai cánh cửa khép lại kèm tiếng cửa lùa và "cạch" (0,3 giây), biển nơi đến hiện trên cửa, màn đổi lúc cửa kín, rồi cửa mở ra (0,4 giây); cả lượt khoảng 0,9–1,1 giây, mọi ngày như nhau. Chạm vào cửa (sau 0,25 giây đầu) thì phần còn lại chạy nhanh x4 chứ không cắt ngang. Có ảnh `bg-door-gym`, `bg-door-home` thì dùng, không thì cửa vẽ bằng CSS. Giảm chuyển động: cửa hiện/mờ tại chỗ.
+
+**Màn chờ** khi đi ngủ (chưa đổi, xem `docs/TRANSITION_PLAN.md` bước 3): chuỗi đi ngủ 8,5 giây (Khò khò → Buổi sáng → Đi đến công ty → Đang làm việc). Ba ngày đầu chạy đủ để kể chuyện; từ ngày 4 còn 40% (0,8 giây và 3,4 giây), vì lặp 40–50 lần thì 12,5 giây mỗi ngày là khoảng 8% thời gian chơi. Chạm vào màn chờ để bỏ qua (sau 0,4 giây đầu, để cú bấm vừa rồi không vô tình bỏ qua luôn).
 
 Calo/giây chạy ở mọi màn, không tốn thể lực. Tắt game vẫn cộng calo, tối đa 8 giờ. Đang xem game mà 5 phút không chạm hay bấm phím (hằng `IDLE`) thì calo/giây tạm dừng, dòng nhắc hiện "Treo máy… Chạm để tiếp tục!"; chạm lại thì chạy tiếp. Treo máy không ra calo vô hạn. Chuyển sang tab khác hoặc tắt game thì tính như vắng mặt (tối đa 8 giờ kể từ lúc rời đi). Mở lại game tính là quay lại. Vắng hơn 24 giờ thật tính là 1 ngày nghỉ.
 

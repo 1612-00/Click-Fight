@@ -826,6 +826,43 @@ Same art style and layout rules as the first image. SCENE: an abandoned undergro
 Same art style and layout rules as the first image. SCENE: a huge cavern deep inside the Earth: rivers of glowing orange lava along the sides, dark volcanic rock, giant glowing red crystals, and far in the center background a massive empty stone throne on a rocky hill, heat shimmer and floating embers.
 ```
 
+## Nhóm 16: Cửa chuyển cảnh (cuộc trò chuyện mới, đính kèm `original/bg/bg1.png`, `original/bg/bg2.png`, `original/bg/bg3.png`, 3 ảnh)
+
+Khi chuyển màn, hai cánh cửa khép lại che cả khung rồi mở ra (xem `docs/TRANSITION_PLAN.md`). Mỗi ảnh là **một cửa đôi đang đóng, nhìn thẳng, lấp kín cả khung**; game cắt đôi ảnh theo đường giữa để làm hai cánh cửa trượt. Vì vậy khe giữa hai cánh phải nằm **đúng giữa ảnh theo chiều ngang**, và hai nửa trái phải gần như đối xứng. Biển tên nơi đến do game tự vẽ, nên ảnh **không có chữ**.
+
+Ảnh bị cắt khác nhau theo màn hình (máy tính: cắt trên dưới; điện thoại dọc: cắt hai bên), nên tay nắm và chi tiết đẹp nhất nên nằm gần giữa ảnh. Lưu vào `assets/original/bg/` đúng tên (bắt đầu bằng `bg` để `build.py` nén như ảnh nền), rồi chạy `python assets/build.py`. Thiếu ảnh thì game dùng cửa vẽ bằng CSS.
+
+### bg-door-gym.png (cửa phòng tập) — dán nguyên khối này trước
+
+```
+Create a 2D game image. Landscape canvas 1536x1024, fully painted, no transparency. Use the attached images as the art style reference (same game, same painter).
+
+ART STYLE (keep identical for every image of this chat): clean modern anime background art for a mobile game, soft cel shading, warm and slightly muted colors, matching the attached backgrounds.
+
+LAYOUT RULES (apply to every image of this chat):
+- A closed double door seen straight on, filling the ENTIRE canvas edge to edge: we are standing right in front of it, so no wall, floor or ceiling is visible, only the two door leaves.
+- The vertical gap where the two leaves meet is EXACTLY in the horizontal center of the image, perfectly straight and vertical.
+- The left and right halves are mirror images of each other (handles, windows and panels symmetric).
+- Handles sit close to the center seam, around the vertical middle of the image.
+- Flat even lighting, no strong shadows across the seam, no perspective, no tilt.
+- No people, no characters, no reflections of people.
+- No readable text, no letters, no numbers, no logos, no signs, no UI elements, no border.
+
+SCENE: the entrance doors of a lively neighborhood gym: two tall brushed-steel frame doors with large frosted glass panels, a horizontal black push bar on each leaf near the center, a rubber kick plate at the bottom, warm gym lights glowing softly through the frosted glass, a few faint blurred shapes of dumbbell racks behind the glass.
+```
+
+### 2 cửa còn lại — dán từng khối, lưu đúng tên file
+
+`bg-door-home.png` (cửa nhà)
+```
+Same art style and layout rules as the first image. SCENE: the front door of a cozy small city apartment at evening: two warm honey-colored wooden door leaves with simple square panels, round brass knobs near the center seam, a small frosted glass window high on each leaf with soft yellow light from inside, a little worn doormat edge visible at the very bottom.
+```
+
+`bg-door-office.png` (cửa văn phòng)
+```
+Same art style and layout rules as the first image. SCENE: the glass entrance doors of a modern office floor in the early morning: two tall clear glass leaves with thin silver aluminum frames, long vertical steel pull handles near the center seam, a blurred bright open-plan office with desks and plants behind the glass, soft pale morning sunlight.
+```
+
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
 Không nằm trong game, chỉ dùng cho trang giới thiệu. Trước khi tải lên, xem lại kích thước và quy định về chữ trên ảnh bìa ở trang hướng dẫn nhà phát triển của CrazyGames, vì các con số dưới đây là tôi nhớ lại, chưa đối chiếu. Không cần chạy `build.py` cho nhóm này.

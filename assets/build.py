@@ -1,7 +1,8 @@
 """Nén ảnh gốc trong assets/original/<nhóm>/*.png thành assets/<nhóm>/*.webp cho game (chạy: python assets/build.py).
+Chỉ build ảnh mới hoặc ảnh gốc sửa sau lần build trước; build lại tất cả (vd. sau khi đổi code nén): python assets/build.py --all
 Nhóm: char, bg, icon, pet, rival, food, scene, ui. Thư mục original/store (ảnh bìa, logo) chỉ dùng cho trang đăng game nên bỏ qua.
 Icon nào bị vẽ dính nền ô caro giả (ảnh RGB không có kênh trong suốt) thì tự tách nền."""
-import glob, os
+import glob, os, sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
@@ -75,6 +76,9 @@ for f in sorted(glob.glob(os.path.join(SRC, '*', '*.png'))):
     sub = os.path.basename(os.path.dirname(f))
     if sub == 'store':
         continue
+    out = os.path.join(HERE, sub, name + '.webp')
+    if '--all' not in sys.argv and os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(f):
+        continue   # đã build, ảnh gốc không đổi
     im = Image.open(f)
     if name.startswith('bg'):
         save(im.convert('RGB'), name, quality=82)

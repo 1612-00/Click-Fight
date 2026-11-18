@@ -81,16 +81,17 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 
 | Mã | Bước | Kết quả mong muốn | Đạt? |
 |---|---|---|---|
-| B1 | Ở văn phòng, bấm "Đến phòng tập". | Màn chờ tối phủ cả khung, có hình nhân vật xách túi và chữ "Đi đến phòng tập..." với dấu chấm chạy, kéo dài 2 giây. Trong lúc đó không bấm được gì. Sau đó vào phòng tập: nền phòng gym, có số calo lớn, các ô thể lực/cân nặng, bảng bài tập bên phải. | |
+| B1 | Ở văn phòng, bấm "Đến phòng tập". | Hai cánh cửa kính khung thép khép lại từ hai bên, tiếng cửa lùa rồi "cạch"; biển "🏋️ PHÒNG TẬP" hiện trên cửa; cửa mở ra, cả lượt khoảng 1 giây. Không còn màn chờ tối hay chớp trắng. Trong lúc đó không bấm được gì. Sau đó vào phòng tập: nền phòng gym, có số calo lớn, các ô thể lực/cân nặng, bảng bài tập bên phải. | |
 | B2 | Ở phòng tập, bấm "Về nhà" rồi bấm "Huỷ". | Hộp hỏi "Tập đủ rồi, về nhà thôi?" với nút Huỷ và Đồng ý. Bấm Huỷ: hộp đóng, vẫn ở phòng tập. | |
-| B3 | Bấm "Về nhà" rồi "Đồng ý". | Màn chờ "Đi về nhà..." 2 giây, rồi vào nhà: nền căn hộ buổi tối, nút "Đi ngủ", bảng bên phải chỉ có tab Bạn tập. | |
+| B3 | Bấm "Về nhà" rồi "Đồng ý". | Cửa gỗ có biển "🏠 NHÀ" đóng rồi mở (khoảng 1 giây), rồi vào nhà: nền căn hộ buổi tối, nút "Đi ngủ", bảng bên phải chỉ có tab Bạn tập. | |
 | B4 | Ở nhà, bấm "Đi ngủ". | Bốn màn chờ nối tiếp, mỗi màn một hình: "Khò khò..." 2 giây → "Buổi sáng..." 1,5 giây → "Đi đến công ty..." 2 giây → "Đang làm việc..." 3 giây. Sau đó về văn phòng, số ngày tăng 1, thứ đổi theo. Thông báo "Ngày N" kèm dòng cân nặng. Thể lực đầy lại. | |
 | B5 | Ở văn phòng, bấm "Về nhà nghỉ" rồi "Huỷ". | Hộp hỏi "Về nhà nghỉ luôn? Hôm nay sẽ không tập." Bấm Huỷ: vẫn ở văn phòng. | |
-| B6 | Bấm "Về nhà nghỉ" rồi "Đồng ý" (mệt mỏi dưới 40 hoặc chưa mở mệt mỏi). | Màn chờ "Đi về nhà..." 2 giây, vào nhà, thông báo "Tiếc quá, lại một ngày không luyện tập!". | |
+| B6 | Bấm "Về nhà nghỉ" rồi "Đồng ý" (mệt mỏi dưới 40 hoặc chưa mở mệt mỏi). | Cửa nhà đóng rồi mở, vào nhà, thông báo "Tiếc quá, lại một ngày không luyện tập!". | |
 | B7 | Ở nhà nhìn bảng bên phải; ở phòng tập nhìn bảng bên phải. | Ở nhà chỉ có tab Bạn tập. Ở phòng tập có Bài tập, Thi đấu, Nhiệm vụ, Thành tựu, Lên đời và **không có** tab Bạn tập. | |
 | B8 | Ở văn phòng, bấm vào nhân vật nhiều lần. | Không có gì xảy ra: calo không tăng, thể lực không giảm. | |
-| B9 | Ở phòng tập, bấm tới hết thể lực rồi bấm "Về nhà". | **Không** có hộp hỏi, vào thẳng màn chờ về nhà. | |
-| B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Màn chờ đi tập khoảng 0,8 giây; chuỗi đi ngủ khoảng 3,4 giây, đủ 4 hình. Ngày 1–3 vẫn là 2 giây và 8,5 giây như B1, B4. | |
+| B9 | Ở phòng tập, bấm tới hết thể lực rồi bấm "Về nhà". | **Không** có hộp hỏi, vào thẳng cửa về nhà. | |
+| B10 | `s.day = 5; go('office')`, bấm "Đến phòng tập"; sau đó về nhà và bấm "Đi ngủ". | Cửa đi tập vẫn khoảng 1 giây như ngày 1; chuỗi đi ngủ khoảng 3,4 giây, đủ 4 hình (ngày 1–3: 8,5 giây như B4). | |
+| B12 | Bấm "Đến phòng tập", chạm vào cửa khi nó đang khép. Lần sau chạm ngay khi bấm nút. Bật giảm chuyển động của hệ điều hành rồi thử lại. | Chạm giữa chừng: cửa đóng/mở nhanh hơn hẳn nhưng vẫn đủ các bước, vào phòng tập bình thường. Chạm ngay (dưới 0,25 giây): không tua. Giảm chuyển động: cửa hiện và mờ tại chỗ, không trượt. Hướng dẫn tập (lần đầu) chỉ hiện sau khi cửa mở xong. | |
 | B11 | Bấm "Đi ngủ", chạm vào màn chờ sau khoảng 1 giây. Lần sau chạm ngay khi màn chờ vừa hiện. | Màn chờ có dòng "Chạm để bỏ qua". Chạm sau 1 giây: bỏ qua phần còn lại, sang ngày mới ngay (ngày +1, thông báo ngày mới). Chạm ngay lập tức (dưới 0,4 giây): không có tác dụng. | |
 | B12 | Ở phòng tập, nhìn bảng Bài tập; bấm vào thanh hạng trên cùng. | Đúng một thẻ có viền vàng phát sáng: bài rẻ nhất còn thiếu mục tiêu hạng kế (ván mới: Tay; Tay đủ 5 thì sang Vai). Bấm thanh hạng: mở tab Bài tập, cuộn tới thẻ đó, thẻ nảy nhẹ. Ở văn phòng bấm thanh hạng không làm gì. Hạng cao nhất hoặc chỉ còn thiếu cân nặng: không thẻ nào viền vàng. | |
 | B13 | Ngày 1 và lúc mở game ở văn phòng khi chưa có sự kiện. Đi ngủ sang ngày 2. | Ngày 1: câu nói thường, không có nút sự kiện. Sáng ngày 2: khung câu nói viền vàng "📌 …", hai nút lựa chọn ghi tác dụng; lần đầu hiện mục hướng dẫn "📌 Sự kiện văn phòng". | |
