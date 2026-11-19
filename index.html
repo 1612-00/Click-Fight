@@ -221,6 +221,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .panel{position:relative;z-index:1;display:flex;flex-direction:column;min-height:0;margin:12px;border-radius:20px;overflow:hidden;background:#174a8ce8;border:3px solid #0009;box-shadow:0 10px 30px #0008}
 .tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px;padding:8px 8px 0}
 .tabs button::first-line{font-size:1.25rem}
+#giftBtn{position:relative}
+#giftBtn.dot::after{content:"";position:absolute;top:-3px;right:-3px;width:12px;height:12px;border-radius:50%;background:#e45c58;box-shadow:0 0 0 2px #f4efe4}
 .tabs .dot::after{content:"";position:absolute;top:6px;right:10px;width:10px;height:10px;border-radius:50%;background:#e45c58;box-shadow:0 0 0 2px #f4efe4}
 .tabs button{position:relative;font-size:.62rem;white-space:pre-line;line-height:1.2;border:0;border-radius:12px 12px 0 0;padding:5px 0 4px;font-weight:700;color:var(--mute);background:#0004;cursor:pointer}
 .tabs button[hidden]{display:none!important}
@@ -798,6 +800,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
         <div class="badge" id="rk"></div>
         <div style="flex:1;min-width:0"><b id="rname"></b><small id="rpts"></small><div class="bar"><i id="rbar"></i></div></div>
       </div>
+      <button class="round" id="giftBtn" aria-label="Daily gift" hidden>🎁</button>
       <button class="round" id="help" aria-label="Help">❓</button>
       <button class="round" id="who" aria-label="Character"></button>
       <button class="round" id="set" aria-label="Settings">⚙️</button>
@@ -956,6 +959,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!', idle:'💤 Treo máy quá 5 phút nên calo tạm dừng. Chạm để tiếp tục!',
       ascDesc:'Đổi calo và bài tập lấy Sao; mỗi Sao tăng 10% calo vĩnh viễn.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
+      giftT:'🎁 Quà ngày {n}/7', giftH:'🎁 Quà mỗi ngày', giftCal:'Calo', giftNext:'Mai quay lại nhận quà ngày {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Nước tăng lực miễn phí: +50% thể lực', '+{c} 🔥', '🍳 Bữa sáng đủ chất: calo +25% tới hết ngày', '+{c} 🔥', '⭐ +1 Sao · +{c} 🔥'],
       reset:'Giữ để xoá toàn bộ tiến trình', qAsc:'Bắt đầu lại từ hạng 1 và nhận {n} Sao.', sure:'Chắc chưa? Bấm lần nữa', replay:'Xem lại thoại', mLoseH:'Mất', mKeepH:'Giữ', aLose:'Calo\nCấp bài tập\nHạng', aKeep:'Sao, kỹ năng\nBạn tập, thành tựu\nTrận thắng, cân nặng', newFeat:'Tính năng mới!', great:'Tuyệt!', take:'Nhận', awayX2:'📺 Nhân đôi', mornTitle:'BÁO CÁO SÁNG', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', dOffice:'🏢 VĂN PHÒNG', skip:'Chạm để tua nhanh', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Tạm nghỉ', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
       repTip:'Đợi vòng vàng rồi bấm!', repWarn:'Sắp có Rep hoàn hảo, chuẩn bị!', repMiss:'Hụt', evOk:'Thành công', evNo:'Không may', evToday:'hôm nay', evElse:'còn lại', evNone:'không có gì',
       ev:{boss:['Sếp rủ làm vài ly sau giờ làm.', 'Đi cho sếp vui', 'Xin về đi tập'], lift:['Thang máy hỏng, văn phòng ở tầng 12.', 'Leo bộ 12 tầng', 'Đứng chờ, nghỉ một chút'],
@@ -1025,6 +1029,7 @@ const T = {
          quest:['Nhiệm vụ', ['Những mục tiêu nhỏ cũng đưa cậu tiến xa. Hoàn thành nhiệm vụ hôm nay rồi nhận thêm 🔥 calo làm thưởng.']],
          pet:['Bạn tập', ['Bạn tập có thể giúp mỗi cú chạm hoặc lượng calo theo giây tăng lên. Gọi thêm một người bạn nếu cậu muốn nhận thưởng cộng dồn nhé.']],
          ach:['Thành tựu', ['Mỗi thành tựu là dấu mốc cậu đã vượt qua. Chạm tới một dấu mốc mới sẽ tăng calo vĩnh viễn.']],
+         gift:['Quà mỗi ngày', ['Nút 🎁 trên góc màn hình có quà mỗi ngày đấy! Có chấm đỏ là quà đang chờ cậu. Đủ 7 ngày được hẳn một Sao, lỡ một hôm cũng không mất chuỗi.']],
          asc:['Lên đời', ['Lên đời sẽ đặt lại calo và bài tập, đổi lại cậu nhận Sao cùng sức mạnh vĩnh viễn. Hãy cân nhắc trước khi bắt đầu nhé.']],
          ch:['Thử thách', ['Thử thách đặt thêm một luật khó cho cả đời tập. Đạt hạng mục tiêu để nhận thưởng vĩnh viễn—Bắp tin cậu làm được!']]}, homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
       wkGoal:'Buổi tập tuần này', wkOk:'Đạt mục tiêu tuần: +10% calo tuần này!', wkNo:'Chưa đạt mục tiêu tuần', sun:'Chủ nhật: thách đấu miễn phí, thưởng x2', weigh:'Cân kiểm tra',
@@ -1041,6 +1046,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!', idle:'💤 Idle for 5 minutes, so calories are paused. Tap to continue!',
       ascDesc:'Trade calories and workouts for Stars; each Star boosts calories by 10% forever.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
+      giftT:'🎁 Day {n}/7 gift', giftH:'🎁 Daily gift', giftCal:'Calories', giftNext:'Come back tomorrow for day {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Free energy drink: +50% stamina', '+{c} 🔥', '🍳 Power breakfast: +25% calories for the rest of the day', '+{c} 🔥', '⭐ +1 Star · +{c} 🔥'],
       reset:'Hold to erase all progress', qAsc:'Start over from rank 1 and get {n} Stars.', sure:'Sure? Tap again', replay:'Replay the talk', mLoseH:'You lose', mKeepH:'You keep', aLose:'Calories\nWorkout levels\nRank', aKeep:'Stars, skills\nBuddies, achievements\nRival wins, weight', newFeat:'New feature!', great:'Awesome!', take:'Collect', awayX2:'📺 Double it', mornTitle:'MORNING REPORT', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', dGym:'🏋️ GYM', dHome:'🏠 HOME', dOffice:'🏢 OFFICE', skip:'Tap to skip', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Paused', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
       repTip:'Wait for gold, then tap!', repWarn:'Perfect rep coming, get ready!', repMiss:'Miss', evOk:'It worked', evNo:'No luck', evToday:'today', evElse:'otherwise', evNone:'nothing',
       ev:{boss:['The boss invites you for drinks after work.', 'Go, keep the boss happy', 'Head to the gym instead'], lift:['The elevator is broken and the office is on floor 12.', 'Take all 12 floors of stairs', 'Wait and take a breather'],
@@ -1104,6 +1110,7 @@ const T = {
          fat:['Fatigue', ['Muscles need time to recover, too. Training every day makes you more tired; take a rest day to get your stamina back.']],
          kg:['Weight', ['From rank 4 on, your weight can hold up your next rank. Keep training and losing weight to clear the way forward.']],
          duel:['Rivals', ['Your rivals are waiting in the arena. Fights cost stamina except on Sundays, and every win boosts your calories forever.']],
+         gift:['Daily gift', ['The 🎁 button up top has a gift for you every day! A red dot means one is waiting. Collect all 7 to earn a whole Star. Missed a day? Your streak stays.']],
          asc:['Ascend', ['Ascending resets your calories and workouts, but gives you Stars and permanent strength. Think it over before you begin.']],
          rep:['Perfect reps', ['Watch the ring! When it turns gold, tap at just the right moment to make this workout earn extra calories.']],
          ev:['Office events', ['Something unexpected happened at the office! Choose one of the two options; the rewards and risks are there for you to weigh.']],
@@ -1230,7 +1237,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, gd:'', gn:0, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, memo = '', lastClick = 0, sayIdx = Math.floor(Math.random() * 8);
@@ -1255,6 +1262,8 @@ function load() {
     s.wins = Math.min(RIVALS.length, Math.floor(s.wins)); s.summons = Math.floor(s.summons);
     for (const q of PETS) if (Number.isInteger(o.pets?.[q.k]) && o.pets[q.k] > 0) s.pets[q.k] = o.pets[q.k];
     if (T[o.lang]) s.lang = o.lang;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(o.gd)) s.gd = o.gd;   // quà mỗi ngày: ngày thật đã nhận gần nhất, và số ô đã nhận trong vòng 7 ngày
+    if (Number.isInteger(o.gn) && o.gn >= 0 && o.gn <= 6) s.gn = o.gn;
     const lvOk = v => Number.isInteger(v) && v >= 0 && v <= 10;   // âm lượng 0–10 nấc; bản lưu cũ chỉ có mute (0 bật, 1 tắt nhạc, 2/true tắt hết)
     if (lvOk(o.vm) && lvOk(o.vs)) { s.vm = o.vm; s.vs = o.vs; } else if (o.mute) { s.vm = 0; if (o.mute !== 1) s.vs = 0; }
     s.char = o.char === 1 ? 1 : 0;
@@ -1556,6 +1565,7 @@ function ui(full = true) {
   $('tabPet').classList.toggle('dot', s.cal >= sc);
   $('tabAsc').classList.toggle('dot', gain >= 1);
   $('tabQuest').classList.toggle('dot', quests.some(q => !s.q.got[q.k] && qProg(q) >= q.n));
+  $('giftBtn').hidden = s.day < 2; $('giftBtn').classList.toggle('dot', giftDue());
 
   if (asleep || s.scene === 'office') return;
   switch (activeTab) {
@@ -2248,7 +2258,7 @@ function ask({title, text, yes, ok = tr('yes'), no = tr('no'), lose, keep}) {
   $('mTitle').innerHTML = rich(title); $('mText').innerHTML = rich(text);
   $('mCols').hidden = !lose; $('mLose').innerHTML = rich(lose || ''); $('mKeep').innerHTML = rich(keep || '');
   $('mYes').innerHTML = rich(ok); $('mNo').hidden = !no; $('mNo').innerHTML = rich(no || '');
-  $('mYes').onclick = () => { close(); yes?.(); };
+  $('mYes').onclick = () => { close(); if (yes) yes(); };   // yes có thể là false/null (thẻ một nút)
   $('mNo').onclick = close;
   askBack = document.activeElement; m.hidden = false; sfx.paper();
   motion(m.firstElementChild, [{opacity:0, transform:'translateY(-48px) rotate(-1deg)'}, {opacity:1, transform:'translateY(5px)', offset:.7}, {opacity:1, transform:'none'}], 320);
@@ -2267,7 +2277,7 @@ function twice(b, f) {   // việc nhỏ không cần hộp hỏi: bấm lần �
 }
 // Hướng dẫn: mỗi lần chỉ hiện một câu chat; tính năng mới được giới thiệu khi người chơi mở khoá.
 const GUIDE = [['start', 0], ['intro', 0], ['day', 0], ['gym', 0], ['sta', 0], ['home', 0], ['meal', 1], ['pt', 1], ['rep', 1],
-  ['fat', 2], ['ev', 2], ['duel', 3], ['quest', 3], ['kg', 3], ['asc', 3], ['pet', 4], ['ach', 4], ['ch', 5]];
+  ['fat', 2], ['ev', 2], ['duel', 3], ['quest', 3], ['kg', 3], ['asc', 3], ['pet', 4], ['ach', 4], ['ch', 5], ['gift', 0]];
 let guideSteps = [], guideAt = 0, guideReturnFocus = null, guideAuto = false;
 function drawGuideStep() {
   const [, title, text] = guideSteps[guideAt];
@@ -2347,7 +2357,7 @@ function go(scene) {
   s.scene = scene; stopDuel(); ptHide(); repHide(); combo = 0; drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
   save(); tune(); sceneTips();
 }
-function sceneTips() { coach(...{gym: ['gym'], home: ['home', 'meal', 'fat', 'kg'], office: s.ev ? ['ev'] : []}[s.scene] || []); }
+function sceneTips() { coach(...{gym: ['gym'], home: ['home', 'meal', 'fat', 'kg'], office: [...(s.ev ? ['ev'] : []), ...(giftDue() ? ['gift'] : [])]}[s.scene] || []); }
 function evPick(o) {
   const e = evOf(); if (!e) return;
   let f = e[o], luck = '';
@@ -2357,7 +2367,7 @@ function evPick(o) {
   if (f.fat) s.fat = Math.min(100, Math.max(0, s.fat + f.fat));
   if (f.sta) s.sta = Math.max(0, s.sta + Math.floor(staMax() * f.sta));
   if (f.cal) earn(evCal(f.cal));
-  if (f.buf) s.buff.cal = f.buf;
+  if (f.buf) s.buff.cal = (s.buff.cal || 1) * f.buf;
   if (f.tap) s.buff.tap = f.tap;
   if (f.star) s.stars += f.star;
   s.ev = null; sfx.pick(); toast(tr('ev')[e.k][o === 'a' ? 1 : 2], luck + (d || tr('evNone')), 3000); drawDay(); refresh(); save();
@@ -2399,6 +2409,30 @@ function arrive({note, rankChange}) {
   memo = note.join('\n'); go('office'); sfx.day();
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
+// Quà mỗi ngày thật (DAILY_GIFT_PLAN): mỗi ngày lịch mới một ô trong vòng 7 ngày; lỡ ngày không mất chuỗi, đồng hồ lùi thì không có quà.
+const GIFT = [.25, .5, 'drink', .75, 'buff', 1, 'star'];   // số = phần của thưởng nhiệm vụ ngày (qReward); ngày 7: 1 Sao và qReward x1
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+const giftDue = () => s.day >= 2 && today() > s.gd;   // người mới: từ ngày 2 trong game, để không chen vào phần dẫn chuyện
+const giftStrip = (n, now) => GIFT.map((_, j) => j < n ? '✅' : j === n && now ? '🎁' : j === 6 ? '⭐' : '⬜').join(' ');
+function gift() {   // nút 🎁 trên HUD: có quà thì nhận, không thì xem vòng quà và quà ngày mai
+  if (!ready) return;
+  if (!giftDue()) return ask({title: tr('giftH'), text: `${giftStrip(s.gn, false)}\n${tr('giftNext').replace('{n}', s.gn + 1)}\n${tr('gift')[s.gn].replace('+{c} 🔥', '🔥 ' + tr('giftCal'))}`, ok: tr('great'), no: null});
+  const n = s.gn, k = GIFT[n], cal = typeof k === 'number' ? qReward() * k : k === 'star' ? qReward() : 0;
+  s.gd = today(); s.gn = (n + 1) % 7;   // cộng ngay và lưu, đóng game giữa chừng cũng không mất
+  if (cal) earn(cal);
+  if (k === 'drink') s.sta += Math.floor(staMax() * .5);
+  if (k === 'buff') s.buff.cal = (s.buff.cal || 1) * 1.25;
+  if (k === 'star') s.stars++;
+  refresh(); save();
+  const ad = !!(cal && CG);
+  later(() => {
+    ask({title: tr('giftT').replace('{n}', n + 1), text: `${giftStrip(n, true)}\n${tr('gift')[n].replace('{c}', fmt(cal))}\n${tr('giftNext').replace('{n}', s.gn + 1)}`,
+      ok: ad ? tr('awayX2') : tr('take'), no: ad && tr('take'),
+      yes: ad && (() => showAd('rewarded', ok => { if (ok) { earn(cal); sfx.coin(); toast(tr('giftT').replace('{n}', n + 1), '+' + fmt(cal) + ' 🔥'); refresh(); save(); } }))});
+    sfx.coin();
+  });
+}
+$('giftBtn').onclick = gift;
 function endDay() { arrive(commitMorning()); }   // qua đêm không hoạt ảnh (vắng hơn 24 giờ)
 // Hoạt ảnh chuyển cảnh dùng chung: play() chạy một đoạn và trả Promise; chạm để tua x6 phần còn lại, không cắt ngang.
 let moving = false, asleep = false, anims = [], rate = 1, moveAt = 0;
@@ -2457,7 +2491,7 @@ $('meals').onclick = ev => {
   setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.eat(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); refresh(); save();
 };
 $('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.pick(); save(); };
-function resetAll() { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, vm: s.vm, vs: s.vs, char: s.char}); memo = ''; syncRank(true); go('office'); coach('start'); }
+function resetAll() { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, vm: s.vm, vs: s.vs, char: s.char, gd: s.gd, gn: s.gn}); memo = ''; syncRank(true); go('office'); coach('start'); }
 
 // ============ Khởi động + vòng lặp ============
 (async () => {
@@ -2488,7 +2522,7 @@ if (Date.now() - s.t > 864e5) { s.used = 0; s.scene = 'home'; endDay(); }   // v
 }
 const firstRun = s.scene === 'office' && s.day === 1 && s.rk === 0 && s.best === 0 && s.clicks === 0 && s.total === 0 && s.ascends === 0;
 if (!s.tips.start && firstRun) coach('start');
-else if (s.scene === 'office') coach('day', ...(s.ev ? ['ev'] : []));
+else if (s.scene === 'office') coach('day', ...(s.ev ? ['ev'] : []), ...(giftDue() ? ['gift'] : []));
 setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn cộng đúng
   const now = Date.now();
   const dt = Math.min((now - s.t) / 1000, offH() * 3600);

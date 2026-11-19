@@ -137,7 +137,7 @@ test('Tải lại trước và sau thời điểm lưu buổi sáng, kể cả k
   const { page } = await openGame(t);
   await page.evaluate(() => {
     closeGuide();
-    s = Object.assign(fresh(), { day: 5, kg: 84.8, kg1: 84.8, rk: 2, best: 2, cap: 540, sta: 0, used: 540 });
+    s = Object.assign(fresh(), { day: 5, kg: 84.8, kg1: 84.8, rk: 2, best: 2, cap: 540, sta: 0, used: 540, gd: today() });   // đã nhận quà hôm nay: thẻ quà không chen vào ca thử
     shown = s.rk;
     EX.forEach((e, i) => { s.lv[e.k] = RANKS[3].goal[i]; });
     go('home');
@@ -184,6 +184,34 @@ test('Tải lại trước và sau thời điểm lưu buổi sáng, kể cả k
   await page.waitForFunction(() => ready && s.day === 6 && s.scene === 'office' && s.rk === 3);
   await page.locator('#go').waitFor();
   assert.equal(await page.locator('#sleep').isVisible(), false);
+});
+
+test('Quà mỗi ngày: nút 🎁 có chấm đỏ, nhận một lần mỗi ngày thật, ngày 7 có Sao, lưu qua tải lại', async t => {
+  const { page } = await openGame(t);
+  await page.evaluate(() => {
+    closeGuide();
+    Object.assign(s, { day: 3, gd: '2000-01-01', gn: 6, stars: 0 });
+    ready = false; localStorage.setItem(KEY, JSON.stringify(s));   // ghi thẳng, chặn pagehide ghi đè
+  });
+  await page.reload();
+  await page.waitForFunction(() => ready);
+  await page.waitForTimeout(800);
+  // Quà không tự bật: nút 🎁 trên HUD có chấm đỏ, bấm mới nhận.
+  assert.deepEqual(await page.evaluate(() => [$('modal').hidden, $('giftBtn').hidden, $('giftBtn').classList.contains('dot'), s.stars]), [true, false, true, 0]);
+  await finishGuide(page);
+  await page.locator('#giftBtn').tap();
+  await page.waitForFunction(() => !$('modal').hidden);
+  assert.deepEqual(await page.evaluate(() => [s.stars, s.gn, s.gd === today(), $('mTitle').textContent.includes('7/7')]), [1, 0, true, true]);
+  await page.locator('#mYes').tap();
+  await page.waitForFunction(() => !$('giftBtn').classList.contains('dot'));
+  await page.reload();
+  await page.waitForFunction(() => ready);
+  await page.waitForTimeout(800);
+  // Đã nhận: bấm nút chỉ xem vòng quà, không cộng thêm.
+  await finishGuide(page);
+  await page.locator('#giftBtn').tap();
+  await page.waitForFunction(() => !$('modal').hidden);
+  assert.deepEqual(await page.evaluate(() => [$('mNo').hidden, s.stars, s.gn]), [true, 1, 0]);
 });
 
 test('Hoãn tải ảnh đối thủ đến khi mở Thi đấu và ngừng cập nhật thẻ ẩn', async t => {

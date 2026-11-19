@@ -17,6 +17,8 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | [docs/ARENA_PLAN.md](docs/ARENA_PLAN.md) | Kế hoạch đấu trường riêng và lời thoại 30 đối thủ (chờ duyệt) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/TRANSITION_PLAN.md](docs/TRANSITION_PLAN.md) | Kế hoạch chuyển cảnh liền mạch thay cho màn chờ (bước 1–2 đã làm) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/DIALOG_PLAN.md](docs/DIALOG_PLAN.md) | Kế hoạch hộp thoại và thông báo ra dáng game (đã làm, còn vài phần trang trí) | Khi chốt quyết định hoặc làm xong bước nào |
+| [docs/DAILY_GIFT_PLAN.md](docs/DAILY_GIFT_PLAN.md) | Kế hoạch quà mỗi ngày thật, vòng 7 ngày (đã làm) | Khi chốt quyết định hoặc làm xong bước nào |
+| [docs/SPAR_PLAN.md](docs/SPAR_PLAN.md) | Kế hoạch Võ đài hằng ngày với đối thủ đã hạ (đã duyệt, chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/UI_REDESIGN_PLAN.md](docs/UI_REDESIGN_PLAN.md) | Kế hoạch nâng cấp giao diện theo hướng sổ tập/phòng gym | Khi chốt mẫu thị giác hoặc hoàn thành một giai đoạn |
 | [docs/CRAZYGAMES.md](docs/CRAZYGAMES.md) | Mô tả, điều khiển, hướng dẫn (tiếng Anh) để nộp CrazyGames; file ảnh bìa, video; cách quay lại video | Khi thêm tính năng hoặc đổi giao diện |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, nhạc, hiệu ứng âm thanh; giữ phong cách thống nhất | Khi cần ảnh hoặc âm thanh mới |

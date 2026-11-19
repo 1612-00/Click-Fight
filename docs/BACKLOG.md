@@ -27,6 +27,7 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
 ## Ý tưởng chưa làm
 
+- Võ đài hằng ngày cho tab Thi đấu khi kẹt ở đối thủ khó: [SPAR_PLAN.md](./SPAR_PLAN.md) (đã duyệt, chưa làm).
 - Mở rộng ngoài Trái Đất: hạng 10+ và các giải phản diện vũ trụ (Mặt Trăng, Sao Hỏa…), nối tiếp sau Hắc Vương Lõi Đất.
 
 - Font chữ riêng đóng kèm game (cần tải file font).

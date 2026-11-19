@@ -213,6 +213,19 @@ Bắt đầu thử thách = lên đời (vẫn nhận Sao) với một luật kh
 
 Cân bằng: sau đời đầu (hệ số calo khoảng x4,5 nhờ Sao, trận thắng, thành tựu; giữ cân 78 kg) một đời thường tới hạng 6 chỉ 17 phút, nên mỗi thử thách nhắm 30–60 phút. Đo bằng `run(G, …)` trong `tools/sim.py` với `mults` x4,5, `kg0`, `night`, `hands`, `fee`. Đã loại: cắt thể lực (Tăng ca) gần như không làm chậm vì về sau calo/giây chiếm phần lớn; Sếp soi x0,5 và đích hạng 5 chỉ 10 phút; Tiệc cưới 88 kg +0,2/tối mất 5 giờ.
 
+## Quà mỗi ngày (ngày thật)
+
+Chi tiết và lý do: [DAILY_GIFT_PLAN.md](DAILY_GIFT_PLAN.md). Mỗi ngày lịch mới (giờ máy người chơi) mở game thì nhận một ô trong vòng 7 ngày, bắt đầu từ ngày 2 trong game. `Q` = thưởng nhiệm vụ ngày (`qReward()`).
+
+| Ngày | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| Quà | Q × 0,25 | Q × 0,5 | Nước tăng lực: +50% thể lực | Q × 0,75 | Calo +25% tới hết ngày trong game | Q × 1 | 1 Sao + Q × 1 |
+
+- Lỡ ngày không mất chuỗi, chỉ không tiến. Đồng hồ lùi (hôm nay nhỏ hơn ngày đã nhận) thì không có quà. Xoá tiến trình giữ nguyên vòng quà.
+- **Nút 🎁 cố định trên HUD** (cạnh ❓) từ ngày 2 trong game; có chấm đỏ khi quà hôm nay đang chờ. Quà không tự bật lên: bấm nút thì cộng, lưu và mở thẻ quà; ngày có calo có nút "📺 Nhân đôi" (quảng cáo thưởng cộng thêm phần calo đó). Đã nhận rồi thì bấm nút chỉ xem vòng quà và quà ngày mai. Lần đầu nút có chấm đỏ ở văn phòng, Bắp chỉ cho người chơi.
+- Bữa sáng ngày 5 nhân dồn với thưởng calo của sự kiện văn phòng trong ngày (trước đây sự kiện ghi đè).
+- Bản lưu: `gd` (ngày thật đã nhận, `YYYY-MM-DD`), `gn` (số ô đã nhận, 0–6). Sim không mô phỏng quà (tính theo ngày thật).
+
 ## Khách ghé phòng tập
 
 Mở từ hạng 2. Lấy ý từ bánh quy vàng của Cookie Clicker: phần thưởng bất ngờ để người chơi nhìn màn hình thay vì treo máy. Có ba loại khách, hai loại sau là **lựa chọn**: bấm hay bỏ qua.

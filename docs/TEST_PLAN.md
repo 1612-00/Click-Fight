@@ -21,7 +21,7 @@ python tools/dist.py
 npm --prefix tools/qa run test:zip
 ```
 
-Bộ test kiểm tra cú pháp JavaScript trước khi chạy Chromium giả lập cảm ứng 375×812. Mỗi ca dùng bộ nhớ riêng. Bộ test đi hết ngày đầu bằng thao tác thật, tải lại trước và sau khi lưu buổi sáng, khôi phục khi bản chính hỏng (A12), kiểm tra yêu cầu ảnh lúc khởi động và sau khi mở Thi đấu (N24), rồi đo các thay đổi DOM khi ẩn tab đó. Chế độ `test:zip` giải nén chính `dist/gym-god.zip` vào thư mục tạm và báo lỗi nếu HTML trong gói lệch mã nguồn.
+Bộ test kiểm tra cú pháp JavaScript trước khi chạy Chromium giả lập cảm ứng 375×812. Mỗi ca dùng bộ nhớ riêng. Bộ test đi hết ngày đầu bằng thao tác thật, tải lại trước và sau khi lưu buổi sáng, khôi phục khi bản chính hỏng (A12), nhận quà ngày 7 rồi tải lại (Q2), kiểm tra yêu cầu ảnh lúc khởi động và sau khi mở Thi đấu (N24), rồi đo các thay đổi DOM khi ẩn tab đó. Chế độ `test:zip` giải nén chính `dist/gym-god.zip` vào thư mục tạm và báo lỗi nếu HTML trong gói lệch mã nguồn.
 
 Các ca này chạy với SDK CrazyGames vắng mặt. Kiểm tra quảng cáo, tài khoản và thiết bị thật theo nhóm P và phần chơi thử bên dưới.
 
@@ -347,7 +347,7 @@ Bảng đối chiếu cho H6:
 | N9 | Tiếp N8: về nhà; mở tab Thi đấu; mở tab Lên đời; ngủ sang ngày 2 rồi vào phòng tập. | Mỗi lần hiện đúng một mục tương ứng, chỉ lần đầu. Về nhà ở hạng 1 chỉ hiện "Buổi tối ở nhà", không hiện mục bữa tối. Vào phòng tập ngày 2 không hiện gì (đã xem). | |
 | N10 | Lần đầu về nhà sau khi đạt hạng 3 (chưa từng xem). | Một khung hiện cùng lúc ba mục: bữa tối, mệt mỏi, cân nặng. Mục cân nặng ghi đúng ngưỡng 84,5 / 82 / 78 kg. | |
 | N11 | Bấm nút ❓ ở hạng 1, rồi ở hạng 3, cả hai ngôn ngữ. | Hiện đủ 9 mục. Ở hạng 1: bữa tối ghi "🔒 Mở khi đạt hạng 2", mệt mỏi và cân nặng ghi "hạng 3". Khung không cao quá màn hình (thử cả 1440×900, 1366×650, 375×812), nội dung cuộn bên trong, nút "Đã hiểu" luôn thấy. Máy tính 2 cột, điện thoại 1 cột. Đóng được bằng "Đã hiểu", nút ✕, bấm ra ngoài khung, phím Esc; bấm vào trong khung thì không đóng. Bấm ❓ không làm đổi bản lưu. | |
-| N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ 3 nút tròn (❓, nhân vật, ⚙️). Khung cài đặt vừa màn hình, không cuộn ngang. Tên hạng dài xuống dòng, không bị cắt. | |
+| N12 | Điện thoại 375×812, xem hàng nút trên cùng. | Thấy đủ các nút tròn (🎁 từ ngày 2, ❓, nhân vật, ⚙️), không cuộn ngang. Khung cài đặt vừa màn hình, không cuộn ngang. Tên hạng dài xuống dòng, không bị cắt. | |
 | N14 | Điện thoại 375×812, phòng tập xem tab Bài tập, Thi đấu, Nhiệm vụ, Thành tựu, Lên đời; về nhà mở tab Bạn tập. | Thẻ gọn (ô ảnh 40–44 px, chữ nhỏ hơn bản máy tính), thấy ít nhất 2 thẻ đầy đủ; danh sách cuộn được, chữ vẫn đọc được, nút mua vẫn dễ bấm. Dòng mục tiêu (🎯 kg) nằm cùng dòng với chỉ số khi đủ chỗ. Máy tính không đổi. | |
 | N13 | Ván mới (cửa sổ ẩn danh), kể cả trên máy cài tiếng Việt. | Game hiện **tiếng Anh**, trong ⚙️ nút "English" sáng. Chọn "Tiếng Việt" rồi tải lại: vẫn tiếng Việt. Bản lưu có từ trước vẫn giữ ngôn ngữ đang dùng. | |
 | N15 | 1024×768 và điện thoại 375×812, mở tab Bài tập; đổi qua lại tiếng Việt/Anh và bấm x10, rồi x1. | Tiêu đề sổ tập hiện đúng bản dịch ("Sổ tập" / "Training log"), bài kế tiếp được nhấn rõ, các chế độ mua vẫn chọn được và x1 được khôi phục. Không tràn ngang; trên điện thoại danh sách cuộn riêng trong bảng. | |
@@ -376,6 +376,21 @@ Bảng đối chiếu cho H6:
 | O5 | Ở phòng tập, có calo/giây lớn hơn 0. Để tab mở, không chạm 5 phút (hoặc giả lập: `s.act = Date.now() - 301e3`). Ghi lại calo, chờ 3 giây. Sau đó chạm màn hình, chờ 3 giây. | Khi chưa chạm: calo đứng yên, dòng nhắc "💤 Treo máy quá 5 phút…". Sau khi chạm: dòng nhắc mất, calo/giây chạy lại. | |
 | O6 | Chuyển sang tab khác 10 phút rồi quay lại. | Calo/giây vẫn cộng đủ 10 phút (rời tab tính như vắng mặt, không bị dừng ở 5 phút); không có dòng nhắc treo máy. | |
 
+## Q. Quà mỗi ngày
+
+Đặt ngày thật đã nhận bằng `s.gd = 'YYYY-MM-DD'` (ví dụ hôm qua) rồi tải lại; xem `s.gn` để biết ô kế tiếp.
+
+| Mã | Bước | Kết quả mong muốn | Đạt? |
+|---|---|---|---|
+| Q1 | Ván mới, chơi qua dẫn chuyện và ngủ sang ngày 2. Bấm 🎁. Tải lại cùng ngày, bấm 🎁 lần nữa. | Ngày 1 trong game: không có nút 🎁. Sáng ngày 2: nút 🎁 hiện cạnh ❓ với chấm đỏ, Bắp giới thiệu một lần; không có thẻ tự bật. Bấm: thẻ "🎁 Quà ngày 1/7" (dải 7 ô, ô đầu 🎁, ô cuối ⭐), calo Q × 0,25 đã cộng, dòng "Mai quay lại nhận quà ngày 2!"; chấm đỏ tắt. Bấm lại (kể cả sau khi tải lại): thẻ "🎁 Quà mỗi ngày" một nút, chỉ xem vòng quà và quà ngày mai, không cộng gì. | |
+| Q2 | Đặt `s.gd` thành hôm qua, bấm 🎁; lặp tới hết ngày 7 rồi thêm một lần. | Lần lượt Q × 0,25 / 0,5 / +50% thể lực / Q × 0,75 / calo +25% hôm nay / Q × 1 / 1 Sao + Q × 1; sau ngày 7 quay về ngày 1. Dải ô ✅ đúng số đã nhận. | |
+| Q3 | Đặt `s.gd` thành 3 ngày trước, bấm 🎁. | Nhận đúng ô kế tiếp, không mất chuỗi. | |
+| Q4 | Đặt `s.gd` thành ngày mai (đồng hồ bị lùi). | Không có chấm đỏ; bấm 🎁 chỉ xem vòng quà, `gd`/`gn` không đổi. | |
+| Q5 | Để game mở qua nửa đêm (hoặc đặt `s.gd` thành hôm qua mà không tải lại). | Chấm đỏ trên 🎁 hiện trong vòng 0,1 giây, không cần tải lại. | |
+| Q6 | Vắng hơn 1 phút và `s.gd` hôm qua, tải lại. | Chỉ thẻ vắng mặt tự hiện; quà chờ ở nút 🎁 có chấm đỏ. | |
+| Q7 | Nhận quà ngày 5, rồi chọn sự kiện văn phòng có thưởng calo trong ngày. | Hai thưởng nhân dồn (ví dụ 1,25 × 1,3), không ghi đè nhau; sang ngày sau hết cả hai. | |
+| Q8 | Xoá tiến trình (giữ nút trong ⚙️) sau khi đã nhận quà hôm nay. | Vòng quà giữ nguyên, không nhận thêm quà hôm nay khi tới ngày 2 của ván mới. | |
+
 ## P. Quảng cáo và CrazyGames
 
 Bản chạy trên máy dùng quảng cáo giả của SDK. Phần này cần thử lại bằng công cụ QA của CrazyGames trước khi đăng.
@@ -389,6 +404,7 @@ Bản chạy trên máy dùng quảng cáo giả của SDK. Phần này cần th
 | P5 | Trên CrazyGames: bật tắt tiếng bằng nút của cổng game. | Game tắt hết tiếng khi cổng yêu cầu, bất kể âm lượng chỉnh trong game. | |
 | P6 | Trên CrazyGames: chơi, đăng xuất/đổi máy cùng tài khoản. | Tiến trình được giữ (lưu qua Data Module). | |
 | P8 | Trên CrazyGames: vắng mặt hơn 1 phút có calo/giây, mở lại, bấm "📺 Nhân đôi" trên thẻ vắng mặt. Lần khác bấm "Nhận" hoặc Esc. | Xem hết quảng cáo: cộng thêm đúng số calo trên thẻ (dải nhỏ báo lại). Bỏ ngang hoặc lỗi: chỉ giữ phần đã cộng. "Nhận" và Esc không mở quảng cáo. | |
+| P9 | Trên CrazyGames: nhận quà mỗi ngày ở ngày có calo, bấm "📺 Nhân đôi"; lần khác bỏ ngang; ngày 3, 5. | Xem hết: cộng thêm đúng phần calo (dải nhỏ báo lại). Bỏ ngang: giữ phần đã cộng. Ngày 3 và 5 chỉ có nút "Nhận". |
 | P7 | Chặn mạng tới `sdk.crazygames.com` rồi mở game. | Game vẫn vào được sau tối đa khoảng 4 giây, chơi bình thường, không có nút nước tăng lực và không có quảng cáo. | |
 
 ---

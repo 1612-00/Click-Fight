@@ -22,6 +22,7 @@ Features:
 - Choose dinner after it unlocks: healthy food helps you lose weight, protein boosts tomorrow's calories, and junk food gives more stamina but adds weight.
 - Ascend to start over and earn Stars that boost your calories forever, then spend them on a 9-skill Star tree.
 - Four challenges after rank 6: hands only, a gym price hike, wedding season and a boss who takes your calories. Beat them for permanent rewards.
+- Daily gift: come back each day for a 7-day gift cycle, with a Star on day 7. Missing a day never resets your streak.
 - Progress is saved to your CrazyGames account.
 - Play in English or Vietnamese.
 
