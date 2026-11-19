@@ -122,8 +122,10 @@ test('Chơi ngày đầu bằng cảm ứng, mua Tay và ngủ sang ngày 2', as
   assert.equal(await page.evaluate(() => s.tips.firstBuy), 1);
   await arms.tap();
   await page.waitForFunction(() => s.lv.tay === 1 && s.sta < s.cap);
+  // Còn thể lực: bấm lần đầu chỉ hỏi "Chắc chưa?", bấm lần nữa mới về.
   await page.locator('#goHome').tap();
-  await page.locator('#mYes').tap();
+  assert.equal(await page.evaluate(() => s.scene), 'gym');
+  await page.locator('#goHome').tap();
   await page.waitForFunction(() => s.scene === 'home' && !moving);
   await finishGuide(page);
   await page.locator('#sleep').tap();

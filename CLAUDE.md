@@ -16,7 +16,7 @@ Game clicker 2D chạy trên web, một file HTML duy nhất. Dân văn phòng y
 | [docs/MUSIC_PLAN.md](docs/MUSIC_PLAN.md) | Kế hoạch nhạc nền theo màn (chưa làm) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/ARENA_PLAN.md](docs/ARENA_PLAN.md) | Kế hoạch đấu trường riêng và lời thoại 30 đối thủ (chờ duyệt) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/TRANSITION_PLAN.md](docs/TRANSITION_PLAN.md) | Kế hoạch chuyển cảnh liền mạch thay cho màn chờ (bước 1–2 đã làm) | Khi chốt quyết định hoặc làm xong bước nào |
-| [docs/DIALOG_PLAN.md](docs/DIALOG_PLAN.md) | Kế hoạch hộp thoại và thông báo ra dáng game (chờ duyệt) | Khi chốt quyết định hoặc làm xong bước nào |
+| [docs/DIALOG_PLAN.md](docs/DIALOG_PLAN.md) | Kế hoạch hộp thoại và thông báo ra dáng game (đã làm, còn vài phần trang trí) | Khi chốt quyết định hoặc làm xong bước nào |
 | [docs/UI_REDESIGN_PLAN.md](docs/UI_REDESIGN_PLAN.md) | Kế hoạch nâng cấp giao diện theo hướng sổ tập/phòng gym | Khi chốt mẫu thị giác hoặc hoàn thành một giai đoạn |
 | [docs/CRAZYGAMES.md](docs/CRAZYGAMES.md) | Mô tả, điều khiển, hướng dẫn (tiếng Anh) để nộp CrazyGames; file ảnh bìa, video; cách quay lại video | Khi thêm tính năng hoặc đổi giao diện |
 | [assets/PROMPTS.md](assets/PROMPTS.md) | Prompt tạo ảnh, nhạc, hiệu ứng âm thanh; giữ phong cách thống nhất | Khi cần ảnh hoặc âm thanh mới |
@@ -80,7 +80,7 @@ Chế độ thử: `http://localhost:8766/?test` nhân 100 calo mỗi cú bấm 
 - **Hạng**: `updateRank()` thay đổi `s.rk` và được gọi khi đồng bộ hạng hoặc khi lưu buổi sáng. Tính năng mở theo `unl()` (hạng cao nhất từng đạt).
 - **Âm thanh**: hiệu ứng tạo bằng code: `beep` (nốt), `noise` (tiếng ồn lọc: thịch, va chạm, vút), gộp trong `sfx`, đi qua bộ nén `ac.fx`, tối đa 16 tiếng cùng lúc. Ba tầng thưởng: tiếng nhỏ (`buy`, `eat`, `pick`) < `ding`/`coin` < `up` (chỉ dành cho lên hạng, thắng trận, lên đời). Rung bằng `buzz(ms)`; nhạc nền là `assets/music/<tên>.mp3`, phát qua `music(name)`, và `tune()` chọn bài theo màn (`office`, `home`; phòng tập theo hạng: `gym` hạng 1–3, `gym2` 4–6, `gym3` 7–9), `duel` khi đấu, `sleep` khi ngủ. Đoạn nhạc thưởng `rankup`, `win`, `lose` phát qua `sting(name, fb)` theo nấc Âm thanh, tải sẵn ở cú chạm đầu; chưa tải xong hoặc thiếu file thì dùng tiếng bíp `fb`. Giọng và tiếng khách (`assets/sfx/`) phát qua `vox(loại)`, chọn ngẫu nhiên trong số biến thể ghi ở bảng `VOX`; thêm biến thể = thêm file và sửa số trong `VOX`. Nhạc chỉ bắt đầu sau cú chạm đầu tiên. Âm lượng `s.vm` (nhạc) và `s.vs` (hiệu ứng), 0–10 nấc, mặc định 5 và 7, chỉnh trong khung cài đặt ⚙️ (`#setBox`, `drawSet()`), đổi ra độ lợi trong `setVol()`. Khung cài đặt cũng chứa nút ngôn ngữ.
 - **Hướng dẫn**: danh sách mục `GUIDE` (kèm hạng cần để mở), chữ trong `T.*.g`. `guide(keys)` mở khung; `coach(...keys)` hiện mục lần đầu người chơi gặp và ghi vào `s.tips`. Thêm tính năng mới thì thêm một mục và gọi `coach` ở chỗ người chơi gặp nó lần đầu.
-- **Hộp xác nhận**: dùng `ask(text, yes)`. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
+- **Hộp và thông báo**: quyết định dùng `ask({title, text, yes, ok, no, lose, keep})` (`no: null` = một nút); việc nhỏ dùng `twice(nút, việc)` (bấm hai lần). Thông báo: `toast()` dải nhỏ, `banner()` băng rôn lớn, `later(f)` chờ cửa/hướng dẫn/hộp khác đóng rồi mới chạy. Không dùng `confirm()`/`alert()` vì bị chặn trong iframe của cổng game.
 - **SDK**: `CG` là `null` khi không có CrazyGames; mọi lời gọi SDK phải chịu được `CG === null`.
 
 ## Kiểm tra trên trình duyệt: các bẫy đã dính

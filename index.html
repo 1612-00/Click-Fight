@@ -216,8 +216,6 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
   .office #nav{grid-area:nav;width:100%;max-width:480px;margin:0 0 6px 0;align-self:start;justify-self:center}
 }
 #flash{position:absolute;inset:0;z-index:5;background:#fff;opacity:0;pointer-events:none}
-#toast{position:absolute;z-index:6;left:50%;top:38%;transform:translate(-50%,-50%);text-align:center;font-weight:800;font-size:1.5rem;line-height:1.15;padding:12px 22px;border-radius:18px;background:#000b;border:3px solid var(--aura);text-shadow:0 2px 0 var(--ink);opacity:0;pointer-events:none;max-width:90%}
-#toast small{display:block;font-size:1rem;color:var(--gold)}
 
 /* ---------- bảng ---------- */
 .panel{position:relative;z-index:1;display:flex;flex-direction:column;min-height:0;margin:12px;border-radius:20px;overflow:hidden;background:#174a8ce8;border:3px solid #0009;box-shadow:0 10px 30px #0008}
@@ -370,11 +368,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 #chPill{border-color:#ff6fb0;color:#ffd1e6}
 .frenzy .aura{opacity:1;background:radial-gradient(circle,var(--gold2) 0,transparent 66%)}.frenzy .pop{color:var(--gold)}
 #testTag{position:absolute;left:6px;bottom:6px;z-index:7;padding:2px 8px;border-radius:8px;background:#e5484d;color:#fff;font-weight:800;font-size:.75rem;pointer-events:none}
-#modal{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
+#modal{position:absolute;inset:0;z-index:9;display:grid;place-items:center;padding:16px}
 #modal[hidden]{display:none}
-#modal div{background:var(--panel);border:3px solid var(--line);border-radius:18px;padding:18px;max-width:360px;text-align:center}
-#modal p{margin:0 0 14px;line-height:1.35}
-#modal button{margin:0 4px}
 #modal .no{background:#3d5f8f;color:#fff;box-shadow:0 4px 0 #223c63}
 #guide,#setBox{position:absolute;inset:0;z-index:9;background:#000a;display:grid;place-items:center;padding:16px}
 #guide[hidden],#setBox[hidden]{display:none}
@@ -508,7 +503,6 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 .meal{background:#f4efe3;border:1px solid #d1c7b5;box-shadow:0 2px 0 #b9ad99;font-weight:650}
 .meal.on{background:#fff4d8;border:2px solid var(--gold);box-shadow:0 0 0 1px #c9913e30}
 .meal em{color:#4d795b;font-weight:700;text-shadow:none}
-#toast{background:#f5f0e6f7;color:#2d3932;border-color:var(--gold);box-shadow:0 6px 18px #27302635}
 #aTag{background:#26352ef5;border:1px solid var(--gold);box-shadow:0 4px 14px #0006}
 #aTag small{color:#d5ddcf}
 #aBox{background:#f8f1df;border:1px solid #d8bd83;box-shadow:0 5px 14px #0005;text-shadow:none}
@@ -655,8 +649,43 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 #arena #aBtns .no:active:not(:disabled){box-shadow:0 1px 0 #253028}
 #boost:disabled{background:#e4dfd5;color:#77786f;border-color:#c9c2b5;cursor:not-allowed}
 #vEx button:focus-visible,.view button:focus-visible,#guide button:focus-visible,#setBox button:focus-visible,#modal button:focus-visible{outline-color:#26343a;outline-offset:2px}
-#toast{width:min(90%,460px);padding:10px 16px;border:1px solid var(--gold);border-left-width:4px;border-radius:12px;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;text-shadow:none;box-shadow:0 8px 24px #27302633;background:#f5f0e6f9}
-#toast small{display:block;margin-top:6px;font-size:.88rem;font-weight:600;color:#505e58;line-height:1.4}
+/* Hộp quyết định kiểu trang sổ tập: băng dính, biển tiêu đề, Bắp bên trái, cột Mất/Giữ; nền tối dần ra góc */
+#modal{background:radial-gradient(ellipse at center,#25312955 25%,#101813e6 100%)}
+#modal>div{position:relative;width:min(100%,400px);padding:30px 18px 18px 18px;text-align:center}
+#modal>div::before{content:'';position:absolute;top:-10px;left:50%;width:90px;height:22px;transform:translateX(-50%) rotate(-2deg);background:#e9d9a8cc;box-shadow:0 1px 2px #0002}
+#mPet{position:absolute;left:-14px;top:-46px;width:84px;height:96px;object-fit:contain;filter:drop-shadow(0 4px 2px #0005);pointer-events:none}
+#mTitle{display:inline-block;margin:0 0 10px;padding:4px 16px;border:2px solid #c9913e;border-radius:8px;background:#f6efdf;color:#3a3326;font-size:1.05rem;font-weight:850;letter-spacing:.04em}
+#modal p{margin:0 0 14px;line-height:1.4;white-space:pre-line}
+#mCols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px;text-align:left}
+#mCols[hidden]{display:none}
+#mCols>div{padding:8px 10px;border:1px solid #d5c9b2;border-radius:8px;background:#f7f2e7}
+#mCols b{display:block;margin-bottom:4px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+#mCols>div:first-child b{color:#a0453a}
+#mCols>div:last-child b{color:#267351}
+#mCols p{margin:0;font-size:.85rem;color:#424d50}
+.mBtns{display:flex;gap:8px}
+.mBtns .big{flex:1;min-height:48px}
+.mBtns .big[hidden]{display:none}
+/* Thông báo tầng nhỏ: dải dưới HUD, xếp chồng tối đa 3, không chặn bấm */
+#notes{position:absolute;z-index:6;left:50%;top:30%;transform:translateX(-50%);width:min(92%,420px);display:grid;gap:6px;pointer-events:none}
+#notes>div{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;padding:7px 12px;border:1px solid var(--gold);border-left-width:4px;border-radius:10px;background:#f5f0e6f5;color:#2d3932;font-weight:800;font-size:.95rem;line-height:1.25;box-shadow:0 6px 16px #27302633}
+#notes small{font-size:.82rem;font-weight:600;color:#505e58}
+/* Tầng lớn: băng rôn ngang màn có tia sáng; chạm để tắt sớm */
+#banner{position:absolute;z-index:7;left:0;right:0;top:34%;display:grid;justify-items:center;gap:4px;padding:16px 12px;background:linear-gradient(90deg,transparent,#27302fe6 12%,#27302fe6 88%,transparent);color:#fff;text-align:center;cursor:pointer;overflow:hidden}
+#banner[hidden]{display:none}
+#banner .rays{position:absolute;left:50%;top:50%;width:min(140vw,900px);height:auto;translate:-50% -50%;opacity:.35;z-index:-1}
+#bBig{font-size:clamp(1.6rem,7vw,2.6rem);font-weight:900;letter-spacing:.06em;color:#f2bd54;text-shadow:0 3px 0 #0008}
+#bSmall{font-size:1rem;font-weight:700;line-height:1.35}
+/* Báo cáo sáng trên tờ ghi chú */
+#memo{margin:0 0 6px;font-size:.82rem;font-weight:700;line-height:1.35;color:#5a4a2a;white-space:pre-line}
+#memo[hidden]{display:none}
+/* Bấm hai lần: lần đầu nút đổi chữ, viền vàng */
+#goHome.sure,#nav #rest.sure{border-color:var(--gold);background:#fff3d4;color:#765a31;box-shadow:0 0 0 3px #c9913e88}
+/* Xoá tiến trình: giữ 1,5 giây, thanh đỏ chạy ngang nút */
+#setBox .hold{position:relative;overflow:hidden;min-height:44px;padding:10px;border:1px solid #c0675d;border-radius:8px;background:#f6e3df;color:#9b2c22;font-size:.85rem;font-weight:750;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}
+#setBox .hold::before{content:'';position:absolute;inset:0;z-index:-1;background:#e0574a66;transform:scaleX(0);transform-origin:left}
+#setBox .hold{isolation:isolate}
+#setBox .hold.on::before{transform:scaleX(1);transition:transform 1.5s linear}
 /* ---------- sân khấu và sổ tập trong khung mobile ---------- */
 @media(max-width:900px){
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -801,6 +830,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
       <div id="postIt">
         <div class="tape-strip" aria-hidden="true"></div>
         <div id="postItHeader"><span class="postit-pin">📌</span> <span id="postItTitle">GHI CHÚ CUỐI NGÀY</span></div>
+        <p id="memo" hidden></p>
         <p id="say" class="caption"></p>
         <div id="evBox" hidden><button class="big" id="evA"></button><button class="big" id="evB"></button></div>
       </div>
@@ -819,7 +849,8 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     <div class="tip" id="tip"></div>
     <div id="night" hidden><i id="nightSky"></i><div id="zzz" aria-hidden="true"><span>Z</span><span>z</span><span>z</span></div><div id="nightCards"></div><small id="nightSkip"></small></div>
     <div id="flash"></div>
-    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="notes" role="status" aria-live="polite"></div>
+    <div id="banner" hidden><div class="rays"></div><b id="bBig"></b><small id="bSmall"></small></div>
   </section>
 
   <aside class="panel">
@@ -856,7 +887,6 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
         <button class="big" id="ascBtn"></button>
         <div id="skills"></div>
         <div id="chs"></div>
-        <button class="link" id="reset"></button>
       </div>
     </div>
   </aside>
@@ -872,7 +902,12 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     <div id="aBtns" hidden><button class="big" id="aAgain"></button><button class="big no" id="aBack"></button></div>
   </div>
   <div id="door" hidden><i class="dl"></i><i class="dr"></i><b id="doorSign"></b></div>
-  <div id="modal" hidden><div><p id="mText"></p><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div></div>
+  <div id="modal" hidden><div role="dialog" aria-modal="true" aria-labelledby="mTitle" aria-describedby="mText">
+    <img id="mPet" src="assets/pet/pet-dog.webp" alt="" draggable="false" onerror="this.hidden=true">
+    <h2 id="mTitle"></h2><p id="mText"></p>
+    <div id="mCols" hidden><div><b id="mLoseH"></b><p id="mLose"></p></div><div><b id="mKeepH"></b><p id="mKeep"></p></div></div>
+    <div class="mBtns"><button class="big no" id="mNo"></button><button class="big" id="mYes"></button></div>
+  </div></div>
   <div id="guide" hidden><div role="dialog" aria-modal="true" aria-labelledby="gName" aria-describedby="gBody">
     <div id="gPet" aria-hidden="true"><img src="assets/pet/pet-dog.webp" alt="" draggable="false"></div>
     <div id="gChat"><b id="gName"></b><h2 id="gTitle"></h2><p id="gBody" aria-live="polite"></p><small id="gProgress"></small><button class="big" id="gOk"></button><button class="round" id="gX" aria-label="Close">✕</button></div>
@@ -881,6 +916,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     <div class="srow"><span id="sMus"></span><button class="round" data-k="vm" data-d="-1">−</button><div class="seg" id="vm"></div><button class="round" data-k="vm" data-d="1">+</button><b id="vmN"></b></div>
     <div class="srow"><span id="sSnd"></span><button class="round" data-k="vs" data-d="-1">−</button><div class="seg" id="vs"></div><button class="round" data-k="vs" data-d="1">+</button><b id="vsN"></b></div>
     <div class="srow"><span id="sLang"></span><button class="chip" data-l="en">English</button><button class="chip" data-l="vi">Tiếng Việt</button></div>
+    <button class="hold" id="reset"></button>
   </div></div>
 </div>
 
@@ -920,7 +956,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!', idle:'💤 Treo máy quá 5 phút nên calo tạm dừng. Chạm để tiếp tục!',
       ascDesc:'Đổi calo và bài tập lấy Sao; mỗi Sao tăng 10% calo vĩnh viễn.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
-      reset:'Xoá toàn bộ tiến trình', qAsc:'Lên đời? Calo và cấp bài tập về 0, bạn nhận {n} Sao.', qReset:'Xoá toàn bộ tiến trình, kể cả Sao?', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', qHome:'Tập đủ rồi, về nhà thôi?', qRest:'Về nhà nghỉ luôn? Hôm nay sẽ không tập.', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', dOffice:'🏢 VĂN PHÒNG', skip:'Chạm để tua nhanh', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Cài đặt', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
+      reset:'Giữ để xoá toàn bộ tiến trình', qAsc:'Bắt đầu lại từ hạng 1 và nhận {n} Sao.', sure:'Chắc chưa? Bấm lần nữa', mLoseH:'Mất', mKeepH:'Giữ', aLose:'Calo\nCấp bài tập\nHạng', aKeep:'Sao, kỹ năng\nBạn tập, thành tựu\nTrận thắng, cân nặng', newFeat:'Tính năng mới!', great:'Tuyệt!', take:'Nhận', awayX2:'📺 Nhân đôi', mornTitle:'BÁO CÁO SÁNG', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', dOffice:'🏢 VĂN PHÒNG', skip:'Chạm để tua nhanh', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Tạm nghỉ', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
       repTip:'Đợi vòng vàng rồi bấm!', repWarn:'Sắp có Rep hoàn hảo, chuẩn bị!', repMiss:'Hụt', evOk:'Thành công', evNo:'Không may', evToday:'hôm nay', evElse:'còn lại', evNone:'không có gì',
       ev:{boss:['Sếp rủ làm vài ly sau giờ làm.', 'Đi cho sếp vui', 'Xin về đi tập'], lift:['Thang máy hỏng, văn phòng ở tầng 12.', 'Leo bộ 12 tầng', 'Đứng chờ, nghỉ một chút'],
           ot:['Việc gấp, sếp nhờ ở lại thêm một tiếng.', 'Ở lại tăng ca', 'Từ chối khéo'], boba:['Đồng nghiệp mời trà sữa full topping.', 'Uống luôn', 'Rủ đi bộ mua nước ép'],
@@ -968,7 +1004,7 @@ const T = {
       chH:'🏅 Thử thách', chDesc:'Bắt đầu thử thách là lên đời với một luật khó. Đạt hạng mục tiêu để nhận thưởng vĩnh viễn. Lên đời thường hoặc bỏ giữa chừng thì không có thưởng.', chLock:'🔒 Mở khi đạt hạng 6',
       ch:{tap:['Chỉ dùng tay', 'Không có calo/giây, kể cả lúc vắng mặt. Chỉ cú bấm mới ra calo.', 'Vĩnh viễn: +25% calo mỗi lần bấm'], fee:['Phòng gym tăng giá', 'Mọi bài tập đắt gấp 3.', 'Vĩnh viễn: bài tập rẻ hơn 10%'],
           party:['Mùa tiệc cưới', 'Bắt đầu ở ít nhất 85 kg, và mỗi tối đi tiệc +0,1 kg.', 'Vĩnh viễn: ngày tập đủ giảm thêm 0,1 kg'], boss:['Sếp soi', 'Mọi calo kiếm được chỉ còn một phần tư.', 'Vĩnh viễn: +15% calo']},
-      chGoal:'🎯 Mục tiêu: đạt hạng {n}', chGo:'Bắt đầu', chOn:'Đang làm', chQuit:'Bỏ thử thách', qCh:'Bắt đầu thử thách "{x}"? Như lên đời: calo và cấp bài tập về 0, bạn nhận {n} Sao.', qQuit:'Bỏ thử thách? Luật khó hết tác dụng và không có thưởng.', chWin:'🏅 Hoàn thành thử thách!',
+      chGoal:'🎯 Mục tiêu: đạt hạng {n}', chGo:'Bắt đầu', chOn:'Đang làm', chQuit:'Bỏ thử thách', qCh:'Như lên đời: bắt đầu lại từ hạng 1 với luật khó này và nhận {n} Sao.', qQuit:'Bỏ thử thách? Luật khó hết tác dụng và không có thưởng.', chWin:'🏅 Hoàn thành thử thách!',
       unlock:{6:'⚡ Mở: sức mạnh siêu nhân và phản diện Trái Đất.', 5:'🏅 Mở: thử thách.', 4:'🐶 Mở: Bạn tập và Thành tựu.', 3:'⚔️ Mở: Thi đấu và Nhiệm vụ.', 2:'😮‍💨 Mở: mệt mỏi, lịch tuần và sự kiện.', 1:'🍱 Mở: bữa tối, khách ghé và Rep hoàn hảo.'}, mSta:'thể lực', mCal:'calo', mTap:'bấm', mFat:'mệt mỏi', tmr:'Mai', skipDay:'Tiếc quá, lại một ngày không luyện tập!', restDay:'Nghỉ hôm nay để mai khoẻ hơn.',
       fat0:'Sung sức', fat1:'Mỏi', fat2:'Kiệt sức', fat3:'Quá tải', over:'Cơ thể quá tải rồi. Hôm nay bắt buộc phải nghỉ!', noSta:'Hết thể lực! Về nhà nghỉ thôi.',
       homeSay0:'Về đến nhà rồi. Ngủ một giấc để mai tập tiếp! Lên hạng 2 sẽ mở bữa tối.',
@@ -1005,7 +1041,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!', idle:'💤 Idle for 5 minutes, so calories are paused. Tap to continue!',
       ascDesc:'Trade calories and workouts for Stars; each Star boosts calories by 10% forever.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
-      reset:'Erase all progress', qAsc:'Ascend? Calories and workout levels reset to 0 and you get {n} Stars.', qReset:'Erase all progress, including Stars?', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', qHome:'Done training? Head home?', qRest:'Go home and rest? No training today.', dGym:'🏋️ GYM', dHome:'🏠 HOME', dOffice:'🏢 OFFICE', skip:'Tap to skip', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Settings', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
+      reset:'Hold to erase all progress', qAsc:'Start over from rank 1 and get {n} Stars.', sure:'Sure? Tap again', mLoseH:'You lose', mKeepH:'You keep', aLose:'Calories\nWorkout levels\nRank', aKeep:'Stars, skills\nBuddies, achievements\nRival wins, weight', newFeat:'New feature!', great:'Awesome!', take:'Collect', awayX2:'📺 Double it', mornTitle:'MORNING REPORT', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', dGym:'🏋️ GYM', dHome:'🏠 HOME', dOffice:'🏢 OFFICE', skip:'Tap to skip', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Paused', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
       repTip:'Wait for gold, then tap!', repWarn:'Perfect rep coming, get ready!', repMiss:'Miss', evOk:'It worked', evNo:'No luck', evToday:'today', evElse:'otherwise', evNone:'nothing',
       ev:{boss:['The boss invites you for drinks after work.', 'Go, keep the boss happy', 'Head to the gym instead'], lift:['The elevator is broken and the office is on floor 12.', 'Take all 12 floors of stairs', 'Wait and take a breather'],
           ot:['Something urgent: the boss asks you to stay one more hour.', 'Work overtime', 'Politely say no'], boba:['A coworker offers you a fully loaded bubble tea.', 'Drink it', 'Walk out for a fresh juice instead'],
@@ -1052,7 +1088,7 @@ const T = {
       chH:'🏅 Challenges', chDesc:'Starting a challenge ascends you with a tough rule. Reach the target rank for a permanent reward. A normal ascension or quitting gives no reward.', chLock:'🔒 Unlocks at rank 6',
       ch:{tap:['Hands only', 'No calories per second, not even while away. Only taps earn calories.', 'Forever: +25% calories per tap'], fee:['Gym price hike', 'Every workout costs 3 times as much.', 'Forever: workouts cost 10% less'],
           party:['Wedding season', 'Start at 85 kg or more, and a party every night adds 0.1 kg.', 'Forever: full training days lose an extra 0.1 kg'], boss:['Boss is watching', 'You earn only a quarter of your calories.', 'Forever: +15% calories']},
-      chGoal:'🎯 Goal: reach rank {n}', chGo:'Start', chOn:'In progress', chQuit:'Quit challenge', qCh:'Start the "{x}" challenge? Like ascending: calories and workout levels reset to 0 and you get {n} Stars.', qQuit:'Quit the challenge? The rule stops and there is no reward.', chWin:'🏅 Challenge complete!',
+      chGoal:'🎯 Goal: reach rank {n}', chGo:'Start', chOn:'In progress', chQuit:'Quit challenge', qCh:'Like ascending: start over from rank 1 under this hard rule and get {n} Stars.', qQuit:'Quit the challenge? The rule stops and there is no reward.', chWin:'🏅 Challenge complete!',
       unlock:{6:'⚡ Unlocked: superpowers and Earth villains.', 5:'🏅 Unlocked: challenges.', 4:'🐶 Unlocked: buddies and achievements.', 3:'⚔️ Unlocked: rivals and quests.', 2:'😮‍💨 Unlocked: fatigue, weekly goals and events.', 1:'🍱 Unlocked: dinner, visitors and perfect reps.'}, mSta:'stamina', mCal:'calories', mTap:'taps', mFat:'fatigue', tmr:'Tomorrow', skipDay:'What a pity, another day without training!', restDay:'Rest today, come back stronger tomorrow.',
       fat0:'Fresh', fat1:'Tired', fat2:'Exhausted', fat3:'Overloaded', over:'Your body is overloaded. You must rest today!', noSta:'Out of stamina! Time to go home.',
       homeSay0:'Home at last. Get some sleep and train again tomorrow! Reach rank 2 to unlock dinner.',
@@ -1197,7 +1233,7 @@ const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); }
 const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
-let CG = null, adOn = false, playing = false, lastClick = 0, sayIdx = Math.floor(Math.random() * 8);
+let CG = null, adOn = false, playing = false, memo = '', lastClick = 0, sayIdx = Math.floor(Math.random() * 8);
 const store = () => CG ? CG.data : localStorage;
 const BOOST = 180;   // giây nhân đôi calo sau một quảng cáo thưởng
 function showAd(type, done) {
@@ -1403,7 +1439,7 @@ function buildTexts() {
   nf = new Intl.NumberFormat(s.lang, {notation:'compact', maximumFractionDigits:2});
   document.documentElement.lang = s.lang;
   for (const id of ['tabEx','tabDuel','tabPet','tabQuest','tabAch','tabAsc','hAch','hStats','buyEach','workoutPlan','rivalPlan','petPlan','questPlan','awardPlan','ascendPlan','ascDesc','lStars','lBonus','lGain','reset','tip','go','rest','sleep','goHome']) $(id).innerHTML = rich(tr(id));
-  $('chipMax').textContent = tr('max'); $('mYes').textContent = tr('yes'); $('mNo').textContent = tr('no'); $('gName').textContent = tr('gName'); document.querySelector('.rank').title = tr('nextUp');
+  $('chipMax').textContent = tr('max'); $('mLoseH').textContent = tr('mLoseH'); $('mKeepH').textContent = tr('mKeepH'); $('gName').textContent = tr('gName'); document.querySelector('.rank').title = tr('nextUp');
   $('list').innerHTML = EX.map((e, i) => `<div class="card">
     <div class="tile" style="background:linear-gradient(${e.g})"><img src="assets/icon/icon-${e.k}.webp" alt="" draggable="false" onerror="this.replaceWith('${e.i}')"></div>
     <div><b></b><span class="lv"></span><small class="d"></small><em></em><i class="ms"></i><i class="goal"></i></div>
@@ -1453,7 +1489,8 @@ function evDesc(f) {   // tác dụng một lựa chọn, dạng ngắn: "+0,3 k
 function drawDay() {   // phần chỉ đổi khi sang ngày/màn mới: câu nói, sự kiện, lịch tuần
   const e = unl() >= 2 && fatLv() !== 3 ? evOf() : null;
   const isOver = fatLv() === 3;
-  if ($('postItTitle')) $('postItTitle').textContent = isOver ? tr('overTitle') : (e ? tr('evTitle') : tr('memoTitle'));
+  if ($('postItTitle')) $('postItTitle').textContent = isOver ? tr('overTitle') : e ? tr('evTitle') : memo ? tr('mornTitle') : tr('memoTitle');
+  $('memo').hidden = !memo; $('memo').innerHTML = rich(memo);
   if ($('postIt')) { $('postIt').classList.toggle('is-ev', !!e); $('postIt').classList.toggle('is-over', isOver); }
   $('say').textContent = isOver ? tr('over') : e ? '📌 ' + tr('ev')[e.k][0] : (sayIdx >= 0 && T[s.lang].say[sayIdx] ? `💬 "${T[s.lang].say[sayIdx]}"` : '');
   $('say').className = isOver ? 'over' : e ? 'ev' : 'caption';
@@ -1485,7 +1522,7 @@ function updateProgress() {
   for (const a of ACH) {
     if (s.ach[a.id] || AV[a.t]() < a.n) continue;
     s.ach[a.id] = 1;
-    toastLater('🏆 ' + achText(a), '+1%'); sfx.ding();
+    toast('🏆 ' + achText(a), '+1%'); sfx.ding();
     changed = true;
   }
   return changed;
@@ -1717,22 +1754,31 @@ function drawAscension(full, gain) {
   $('chQuit').hidden = !s.ch;
 }
 
-let toastEnd = 0;
-function toastLater(big, small, ms = 2200) {   // thông báo xếp hàng sau thông báo đang hiện (thành tựu, báo cân buổi sáng), để không đè mất tin lên hạng / mở khoá
-  const w = Math.max(0, toastEnd - Date.now()); toastEnd = Date.now() + w + ms;
-  setTimeout(() => toast(big, small, ms), w);
+// Thông báo ba tầng: toast() nhỏ (dải dưới HUD, không chặn bấm) < banner() lớn (lên hạng, thắng/thua, lên đời) < thẻ mở khoá (chờ bấm).
+function toast(big, small, ms = 2500) {
+  const box = $('notes'), n = document.createElement('div'), top = Math.max(...['.hud', '#vit', '.money'].map(q => document.querySelector(q).getBoundingClientRect().bottom));
+  box.style.top = Math.max(8, top - box.parentNode.getBoundingClientRect().top + 6) + 'px';
+  n.innerHTML = rich(big) + (small ? `<small>${rich(small)}</small>` : '');
+  box.append(n); while (box.children.length > 3) box.firstChild.remove();
+  motion(n, [{opacity:0, transform:'translateY(-8px)'}, {opacity:1, transform:'none', offset:.08}, {opacity:1, offset:.88}, {opacity:0}], ms);
+  setTimeout(() => n.remove(), ms);
 }
-function toast(big, small, ms = 2200) {
-  toastEnd = Date.now() + ms;
-  $('toast').innerHTML = rich(big) + (small ? `<small>${rich(small)}</small>` : '');
-  motion($('toast'), [{opacity:0, transform:'translate(-50%,-50%) scale(.6)'}, {opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:.12}, {opacity:1, offset:.8}, {opacity:0}], ms);
+let bannerT, bannerNext = null;
+function banner(big, small, next) {
+  const b = $('banner'); clearTimeout(bannerT); bannerNext?.(); bannerNext = next || null;
+  $('bBig').innerHTML = rich(big); $('bSmall').innerHTML = rich(small || ''); b.hidden = false;
+  motion(b, [{opacity:0, transform:'scaleY(.3)'}, {opacity:1, transform:'none'}], 260);
+  bannerT = setTimeout(bannerOff, 2500);
 }
+function bannerOff() { clearTimeout(bannerT); $('banner').hidden = true; const f = bannerNext; bannerNext = null; f?.(); }
+$('banner').onclick = bannerOff;
+const later = f => moving || arena || !$('guide').hidden || !$('modal').hidden ? setTimeout(later, 400, f) : f();   // chờ cửa, đấu trường, hướng dẫn, hộp khác xong
 function celebrate(u) {   // lên hạng: loé sáng, rung, đổi hình
   motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
   motion($('frame'), [{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
   motion($('art'), [{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
   sting('rankup', sfx.up);
-  toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult.toLocaleString(s.lang)}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
+  banner(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult.toLocaleString(s.lang)}`, u && (() => later(() => ask({title: tr('newFeat'), text: u, ok: tr('great'), no: null}))));
 }
 function updateRank() {
   while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && kgShow() <= KG[s.rk + 1]) s.rk++;
@@ -1743,7 +1789,7 @@ function updateRank() {
   return {unlock, challenge};
 }
 function showRankChange({unlock, challenge}, quiet) {
-  if (challenge) toastLater(tr('chWin'), `${challenge.i} ${tr('ch')[challenge.k][0]} · ${tr('ch')[challenge.k][2]}`);
+  if (challenge) banner(tr('chWin'), `${challenge.i} ${tr('ch')[challenge.k][0]} · ${tr('ch')[challenge.k][2]}`);
   const r = rankOf(); if (r === shown) return;
   const up = r > shown; shown = r; drawArt(); tune();
   if (up && !quiet) celebrate(unlock);
@@ -1823,6 +1869,7 @@ const sfx = {
   hit:   () => { noise(600, .12, .14); beep(110, .1, 'sawtooth', .05); buzz(25); },
   up:    () => { duck(); [523, 659, 784].forEach((f, i) => beep(f, .14, 'square', .05, i * .08)); [1047, 1319, 1568].forEach(f => beep(f, .6, 'square', .03, .24)); noise(4000, .5, .05, .24, 1500); buzz(40); },
   lose:  () => { duck(); beep(220, .2, 'sawtooth'); beep(165, .3, 'sawtooth', .04, .18); },
+  paper: () => { noise(2400, .07, .05, 0, 700); noise(260, .07, .11, .06); },   // tờ giấy đặt xuống bàn "bộp"
 };
 
 // ============ Nhạc nền (assets/music/<màn>.mp3, tải khi cần) ============
@@ -2105,9 +2152,9 @@ function duelEnd(won) {   // hết trận: phát thưởng, đối thủ nói c�
     const pz = prize(i) * (dow() === 6 ? 2 : 1);   // Chủ nhật thưởng gấp đôi
     s.wins++; earn(pz); sting('win', sfx.up);
     motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
-    toast(tr('win'), `+${WIN_BONUS * 100}% · +${fmt(pz)} 🔥`);
+    banner(tr('win'), `+${WIN_BONUS * 100}% · +${fmt(pz)} 🔥`);
     refresh(); save();
-  } else { sting('lose', sfx.lose); toast(tr('lose'), tr('loseTip')); }
+  } else { sting('lose', sfx.lose); banner(tr('lose'), tr('loseTip')); }
   talk([['foe', tr('rv')[i][won ? 3 : 4]]], () => {
     arena.step = 'end'; $('aBtns').hidden = false;
     $('aAgain').hidden = won; $('aAgain').disabled = dow() !== 6 && s.sta < duelSta();
@@ -2152,10 +2199,26 @@ function drawSet() {   // khung cài đặt: 10 ô mỗi loại âm lượng, n�
   for (const k of ['vm', 'vs']) { $(k).innerHTML = Array.from({length: 10}, (_, i) => `<i class="${i < s[k] ? 'on' : ''}" data-v="${i + 1}"></i>`).join(''); $(k + 'N').textContent = s[k]; }
   for (const b of $('setBox').querySelectorAll('[data-l]')) b.classList.toggle('on', b.dataset.l === s.lang);
 }
-$('set').onclick = () => { drawSet(); $('setBox').hidden = false; };
+let setPlay = false;
+function setOpen(on) {   // menu tạm nghỉ: báo CrazyGames ngừng gameplay khi mở, chạy lại khi đóng
+  if ($('setBox').hidden !== on) return;
+  $('setBox').hidden = !on; holdEnd();
+  if (on) { drawSet(); sfx.paper(); setPlay = playing; if (playing) { playing = false; CG.game.gameplayStop(); } $('sX').focus(); }
+  else { if (setPlay && CG && !playing) { playing = true; CG.game.gameplayStart(); } $('set').focus(); }
+}
+$('set').onclick = () => setOpen(true);
+let holdT;
+function holdEnd() { clearTimeout(holdT); $('reset').classList.remove('on'); }
+function holdStart(ev) {   // Xoá tiến trình: giữ 1,5 giây (chuột, chạm hoặc giữ Enter/Space), buông sớm là huỷ
+  ev.preventDefault(); if (holdT && $('reset').classList.contains('on')) return;
+  $('reset').classList.add('on'); holdT = setTimeout(() => { holdEnd(); setOpen(false); resetAll(); }, 1500);
+}
+$('reset').onpointerdown = holdStart;
+for (const e of ['pointerup', 'pointerleave', 'pointercancel', 'keyup', 'blur']) $('reset').addEventListener(e, holdEnd);
+$('reset').onkeydown = ev => { if (ev.key === 'Enter' || ev.key === ' ') holdStart(ev); };
 $('setBox').onclick = ev => {
   const b = ev.target, k = b.dataset.k || b.parentNode.id;
-  if (b === $('setBox') || b === $('sX')) { $('setBox').hidden = true; return; }
+  if (b === $('setBox') || b === $('sX')) { setOpen(false); return; }
   if (b.dataset.l) { s.lang = b.dataset.l; buildTexts(); }
   else if (k === 'vm' || k === 'vs') {
     const v = b.dataset.d ? s[k] + +b.dataset.d : +b.dataset.v;
@@ -2170,10 +2233,30 @@ $('quests').onclick = ev => {
   s.q.got[q.k] = 1; earn(r); sfx.coin(); toast('📋 ' + tr('qDone'), '+' + fmt(r) + ' 🔥'); refresh(); save();
 };
 
-function ask(text, yes) {   // hộp xác nhận trong game (confirm() bị chặn trong iframe của cổng game)
-  $('mText').textContent = text; $('modal').hidden = false;
-  $('mYes').onclick = () => { $('modal').hidden = true; yes(); };
-  $('mNo').onclick = () => { $('modal').hidden = true; };
+// Hộp quyết định trong game (confirm() bị chặn trong iframe của cổng game). no: null = một nút. lose/keep: hai cột Mất/Giữ.
+// Enter = nút đang chọn (mặc định nút chính), Esc = đóng không làm gì, Tab chỉ đi trong hộp, đóng xong trả focus về chỗ cũ.
+let askBack = null;
+function ask({title, text, yes, ok = tr('yes'), no = tr('no'), lose, keep}) {
+  const m = $('modal'), close = () => { m.hidden = true; if (askBack?.isConnected) askBack.focus(); };
+  $('mTitle').innerHTML = rich(title); $('mText').innerHTML = rich(text);
+  $('mCols').hidden = !lose; $('mLose').innerHTML = rich(lose || ''); $('mKeep').innerHTML = rich(keep || '');
+  $('mYes').innerHTML = rich(ok); $('mNo').hidden = !no; $('mNo').innerHTML = rich(no || '');
+  $('mYes').onclick = () => { close(); yes?.(); };
+  $('mNo').onclick = close;
+  askBack = document.activeElement; m.hidden = false; sfx.paper();
+  motion(m.firstElementChild, [{opacity:0, transform:'translateY(-48px) rotate(-1deg)'}, {opacity:1, transform:'translateY(5px)', offset:.7}, {opacity:1, transform:'none'}], 320);
+  $('mYes').focus();
+}
+$('modal').onkeydown = ev => {
+  if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); $('modal').hidden = true; if (askBack?.isConnected) askBack.focus(); }
+  else if (ev.key === 'Tab') { ev.preventDefault(); const b = [$('mNo'), $('mYes')].filter(x => !x.hidden); b[(b.indexOf(document.activeElement) + 1) % b.length].focus(); }
+};
+function twice(b, f) {   // việc nhỏ không cần hộp hỏi: bấm lần đầu nút đổi chữ "Chắc chưa?" trong 3 giây, bấm lần nữa mới làm
+  const back = () => { clearTimeout(b.sure); b.classList.remove('sure'); b.innerHTML = rich(tr(b.id)); };
+  if (b.classList.contains('sure')) { back(); return f(); }
+  b.classList.add('sure'); b.innerHTML = rich(tr('sure')); sfx.pick();
+  motion(b, [{transform:'translateX(-4px)'}, {transform:'translateX(4px)'}, {transform:'translateX(-2px)'}, {transform:'none'}], 240);
+  b.sure = setTimeout(back, 3000);
 }
 // Hướng dẫn: mỗi lần chỉ hiện một câu chat; tính năng mới được giới thiệu khi người chơi mở khoá.
 const GUIDE = [['start', 0], ['intro', 0], ['day', 0], ['gym', 0], ['sta', 0], ['home', 0], ['meal', 1], ['pt', 1], ['rep', 1],
@@ -2224,7 +2307,7 @@ $('guide').onkeydown = ev => {
    ev.preventDefault(); (document.activeElement === $('gOk') ? $('gX') : $('gOk')).focus();
   }
 };
-addEventListener('keydown', ev => { if (ev.key === 'Escape') $('setBox').hidden = true; });
+addEventListener('keydown', ev => { if (ev.key === 'Escape') setOpen(false); });
 function ascend(ch) {   // lên đời (ch = null) hoặc bắt đầu thử thách ch: chỉ xoá những gì thuộc về một đời, mọi thứ khác giữ nguyên
   backup(); stopDuel(); ptHide();
   Object.assign(s, {cal: 0, run: 0, rk: 0, lv: fresh().lv, stars: s.stars + starGain(), ascends: s.ascends + 1, ch});
@@ -2232,20 +2315,20 @@ function ascend(ch) {   // lên đời (ch = null) hoặc bắt đầu thử th�
   if (ch === 'party') setKg(Math.max(s.kg, CHX.kg0));
   s.kg1 = s.kg;
   syncRank(true); tab('Ex'); save(); sting('rankup', sfx.up);
-  motion($('flash'), [{opacity:.9}, {opacity:0}], 800); toast('⭐ ' + s.stars, ch ? tr('ch')[ch][0] : '+' + s.stars * 10 + '%');
+  motion($('flash'), [{opacity:.9}, {opacity:0}], 800); banner('⭐ ' + s.stars, ch ? tr('ch')[ch][0] : '+' + s.stars * 10 + '%');
   CG?.game.happytime(); showAd('midgame', () => {});
 }
-$('ascBtn').onclick = () => ask(tr('qAsc').replace('{n}', starGain()), () => ascend(null));
+$('ascBtn').onclick = () => ask({title: tr('ascBtn'), text: tr('qAsc').replace('{n}', starGain()), lose: tr('aLose'), keep: tr('aKeep'), yes: () => ascend(null)});
 $('skills').onclick = ev => {
   const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
   const q = SK[b.dataset.s]; if (s.stars - skSpent() < skCost(q)) return;
   s.sk[q.k] = sk(q.k) + 1; sfx.ding(); toast(q.i + ' ' + tr('sk')[q.k][0], `${tr('lv')} ${s.sk[q.k]}`); refresh(); save();
 };
 $('chs').onclick = ev => {
-  if (ev.target.id === 'chQuit') return ask(tr('qQuit'), () => { s.ch = null; refresh(); save(); });
+  if (ev.target.id === 'chQuit') return ask({title: tr('chQuit'), text: tr('qQuit'), yes: () => { s.ch = null; refresh(); save(); }});
   const b = ev.target.closest('.buy'); if (!b || b.disabled) return;
   const c = CH[b.dataset.c];
-  ask(tr('qCh').replace('{x}', tr('ch')[c.k][0]).replace('{n}', starGain()), () => ascend(c.k));
+  ask({title: `${c.i} ${tr('ch')[c.k][0]}`, text: tr('ch')[c.k][1] + '\n' + tr('qCh').replace('{n}', starGain()), lose: tr('aLose'), keep: tr('aKeep'), yes: () => ascend(c.k)});
 };
 $('boost').onclick = () => showAd('rewarded', ok => { if (ok) { s.sta += Math.floor(staMax() * .5); s.drink = true; sfx.eat(); refresh(); save(); } });
 // ============ Một ngày: văn phòng → phòng tập → nhà → ngủ → ngày mới ============
@@ -2253,6 +2336,7 @@ function drawMeals() {
   $('meals').innerHTML = menu().map(j => MEALS[j]).map((m, n, _, j = MEALS.indexOf(m)) => `<button class="meal" data-m="${j}"><img src="assets/food/food-${m.k}.webp" alt="" draggable="false" onerror="this.outerHTML='<span>${m.i}</span>'"><b>${m[s.lang]}</b><em>${mealDesc(m)}</em><i style="font-style:normal">${m.kg ? (m.kg > 0 ? '+' : '') + m.kg + ' kg' : '±0 kg'}</i></button>`).join('');
 }
 function go(scene) {
+  if (scene !== 'office') memo = '';   // báo cáo sáng chỉ nằm trên tờ ghi chú tới lúc rời văn phòng
   s.scene = scene; stopDuel(); ptHide(); repHide(); combo = 0; drawMeals(); drawArt(); drawDay(); tab(scene === 'home' ? 'Pet' : 'Ex');
   save(); tune(); sceneTips();
 }
@@ -2305,8 +2389,7 @@ function commitMorning() {
 }
 function arrive({note, rankChange}) {
   showRankChange(rankChange);
-  go('office'); sfx.day();
-  toastLater(`${tr('day')} ${s.day}`, note.join(' · '), 4500);
+  memo = note.join('\n'); go('office'); sfx.day();
   if (s.day % 3 === 0) showAd('midgame', () => {});
 }
 function endDay() { arrive(commitMorning()); }   // qua đêm không hoạt ảnh (vắng hơn 24 giờ)
@@ -2354,9 +2437,9 @@ async function sleepNight() {
 }
 $('night').onclick = $('door').onclick = speedUp;
 $('go').onclick = () => door('gym', () => { go('gym'); if (CG && !playing) { playing = true; CG.game.gameplayStart(); } });
-$('rest').onclick = () => ask(tr('qRest'), () => door('home', () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); }));   // nghỉ khi còn sung sức = bỏ tập
+$('rest').onclick = () => twice($('rest'), () => door('home', () => { const lazy = s.fat < 40; go('home'); toast('🛋️', tr(lazy ? 'skipDay' : 'restDay')); }));   // nghỉ khi còn sung sức = bỏ tập
 const goHome = () => door('home', () => go('home'));
-$('goHome').onclick = () => s.sta < 1 ? goHome() : ask(tr('qHome'), goHome);   // hết thể lực thì về luôn: không thể là bấm nhầm
+$('goHome').onclick = () => s.sta < 1 ? goHome() : twice($('goHome'), goHome);   // hết thể lực thì về luôn: không thể là bấm nhầm
 $('sleep').onclick = sleepNight;
 for (const k of ['sleep', 'morning', 'commute']) new Image().src = `assets/scene/scene-${k}.webp`;   // tải trước cho khung truyện qua đêm
 new Image().src = 'assets/bg/bg3.webp';   // tải trước nền nhà để lần đầu về nhà không phải chờ ảnh
@@ -2367,7 +2450,7 @@ $('meals').onclick = ev => {
   setKg(s.kg + m.kg); s.fat = Math.max(0, s.fat + (m.fat || 0)); s.next = m.k; sfx.eat(); toast(m.i + ' ' + m[s.lang], mealDesc(m)); refresh(); save();
 };
 $('who').onclick = () => { s.char = (s.char + 1) % CHARS.length; drawArt(); sfx.pick(); save(); };
-$('reset').onclick = () => ask(tr('qReset'), () => { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, vm: s.vm, vs: s.vs, char: s.char}); syncRank(true); go('office'); coach('start'); });
+function resetAll() { stopDuel(); write(OLD); s = Object.assign(fresh(), {lang: s.lang, vm: s.vm, vs: s.vs, char: s.char}); memo = ''; syncRank(true); go('office'); coach('start'); }
 
 // ============ Khởi động + vòng lặp ============
 (async () => {
@@ -2389,7 +2472,11 @@ if (CG) {
 if (Date.now() - s.t > 864e5) { s.used = 0; s.scene = 'home'; endDay(); }   // vắng hơn 24 giờ thật: tính là 1 ngày nghỉ
 { // calo kiếm được lúc tắt game, tối đa 8 giờ kể từ lần chạm cuối
   const away = idleSec(Date.now(), offH() * 3600), gain = pps() * away;
-  if (away > 60 && gain >= 1) { earn(gain); toast(tr('away'), '+' + fmt(gain) + ' 🔥'); }
+  if (away > 60 && gain >= 1) {   // cộng ngay (đóng game giữa chừng không mất); quảng cáo thưởng cộng thêm một lần nữa
+    earn(gain);
+    later(() => { ask({title: tr('away'), text: '+' + fmt(gain) + ' 🔥', ok: CG ? tr('awayX2') : tr('take'), no: CG && tr('take'),
+      yes: CG && (() => showAd('rewarded', ok => { if (ok) { earn(gain); sfx.coin(); toast(tr('away'), '+' + fmt(gain) + ' 🔥'); refresh(); save(); } }))}); sfx.coin(); });
+  }
   s.t = s.act = Date.now();   // mở lại game tính là quay lại
 }
 const firstRun = s.scene === 'office' && s.day === 1 && s.rk === 0 && s.best === 0 && s.clicks === 0 && s.total === 0 && s.ascends === 0;
@@ -2401,7 +2488,7 @@ setInterval(() => {   // tính theo thời gian thực nên tab bị ẩn vẫn 
   earn(pps() * idleSec(now, document.hidden ? offH() * 3600 : IDLE)); duelTick(dt, now);
   if (duel) { const left = Math.ceil((duel.end - now) / 1000); if (left <= 3 && left > 0 && left !== duel.tk) { duel.tk = left; beep(1000, .05, 'square', .04); } }   // 3 giây cuối: tiếng tích tắc
   if (mNode) mNode.src.playbackRate.value = duel && duel.end - now < 5000 ? 1.08 : 1;   // 5 giây cuối trận: nhạc nhanh lên
-  muffle(!$('modal').hidden || !$('guide').hidden);
+  muffle(!$('modal').hidden || !$('guide').hidden || !$('setBox').hidden);
   const live = Math.min(dt, 5); s.play += live; bump('play', live);   // không tính thời gian tab bị ẩn lâu
   if (unl() >= 1 && s.scene === 'gym' && s.vis < PT.day + sk('fan') && !arena && !$('pt') && !document.hidden && !moving && $('modal').hidden && $('guide').hidden && $('setBox').hidden && (ptIn -= live) <= 0) ptShow();
   $('frame').classList.toggle('frenzy', now < frenzy);

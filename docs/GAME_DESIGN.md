@@ -15,15 +15,15 @@ Nguyên tắc thiết kế:
 
 ## Vòng lặp một ngày (2–3 phút)
 
-1. **Văn phòng**: mọi ván mới mở ở đây; Bắp tự giới thiệu và chỉ nút "Đến phòng tập". Màn có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (có hộp xác nhận, vì nghỉ là bỏ tập).
-2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" có hộp xác nhận, trừ khi đã hết thể lực (lúc đó không thể là bấm nhầm). Thẻ bài tập rẻ nhất còn thiếu mục tiêu hạng kế được viền vàng; bấm thanh hạng thì mở tab Bài tập và cuộn tới thẻ đó.
+1. **Văn phòng**: mọi ván mới mở ở đây; Bắp tự giới thiệu và chỉ nút "Đến phòng tập". Màn có câu nói ngẫu nhiên, ngày/thứ, lịch tuần và các thông số. Hai nút: "Đến phòng tập", "Về nhà nghỉ" (bấm hai lần: lần đầu nút đổi thành "Chắc chưa? Bấm lần nữa" trong 3 giây, vì nghỉ là bỏ tập). Sáng nào cũng có **báo cáo sáng** viết trên tờ ghi chú ở bàn (cân nặng, tổng kết tuần, cân kiểm tra), rời văn phòng thì bỏ.
+2. **Phòng tập**: bấm nhân vật để tập (tốn thể lực), mua bài tập, thách đấu, nhiệm vụ. Nút "Về nhà" phải bấm hai lần như trên, trừ khi đã hết thể lực (lúc đó không thể là bấm nhầm). Thẻ bài tập rẻ nhất còn thiếu mục tiêu hạng kế được viền vàng; bấm thanh hạng thì mở tab Bài tập và cuộn tới thẻ đó.
 3. **Nhà**: từ hạng 1 đi ngủ; từ hạng 2 có thể chọn hoặc bỏ bữa tối. Không hiện bảng bài tập ở nhà. Tab Nhiệm vụ mở từ hạng 4, Bạn tập mở từ hạng 5; sau đó bấm "Đi ngủ" sang ngày mới.
 
 **Cửa chuyển cảnh** khi đi tập / về nhà (`door()`): hai cánh cửa khép lại kèm tiếng cửa lùa và "cạch" (0,3 giây), biển nơi đến hiện trên cửa, màn đổi lúc cửa kín, rồi cửa mở ra (0,4 giây); cả lượt khoảng 0,9–1,1 giây, mọi ngày như nhau. Chạm vào cửa (sau 0,25 giây đầu) thì phần còn lại chạy nhanh x6 chứ không cắt ngang. Có ảnh `bg-door-gym`, `bg-door-home` thì dùng, không thì cửa vẽ bằng CSS. Giảm chuyển động: cửa hiện/mờ tại chỗ.
 
 **Qua đêm** (`sleepNight()`, khi bấm Đi ngủ): ngay trong căn nhà, trời tối dần phủ sân khấu (thanh chỉ số vẫn thấy), "Zzz" bay lên; ngày mới được tính lúc trời tối (`nextDay()`) nên thanh thể lực đầy dần ngay trước mắt; ba khung truyện (Khò khò, Buổi sáng, Đi đến công ty) hiện lần lượt; tiếng chim, trời chuyển cam rồi sáng; cuối cùng cửa văn phòng đóng mở và tới văn phòng (`arrive()`: thông báo ngày mới, lên hạng qua đêm). Cố ý chậm để người chơi xem: tối dần 0,7 giây, mỗi khung truyện 1,1 giây, dừng 0,6 giây, bình minh 1,1 giây, rồi cửa khoảng 1 giây: cả lượt khoảng 6,7 giây, mọi ngày như nhau; có tổng kết tuần hoặc cân kiểm tra thì dừng thêm 0,9 giây. Sau 1,2 giây hiện dòng "Chạm để tua nhanh"; chạm thì phần còn lại (kể cả cửa) chạy x6. Vắng hơn 24 giờ thì qua đêm không hoạt ảnh (`endDay()`).
 
-Calo/giây chạy ở mọi màn, không tốn thể lực. Tắt game vẫn cộng calo, tối đa 8 giờ. Đang xem game mà 5 phút không chạm hay bấm phím (hằng `IDLE`) thì calo/giây tạm dừng, dòng nhắc hiện "Treo máy… Chạm để tiếp tục!"; chạm lại thì chạy tiếp. Treo máy không ra calo vô hạn. Chuyển sang tab khác hoặc tắt game thì tính như vắng mặt (tối đa 8 giờ kể từ lúc rời đi). Mở lại game tính là quay lại. Vắng hơn 24 giờ thật tính là 1 ngày nghỉ.
+Calo/giây chạy ở mọi màn, không tốn thể lực. Tắt game vẫn cộng calo, tối đa 8 giờ; mở lại thấy thẻ "Lúc bạn vắng mặt" (calo đã cộng sẵn, có nút nhân đôi bằng quảng cáo thưởng trên CrazyGames). Đang xem game mà 5 phút không chạm hay bấm phím (hằng `IDLE`) thì calo/giây tạm dừng, dòng nhắc hiện "Treo máy… Chạm để tiếp tục!"; chạm lại thì chạy tiếp. Treo máy không ra calo vô hạn. Chuyển sang tab khác hoặc tắt game thì tính như vắng mặt (tối đa 8 giờ kể từ lúc rời đi). Mở lại game tính là quay lại. Vắng hơn 24 giờ thật tính là 1 ngày nghỉ.
 
 ## Mở tính năng theo hạng
 
@@ -272,6 +272,7 @@ Tác dụng nhỏ so với bữa tối và nghỉ ngơi, nên sim chưa mô ph�
 - Lần đầu mở ván mới, người chơi bắt đầu ở văn phòng. Bắp dẫn chuyện qua năm bước: giới thiệu game và hành trình, sau đó chỉ nút vào phòng tập, cách chạm để kiếm calo và dùng calo mua bài tập. Khi hoàn tất, nút "Đến phòng tập" được focus; các mẹo về tập và hồi thể lực xuất hiện đúng lúc. Chỉ nút "Tiếp tục"/"Đã hiểu" mới chuyển bước hoặc đóng ở bước cuối; bấm nền và Esc không bỏ qua hướng dẫn. Nút nhấp nhẹ để người chơi nhận ra cách tiếp tục.
 - Lần đầu đủ calo mua bài Tay ở phòng tập, nút mua Tay nháy nhẹ hai nhịp đúng một lần trong ván lưu; các nút bài tập khác không nháy. Cờ nhắc được lưu để không lặp lại sau khi tải trang.
 - **Gợi ý lần đầu** chỉ hiện khi gặp tính năng đã mở; mỗi câu chỉ hiện một lần và được lưu vào `s.tips`. Mẹo khác mở theo hạng và ngữ cảnh. Bấm ❓ để xem lại những mục đã mở.
+- **Hộp và thông báo**: quyết định có hậu quả (lên đời, bắt đầu/bỏ thử thách) dùng hộp kiểu trang sổ có Bắp, biển tiêu đề và cột Mất/Giữ (`ask()`). Thông báo chia ba tầng: dải nhỏ dưới HUD cho tin vặt, tối đa 3 dải, tự tắt 2,5 giây, không chặn bấm (`toast()`); băng rôn có tia sáng cho lên hạng, thắng/thua, lên đời, xong thử thách (`banner()`, 2,5 giây, chạm để tắt); lần đầu lên hạng có tính năng mới thì băng rôn tắt xong hiện thẻ "Tính năng mới!" chờ bấm "Tuyệt!".
 - Không giải thích con số hay chiến lược nâng cao trước khi cần; ưu tiên hành động kế tiếp. Cửa sổ chat đóng được bằng nút, nền hoặc phím Esc.
 
 ## Chống auto-click
@@ -280,7 +281,7 @@ Cú bấm nhân vật phải là cú bấm thật và cách cú trước ít nh�
 
 ## CrazyGames
 
-SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ngày một lần, và khi lên đời. Quảng cáo thưởng: nước tăng lực. Tắt tiếng khi có quảng cáo. Không có SDK thì game vẫn chạy, không có quảng cáo.
+SDK v3. Lưu qua `SDK.data`. Quảng cáo giữa game: sau khi ngủ, mỗi 3 ngày một lần, và khi lên đời. Quảng cáo thưởng: nước tăng lực, nhân đôi calo lúc vắng mặt. Mở menu ⚙️ (tiêu đề "Tạm nghỉ") gọi `gameplayStop`, đóng gọi lại `gameplayStart` nếu trước đó đang chơi. Nút xoá toàn bộ tiến trình nằm cuối menu này, phải giữ 1,5 giây. Tắt tiếng khi có quảng cáo. Không có SDK thì game vẫn chạy, không có quảng cáo.
 
 Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả CrazyGames phần lớn nói tiếng Anh), đổi sang tiếng Việt trong khung cài đặt ⚙️. Lựa chọn được lưu; bản lưu cũ giữ ngôn ngữ đang dùng.
 

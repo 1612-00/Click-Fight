@@ -1,6 +1,6 @@
 # Kế hoạch: hộp thoại và thông báo ra dáng game
 
-Trạng thái: **chờ duyệt**. Chưa sửa code.
+Trạng thái: **đã vào game** (bước 1–6, theo cả ba phương án đề xuất ở mục "Cần chủ dự án quyết định"). Chưa làm: 3 biểu cảm riêng của Bắp (đang dùng `pet-dog`), số calo vắng mặt đếm lên, cân trên thẻ nhân viên nhấp xanh/đỏ, cờ 🇻🇳/🇬🇧 (Windows không vẽ cờ emoji), thanh âm lượng kiểu vạch máy tập, nút xoá có vòng tiến độ (đang dùng thanh đỏ chạy ngang). Bảng dưới là hiện trạng **trước khi** làm.
 
 ## Hiện trạng
 
