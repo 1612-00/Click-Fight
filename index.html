@@ -1258,7 +1258,7 @@ function load() {
     const lvOk = v => Number.isInteger(v) && v >= 0 && v <= 10;   // âm lượng 0–10 nấc; bản lưu cũ chỉ có mute (0 bật, 1 tắt nhạc, 2/true tắt hết)
     if (lvOk(o.vm) && lvOk(o.vs)) { s.vm = o.vm; s.vs = o.vs; } else if (o.mute) { s.vm = 0; if (o.mute !== 1) s.vs = 0; }
     s.char = o.char === 1 ? 1 : 0;
-    s.day = Math.max(1, Math.floor(s.day)); s.fat = Math.min(100, s.fat); setKg(s.kg);
+    s.day = Math.max(1, Math.floor(s.day)); s.fat = Math.min(100, s.fat); setKg(s.kg); s.kg1 = Math.max(68, s.kg1); s.kg30 = Math.max(68, s.kg30);   // bản lưu trước khi sàn cân lên 68 kg: không báo +3 kg ảo
     for (const k of ['meal','next']) if (MEALS.some(m => m.k === o[k])) s[k] = o[k];
     for (const k of ['rec','wkBonus','drink']) s[k] = o[k] === true;
     if (Array.isArray(o.week)) s.week = o.week.slice(0, 6).map(x => x ? 1 : 0);
@@ -2374,7 +2374,7 @@ function nextDay() {   // qua đêm: đổi mọi trạng thái sang ngày mới
   const evs = EV.filter(e => (e.need || 0) <= unl() && e.k !== s.ev);
   s.ev = unl() >= 2 ? evs[Math.floor(Math.random() * evs.length)].k : null;
   if (chOn('party')) setKg(s.kg + CHX.night);   // thử thách Mùa tiệc cưới: tối nào cũng đi tiệc
-  const sg = x => (x > 0 ? '+' : '−') + dec(Math.abs(x)), dk = s.kg - kg0, other = kg0 - s.kg1;   // other: bữa tối, sự kiện, bánh… trong ngày (đã cộng ngay lúc xảy ra)
+  const sg = x => (Math.round(x * 10) > 0 ? '+' : Math.round(x * 10) < 0 ? '−' : '±') + dec(Math.abs(x)), dk = s.kg - kg0, other = kg0 - s.kg1;   // other: bữa tối, sự kiện, bánh… trong ngày (đã cộng ngay lúc xảy ra)
   note.unshift(`${tr(trained ? 'kgTrain' : few ? 'kgFew' : 'kgRest')}: ${sg(dk)} kg` + (Math.abs(other) >= .05 ? ` · ${tr('kgOther')}: ${sg(other)} kg` : '')
     + ` → ⚖️ ${dec(s.kg)} kg (${sg(s.kg - s.kg1)})` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
   s.kg1 = s.kg;
