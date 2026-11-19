@@ -96,7 +96,7 @@ def run(g, rest_at=40, meal='h', limit=400):
         nxt = None
         kg += g['night']   # thử thách Mùa tiệc cưới: +0,2 kg mỗi tối
         if rk >= 1 and meal: nxt = meal; kg += {'h': -.1, 'p': 0, 'j': .2}[meal]
-        kg = min(120, max(65, kg)); rec = rec_next; today = nxt; day += 1
+        kg = min(120, max(68, kg)); rec = rec_next; today = nxt; day += 1
         shop()
         if rk not in out and rk > 0:
             for r in range(1, rk + 1): out.setdefault(r, (day, t, kg))

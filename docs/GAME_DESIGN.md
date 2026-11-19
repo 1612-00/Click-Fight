@@ -116,7 +116,7 @@ Lý do: tạo nhịp tập ba ngày rồi cần nghỉ, thay vì để người 
 
 ## Cân nặng
 
-- Bắt đầu 85 kg, giới hạn 65–120 kg.
+- Bắt đầu 85 kg, giới hạn 68–120 kg. Sàn 68 kg là đáy vùng lý tưởng: người tập đều (kể cả ăn lành mạnh mỗi tối) dừng ở 68 kg và giữ được thưởng calo +20%; trước đây sàn 65 kg làm họ rơi khỏi vùng quanh ngày 60.
 - **Tập là cách giảm cân chính**: dùng hết thanh thể lực giảm theo hạng; tập một phần thì giảm theo tỉ lệ. Hạng 1–3 giảm 0,3 kg; hạng 4–9 lần lượt giảm 0,4–0,9 kg mỗi ngày tập đủ. Thử thách Mùa tiệc cưới cộng thêm 0,1 kg giảm cho mỗi ngày tập đủ. Thông báo đầu ngày ghi phần tập/nghỉ, phần ăn uống và sự kiện trong ngày (đã cộng ngay lúc chọn), và tổng thay đổi so với sáng hôm trước (trường `kg1` = cân đầu ngày). Nếu qua đêm lên hạng, thông báo lên hạng hiện trước, báo cân xếp hàng sau.
 - Vùng lý tưởng 68–72 kg: calo +20%. Trên 90 kg: thể lực tối đa −20%.
 - Cân kiểm tra mỗi 30 ngày: 1 Sao cho mỗi 2 kg giảm so với lần trước.
@@ -288,7 +288,7 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi, giảm cân theo hạng và mở tính năng theo hạng (khách ghé, Rep hoàn hảo từ hạng 2; thi đấu từ hạng 4; bạn tập từ hạng 5) và tăng hệ số calo hạng 1–3:
+Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi, giảm cân theo hạng và mở tính năng theo hạng (khách ghé, Rep hoàn hảo từ hạng 2; thi đấu từ hạng 4; bạn tập từ hạng 5) và tăng hệ số calo hạng 1–3, rồi nâng sàn cân lên 68 kg (chỉ hạng 7–9 đổi):
 
 | Hạng | Không chủ động nghỉ (vẫn bắt buộc nghỉ ở 100) | Tự nghỉ khi Mỏi (mệt ≥40) |
 |---|---|---|
@@ -297,9 +297,9 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 | 4 | ngày 4, 9m38 | ngày 4, 9m38 |
 | 5 | ngày 9, 21m55 | ngày 10, 27m06 |
 | 6 | ngày 34, 1h17 | ngày 25, 1h16 |
-| 7 | ngày 54, 2h16 | ngày 42, 2h21 |
-| 8 | ngày 126, 5h49 | ngày 92, 5h48 |
-| 9 | — | ngày 362, 25h25 |
+| 7 | ngày 53, 2h12 | ngày 42, 2h21 |
+| 8 | ngày 113, 5h11 | ngày 84, 5h14 |
+| 9 | — | ngày 309, 21h35 |
 
 Các ước tính cũ về tác động riêng của khách ghé và Rep hoàn hảo bên dưới được đo trước khi tăng mệt mỏi; cần chạy lại nếu cân bằng lại hai tính năng đó. Sim hiện giả định khách xoay vòng đúng tỉ lệ và người chơi bấm mọi khách, kể cả bánh.
 

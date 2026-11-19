@@ -190,7 +190,7 @@ Môi trường cần thử: máy tính (cửa sổ rộng hơn 900px), tablet d�
 | F13 | Hoàn thành thử thách Mùa tiệc cưới, đặt hạng 4 và dùng hết thể lực. | Ngày tập đủ giảm 0,5 kg: mức hạng 4 là 0,4 kg, cộng thưởng thử thách 0,1 kg. | |
 | F4 | `s.kg = 70; go('gym')` rồi so calo/giây với lúc `s.kg = 75; go('gym')`. | Ở 70 kg (vùng 68–72) calo/giây và calo/bấm cao hơn đúng 20% so với ở 75 kg. | |
 | F5 | `s.kg = 91; s.used = 0; endDay()` rồi xem thể lực tối đa; so với khi cân 85. | Trên 90 kg, thể lực tối đa chỉ còn 80% (hạng 1: 240 thay vì 300). | |
-| F6 | `s.kg = 65; s.used = s.cap; endDay()` và `s.kg = 120; s.used = 0; endDay()`. | Cân không xuống dưới 65.0 kg và không vượt 120.0 kg. | |
+| F6 | `s.kg = 68; s.used = s.cap; endDay()` và `s.kg = 120; s.used = 0; endDay()`. | Cân không xuống dưới 68,0 kg (đáy vùng lý tưởng, vẫn được calo +20%) và không vượt 120.0 kg. | |
 | F7 | Ở hạng 3, chưa đủ nhóm cơ cho hạng 4, cân 85. | Thanh hạng ghi "n/5 nhóm cơ · ≤ 84.5 kg (−0.5)". Khi cân ≤ 84,5 thì ghi "≤ 84.5 kg ✓". Ở hạng 1 và 2 thanh hạng không nhắc gì tới cân nặng. | |
 
 ## G. Mệt mỏi và ngày nghỉ (từ hạng 3)
@@ -339,7 +339,7 @@ Bảng đối chiếu cho H6:
 | N2 | Chọn lại "Tiếng Việt", tải lại trang. | Ngôn ngữ được nhớ sau khi tải lại. | |
 | N3 | Bấm nút nhân vật (mặt người). | Đổi giữa nhân vật nam và nữ ở đúng hạng hiện tại; lựa chọn được nhớ sau khi tải lại. | |
 | N4 | Cửa sổ máy tính rộng hơn 900px. | Nhân vật bên trái, bảng bên phải rộng khoảng 430px. HUD và bảng dùng nền giấy ấm, xanh sage/olive và điểm nhấn hổ phách; đấu trường vẫn tối. Không có thanh cuộn ngang. | |
-| N5 | Tablet dọc 768×1024 và điện thoại 375×812, lần lượt ở văn phòng, phòng tập, nhà, màn đấu. | Bố cục xếp chồng: nhân vật ở trên, bảng ở dưới rộng hết màn hình. Không có chữ bị cắt, nút nào cũng bấm được, không cuộn ngang. Ở nhà thấy đủ 3 món ăn và nút "Đi ngủ"; trên điện thoại màn nhà ẩn số calo lớn và nhân vật nhỏ (khoảng 80px). Màn đấu trên điện thoại ẩn số calo và các ô chỉ số, thấy đủ cả hai nhân vật. Bảng thông số ở văn phòng mỗi ô một dòng. UI sáng ấm, riêng đấu trường giữ nền tối. | |
+| N5 | Tablet dọc 768×1024 và điện thoại 375×812, lần lượt ở văn phòng, phòng tập, nhà, màn đấu. | Bố cục xếp chồng: nhân vật ở trên, bảng ở dưới rộng hết màn hình. Không có chữ bị cắt, nút nào cũng bấm được, không cuộn ngang. Ở nhà thấy đủ 3 món ăn và nút "Đi ngủ"; trên điện thoại màn nhà ẩn số calo lớn; khi có thẻ bữa tối thì ẩn dòng nhắc "Tối rồi…" và nhân vật cao khoảng 240px (ngang phòng tập). Tiếng Việt hiện số lẻ bằng dấu phẩy (`84,8 kg`, hệ số `x1,25`); tiếng Anh dùng dấu chấm. Màn đấu trên điện thoại ẩn số calo và các ô chỉ số, thấy đủ cả hai nhân vật. Bảng thông số ở văn phòng mỗi ô một dòng. UI sáng ấm, riêng đấu trường giữ nền tối. | |
 | N6 | Nhìn mọi chỗ có icon: calo, thể lực, mệt mỏi, cân nặng, ngày, sao, cúp, các tab, nhiệm vụ, giá mua. | Đều là icon ảnh cùng phong cách, không có ô vuông trống hay ảnh vỡ. | |
 | N7 | Khi số calo lớn (nghìn, triệu, tỷ). | Tiếng Việt: "1,5 N", "4,2 Tr", "1,2 T". Tiếng Anh: "1.5K", "4.2M", "1.2B". Số không tràn khỏi nút hay thẻ. | |
 | N8 | Ván mới (cửa sổ ẩn danh), bấm nhân vật 5 cú, rồi bấm tới hết thể lực. | Bàn tay 👆 biến mất sau cú bấm thứ 5. Lúc hết thể lực, khung "Hướng dẫn" hiện cùng lúc 3 mục: "Hết thể lực", "Bấm hay để calo tự chạy?", "Một ngày của bạn". Bấm "Đã hiểu" thì đóng, không hiện lại. | |

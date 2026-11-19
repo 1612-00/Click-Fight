@@ -120,7 +120,8 @@ button{font:inherit;color:inherit;touch-action:manipulation;-webkit-tap-highligh
 .office #vit,.gym #dayPill{display:none}
 .hud,.money,#vit,#office,#homeBox,#nav,.tip{flex:none}
 @media(max-width:900px){
-  .frame.home{grid-template-rows:68% 32%}.home #bg{bottom:32%}
+  .frame.home{grid-template-rows:72% 28%}.home #bg{bottom:28%}
+  .frame.home #hsay:has(+ #meals:not([hidden])){display:none}   /* có thẻ bữa tối thì bỏ dòng nhắc: nhân vật ~240px thay vì ~160px */
   .frame.homeNoPanel{grid-template-rows:1fr}.frame.homeNoPanel #bg{bottom:0}
   #vit{font-size:.75rem;gap:4px;margin-top:6px}.pill{padding:2px 8px}.pill .bar{width:48px}
   .meal{padding:6px 4px;font-size:.72rem}.meal span{font-size:1.5rem}.meal img{width:36px;height:36px}
@@ -1274,7 +1275,7 @@ const goalsMet = r => RANKS[r].goal.every((g, i) => s.lv[EX[i].k] >= g);
 const rankOf = () => s.rk;
 const kgShow = () => Math.round(s.kg * 10) / 10;   // cân nặng như đang hiển thị (1 số lẻ); chặn hạng so theo số này để không có cảnh "84.5 kg" mà vẫn thiếu "0.0 kg"
 const unl = () => Math.max(s.rk, s.best);   // mở tính năng theo hạng cao nhất từng đạt: hạng 2 bữa ăn, hạng 3 mệt mỏi + lịch tuần, hạng 4 chặn cân nặng
-const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(65, x)) * 100) / 100; };
+const setKg = x => { s.kg = Math.round(Math.min(120, Math.max(68, x)) * 100) / 100; };   // sàn 68 = đáy vùng lý tưởng: người tập đều không rơi khỏi vùng +20%
 const dow = () => (s.day - 1) % 7;   // 0 = Thứ Hai … 6 = Chủ nhật
 const fatLv = () => s.fat >= 100 ? 3 : s.fat >= 70 ? 2 : s.fat >= 40 ? 1 : 0;
 const staMax = () => Math.floor((300 + 120 * Math.min(rankOf(), 5) + 5 * s.lv.cardio) * [1, .75, .5, .5][fatLv()] * (s.kg > 90 ? .8 : 1) * (fx().sta || 1) * (1 + .1 * sk('lung')));
@@ -1306,6 +1307,7 @@ const earn = x => { s.cal += x; s.run += x; s.total += x; };
 let nf, shown = 0;
 const setText = (el, value) => { const text = String(value); if (el.textContent !== text) el.textContent = text; };
 const tr = k => T[s.lang][k];
+const dec = (x, d = 1) => x.toLocaleString(s.lang, {minimumFractionDigits: d, maximumFractionDigits: d});   // số lẻ cố định theo ngôn ngữ (vi: 84,8)
 const fmt = n => n < 1000 ? (Math.floor(n * 10) / 10).toLocaleString(s.lang) : nf.format(n);
 
 // Nhân vật tạm vẽ bằng code (t: 0 = suy nhược, 1 = thần gym). Có ảnh assets/char/rank1..6.webp thì game tự dùng ảnh.
@@ -1538,9 +1540,9 @@ function drawHud(full, cps, tap) {
     setText($('rname'), RANKS[r][s.lang]);
     const goal = next?.goal || [], sum = a => a.reduce((x, y) => x + y, 0);
     const gm = goal.filter((g, i) => g && s.lv[EX[i].k] >= g).length, gn = goal.filter(g => g).length;
-    const over = next ? (kgShow() - KG[r + 1]).toFixed(1) : '';
+    const over = next ? dec(kgShow() - KG[r + 1]) : '';
     setText($('rpts'), !next ? tr('maxRank') : gm === gn && kgShow() > KG[r + 1] ? tr('needKg').replace('{n}', over)
-      : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1]} kg ` + (kgShow() <= KG[r + 1] ? '✓' : `(−${over})`)));
+      : `🎯 ${gm}/${gn} ${tr('pts')}` + (KG[r + 1] > 900 ? '' : ` · ⚖️ ≤ ${KG[r + 1].toLocaleString(s.lang)} kg ` + (kgShow() <= KG[r + 1] ? '✓' : `(−${over})`)));
     $('rbar').style.width = (next ? sum(goal.map((g, i) => Math.min(g, s.lv[EX[i].k]))) / sum(goal) * 100 : 100) + '%';
   }
 
@@ -1554,7 +1556,7 @@ function drawHud(full, cps, tap) {
   $('boost').hidden = !CG || s.scene !== 'gym' || s.drink || !!duel || unl() < 1;
   put($('boost'), tr('x2'));
 
-  const kgTxt = s.kg.toFixed(1) + ' kg', fatTxt = `${Math.round(s.fat)} · ${tr('fat' + fatLv())}`;
+  const kgTxt = dec(s.kg) + ' kg', fatTxt = `${Math.round(s.fat)} · ${tr('fat' + fatLv())}`;
   setText($('fatTxt'), fatTxt);
   setText($('kgTxt'), kgTxt);
   setText($('dayTxt'), `${tr('day')} ${s.day} · ${T[s.lang].dw[dow()]}`);
@@ -1680,7 +1682,7 @@ function drawAchievements(full) {
   setText($('st2'), fmt(s.total));
   if (full) {
     for (const [j, v] of [[3, s.ascends], [4, `${s.wins} / ${RIVALS.length}`], [5, s.summons],
-      [6, `${Object.keys(s.ach).length} / ${ACH.length}`], [7, 'x' + (mult() * (1 + petBonus('pps'))).toFixed(2)]]) setText($('st' + j), v);
+      [6, `${Object.keys(s.ach).length} / ${ACH.length}`], [7, 'x' + dec(mult() * (1 + petBonus('pps')), 2)]]) setText($('st' + j), v);
   }
 }
 
@@ -1730,7 +1732,7 @@ function celebrate(u) {   // lên hạng: loé sáng, rung, đổi hình
   motion($('frame'), [{transform:'translate(6px,-4px)'}, {transform:'translate(-6px,4px)'}, {transform:'translate(4px,2px)'}, {transform:'none'}], 350);
   motion($('art'), [{transform:'scale(.3)'}, {transform:'scale(1.25)'}, {transform:'scale(1)'}], 500);
   sting('rankup', sfx.up);
-  toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
+  toast(tr('rankUp'), `${RANKS[shown][s.lang]} · x${RANKS[shown].mult.toLocaleString(s.lang)}` + (u ? ' · ' + u : ''), u ? 6000 : 2200);
 }
 function updateRank() {
   while (RANKS[s.rk + 1] && goalsMet(s.rk + 1) && kgShow() <= KG[s.rk + 1]) s.rk++;
@@ -2288,9 +2290,9 @@ function nextDay() {   // qua đêm: đổi mọi trạng thái sang ngày mới
   const evs = EV.filter(e => (e.need || 0) <= unl() && e.k !== s.ev);
   s.ev = unl() >= 2 ? evs[Math.floor(Math.random() * evs.length)].k : null;
   if (chOn('party')) setKg(s.kg + CHX.night);   // thử thách Mùa tiệc cưới: tối nào cũng đi tiệc
-  const sg = x => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(1), dk = s.kg - kg0, other = kg0 - s.kg1;   // other: bữa tối, sự kiện, bánh… trong ngày (đã cộng ngay lúc xảy ra)
+  const sg = x => (x > 0 ? '+' : '−') + dec(Math.abs(x)), dk = s.kg - kg0, other = kg0 - s.kg1;   // other: bữa tối, sự kiện, bánh… trong ngày (đã cộng ngay lúc xảy ra)
   note.unshift(`${tr(trained ? 'kgTrain' : few ? 'kgFew' : 'kgRest')}: ${sg(dk)} kg` + (Math.abs(other) >= .05 ? ` · ${tr('kgOther')}: ${sg(other)} kg` : '')
-    + ` → ⚖️ ${s.kg.toFixed(1)} kg (${sg(s.kg - s.kg1)})` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
+    + ` → ⚖️ ${dec(s.kg)} kg (${sg(s.kg - s.kg1)})` + (unl() >= 2 ? ' · ' + tr('fat' + fatLv()) : ''));
   s.kg1 = s.kg;
   return note;
 }

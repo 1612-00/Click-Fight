@@ -23,10 +23,7 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
 ## Lỗi và hạn chế đã biết
 
-- Màn nhà trên điện thoại: nhân vật hiện nhưng nhỏ (khoảng 80px); số calo lớn bị ẩn ở màn này để lấy chỗ.
-- Người tập đều chạm sàn 65 kg quanh ngày 60 và mất thưởng +20% của vùng 68–72 kg.
 - `tools/sim.py` giả định tối nào cũng ăn một món cố định; chưa mô phỏng thực đơn xoay vòng, cũng chưa mô phỏng lối "ăn vặt tới hạng 3 rồi siết cân".
-- Số thập phân hiển thị dấu chấm (`84.8 kg`) cả ở tiếng Việt.
 
 ## Ý tưởng chưa làm
 
