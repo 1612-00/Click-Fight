@@ -264,6 +264,7 @@ Bảng đối chiếu cho H6:
 | J9 | Khi ước chừng đủ sức thắng đối thủ kế tiếp. | Tab Thi đấu có chấm đỏ. | |
 | J11 | Chơi nhân vật nữ, đấu Cody (giải 3) và một phản diện giải 5. Đổi sang EN. | Cody gọi "Chị" (nam: "Anh"). Giải 3 có 2 câu, giải 5 có 3 câu trước câu đáp. Nền đấu trường đổi theo giải (chưa có ảnh: nền màu tím, đỏ…). Bản tiếng Anh đủ thoại, không còn chữ tiếng Việt. Trên điện thoại: đối thủ ở trên bên phải, nhân vật dưới bên trái, khung thoại ở dưới, không cuộn ngang. |
 | J12 | Đã mạnh hơn hẳn, thách đấu đối thủ đầu (Tom), bấm liên tục. | Trận vẫn kéo dài khoảng 2,5 giây: 5 đòn của bạn (thanh xanh 5 nấc), đối thủ kịp đánh lại khoảng 2 lần, rồi mới thắng. |
+| J13 | Đã hạ ít nhất một đối thủ. Trong tab Thi đấu bấm nút "✓ 💬" của đối thủ đã hạ. | Đấu trường mở với màn VS, rồi đủ thoại lần đầu, câu bạn đáp và câu đối thủ nói lúc thua; xong chỉ có nút "Về phòng tập". Thể lực, số trận thắng và calo không đổi; không có đếm ngược hay trận đấu. Nút của đối thủ chưa mở vẫn là 🔒. | |
 
 ## K. Bạn tập
 

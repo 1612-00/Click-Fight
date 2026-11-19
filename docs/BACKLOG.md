@@ -27,8 +27,6 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 
 ## Ý tưởng chưa làm
 
-- Bấm đối thủ đã hạ trong tab Thi đấu để xem lại thoại.
-
 - Mở rộng ngoài Trái Đất: hạng 10+ và các giải phản diện vũ trụ (Mặt Trăng, Sao Hỏa…), nối tiếp sau Hắc Vương Lõi Đất.
 
 - Font chữ riêng đóng kèm game (cần tải file font).
