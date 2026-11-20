@@ -158,6 +158,7 @@ Mục tiêu đối thủ thứ i (từ 0) = 300 × 2,4^min(i, 19) × 1,25^max(0,
 - Lần đầu gặp đối thủ: xem hết thoại (giải 1–2 một câu, 3–4 hai câu, 5–6 ba câu, rồi nhân vật đáp một câu). Gặp lại (đấu lại sau khi thua): một câu. Đã gặp lưu ở `s.met`.
 - Thoại có chữ chạy; chạm để hiện hết câu, chạm nữa để sang câu kế. Xưng hô `{anh|chị}` theo nhân vật.
 - **Xem lại thoại**: đối thủ đã hạ có nút "✓ 💬" trong tab Thi đấu; bấm thì mở đấu trường, xem lại thoại lần đầu, câu đáp và câu lúc đối thủ thua, rồi về phòng tập. Không tốn thể lực, không đấu, không thưởng.
+- **Võ đài hằng ngày** (chi tiết: [SPAR_PLAN.md](SPAR_PLAN.md)): từ hạng 4, khi đã hạ ít nhất 1 đối thủ, thẻ "🥊 Võ đài hôm nay" đứng đầu tab Thi đấu với đối thủ đã hạ thứ `ngày % số trận thắng`. Tốn thể lực như thách đấu (Chủ nhật miễn phí). Mục tiêu = 15 × (calo/giây + 3 × calo/bấm) × độ khó, chốt lúc vào trận; độ khó 0,8 + 0,05 mỗi ngày thắng liên tiếp tới hôm qua, tối đa 1,2; một ngày không thắng thì chuỗi về 0. Thắng: mục tiêu × 3 calo (Chủ nhật x2), không tăng số trận thắng, không +3%; mỗi ngày trong game thắng một lần, thua thì đấu lại được. Thoại: câu gặp lại, rồi câu thua cuộc hoặc chế giễu. Có SDK thì sau khi thắng có nút "📺 x2 thưởng". Tính vào nhiệm vụ "Đấu 1 trận"; tab Thi đấu có chấm đỏ khi Võ đài hôm nay còn đấu được. Bản lưu: `spar` (ngày thắng gần nhất), `sparN` (chuỗi, 0–8).
 - **Đấu đòn**: thanh mỗi bên chỉ tăng khi bên đó ra đòn (hằng `HIT`). Đòn của bạn: mỗi cú bấm, tối đa 20% thanh mỗi đòn, hai đòn cách nhau ít nhất 0,55 giây; không bấm thì cứ 0,7 giây tự ra đòn bằng calo/giây đã tích. Số sát thương đỏ hiện trên đối thủ; chỗ bấm chỉ hiện 👊 (số "+…" trông như được calo). Đối thủ ra đòn mỗi 0,8–1,4 giây, thanh đỏ nhảy tới đúng tỉ lệ thời gian đã trôi, đầy lúc hết giờ. Thắng thua vẫn theo tổng sát thương thật (hết giờ mà đủ sát thương thì có đòn kết liễu), nên độ khó không đổi. Lý do: trước đây đánh kẻ yếu thì thanh đầy ngay khung hình đầu, không thấy đánh nhau; giờ kẻ yếu nhất cũng mất khoảng 2,5 giây, 5 đòn của bạn và 2 đòn của đối thủ.
 - **Trong trận, cú bấm chỉ đẩy thanh đấu, không ra calo** (trước đây vừa đẩy thanh vừa cộng calo, trận đấu không khác gì phòng tập). Calo/giây vẫn chạy ngầm và vẫn tính vào thanh đấu. Sim: hạng 6 chậm thêm 1–2 phút (mất calo từ cú bấm trong trận và khoảng 6 giây VS, thoại, đếm ngược mỗi trận).
 - Mạch truyện: đồng nghiệp (giải 1–2) → người tập thật (3–4) → phản diện sống nhờ sự lười biếng của con người, nuôi Hắc Vương Lõi Đất (5–6); câu thua của Hắc Vương mở đường ra ngoài Trái Đất.
@@ -303,18 +304,18 @@ Ngôn ngữ: người chơi lần đầu luôn thấy tiếng Anh (khán giả C
 
 ## Mục tiêu cân bằng
 
-Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi, giảm cân theo hạng và mở tính năng theo hạng (khách ghé, Rep hoàn hảo từ hạng 2; thi đấu từ hạng 4; bạn tập từ hạng 5) và tăng hệ số calo hạng 1–3, rồi nâng sàn cân lên 68 kg (chỉ hạng 7–9 đổi):
+Đo bằng `python tools/sim.py` (4 lần bấm/giây, ăn cơm gà, bấm mọi khách; thời gian là tổng thời gian chơi tới hạng đó). Kết quả sau khi tăng mệt mỏi, giảm cân theo hạng và mở tính năng theo hạng (khách ghé, Rep hoàn hảo từ hạng 2; thi đấu từ hạng 4; bạn tập từ hạng 5) và tăng hệ số calo hạng 1–3, rồi nâng sàn cân lên 68 kg, rồi thêm Võ đài hằng ngày (sim thắng một trận mỗi ngày tập từ hạng 4):
 
 | Hạng | Không chủ động nghỉ (vẫn bắt buộc nghỉ ở 100) | Tự nghỉ khi Mỏi (mệt ≥40) |
 |---|---|---|
 | 2 | ngày 2, 1m45 | ngày 2, 1m45 |
 | 3 | ngày 3, 4m52 | ngày 3, 4m52 |
 | 4 | ngày 4, 9m38 | ngày 4, 9m38 |
-| 5 | ngày 9, 21m55 | ngày 10, 27m06 |
-| 6 | ngày 34, 1h17 | ngày 25, 1h16 |
-| 7 | ngày 53, 2h12 | ngày 42, 2h21 |
-| 8 | ngày 113, 5h11 | ngày 84, 5h14 |
-| 9 | — | ngày 309, 21h35 |
+| 5 | ngày 9, 22m50 | ngày 10, 27m50 |
+| 6 | ngày 30, 1h13 | ngày 25, 1h18 |
+| 7 | ngày 48, 2h07 | ngày 40, 2h18 |
+| 8 | ngày 102, 4h54 | ngày 79, 5h02 |
+| 9 | ngày 383, 20h07 | ngày 289, 20h43 |
 
 Các ước tính cũ về tác động riêng của khách ghé và Rep hoàn hảo bên dưới được đo trước khi tăng mệt mỏi; cần chạy lại nếu cân bằng lại hai tính năng đó. Sim hiện giả định khách xoay vòng đúng tỉ lệ và người chơi bấm mọi khách, kể cả bánh.
 

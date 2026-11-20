@@ -13,7 +13,7 @@ G = dict(goals=[[0] * 8, [5, 4, 2, 0, 0, 0, 0, 0], [12, 10, 5, 1, 0, 0, 0, 0], [
          mults=[1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 5], R=1.17,
          kg=[999, 999, 999, 84.5, 82, 78, 76, 74, 72], kg_loss=[.3, .3, .3, .4, .5, .6, .7, .8, .9],
          fat=[40, 40, 40, 40, 40, 40, 40, 40, 40], wk=[4, 4, 5, 5, 6, 6, 6, 6, 6], sta0=300, sta_rank=120, sta_cardio=5,   # kg_loss: cân giảm khi dùng đủ thể lực; mệt mỏi cộng đều, thể lực +sta_rank mỗi hạng tới hạng 6
-         duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người
+         duel=15, t0=300, tg=2.4, prize=3, win=.03, rivals=30, duel_sta=40, tg2=1.25, spar=3,   # tg2: phản diện 21–30 chỉ khó hơn x1,25 mỗi người; spar: thưởng Võ đài = mục tiêu x spar (0 = tắt)
          s0=5000, sg=2.5, pet=.042, ach=.01, tap=.25,   # tap: mỗi cú bấm thêm tap x calo/giây gốc
          pt=1, pt_day=3, pt_gap=60, pt_life=8, pt_tap=5, pt_sta=.3, pt_cps=60, pt_taps=30,   # khách ghé phòng tập (index.html: PT); pt = tỉ lệ bấm kịp
          kg0=85, night=0, hands=0, fee=1,   # hands: thử thách Chỉ dùng tay; fee: hệ số giá bài tập (Phòng gym tăng giá)   # cân lúc bắt đầu (lên đời giữ cân nặng), cân cộng thêm mỗi tối
@@ -30,7 +30,7 @@ VIS = 'fscfsRCLKK'
 
 
 def run(g, rest_at=40, meal='h', limit=400):
-    lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = g['kg0']; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None
+    lv = [0] * 8; cal = t = 0.0; wins = summons = 0; rk = 0; kg = g['kg0']; fat = 0.0; day = 1; week = []; wkb = False; rec = False; today = None; sd = -9; sn = 0   # sd, sn: ngày thắng Võ đài gần nhất, chuỗi ngày thắng
     out = {}; rests = 0; ptc = 0.0; ptn = 0; gm = {}; earned = [0.0] * len(g['goals']); tapped = [0.0] * len(g['goals'])   # calo theo hạng: tổng / từ cú bấm   # gm: ngày đủ mục tiêu nhóm cơ của từng hạng (để biết cân nặng chặn bao lâu)
     top = len(g['goals']) - 1   # hạng cao nhất (chỉ số)
     foe = lambda i: g['t0'] * g['tg'] ** min(i, 19) * g['tg2'] ** max(0, i - 19)   # mục tiêu đối thủ i: từ đối thủ 21 (phản diện) chỉ tăng tg2 lần mỗi người
@@ -67,6 +67,12 @@ def run(g, rest_at=40, meal='h', limit=400):
             rests += 1; lazy = fat < 40; rec_next = not lazy; kg += .3 if lazy else .1; fat = max(0, fat - 60)
         else:
             sta = cap
+            if g['spar'] and rk >= 3 and wins >= 1 and (sunday or sta >= g['duel_sta']):   # Võ đài hằng ngày (index.html: SPAR): luôn thắng vì bấm 4 cú/giây > 3,6 cú/giây ở độ khó cao nhất
+                pps, click = rates(); st = sn if sd == day - 1 else 0
+                goal = g['duel'] * (pps + 3 * click) * (.8 + .05 * min(8, st))
+                if not sunday: sta -= g['duel_sta']; used += g['duel_sta']
+                x = goal * g['spar'] * (2 if sunday else 1) + g['duel'] * pps; cal += x; earned[rk] += x; t += g['duel'] + 6
+                sn = min(8, st + 1); sd = day
             while sta >= 1:
                 pps, click = rates()
                 if rk >= 3 and wins < g['rivals'] and (sunday or sta >= g['duel_sta']) and g['duel'] * (pps + CPS * click) >= foe(wins):

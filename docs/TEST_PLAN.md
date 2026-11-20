@@ -265,6 +265,11 @@ Bảng đối chiếu cho H6:
 | J11 | Chơi nhân vật nữ, đấu Cody (giải 3) và một phản diện giải 5. Đổi sang EN. | Cody gọi "Chị" (nam: "Anh"). Giải 3 có 2 câu, giải 5 có 3 câu trước câu đáp. Nền đấu trường đổi theo giải (chưa có ảnh: nền màu tím, đỏ…). Bản tiếng Anh đủ thoại, không còn chữ tiếng Việt. Trên điện thoại: đối thủ ở trên bên phải, nhân vật dưới bên trái, khung thoại ở dưới, không cuộn ngang. |
 | J12 | Đã mạnh hơn hẳn, thách đấu đối thủ đầu (Tom), bấm liên tục. | Trận vẫn kéo dài khoảng 2,5 giây: 5 đòn của bạn (thanh xanh 5 nấc), đối thủ kịp đánh lại khoảng 2 lần, rồi mới thắng. |
 | J13 | Đã hạ ít nhất một đối thủ. Trong tab Thi đấu bấm nút "✓ 💬" của đối thủ đã hạ. | Đấu trường mở với màn VS, rồi đủ thoại lần đầu, câu bạn đáp và câu đối thủ nói lúc thua; xong chỉ có nút "Về phòng tập". Thể lực, số trận thắng và calo không đổi; không có đếm ngược hay trận đấu. Nút của đối thủ chưa mở vẫn là 🔒. | |
+| J14 | Hạng 4, chưa thắng ai. Thắng Tom, bấm "Về phòng tập". | Trước: không có thẻ Võ đài. Sau: thẻ "🥊 Võ đài hôm nay" đầu tab Thi đấu với Tom; Bắp giới thiệu Võ đài một lần. Tab Thi đấu có chấm đỏ khi Võ đài còn đấu được. |  |
+| J15 | Bấm "Tập đấu ⚡40", thắng. | Trừ 40 thể lực; biển "🥊 Võ đài hằng ngày", một câu gặp lại, không có thoại lần đầu; mục tiêu đúng số trên thẻ. Thắng: băng rôn "THẮNG!" · +mục tiêu × 3 🔥, số trận thắng và hệ số calo không đổi, nhiệm vụ "Đấu 1 trận" xong. Thẻ thành "✓ Hẹn mai", mờ. |  |
+| J16 | Thua một trận Võ đài (không bấm), rồi bấm "Đấu lại". | Thua: câu chế giễu, không thưởng. "Đấu lại ⚡40" mở lại trận Võ đài (vẫn biển Võ đài), tốn thể lực lần nữa. |  |
+| J17 | Ngủ sang ngày mới (có ≥ 2 trận thắng). Chờ tới Chủ nhật. | Võ đài mở lại, đối thủ đổi theo ngày. Chủ nhật: nút không ghi ⚡, không tốn thể lực, thưởng x2. |  |
+| J18 | Thắng Võ đài 3 ngày liền, ngày thứ 4 không đấu, ngày thứ 5 xem thẻ. | Mục tiêu (và thưởng) so với sức bấm tăng mỗi ngày: x0,8 → x0,85 → x0,9; tiêu đề thẻ ghi "chuỗi N ngày". Ngày thứ 5: chuỗi mất, về x0,8. |  |
 
 ## K. Bạn tập
 
@@ -405,6 +410,7 @@ Bản chạy trên máy dùng quảng cáo giả của SDK. Phần này cần th
 | P6 | Trên CrazyGames: chơi, đăng xuất/đổi máy cùng tài khoản. | Tiến trình được giữ (lưu qua Data Module). | |
 | P8 | Trên CrazyGames: vắng mặt hơn 1 phút có calo/giây, mở lại, bấm "📺 Nhân đôi" trên thẻ vắng mặt. Lần khác bấm "Nhận" hoặc Esc. | Xem hết quảng cáo: cộng thêm đúng số calo trên thẻ (dải nhỏ báo lại). Bỏ ngang hoặc lỗi: chỉ giữ phần đã cộng. "Nhận" và Esc không mở quảng cáo. | |
 | P9 | Trên CrazyGames: nhận quà mỗi ngày ở ngày có calo, bấm "📺 Nhân đôi"; lần khác bỏ ngang; ngày 3, 5. | Xem hết: cộng thêm đúng phần calo (dải nhỏ báo lại). Bỏ ngang: giữ phần đã cộng. Ngày 3 và 5 chỉ có nút "Nhận". |
+| P10 | Trên CrazyGames: thắng Võ đài, bấm "📺 x2 thưởng"; lần khác bỏ ngang. | Xem hết: cộng thêm đúng phần thưởng, nút biến mất. Bỏ ngang: chỉ có thưởng gốc. Trận với đối thủ thật không có nút này. | |
 | P7 | Chặn mạng tới `sdk.crazygames.com` rồi mở game. | Game vẫn vào được sau tối đa khoảng 4 giây, chơi bình thường, không có nút nước tăng lực và không có quảng cáo. | |
 
 ---

@@ -21,13 +21,14 @@ Mới chỉ có code, chưa từng chạy tới trên trình duyệt:
 - Rep hoàn hảo: canh nhịp trên điện thoại thật (độ trễ cảm ứng), khoảng ±110 ms có quá khó hay quá dễ không; người chơi thật bắt được bao nhiêu phần trăm (sim giả định 50%).
 - Khách ghé phòng tập: bấm thật trên điện thoại (khách có che nhân vật hay nút không), người chơi thật bấm được bao nhiêu phần trăm và có bỏ qua bánh không (sim giả định bấm hết).
 
+- Võ đài hằng ngày: độ khó cao nhất (chuỗi 8 ngày, cần khoảng 3,6 cú/giây) chưa thử tay trên điện thoại thật; sim giả định luôn thắng.
+
 ## Lỗi và hạn chế đã biết
 
 - `tools/sim.py` giả định tối nào cũng ăn một món cố định; chưa mô phỏng thực đơn xoay vòng, cũng chưa mô phỏng lối "ăn vặt tới hạng 3 rồi siết cân".
 
 ## Ý tưởng chưa làm
 
-- Võ đài hằng ngày cho tab Thi đấu khi kẹt ở đối thủ khó: [SPAR_PLAN.md](./SPAR_PLAN.md) (đã duyệt, chưa làm).
 - Mở rộng ngoài Trái Đất: hạng 10+ và các giải phản diện vũ trụ (Mặt Trăng, Sao Hỏa…), nối tiếp sau Hắc Vương Lõi Đất.
 
 - Font chữ riêng đóng kèm game (cần tải file font).

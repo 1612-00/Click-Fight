@@ -1,6 +1,6 @@
 # Kế hoạch: Võ đài hằng ngày
 
-Trạng thái: **đã duyệt** (2026-11-20), chưa làm (làm sau Quà mỗi ngày).
+Trạng thái: **đã vào game** (2026-11-20): `SPAR`, `drawSpar()`, `startDuel(i, true)` trong `index.html`; Võ đài có trong `tools/sim.py` (tham số `spar`). Sim có chuỗi độ khó: hạng 6 gần như không đổi, hạng 9 (nghỉ khi Mỏi) 21h35 → 20h43 (−4%); xem bảng mục tiêu cân bằng trong GAME_DESIGN. Chưa thử tay chuỗi 8 (120%) trên điện thoại thật.
 
 ## Vấn đề
 

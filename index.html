@@ -550,6 +550,8 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
 .view-head .workout-rule{flex:1;border-top:1px solid #cfc2aa}
 #vDuel,#vPet,#vQuest,#vAch,#vAsc{background:#f2ede1;color:#2d3932}
 #vDuel .list,#vQuest .list,#vAch .list{gap:2px;padding:8px 10px;background:#f2ede1}
+#vDuel #sparList{flex:none;overflow:visible;padding-bottom:0}   /* Võ đài: chỉ cao vừa một thẻ, danh sách đối thủ cuộn bên dưới */
+#vDuel #sparList[hidden]{display:none}
 #vPet .list{gap:2px;padding:8px 10px;background:#f2ede1}
 #vPet .tools{background:#e9e3d6;color:#465148;border-bottom:1px solid #d5cbb8;text-shadow:none}
 .view:not(#vEx) .card{padding:7px 4px;border:0;border-bottom:1px solid #d6cebf;border-radius:2px;background:transparent;box-shadow:none;transition:background .12s}
@@ -865,6 +867,7 @@ button:focus-visible{outline:3px solid #354c3c;outline-offset:2px}
     </div>
       <div class="view" id="vDuel" hidden>
         <div class="view-head"><span class="workout-mark" aria-hidden="true">02</span><b id="rivalPlan"></b><span class="workout-rule" aria-hidden="true"></span></div>
+        <div class="list" id="sparList" hidden><div class="league" id="sparH"></div><div class="card" id="spar"><div class="tile" style="background:#0005" id="sparPic"></div><div><b id="sparName"></b><small id="sparNeed"></small><em id="sparWin"></em></div><button class="buy fight" id="sparGo"></button></div></div>
         <div class="list" id="rivals"></div>
       </div>
     <div class="view" id="vPet" hidden>
@@ -959,7 +962,7 @@ const T = {
       at:'ở cấp', tipBuy:'Đủ calo rồi, mua bài tập đầu tiên!', pts:'nhóm cơ', maxRank:'Hạng cao nhất', rankUp:'LỘT XÁC!', away:'Lúc bạn vắng mặt', tip:'Bấm vào nhân vật để tập!', idle:'💤 Treo máy quá 5 phút nên calo tạm dừng. Chạm để tiếp tục!',
       ascDesc:'Đổi calo và bài tập lấy Sao; mỗi Sao tăng 10% calo vĩnh viễn.',
       lStars:'Sao hiện có', lBonus:'Thưởng hiện tại', lGain:'Sao nhận nếu lên đời', ascBtn:'⭐ Lên đời', ascNeed:'Chưa đủ calo để nhận Sao',
-      giftT:'🎁 Quà ngày {n}/7', giftH:'🎁 Quà mỗi ngày', giftCal:'Calo', giftNext:'Mai quay lại nhận quà ngày {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Nước tăng lực miễn phí: +50% thể lực', '+{c} 🔥', '🍳 Bữa sáng đủ chất: calo +25% tới hết ngày', '+{c} 🔥', '⭐ +1 Sao · +{c} 🔥'],
+      sparH:'🥊 Võ đài hôm nay', sparStreak:'chuỗi {n} ngày', sparGo:'Tập đấu', sparDone:'Hẹn mai', sparTag:'🥊 Võ đài hằng ngày', sparX2:'📺 x2 thưởng', giftT:'🎁 Quà ngày {n}/7', giftH:'🎁 Quà mỗi ngày', giftCal:'Calo', giftNext:'Mai quay lại nhận quà ngày {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Nước tăng lực miễn phí: +50% thể lực', '+{c} 🔥', '🍳 Bữa sáng đủ chất: calo +25% tới hết ngày', '+{c} 🔥', '⭐ +1 Sao · +{c} 🔥'],
       reset:'Giữ để xoá toàn bộ tiến trình', qAsc:'Bắt đầu lại từ hạng 1 và nhận {n} Sao.', sure:'Chắc chưa? Bấm lần nữa', replay:'Xem lại thoại', mLoseH:'Mất', mKeepH:'Giữ', aLose:'Calo\nCấp bài tập\nHạng', aKeep:'Sao, kỹ năng\nBạn tập, thành tựu\nTrận thắng, cân nặng', newFeat:'Tính năng mới!', great:'Tuyệt!', take:'Nhận', awayX2:'📺 Nhân đôi', mornTitle:'BÁO CÁO SÁNG', yes:'Đồng ý', no:'Huỷ', x2:'🥤 Nước tăng lực +50%', you:'Bạn', go:'🏋️ Đến phòng tập', officeTip:'Hết giờ làm rồi, đi tập thôi!', oCal:'🔥 Calo', oKg:'⚖️ Cân nặng', oSta:'⚡ Thể lực', oFat:'😮‍💨 Mệt mỏi', day:'Ngày', rest:'🛋️ Về nhà nghỉ', sleep:'😴 Đi ngủ', goHome:'🏠 Về nhà', dGym:'🏋️ PHÒNG TẬP', dHome:'🏠 NHÀ', dOffice:'🏢 VĂN PHÒNG', skip:'Chạm để tua nhanh', tSleep:'Khò khò', tMorning:'Buổi sáng', tCommute:'Đi đến công ty', set:'Tạm nghỉ', sMus:'🎵 Nhạc nền', sSnd:'🔊 Âm thanh', sLang:'🌐 Ngôn ngữ', kgTrain:'Tập hôm nay', kgRest:'Nghỉ hôm nay', kgFew:'Tập quá ít, tính là nghỉ', kgOther:'Ăn uống, sự kiện', clockOff:'TAN CA', badgeCorp:'GYM GOD CORP', badgeSub:'THEO DÕI SỨC KHỎE', memoTitle:'GHI CHÚ CUỐI NGÀY', evTitle:'VIỆC ĐỘT XUẤT', overTitle:'CƠ THỂ QUÁ TẢI',
       repTip:'Đợi vòng vàng rồi bấm!', repWarn:'Sắp có Rep hoàn hảo, chuẩn bị!', repMiss:'Hụt', evOk:'Thành công', evNo:'Không may', evToday:'hôm nay', evElse:'còn lại', evNone:'không có gì',
       ev:{boss:['Sếp rủ làm vài ly sau giờ làm.', 'Đi cho sếp vui', 'Xin về đi tập'], lift:['Thang máy hỏng, văn phòng ở tầng 12.', 'Leo bộ 12 tầng', 'Đứng chờ, nghỉ một chút'],
@@ -1029,6 +1032,7 @@ const T = {
          quest:['Nhiệm vụ', ['Những mục tiêu nhỏ cũng đưa cậu tiến xa. Hoàn thành nhiệm vụ hôm nay rồi nhận thêm 🔥 calo làm thưởng.']],
          pet:['Bạn tập', ['Bạn tập có thể giúp mỗi cú chạm hoặc lượng calo theo giây tăng lên. Gọi thêm một người bạn nếu cậu muốn nhận thưởng cộng dồn nhé.']],
          ach:['Thành tựu', ['Mỗi thành tựu là dấu mốc cậu đã vượt qua. Chạm tới một dấu mốc mới sẽ tăng calo vĩnh viễn.']],
+         spar:['Võ đài hằng ngày', ['Đối thủ cậu đã hạ chờ ở Võ đài mỗi ngày đấy! Sức họ theo sức cậu, thắng thì được calo. Thắng nhiều ngày liền thì đối thủ khó hơn, thưởng cũng to hơn.']],
          gift:['Quà mỗi ngày', ['Nút 🎁 trên góc màn hình có quà mỗi ngày đấy! Có chấm đỏ là quà đang chờ cậu. Đủ 7 ngày được hẳn một Sao, lỡ một hôm cũng không mất chuỗi.']],
          asc:['Lên đời', ['Lên đời sẽ đặt lại calo và bài tập, đổi lại cậu nhận Sao cùng sức mạnh vĩnh viễn. Hãy cân nhắc trước khi bắt đầu nhé.']],
          ch:['Thử thách', ['Thử thách đặt thêm một luật khó cho cả đời tập. Đạt hạng mục tiêu để nhận thưởng vĩnh viễn—Bắp tin cậu làm được!']]}, homeSay:'Tối rồi. Chọn một bữa ăn (hoặc bỏ bữa) rồi đi ngủ.', homeTip:'Bạn tập đang chờ ở nhà',
@@ -1046,7 +1050,7 @@ const T = {
       at:'at Lv', tipBuy:'You can afford your first workout!', pts:'targets', maxRank:'Top rank', rankUp:'GLOW-UP!', away:'While you were away', tip:'Tap the character to train!', idle:'💤 Idle for 5 minutes, so calories are paused. Tap to continue!',
       ascDesc:'Trade calories and workouts for Stars; each Star boosts calories by 10% forever.',
       lStars:'Stars owned', lBonus:'Current bonus', lGain:'Stars if you ascend', ascBtn:'⭐ Ascend', ascNeed:'Not enough calories for a Star yet',
-      giftT:'🎁 Day {n}/7 gift', giftH:'🎁 Daily gift', giftCal:'Calories', giftNext:'Come back tomorrow for day {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Free energy drink: +50% stamina', '+{c} 🔥', '🍳 Power breakfast: +25% calories for the rest of the day', '+{c} 🔥', '⭐ +1 Star · +{c} 🔥'],
+      sparH:'🥊 Sparring today', sparStreak:'{n}-day streak', sparGo:'Spar', sparDone:'See you tomorrow', sparTag:'🥊 Daily sparring', sparX2:'📺 x2 reward', giftT:'🎁 Day {n}/7 gift', giftH:'🎁 Daily gift', giftCal:'Calories', giftNext:'Come back tomorrow for day {n}!', gift:['+{c} 🔥', '+{c} 🔥', '🥤 Free energy drink: +50% stamina', '+{c} 🔥', '🍳 Power breakfast: +25% calories for the rest of the day', '+{c} 🔥', '⭐ +1 Star · +{c} 🔥'],
       reset:'Hold to erase all progress', qAsc:'Start over from rank 1 and get {n} Stars.', sure:'Sure? Tap again', replay:'Replay the talk', mLoseH:'You lose', mKeepH:'You keep', aLose:'Calories\nWorkout levels\nRank', aKeep:'Stars, skills\nBuddies, achievements\nRival wins, weight', newFeat:'New feature!', great:'Awesome!', take:'Collect', awayX2:'📺 Double it', mornTitle:'MORNING REPORT', yes:'Confirm', no:'Cancel', x2:'🥤 Drink +50% ⚡', you:'You', go:'🏋️ Go to the gym', officeTip:'Work is over. Time to train!', oCal:'🔥 Calories', oKg:'⚖️ Weight', oSta:'⚡ Stamina', oFat:'😮‍💨 Fatigue', day:'Day', rest:'🛋️ Rest at home', sleep:'😴 Go to sleep', goHome:'🏠 Go home', dGym:'🏋️ GYM', dHome:'🏠 HOME', dOffice:'🏢 OFFICE', skip:'Tap to skip', tSleep:'Zzz', tMorning:'Morning', tCommute:'Heading to the office', set:'Paused', sMus:'🎵 Music', sSnd:'🔊 Sound', sLang:'🌐 Language', kgTrain:'Training today', kgRest:'Rest today', kgFew:'Too little training, counts as rest', kgOther:'Food & events', clockOff:'OFF WORK', badgeCorp:'GYM GOD CORP', badgeSub:'HEALTH TRACKER', memoTitle:'DAILY MEMO', evTitle:'URGENT MEMO', overTitle:'BODY OVERLOADED',
       repTip:'Wait for gold, then tap!', repWarn:'Perfect rep coming, get ready!', repMiss:'Miss', evOk:'It worked', evNo:'No luck', evToday:'today', evElse:'otherwise', evNone:'nothing',
       ev:{boss:['The boss invites you for drinks after work.', 'Go, keep the boss happy', 'Head to the gym instead'], lift:['The elevator is broken and the office is on floor 12.', 'Take all 12 floors of stairs', 'Wait and take a breather'],
@@ -1110,6 +1114,7 @@ const T = {
          fat:['Fatigue', ['Muscles need time to recover, too. Training every day makes you more tired; take a rest day to get your stamina back.']],
          kg:['Weight', ['From rank 4 on, your weight can hold up your next rank. Keep training and losing weight to clear the way forward.']],
          duel:['Rivals', ['Your rivals are waiting in the arena. Fights cost stamina except on Sundays, and every win boosts your calories forever.']],
+         spar:['Daily sparring', ['Rivals you have beaten wait for you at the sparring ring every day! They match your strength, and a win pays calories. Win day after day and they get tougher, with bigger rewards.']],
          gift:['Daily gift', ['The 🎁 button up top has a gift for you every day! A red dot means one is waiting. Collect all 7 to earn a whole Star. Missed a day? Your streak stays.']],
          asc:['Ascend', ['Ascending resets your calories and workouts, but gives you Stars and permanent strength. Think it over before you begin.']],
          rep:['Perfect reps', ['Watch the ring! When it turns gold, tap at just the right moment to make this workout earn extra calories.']],
@@ -1151,6 +1156,13 @@ const RIVALS = [
   ['🌪️','Tướng Bão Tố','General Tempest'], ['❄️','Nữ hoàng Băng Giá','The Frost Empress'], ['🌋','Titan Dung Nham','The Magma Titan'], ['🤖','Siêu máy tính Omega','Omega the Machine Mind'], ['👹','Hắc Vương Lõi Đất','The Core King'],
 ];
 // Mục tiêu đối thủ i (từ 0): x2,4 mỗi người tới đối thủ 20; phản diện (21–30) chỉ x1,25 mỗi người, nếu không thì không ai đánh nổi (sim).
+// Võ đài hằng ngày (SPAR_PLAN): đối thủ đã hạ, sức theo sức người chơi, mỗi ngày trong game thắng một lần; không tăng số trận thắng.
+// Mục tiêu = 15 giây × (calo/giây + 3 cú/giây) × độ khó; độ khó 0,8 + 0,05 mỗi ngày thắng liên tiếp, tối đa 1,2. Thưởng = mục tiêu × 3.
+const SPAR = {x: 3, d0: .8, dd: .05, max: 8};
+const sparOn = () => unl() >= 3 && s.wins >= 1;
+const sparFoe = () => s.day % s.wins;
+const sparStreak = () => s.spar === s.day - 1 ? s.sparN : 0;   // chuỗi tính tới hôm qua; lỡ một ngày thì về 0
+const sparGoal = () => 15 * (pps() + 3 * clickPower()) * (SPAR.d0 + SPAR.dd * Math.min(SPAR.max, sparStreak()));
 const DUEL = 15, WIN_BONUS = .03, target = i => 300 * 2.4 ** Math.min(i, 19) * 1.25 ** Math.max(0, i - 19), prize = i => target(i) * 3;
 const rivalPic = (i, lazy = false) => `<img ${lazy ? 'loading="lazy" ' : ''}src="assets/rival/rival-${String(i + 1).padStart(2, '0')}.webp" alt="" draggable="false" onerror="this.replaceWith('${RIVALS[i][0]}')">`;
 // Khách ghé phòng tập: PT luôn có quà; crush đi ngang, bắt chuyện thì may rủi; bánh sinh nhật đổi calo lấy cân nặng. Không lưu: tải lại trang thì đếm lại.
@@ -1237,7 +1249,7 @@ const ICO = {'🔥':'ui-cal', '⭐':'ui-star', '⚡':'ui-sta', '😮‍💨':'ui
 const ICO_RE = new RegExp('(' + Object.keys(ICO).join('|') + ')\\uFE0F?', 'gu');
 const rich = t => String(t).replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;').replace(ICO_RE, (m, k) => `<img class="ico" src="assets/ui/${ICO[k]}.webp" alt="${m}" draggable="false">`);
 const put = (el, t) => { if (el._t !== t) { el._t = t; el.innerHTML = rich(t); } };   // chỉ dựng lại khi chữ đổi, vì ui() chạy mỗi 100 ms
-const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, gd:'', gn:0, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
+const fresh = () => ({cal:0, run:0, stars:0, wins:0, summons:0, pets:{}, clicks:0, total:0, ascends:0, play:0, best:0, char:0, x2:0, day:1, sta:300, cap:300, used:0, fat:0, kg:85, kg1:85, kg30:85, rk:0, meal:null, next:null, rec:false, wkBonus:false, drink:false, vis:0, week:[], scene:'office', vm:5, vs:7, ach:{}, tips:{}, sk:{}, ch:null, chd:{}, ev:null, buff:{}, met:{}, q:{day:1, p:{}, got:{}}, seen:1, gd:'', gn:0, spar:0, sparN:0, t:Date.now(), act:Date.now(), lang:'en', lv:Object.fromEntries(EX.map(e => [e.k, 0]))});
 let s = fresh(), mode = 1;
 // SDK CrazyGames (CG = null khi không có SDK): lưu qua SDK.data để đồng bộ tài khoản, quảng cáo giữa game khi lên đời, quảng cáo thưởng x2.
 let CG = null, adOn = false, playing = false, memo = '', lastClick = 0, sayIdx = Math.floor(Math.random() * 8);
@@ -1257,7 +1269,8 @@ function load() {
   const o = readSave(KEY) || readSave(BAK);
   if (!o) return;
   try {
-    for (const k of ['cal','run','stars','t','act','seen','wins','summons','clicks','total','ascends','play','best','x2','day','sta','cap','used','fat','kg','kg1','kg30','vis']) if (Number.isFinite(o[k]) && o[k] >= 0) s[k] = o[k];
+    for (const k of ['cal','run','stars','t','act','seen','wins','summons','clicks','total','ascends','play','best','x2','day','sta','cap','used','fat','kg','kg1','kg30','vis','spar','sparN']) if (Number.isFinite(o[k]) && o[k] >= 0) s[k] = o[k];
+    s.spar = Math.floor(s.spar); s.sparN = Math.min(8, Math.floor(s.sparN));   // Võ đài: ngày trong game của lần thắng gần nhất, chuỗi ngày thắng liên tiếp
     if (!Number.isFinite(o.kg1)) s.kg1 = s.kg;   // kg1: cân đầu ngày, để báo tổng thay đổi cả ngày; bản lưu cũ chưa có
     s.wins = Math.min(RIVALS.length, Math.floor(s.wins)); s.summons = Math.floor(s.summons);
     for (const q of PETS) if (Number.isInteger(o.pets?.[q.k]) && o.pets[q.k] > 0) s.pets[q.k] = o.pets[q.k];
@@ -1561,7 +1574,7 @@ function ui(full = true) {
   const cps = pps(), tap = clickPower(), gain = starGain(), sc = summonCost();
   const quests = unl() >= TAB_RANK.Quest ? todayQuests() : [];
   drawHud(full, cps, tap);
-  $('tabDuel').classList.toggle('dot', !duel && s.wins < RIVALS.length && DUEL * (cps + 5 * tap) >= target(s.wins));
+  $('tabDuel').classList.toggle('dot', !duel && (s.wins < RIVALS.length && DUEL * (cps + 5 * tap) >= target(s.wins) || sparOn() && s.spar !== s.day && (dow() === 6 || s.sta >= duelSta())));
   $('tabPet').classList.toggle('dot', s.cal >= sc);
   $('tabAsc').classList.toggle('dot', gain >= 1);
   $('tabQuest').classList.toggle('dot', quests.some(q => !s.q.got[q.k] && qProg(q) >= q.n));
@@ -1662,7 +1675,20 @@ function drawExercises(full) {
   });
 }
 
+function drawSpar() {
+  const on = sparOn(); $('sparList').hidden = !on; if (!on) return;
+  const i = sparFoe(), done = s.spar === s.day, sun = dow() === 6, g = sparGoal(), st = sparStreak();
+  if ($('sparPic').dataset.i !== String(i)) { $('sparPic').dataset.i = i; $('sparPic').innerHTML = rivalPic(i); }
+  setText($('sparH'), tr('sparH') + (st ? ' · ' + tr('sparStreak').replace('{n}', st) : ''));
+  setText($('sparName'), RIVALS[i][s.lang === 'vi' ? 1 : 2]);
+  put($('sparNeed'), `${tr('need')} 🔥 ${fmt(g)} / ${DUEL}s`); put($('sparWin'), `+${fmt(g * SPAR.x * (sun ? 2 : 1))} 🔥`);
+  put($('sparGo'), done ? '✓ ' + tr('sparDone') : tr('sparGo') + (sun ? '' : ' ⚡' + duelSta()));
+  $('sparGo').disabled = done || !!arena || (!sun && s.sta < duelSta());
+  $('spar').classList.toggle('done', done);
+}
+$('sparGo').onclick = () => { if (!arena && sparOn()) startDuel(sparFoe(), true); };
 function drawRivals(full, list) {
+  drawSpar();
   if (!list.children.length) {
     buildRivals(list);
     full = true;
@@ -2038,7 +2064,7 @@ $('summon').onclick = () => {
   toast(q.i + ' ' + q[s.lang], `${tr('lv')} ${s.pets[q.k]}`);
   refresh(); save();
 };
-for (const n of TABS) $('tab' + n).onclick = () => { tab(n); coach(...({Duel: ['duel'], Pet: ['pet'], Quest: ['quest'], Ach: ['ach'], Asc: ['asc', 'ch']}[n] || [])); };
+for (const n of TABS) $('tab' + n).onclick = () => { tab(n); coach(...({Duel: ['duel', ...(sparOn() ? ['spar'] : [])], Pet: ['pet'], Quest: ['quest'], Ach: ['ach'], Asc: ['asc', 'ch']}[n] || [])); };
 
 const ptHide = () => $('pt')?.remove();
 const rush = (x, sec) => { frenzyX = x; frenzy = Date.now() + sec * 1000; };
@@ -2078,25 +2104,26 @@ function ptShow() {
 let arena = null;   // {i, step: vs | talk | count | fight | end, q: hàng thoại [ai, câu], k: câu đang hiện, tw: hẹn giờ chữ chạy, full: câu đầy đủ, done}
 const ARENA = [1, 1, 2, 2, 3, 4];   // giải → nền assets/bg/bg-arena<n>.webp (thiếu ảnh thì nền màu)
 const sayX = t => t.replace(/\{([^|}]*)\|([^}]*)\}/g, (_, a, b) => s.char ? b : a);   // {anh|chị}: chọn theo nhân vật
-function startDuel(i) {
+function startDuel(i, spar = false) {   // spar: trận Võ đài (câu gặp lại, mục tiêu theo sức người chơi)
+  if (spar && s.spar === s.day) return;
   ptHide(); repHide();
   const ds = duelSta(); if (dow() !== 6) { if (s.sta < ds) return; s.sta -= ds; s.used += ds; }   // thách đấu tốn 40 thể lực (kỹ năng Đấu tiết kiệm: 20), Chủ nhật miễn phí
   bump('duel');
-  const L = tr('rv')[i], first = !s.met[i];
+  const L = tr('rv')[i], first = !spar && !s.met[i];
   s.met[i] = 1; save();
-  arenaOpen(i, () => talk(first ? [...L[0].map(x => ['foe', x]), ['me', L[1]]] : [['foe', L[2]]], countdown));   // lần đầu: hết thoại; gặp lại: một câu
+  arenaOpen(i, () => talk(first ? [...L[0].map(x => ['foe', x]), ['me', L[1]]] : [['foe', L[2]]], countdown), spar ? sparGoal() : 0);   // lần đầu: hết thoại; gặp lại: một câu
 }
 function replay(i) {   // đối thủ đã hạ: xem lại thoại lần đầu và câu lúc thua, không tốn thể lực, không đấu
   const L = tr('rv')[i];
   arenaOpen(i, () => talk([...L[0].map(x => ['foe', x]), ['me', L[1]], ['foe', L[3]]], () => { arena.step = 'end'; $('aBtns').hidden = false; $('aAgain').hidden = true; put($('aBack'), tr('aBack')); }));
 }
-function arenaOpen(i, then) {   // VS: nền đấu trường, hai nhân vật trượt vào, rồi then()
+function arenaOpen(i, then, goal = 0) {   // VS: nền đấu trường, hai nhân vật trượt vào, rồi then(). goal > 0: trận Võ đài, chốt mục tiêu lúc vào
   const lg = Math.floor(i / 5);
-  arena = {i, step: 'vs'};
+  arena = {i, step: 'vs', goal};
   const a = $('arena'); a.className = `a${ARENA[lg]} vs`; a.hidden = false;
   $('aMe').hidden = $('pic').hidden; $('aMe').src = $('pic').src; $('aFoe').hidden = false;
   $('aFoe').src = `assets/rival/rival-${String(i + 1).padStart(2, '0')}.webp`;
-  $('aLeague').textContent = `${tr('league')} ${lg + 1}: ${LEAGUES[lg][s.lang]}`; $('aName').textContent = RIVALS[i][s.lang === 'vi' ? 1 : 2];
+  $('aLeague').textContent = goal ? tr('sparTag') : `${tr('league')} ${lg + 1}: ${LEAGUES[lg][s.lang]}`; $('aName').textContent = RIVALS[i][s.lang === 'vi' ? 1 : 2];
   $('duel').hidden = $('aBox').hidden = $('aBtns').hidden = true; $('aCount').textContent = '';
   for (const id of ['aMe', 'aFoe']) $(id).classList.remove('dim', 'on');
   refresh(); tune(); sfx.hit(); beep(90, .35, 'sawtooth', .06);
@@ -2131,12 +2158,12 @@ function countdown() {
 const HIT = {cap: .2, cd: 550, auto: 700, foe0: 700};   // kẻ yếu nhất: 5 đòn, khoảng 2,5 giây, đối thủ kịp đánh lại 2 lần
 function fight() {
   const i = arena.i, now = Date.now(); arena.step = 'fight'; $('arena').classList.add('fight');
-  duel = {i, score: 0, shown: 0, foe: 0, t0: now, end: now + DUEL * 1000, hit: now + HIT.foe0, next: 0, auto: now + HIT.auto};
+  duel = {i, goal: arena.goal || target(i), spar: !!arena.goal, score: 0, shown: 0, foe: 0, t0: now, end: now + DUEL * 1000, hit: now + HIT.foe0, next: 0, auto: now + HIT.auto};
   $('dAva').innerHTML = rivalPic(i); $('dName').textContent = RIVALS[i][s.lang === 'vi' ? 1 : 2]; $('dYou').textContent = tr('you');
   $('duel').hidden = false; duelTick(0, now);
 }
 function meHit(now, crit) {   // đòn của bạn: thanh xanh nhảy lên, đối thủ giật lùi, số sát thương đỏ trên đối thủ
-  const goal = target(duel.i), d = Math.min(duel.score - duel.shown, goal * HIT.cap);
+  const goal = duel.goal, d = Math.min(duel.score - duel.shown, goal * HIT.cap);
   if (now < duel.next || d <= 0) return;
   duel.shown += d; duel.next = now + HIT.cd; duel.auto = now + HIT.auto;
   motion($('aMe'), [{transform: 'none'}, {transform: 'translateX(18%) scale(1.06)'}, {transform: 'none'}], 220);
@@ -2158,15 +2185,21 @@ function foeHit(now, final) {   // đòn của đối thủ: thanh đỏ nhảy 
   duelDraw(now);
 }
 function duelDraw(now) {
-  const goal = target(duel.i);
+  const goal = duel.goal;
   $('dFill').style.width = Math.min(100, duel.shown / goal * 100) + '%';
   $('dTxt').textContent = `${fmt(duel.shown)} / ${fmt(goal)}`;
   $('dTime').textContent = Math.max(0, Math.ceil((duel.end - now) / 1000)) + 's';
   $('dFoe').style.width = duel.foe * 100 + '%';
 }
 function duelEnd(won) {   // hết trận: phát thưởng, đối thủ nói câu kết, rồi hiện nút
-  const i = duel.i; duel = null; $('duel').hidden = true; $('arena').classList.remove('fight');
-  if (won) {
+  const i = duel.i, sp = duel.spar, goal = duel.goal; duel = null; $('duel').hidden = true; $('arena').classList.remove('fight');
+  if (won && sp) {   // Võ đài: calo, chuỗi ngày thắng; không tăng số trận thắng, không +3%
+    const pz = goal * SPAR.x * (dow() === 6 ? 2 : 1);
+    s.sparN = s.spar === s.day - 1 ? Math.min(SPAR.max, s.sparN + 1) : 1; s.spar = s.day;
+    earn(pz); sting('win', sfx.up); motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
+    banner(tr('win'), `+${fmt(pz)} 🔥`); arena.pz = CG ? pz : 0;   // pz: còn nút nhân đôi bằng quảng cáo
+    refresh(); save();
+  } else if (won) {
     const pz = prize(i) * (dow() === 6 ? 2 : 1);   // Chủ nhật thưởng gấp đôi
     s.wins++; earn(pz); sting('win', sfx.up);
     motion($('flash'), [{opacity:.9}, {opacity:0}], 600);
@@ -2175,16 +2208,21 @@ function duelEnd(won) {   // hết trận: phát thưởng, đối thủ nói c�
   } else { sting('lose', sfx.lose); banner(tr('lose'), tr('loseTip')); }
   talk([['foe', tr('rv')[i][won ? 3 : 4]]], () => {
     arena.step = 'end'; $('aBtns').hidden = false;
-    $('aAgain').hidden = won; $('aAgain').disabled = dow() !== 6 && s.sta < duelSta();
-    put($('aAgain'), tr('aAgain') + (dow() === 6 ? '' : ' ⚡' + duelSta())); put($('aBack'), tr('aBack'));
+    const ad = arena.pz;
+    $('aAgain').hidden = won && !ad; $('aAgain').disabled = !ad && dow() !== 6 && s.sta < duelSta();
+    put($('aAgain'), ad ? tr('sparX2') : tr('aAgain') + (dow() === 6 ? '' : ' ⚡' + duelSta())); put($('aBack'), tr('aBack'));
   });
 }
 function stopDuel() {   // rời đấu trường (về phòng tập, chuyển màn, lên đời)
   if (arena) clearInterval(arena.tw);
   duel = arena = null; $('arena').hidden = true; $('duel').hidden = true; tune();
 }
-$('aBack').onclick = () => { stopDuel(); motion($('flash'), [{opacity:.6}, {opacity:0}], 300); ui(); };
-$('aAgain').onclick = () => { const i = arena.i; stopDuel(); startDuel(i); };
+$('aBack').onclick = () => { stopDuel(); motion($('flash'), [{opacity:.6}, {opacity:0}], 300); ui(); if (sparOn() && activeTab === 'Duel') coach('spar'); };
+$('aAgain').onclick = () => {   // thua: đấu lại (cùng loại trận); thắng Võ đài có SDK: nhân đôi thưởng bằng quảng cáo
+  const A = arena; if (!A) return;
+  if (A.pz) { const pz = A.pz; A.pz = 0; $('aAgain').hidden = true; return showAd('rewarded', ok => { if (ok) { earn(pz); sfx.coin(); toast(tr('sparTag'), '+' + fmt(pz) + ' 🔥'); refresh(); save(); } }); }
+  stopDuel(); startDuel(A.i, !!A.goal);
+};
 $('arena').onclick = ev => {
   if (!arena || ev.target.closest('button')) return;
   if (arena.step === 'talk') {   // chạm: hiện hết câu, chạm nữa: sang câu kế
@@ -2205,7 +2243,7 @@ function duelTick(dt, now) {
   if (!duel) return;
   duel.score += pps() * dt;   // calo/giây vẫn góp vào sát thương, nhưng chỉ hiện ra ở đòn kế tiếp
   if (now >= duel.end) {   // hết giờ: thắng thua theo sát thương thật; thắng thì có đòn kết liễu
-    if (duel.score >= target(duel.i)) { duel.shown = target(duel.i); duelDraw(now); duelEnd(true); } else { foeHit(now, true); duelEnd(false); }
+    if (duel.score >= duel.goal) { duel.shown = duel.goal; duelDraw(now); duelEnd(true); } else { foeHit(now, true); duelEnd(false); }
     return;
   }
   if (now >= duel.hit) foeHit(now);
@@ -2277,7 +2315,7 @@ function twice(b, f) {   // việc nhỏ không cần hộp hỏi: bấm lần �
 }
 // Hướng dẫn: mỗi lần chỉ hiện một câu chat; tính năng mới được giới thiệu khi người chơi mở khoá.
 const GUIDE = [['start', 0], ['intro', 0], ['day', 0], ['gym', 0], ['sta', 0], ['home', 0], ['meal', 1], ['pt', 1], ['rep', 1],
-  ['fat', 2], ['ev', 2], ['duel', 3], ['quest', 3], ['kg', 3], ['asc', 3], ['pet', 4], ['ach', 4], ['ch', 5], ['gift', 0]];
+  ['fat', 2], ['ev', 2], ['duel', 3], ['quest', 3], ['kg', 3], ['asc', 3], ['pet', 4], ['ach', 4], ['ch', 5], ['gift', 0], ['spar', 3]];
 let guideSteps = [], guideAt = 0, guideReturnFocus = null, guideAuto = false;
 function drawGuideStep() {
   const [, title, text] = guideSteps[guideAt];
