@@ -526,7 +526,7 @@ Same art style, same character and rules as the first image. SUBJECT: the charac
 
 ---
 
-## Nhóm 10: Icon giao diện (cuộc trò chuyện mới, đính kèm `original/icon-tay.png`, 14 ảnh)
+## Nhóm 10: Icon giao diện (cuộc trò chuyện mới, đính kèm `original/icon-tay.png`, 14 ảnh; sẽ vẽ lại theo Nhóm 18)
 
 Thay cho emoji trên thanh chỉ số, các tab và nhiệm vụ. Icon hiện rất nhỏ (20–40 pixel) nên hình phải thật đơn giản.
 
@@ -893,6 +893,86 @@ Same character and rules as the first image. POSE: cheering with excitement: jum
 ```
 Same character and rules as the first image. POSE: friendly greeting: standing on its hind legs, waving one front paw, the other paw holding a small towel over its shoulder, gentle smile with tongue slightly out.
 ```
+
+## Nhóm 18: Bộ icon giao diện mới, thay toàn bộ (cuộc trò chuyện mới, đính kèm `original/char/rank1.png`, 40 ảnh)
+
+Thay **cả 14 icon của Nhóm 10** (vẽ lại cùng tên file, đè lên ảnh cũ) và **26 emoji còn dùng tạm** trong chữ, nút và thông báo. Mọi icon vẽ chung một cuộc trò chuyện để cùng nét. Icon hiện rất nhỏ (20–40 pixel), nên hình phải đơn giản và đậm.
+
+Không cần ảnh: `✓`, `✕`, `→` (ký tự chữ, phông vẽ sẵn, sắc nét ở mọi cỡ). Ảnh bài tập, kỹ năng, thử thách, món ăn, bạn tập, đối thủ, khách ghé đã có tranh riêng; emoji của chúng chỉ là phương án dự phòng.
+
+Đã có ảnh và đã nối vào game (2026-11-21) qua bảng `ICO`. Vẽ lại icon nào thì giữ đúng tên file rồi chạy `python assets/build.py`. Thêm icon mới: thêm ảnh và một dòng vào `ICO`.
+
+### ui-cal.png (Calo) — dán nguyên khối này trước
+
+```
+Create a 2D game UI icon. Square canvas 1024x1024, real transparent background (alpha channel). Do not draw a checkerboard pattern.
+
+ART STYLE (keep identical for every icon of this chat): polished casual mobile game icon that matches the attached anime character art. Chunky, slightly puffy shapes with a gentle 3D feel. Thick dark brown outline (#3a2418) of even thickness on the outer silhouette, thinner inner lines. Soft two-step shading: a bright top-left highlight, a deeper tone on the bottom-right, and one small white glossy shine spot. Warm, bright, saturated colors. The silhouette must stay instantly readable when shrunk to 20 pixels.
+
+ICON RULES (apply to every icon of this chat):
+- One single object, centered, filling about 85% of the canvas, seen straight on or slightly tilted.
+- No background, no frame, no badge or circle behind it, no ground shadow, no text, no letters, no numbers, no logo.
+- Faces and hands, when present, use the light warm tan skin of the attached character.
+
+SUBJECT: a bold flame, orange outside and yellow inside with a small white-hot core, the calorie currency of the game.
+```
+
+Nếu ảnh đầu ra viền đen hoặc quá chi tiết, tạo lại cho tới khi ưng, vì icon đầu quyết định nét cho cả bộ.
+
+### 39 icon còn lại
+
+Với mỗi dòng, dán: `Same art style and icon rules as the first icon. SUBJECT:` rồi tới phần mô tả ở cột cuối.
+
+**Vẽ lại 13 icon cũ (cùng tên file, đè ảnh cũ):**
+
+| File | Emoji | Dùng cho | Mô tả (SUBJECT) |
+|---|---|---|---|
+| `ui-star.png` | ⭐ | Sao lên đời | `a chunky golden five-pointed star with rounded tips and a small sparkle at one corner.` |
+| `ui-sta.png` | ⚡ | Thể lực | `a bold yellow lightning bolt with an orange underside.` |
+| `ui-fat.png` | 😮‍💨 | Mệt mỏi | `a round tired face, half-closed eyes, a blue sweat drop on the forehead and a small white puff of breath from the mouth.` |
+| `ui-kg.png` | ⚖️ | Cân nặng | `a bathroom weighing scale seen from the front top, mint blue, with a round dial that has a red needle but no numbers.` |
+| `ui-day.png` | 📅 | Ngày | `a desk calendar page with a red top strip and two binder rings, the page is blank white.` |
+| `ui-trophy.png` | 🏆 | Thành tựu | `a golden trophy cup with two handles on a small dark wooden base.` |
+| `ui-drink.png` | 🥤 | Nước tăng lực | `a slim energy drink can, electric blue with a yellow lightning bolt shape on it, no words.` |
+| `ui-tap.png` | 👆 | Bấm | `a hand with the index finger pointing up and tapping, three small yellow impact lines at the fingertip.` |
+| `ui-clock.png` | ⏱️ | Thời gian chơi | `a round stopwatch with a red button on top, plain white face with one hand, no numbers.` |
+| `tab-ex.png` | 💪 | Tab Bài tập | `a single heavy dumbbell, dark grey weights and a silver handle, tilted slightly.` |
+| `tab-duel.png` | ⚔️ | Tab Thi đấu | `two red boxing gloves bumping into each other with a small yellow impact star between them.` |
+| `tab-pet.png` | 🐶 | Tab Bạn tập | `a cute orange animal paw print with pink toe pads.` |
+| `tab-quest.png` | 📋 | Tab Nhiệm vụ | `a brown clipboard holding a white sheet with three green check marks and three short grey lines.` |
+
+**26 icon mới (thay emoji):**
+
+| File | Emoji | Dùng cho | Mô tả (SUBJECT) |
+|---|---|---|---|
+| `ui-gift.png` | 🎁 | Nút quà mỗi ngày, thẻ quà | `a gift box, red with a golden ribbon and a big bow on top, lid slightly lifted with a tiny sparkle.` |
+| `ui-set.png` | ⚙️ | Nút tạm nghỉ / cài đặt | `a single chunky grey-blue gear with six rounded teeth and a hole in the middle.` |
+| `ui-help.png` | ❓ | Nút hướng dẫn | `a bold rounded question mark, sky blue, with a round dot below it.` |
+| `ui-lock.png` | 🔒 | Mục chưa mở | `a closed golden padlock with a dark keyhole.` |
+| `ui-medal.png` | 🏅 | Thử thách | `a round gold medal hanging from a short red and blue striped ribbon, a small star embossed on it.` |
+| `ui-spar.png` | 🥊 | Võ đài hằng ngày, kỹ năng Đấu tiết kiệm | `one single red boxing glove seen from the side, punching forward, with a white wrist cuff.` |
+| `ui-target.png` | 🎯 | Mục tiêu hạng, mốc bài tập | `a round archery target with red and white rings and a short arrow stuck in the center.` |
+| `ui-ad.png` | 📺 | Nút xem quảng cáo nhân đôi | `a small retro TV with two antennas, the screen shows a white play triangle on a bright blue screen.` |
+| `ui-gym.png` | 🏋️ | Nút đến / về phòng tập, biển cửa phòng tập | `a barbell seen from the front, two big black weight plates and a silver bar, slightly bent upward in the middle as if lifted.` |
+| `ui-home.png` | 🏠 | Nút về nhà, biển cửa nhà | `a small cozy house with a red roof, a chimney, a wooden door and one warm lit window.` |
+| `ui-office.png` | 🏢 | Biển cửa văn phòng | `a small office building, light grey-blue, three rows of blue glass windows and a glass door.` |
+| `ui-sofa.png` | 🛋️ | Nút về nhà nghỉ | `a small comfy orange sofa with a round cushion.` |
+| `ui-sleep.png` | 😴 💤 | Nút đi ngủ, ngày nghỉ trong lịch tuần, treo máy, kỹ năng vắng mặt | `a yellow crescent moon with a sleeping face and closed eyes, three small blue zigzag sleep marks floating beside it.` |
+| `ui-music.png` | 🎵 | Nhạc nền | `two connected eighth music notes, deep purple.` |
+| `ui-sound.png` | 🔊 | Âm thanh | `a speaker cone, dark grey with a silver rim, three curved sound waves coming out of it.` |
+| `ui-lang.png` | 🌐 | Ngôn ngữ | `a round blue globe with green continents and white latitude and longitude lines.` |
+| `ui-meal.png` | 🍱 | Mở bữa tối | `a bento box seen from the top, red box with rice, egg, broccoli and a piece of salmon in separate sections.` |
+| `ui-breakfast.png` | 🍳 | Quà ngày 5: bữa sáng | `a black frying pan with a sunny-side-up egg and a strip of bacon.` |
+| `ui-sparkle.png` | 🌟 | Nhánh kỹ năng Lối sống | `a glowing yellow four-pointed sparkle star with two tiny sparkles beside it.` |
+| `ui-chat.png` | 💬 | Xem lại thoại, câu nói của nhân vật | `a white rounded speech bubble with a small tail and three grey dots inside.` |
+| `ui-pin.png` | 📌 | Ghim tờ ghi chú, sự kiện trong ngày | `a red round push pin seen from the side, tilted, with a short silver needle.` |
+| `ui-punch.png` | 👊 | Dấu nắm đấm khi bấm nhân vật | `a clenched fist punching straight toward the viewer, with three short yellow motion lines around it.` |
+| `ui-heartbreak.png` | 💔 | Crush ngó lơ | `a red heart cracked into two halves with a zigzag split.` |
+| `ui-summon.png` | 🎲 | Nút gọi bạn tập, nhiệm vụ gọi bạn tập | `a white six-sided dice with rounded corners, red dots, tilted to show three faces, a small sparkle.` |
+| `ui-check.png` | ✅ | Ô quà đã nhận | `a green rounded square tile with a bold white check mark.` |
+| `ui-empty.png` | ⬜ | Ô quà chưa tới | `a light grey rounded square tile, empty, slightly sunken.` |
+
+Crush (💃), bánh sinh nhật (🎂) và PT (🧑‍🏫) trong thông báo dùng lại ảnh khách ghé `icon-vis-crush`, `icon-vis-cake`, `icon-vis-pt` nên không cần vẽ.
 
 ## Nhóm 11: Ảnh bìa và logo cho CrazyGames (cuộc trò chuyện mới, đính kèm `original/rank1.png`, `original/rank6.png`, `original/bg2.png`)
 
