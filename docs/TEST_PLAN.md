@@ -35,6 +35,7 @@ Ngày 2026-11-15, chạy bằng script trên trình duyệt (cửa sổ 1024×76
 - **Lỗi tìm được và đã sửa**: E2 (thông báo thành tựu đè mất thông báo lên hạng và mở khoá); N5 (màn đấu trên điện thoại chỉ thấy đầu nhân vật, không thấy đối thủ; ô thông số văn phòng bị xuống dòng; màn nhà trên điện thoại không thấy nhân vật).
 - **2026-11-16, bổ sung** (bộ nhớ riêng ở `127.0.0.1`): A1, N8, G5, H7, I3–I6, O3 đều **đạt**. Tìm và sửa: ô Mệt mỏi hiện ở phòng tập khi mới hạng 1 (CSS `.pill` đè thuộc tính `hidden`).
 - **2026-11-16, nhóm 2**: B9–B12 **đạt** (ngày 1 về nhà 2,0 giây, ngày 5 đi tập 0,8 giây, đi ngủ 3,4 giây; cuộn tới thẻ Lưng).
+- **2026-11-21, trước khi nộp bản cập nhật** (so với bản đã nộp `824a469`, Playwright 375×812, không SDK): bản lưu tạo từ bản cũ tải vào bản mới giữ đủ tiến trình, trường mới nhận mặc định, cân dưới 68 kg lên 68,0. Đạt: Q1, J14–J17 (thưởng đúng mục tiêu × 3), xem lại thoại, bấm hai lần để về nhà, báo cáo sáng có dấu phẩy, menu Tạm nghỉ, thẻ calo lúc vắng mặt (O), giữ 1,5 giây để xoá (A9), `T.vi`/`T.en` đủ khoá, không lỗi JS, không 404. `test` và `test:zip` 6/6. Nút x2 (P10) chỉ thử bằng SDK giả lập trên máy.
 - **Chưa chạy được bằng script, cần người thử**: A2 (nhìn câu nói đổi), C5 (auto-click thật), M1–M6 và M8–M10 (phải nghe), K4 (tỉ lệ độ hiếm khi gọi nhiều lần), P2 (bỏ ngang quảng cáo), P5–P7 (cần CrazyGames), R1–R6 (chơi thật bấm đồng hồ), và mọi thứ trên điện thoại thật.
 
 ## Chuẩn bị
